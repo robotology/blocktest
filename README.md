@@ -2,107 +2,127 @@
 
 ## Introduction
 
-The extension provides functionalities for developing and running not regression tests in a likely natural language as close as possibile to test case writing.
+The application provides functionalities for developing and running not regression tests in a likely natural language as close as possibile to test case writing.
 The test philosopy is to divide a test into elementary blocks. The
 blocks can be used to build different tests (See Figure below).
 
-![alt text](img/diagram0001.png "The tests are made by elementary blocks.")
+![alt text](img/img001.png "The tests are made by elementary blocks.")
 
 ## Installation
 
-All system test cames with the superbuild in folder 
-
-```bash
-~/isaac-superbuild/isaac/ISAAC/src/tests/isaacBlockTest.
-```        
+TODO     
 
 ## Test writing
 
-
-The starting point for writing BlockTests is the file ./test/test.xml
-
-```xml
-    <subtestlist repetitions="1">
-
-    <settings robotname="isaacSim" realrobot="false"  onlysimcommands="checkRobotIsVertical checkRobot reset applyForce" simclock="false" positionfor="" neverexecutecommands="" logseverity="info" loggingtime="0.010"/ tablename="test/tables/main.tab">
-
-    <fixture command="yarpserver" param=" --silent" prefix="" kill="true"/>
-
-    <test file="test//test000.xml" repetitions="1" name="Position to 0" note="none"  code="0000" version="1" logginginfo="position L_AK_R"/>
-    <test file="test//test001.xml" repetitions="0" name="Straight walking" note="none" code="0001" version="1" logginginfo="position L_AK_R"/>
-    <test file="test//test006.xml" repetitions="0" name="Base test apply force x" note="none"  code="0006" version="1" logginginfo="position L_AK_R"/>
-    <test file="test//test009.xml" repetitions="0" name="Position to 0" note="none"  code="0009" version="1" logginginfo="position L_AK_R"/>
-
-    </subtestlist>   
-```
-
-This file contains the simulation settings, the fixtures and the tests
-link list.
-
-## Settings
+The starting point for writing a test is the file ./test/test.xml
 
 ```xml
-    <settings robotname="isaacSim" realrobot="false"  onlysimcommands="checkRobotIsVertical checkRobot reset applyForce" simclock="false" positionfor="" neverexecutecommands="" logseverity="info" loggingtime="0.010"/>
+    <testlist repetitions="1">
+
+   <settings robotname="icubSim" realrobot="false" onlysimcommands="checkrobotisvertical checkRobot reset applyForce" netclock="true" 
+            neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab" 
+            waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp"/> <!--loggingtime in sec-->
+
+    <prerequisite enabled="true" command="yarpserver" waitafter="5000" param="--silent" prefix="" kill="true"/>
+    <prerequisite enabled="false" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub.world" prefix="" kill="true"/>
+    <prerequisite enabled="true" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true"/>
+    <prerequisite enabled="false" command="gzclient" waitafter="5000" param="" prefix="" kill="true"/>
+
+
+    <!--Libraries-->
+    <library enabled="true" path="genericactiondepotlib/libgenericactiondepot.so" name="genericactiondepot" note="System generic action library"/>
+    <library enabled="true" path="yarpactiondepotlib/libyarpactiondepot.so" name="yarpactiondepot" note="Yarp action library"/>
+
+    <!--Libraries settings-->
+    <librarysettings enabled="true" name="genericactiondepot"/>
+    <librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm"/>
+   
+    
+    <!--**************************-->
+    <!--**********Tests***********-->
+    <!--**************************-->
+
+    <!--ICub pos && directpos-->
+    <test file="test//0001.xml" repetitions="2" name="ICub right ankle roll move" note="xxx" code="0001" version="1" loggingtype="position" logginginfo="r_ankle_roll r_ankle_pitch"/>
+
+    </testlist>   
 ```
 
+This file contains:
+ * the simulation general settings
+ * the used libraries
+ * the prerequisites
+ * the tests link list
 
-The settings are the following:
-
--   robotname=“isaacSim” &rarr; *Robot name to be used with yarp
-    port*
-
--   realrobot=“false” &rarr; *Indicates if it is a real robot in
-    test*
-
--   onlysimcommands=“checkRobotIsVertical checkRobot reset applyForce”
-    &rarr; *Indicates which are the commands to be executed only
-    in simulation.*
-
--   simclock=“true” &rarr; *Indicates if the network clock should
-    be used. In the case it is used the one on "/clock" port*
-
--   neverexecutecommands=“” &rarr; *Indicates which are the
-    commands not to be executed.*
-
--   logseverity=“” &rarr; *Indicates the severity to be logged in log.log.*
-
--   loggingtime=“” &rarr; *Indicates the time in seconds for logging joint info.*        
-
--   tablename=“” &rarr; *Indicates the table name for parametric value.*   
-
-## Fixtures for Gazebo
-
-The fixtures are applications to be executed before the tests, if
-necessary with parameters. For execute test on Gazebo the following
-fixtures are used. The attribute kill means that the current fixture will be killed at the end of the tests. The attribute prefix is the prefix to the command.
+## General Settings
 
 ```xml
-    <fixture command="yarpserver" param=" --silent" prefix="" kill="true"/>
-    <fixture command="gzserver" param=" -e ode --profile ode_default -slibgazebo_yarp_clock.so isaac-next-proto-blocktest-yarp.world" prefix="" kill="true"/>
-    <fixture command="gzclient " param="" prefix="" kill="true"/>
-    <fixture command="isaacWalkingV2" param="--gazeboClock --MPC::max_iter 250 --useUnicyclePlanner 1" prefix="" kill="true"/>
+<settings robotname="icubSim" realrobot="false" onlysimcommands="checkrobotisvertical checkRobot reset applyForce" netclock="true" 
+            neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab" 
+            waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp"/> <!--loggingtime in sec-->
 ```
 
-## Fixtures for Gazebo and odometry
-If you want to check also the position in your test you need odometry that is FloatingBaseEstimator.
+| Param name | Default value | Comment |
+|------------|---------------|---------|
+| robotname             | icubSim    | Robot name to be used  |
+| realrobot             | false     | Indicates if it is a real robot in test, or it is a Gazebo simulation |
+| onlysimcommands       | reset applyForce| Indicates which are the commands to be executed only in simulation |
+| simclock              | true     | Indicates if the network clock should be used. In the case it is used the one on "/clock" port  |
+| neverexecutecommands  | ---   | Indicates which are the commands not to be executed.        |
+| logseverity           | info     | Indicates the severity to be logged in log.log   |
+| loggingtime           | 0.01      | Indicates the time in seconds for logging joint info if are requested in test. |
+| tablename             | test/tables/main.tab       | Indicates the table name for parametric value|
+| waitcommand           | yarpwait      | Indicates the command blocks to be used for wait  |
+| nowcommand            | yaronow       | Indicates the command blocks to be used for now|
+| loggingcommand        | infologgeryarp    | Indicates the command blocks to be used for logging   |
+
+## Library Settings
+In this section it is possible to specify the plugin library to be used.
 
 ```xml
-    <fixture command="roscore" param="" prefix="" kill="true"/>
-    <fixture command="yarpserver" param="--silent --write --ros" prefix="" kill="true"/>
-    <fixture command="gzserver" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so isaac-next-proto-blocktest-yarp.world" prefix="" kill="true"/>
-    <fixture command="gzclient" param="" prefix="" kill="true"/>
-    <fixture command="yarpdev" param="--device transformServer --ROS::enable_ros_publisher 1 --ROS::enable_ros_subscriber 1 --transforms_lifetime 0.5" prefix="YARP_CLOCK=/clock" kill="true"/>
-    <fixture command="yarprobotinterface" param="--config main-fbe.xml" prefix=""  kill="true"/>
-    <fixture command="roslaunch" param="isaac robotStatePublisher.launch" prefix=""  kill="true"/>    
-    <fixture command="isaacWalkingV2" param="--gazeboClock --MPC::max_iter 250 --useUnicyclePlanner 1" prefix=""  kill="true"/>
+<library enabled="true" path="genericactiondepotlib/libgenericactiondepot.so" name="genericactiondepot" note="System generic action library"/>
+    <library enabled="true" path="yarpactiondepotlib/libyarpactiondepot.so" name="yarpactiondepot" note="Yarp action library"/>
 ```
 
-   Also you need to install the module check the apropriate guide.
+| Param name | Default value | Comment |
+|------------|---------------|---------|
+| ebabled             | true    | If the library will be loaded  |
+| path             | ---     | Librari .so file path |
+| name       | ---| library tag name |
+| note              | ---     | Explanation notes  |
 
-## Fixtures for real robot
+In this section it is possible to specify the plugin library settings.
 
-If you need to execute the tests on the real robot no fixtures are
-necessary.
+```xml
+<!--Libraries settings-->
+    <librarysettings enabled="true" name="genericactiondepot"/>
+    <librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm"/>
+```
+
+| Param name | Default value | Comment |
+|------------|---------------|---------|
+| ebabled             | true    | If these settings will be loaded  |
+| name       | ---| library tag name |
+| ...              | ...     | ...  |
+
+
+## Prerequisites
+
+The prerequisites are applications to be executed before the tests, if
+necessary with parameters. The attribute kill means that the current prerequisite will be killed at the end of the tests. The attribute prefix is the prefix to the command.
+
+```xml
+ <prerequisite enabled="true" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true"/>
+```
+| Param name | Default value | Comment |
+|------------|---------------|---------|
+| ebabled             | true    | If the prerequisite will be loaded  |
+| command             | ---     | Command to be executed |
+| waitafter       | 5000| Time to wait after command execution |
+| param              | ---     | Command parameters  |
+| prefix              | ---     | Command prefixes  |
+| kill              | true     | The current prerequisite will be killed at the end of the tests  |
+
 
 ## Test list
 
@@ -110,34 +130,29 @@ The test list include all the tests written. The test list, basically,
 list the tests together with the file in which the test has been written.
 
 ```xml
-    <test file="test//test000.xml" repetitions="1" name="Position to 0" note="none"  code="0000" version="1" loggingtype="position com"  logginginfo=" L_AK_R R_AK_R"/>
+    <test file="test//0001.xml" repetitions="2" name="ICub right ankle roll move" note="xxx" code="0001" version="1" loggingtype="position" logginginfo="r_ankle_roll r_ankle_pitch"/>
+    <test file="test//0100.xml" repetitions="2" name="ICub right ankle roll pwm injection" note="xxx" code="0100" version="1" loggingtype="position" logginginfo="r_ankle_roll r_ankle_pitch"/>
+    <test file="test//0110.xml" repetitions="0" name="ICub right ankle roll pwmtrain injection" note="xxx" code="0110" version="1" loggingtype="" logginginfo=""/>
+
 ```
 
--   file=“test//test000.xml” &rarr; *File in which the test is
-    written*
-
--   repetitions=“1” &rarr; *How many times the test is repeated*
-
--   name=“Position to 0” &rarr; *Test name*
-
--   note=“none” &rarr; *Test description*
-
--   code=“0000” &rarr; *Numeric code for identify the test, could
-    be related to test case*
-
--   version=“1” &rarr; *Test version*
-
--   loggingtype=“position com” &rarr; *Indicates what kind of logging you need. For now it can be "position", "com" or both.* 
-
--   logginginfo=“position L\_AK\_R” &rarr; *Indicates which
-    joint/joints should be logged in position. This logging infos are taken with a sampling rate indicated in loggingtime in setting section. The file has the format: \<test number>-\<joint name>-\<repetition number>*
+| Param name | Default value | Comment |
+|------------|---------------|---------|
+| file             | ---    | File in which the test is written  |
+| repetitions             | 1     | How many times the test is repeated |
+| name       | ---| Test name |
+| note              | ---     | Test description  |
+| code              | ---     | Numeric code for identify the test, could be related to test case  |
+| version              | ---     | Test version  |
+| loggingtype              | ---     | Indicates what kind of logging you need. For now it can be "position", "com" or both.  |
+| logginginfo             | ---     | Joints name to be logged  |
 
 ## Test
 
 The test is written in a separate file. Here is shown an example of a
 simple test.
 ```xml
-    <subtestbody>
+    <testbody>
     <command name="nop" param1="" repetitions="0" wait="0"  reporterror="true"></command>
     <command name="sendpos" jointname="L_AK_R" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
     <command name="sendpos" jointname="R_AK_R" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
@@ -151,7 +166,7 @@ simple test.
     <command name="sendpos" jointname="R_HP_R" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
     <command name="sendpos" jointname="L_HP_Y" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
     <command name="sendpos" jointname="R_HP_Y" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>            
-    </subtestbody>
+    </testbody>
 ```  
 
 The test is composed by commands. Here is included a list of the
@@ -276,8 +291,8 @@ available commands:
 
     ```xml
         <command    name="updatefile" 
-                sourcefile="./isaac-superbuild/build/isaac/ISAAC/src/tests/isaacBlockTest/test/files/walkingV2PIDparameters.ini" 
-                destinationfile="./isaac-superbuild/build/install/share/isaac/robots/isaacNextProtoGazebo/walkingV2PIDparameters.ini" 
+                sourcefile="./walkingV2PIDparameters.ini" 
+                destinationfile="./test/walkingV2PIDparameters.ini" 
                 repetitions="1" 
                 wait="0"
                 reporterror="true">
@@ -289,7 +304,7 @@ available commands:
 
     ```xml       
 	<command    name="execute" 
-                command="isaacWalkingV2" 
+                command="icubWalking" 
                 param="--gazeboClock --MPC::solver_name mumps --IK::solver_name mumps" 
                 prefix="" 
                 waitafter="2"
@@ -311,12 +326,12 @@ Some of the command parameters are common to all commands:
 
 It is possible to execute the same test many times changing one ore more parameters every execution. 
 
-@subsection table-isaacblocktest Table
+@subsection table-blocktest Table
 
 We use a file, to specify the parameters value and parameters changing rules.
 
 ```xml
-<settings robotname="isaacSim" realrobot="false"  onlysimcommands="checkRobotIsVertical checkRobot reset applyForce" simclock="true" neverexecutecommands="" logseverity="debug" loggingtime="0.008" tablename="test/tables/main.tab"/> 
+<settings robotname="icubSim" realrobot="false"  onlysimcommands="checkRobotIsVertical checkRobot reset applyForce" simclock="true" neverexecutecommands="" logseverity="debug" loggingtime="0.008" tablename="test/tables/main.tab"/> 
 ```
 
 In the settings section you can find the **tablename parameter** (**main.tab**) that is the file in which
@@ -375,7 +390,7 @@ In this case the xvelocity parameter will use the table xvelocity.
 
 The test should be executed at least 10 times so:
 ```xml
-    <test file="test//test411.xml" repetitions="10" name="xxx" note="xxx" code="0411" version="1" loggingtype="" logginginfo=""/>
+    <test file="test//411.xml" repetitions="10" name="xxx" note="xxx" code="0411" version="1" loggingtype="" logginginfo=""/>
 ```
 
 ## Examples
@@ -383,49 +398,49 @@ Not regression tests and example are present in folder test.
 
 ## Model settings
 
-World model file is referenced by (See section [fixture](#fixture)):
+World model file is referenced by (See section [prerequisite](#prerequisite)):
 
 ```xml
-    <fixture command="gzserver" param=" -e ode --profile ode_default -slibgazebo_yarp_clock.so ./isaac-next-proto-blocktest-yarp.world" prefix="" kill="true"/>
+    <prerequisite command="gzserver" param=" -e ode --profile ode_default -slibgazebo_yarp_clock.so ./icub_fixed.world" prefix="" kill="true"/>
  ```
 
-The world file is in the isaacBlockTest folder.\
+The world file is in the blocktest folder.\
 The robot model referenced by the world file is in
-isaacBlockTest/isaac-next-proto-blocktest-yarp
+blocktest/icub_fixed
 
 Only if you need to execute the tests on Gazebo check if the robot model
 is correctly setted. The model is in file:\
-*./isaac-next-proto-blocktest-yarp/isaac-next-proto-blocktest-yarp.sdf*\
+*./icub_fixed/icub_fixed.sdf*\
 You can choose one of the following:
 
--   `<uri>model://isaac-next-proto-yarp-fixed</uri>`
+-   `<uri>model://icub_fixed</uri>`
 
--   `<uri>model://isaac-next-proto-yarp</uri>`
+-   `<uri>model://icub</uri>`
 
-Be sure also to have the fixture in test.xml correctly setted (See
-section [fixture](#fixture)).
+Be sure also to have the prerequisite in test.xml correctly setted (See
+section [prerequisite](#prerequisite)).
 
 ##  Test execution
 
 To execute the test you should compile the test environment:
 
--   *cd ./isaac-superbuild/build/isaac/ISAAC/src/test/isaacBlockTest*
+-   *cd ./build/blocktest*
 -   *make rebuild_cache*
 -   *make*
 -   *make install*
 
-from ./isaac-superbuild/build/isaac/ISAAC/src/test/isaacBlockTest
+from ./build/blocktest
 and execute:
 
--   *./isaacBlockTest*
+-   *./blocktest*
 
 If you need to execute the test on the real robot use the appropriate settings:
 
 ```xml
-    <settings robotname="isaac" realrobot="true" onlysimcommands="checkRobotIsVertical checkRobot reset applyForce" simclock="false" neverexecutecommands=""/>
+    <settings robotname="icubSim" realrobot="true" onlysimcommands="checkRobotIsVertical checkRobot reset applyForce" simclock="false" neverexecutecommands=""/>
 ```
 
-No fixtures are necessary in this case.
+No prerequisites are necessary in this case.
 
 ## Logging
 
@@ -439,7 +454,7 @@ Application logging is log/log.log You can read it by:\
 It is possibile to set the logs line to be shown using the attribute  logseverity="debug" inside of the
 
 ```xml
-    <settings robotname="isaacSim" realrobot="false"  onlysimcommands="checkRobotIsVertical checkRobot reset applyForce" simclock="false" positionfor="" neverexecutecommands="" logseverity="debug"/>
+    <settings robotname="icubSim" realrobot="false"  onlysimcommands="checkRobotIsVertical checkRobot reset applyForce" simclock="false" positionfor="" neverexecutecommands="" logseverity="debug"/>
 ```
 
 The awailable levels are:
@@ -462,7 +477,7 @@ If sensor logging is setted (See section [test list](#testlist)) throught
 If logging is setted throught **com** parameter the position log file has the format: \<test number>-CoM-\<repetition number>.
 
 ```xml
-    <test file="test//test000.xml" repetitions="1" name="Position to 0" note="none"  code="0000" version="1" loggingtype="position com"  logginginfo=" L_AK_R R_AK_R"/>
+    <test file="test//000.xml" repetitions="1" name="Position to 0" note="none"  code="0000" version="1" loggingtype="position com"  logginginfo=" L_AK_R R_AK_R"/>
 ```  
 
 ## Plot logging
@@ -487,7 +502,7 @@ At the end of the test a report summary is been written:
 (2019-05-21 11:43:24.490)(Info*****)====================================\
 (2019-05-21 11:43:24.490)(Info*****)====================================\
 
-@section future-isaacblocktest Future
+@section future-blocktest Future
 
 ## Timeout
 
