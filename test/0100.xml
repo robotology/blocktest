@@ -1,0 +1,5 @@
+<subtestbody>
+    <command name="sendpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="0" velocity="20" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="sendpwm" wrappername="/right_leg" profile="const" frequency="1" dutycycle="20" time="5" jointname="r_ankle_roll" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="sendpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="0" velocity="20"   repetitions="1" wait="0" reporterror="true"></command>
+</subtestbody>
