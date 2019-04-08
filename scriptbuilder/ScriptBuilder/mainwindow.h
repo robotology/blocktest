@@ -22,12 +22,14 @@ public:
     ~MainWindow();
 
 
-public slots:
-    void clicked(const QModelIndex &index);
-    void buttonSaveClicked(bool checked);
-
 private slots:
     void on_loadButton_clicked();
+
+    void on_saveButton_clicked();
+
+    void on_applyButton_clicked();
+
+    void on_scriptTree_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;

@@ -3,6 +3,14 @@
 
 #include <qstandarditemmodel.h>
 
+
+enum UsrRole
+{
+    URfile=0,
+    URname=1,
+    URxmlStruct=2
+};
+
 class ScriptTreeModel : public QStandardItemModel
 {
 public:

@@ -120,13 +120,28 @@ std::string ScriptTreeModel::getXmlString(const std::string& file)
 void ScriptTreeModel::updateParameters(const QModelIndex &index,const std::string& parameters)
 {
     QStringList toChange=itemFromIndex(index)->data(Qt::UserRole).toStringList();
-    toChange[2]=parameters.c_str();
+    toChange[URxmlStruct]=parameters.c_str();
     itemFromIndex(index)->setData(toChange,Qt::UserRole);
 }
 
+struct xml_string_writer: pugi::xml_writer
+{
+    std::string result;
+
+    virtual void write(const void* data, size_t size)
+    {
+        result.append(static_cast<const char*>(data), size);
+    }
+};
 
 void ScriptTreeModel::load(const std::string& fileName)
 {
+    clear();
+    QStandardItem *item = invisibleRootItem();
+    script_ = new QStandardItem("script");
+    script_->setIcon(QIcon(":/icons/script.png"));
+    item->appendRow(script_);
+
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(fileName.c_str());
 
@@ -135,6 +150,20 @@ void ScriptTreeModel::load(const std::string& fileName)
     for (pugi::xpath_node_set::const_iterator it = commands.begin(); it != commands.end(); ++it)
     {
         pugi::xpath_node node = *it;
+        std::string name=node.node().attribute("name").value();
+        QStandardItem* command = new QStandardItem(name.c_str());
+        command->setIcon(QIcon(":/icons/envelope.png"));
+        command->setData(name.c_str(),Qt::EditRole);
+        xml_string_writer writer;
+        node.node().print(writer);
+        std::string xml=writer.result;
+        QStringList list{"","",""};
+        list[URfile]="unknown";
+        list[URname]=name.c_str();
+        list[URxmlStruct]=xml.c_str();//xmlStruct
+        command->setData(list,Qt::UserRole);
+        script_->appendRow(command);
+
        // std::cout << node.node().attribute("Filename").value() << "\n";
     }
 }

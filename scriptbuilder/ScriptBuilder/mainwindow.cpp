@@ -32,30 +32,31 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->scriptTree->setDragEnabled(true);
     ui->scriptTree->setAcceptDrops(true);
     ui->scriptTree->setDropIndicatorShown(true);
-
-    connect(ui->scriptTree,&QTreeView::clicked,this,&MainWindow::clicked);
-    connect(ui->saveButton,&QPushButton::clicked,this,&MainWindow::buttonSaveClicked);
 }
 
 MainWindow::~MainWindow()
 {
 }
 
-void MainWindow::clicked(const QModelIndex &index)
+void MainWindow::on_loadButton_clicked()
 {
-    parametersModel_->updateData(index);
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Open test"), "./","*.xml");
+    scriptModel_->load(fileName.toStdString());
 }
 
-void MainWindow::buttonSaveClicked(bool checked)
+void MainWindow::on_applyButton_clicked()
 {
     QModelIndex index;
     std::string parameters=parametersModel_->dataRetrive(index);
     scriptModel_->updateParameters(index,parameters);
 }
 
-
-void MainWindow::on_loadButton_clicked()
+void MainWindow::on_scriptTree_clicked(const QModelIndex &index)
 {
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Open test"), "./","*.xml");
-    scriptModel_->load(fileName.toStdString());
+    parametersModel_->updateData(index);
+}
+
+void MainWindow::on_saveButton_clicked()
+{
+
 }

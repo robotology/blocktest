@@ -24,7 +24,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>40</y>
+      <y>50</y>
       <width>261</width>
       <height>601</height>
      </rect>
@@ -46,7 +46,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>10</y>
+      <y>20</y>
       <width>157</width>
       <height>21</height>
      </rect>
@@ -72,7 +72,7 @@ background-color: rgba(0, 0, 0, 0);</string>
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>10</y>
+      <y>20</y>
       <width>157</width>
       <height>21</height>
      </rect>
@@ -95,9 +95,9 @@ background-color: rgba(0, 0, 0, 0);</string>
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>40</y>
+      <y>50</y>
       <width>261</width>
-      <height>601</height>
+      <height>571</height>
      </rect>
     </property>
     <property name="editTriggers">
@@ -120,7 +120,7 @@ background-color: rgba(0, 0, 0, 0);</string>
     <property name="geometry">
      <rect>
       <x>580</x>
-      <y>10</y>
+      <y>20</y>
       <width>157</width>
       <height>21</height>
      </rect>
@@ -139,11 +139,11 @@ background-color: rgba(0, 0, 0, 0);</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="saveButton">
+   <widget class="QPushButton" name="applyButton">
     <property name="geometry">
      <rect>
       <x>580</x>
-      <y>440</y>
+      <y>450</y>
       <width>80</width>
       <height>22</height>
      </rect>
@@ -156,7 +156,7 @@ background-color: rgba(0, 0, 0, 0);</string>
     <property name="geometry">
      <rect>
       <x>580</x>
-      <y>40</y>
+      <y>50</y>
       <width>451</width>
       <height>391</height>
      </rect>
@@ -174,7 +174,7 @@ background-color: rgba(0, 0, 0, 0);</string>
      <enum>Qt::SolidLine</enum>
     </property>
     <attribute name="horizontalHeaderVisible">
-     <bool>true</bool>
+     <bool>false</bool>
     </attribute>
     <attribute name="horizontalHeaderCascadingSectionResizes">
      <bool>false</bool>
@@ -204,14 +204,27 @@ background-color: rgba(0, 0, 0, 0);</string>
    <widget class="QPushButton" name="loadButton">
     <property name="geometry">
      <rect>
-      <x>670</x>
-      <y>440</y>
+      <x>300</x>
+      <y>630</y>
       <width>80</width>
       <height>22</height>
      </rect>
     </property>
     <property name="text">
      <string>Load</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="saveButton">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>630</y>
+      <width>80</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save</string>
     </property>
    </widget>
   </widget>
