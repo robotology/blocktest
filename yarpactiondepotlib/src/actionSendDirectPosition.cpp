@@ -28,7 +28,7 @@ using namespace yarp::os;
 using namespace yarp::sig;
 using namespace yarp::dev;
 
-ACTIONREGISTER_DEF_TYPE(ActionSendDirectPosition,"senddirectpos");
+ACTIONREGISTER_DEF_TYPE(ActionSendDirectPosition,"yarpsenddirectpos");
 
 ActionSendDirectPosition::ActionSendDirectPosition(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
 {
@@ -52,7 +52,7 @@ bool ActionSendDirectPosition::execute(unsigned int testrepetition)
     if(degree_.size()!=jointToMove_.size())
     {
         TXLOG(Severity::error)<<"Joint info not cooerent"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Joint info not cooerent");
         return false;      
     }
 
@@ -62,14 +62,14 @@ bool ActionSendDirectPosition::execute(unsigned int testrepetition)
     if(!YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(ipos))
     {
         TXLOG(Severity::error)<<"Unable to open pos mode interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open pos mode interface");
         return false;
     }
 
     if(!YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(icmd))
     {
         TXLOG(Severity::error)<<"Unable to open control mode interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);      
+        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open control mode interface");      
         return false;
     }
 
@@ -84,7 +84,7 @@ bool ActionSendDirectPosition::execute(unsigned int testrepetition)
         if(it==jointNames.end())
         {
             TXLOG(Severity::error)<<"Error joint not found:"<<jointToMove_[index]<<std::endl;
-            addProblem(test_->code_,testrepetition,Severity::critical);
+            addProblem(test_->code_,testrepetition,Severity::critical,"Error joint not found");
             return false;
         }
         

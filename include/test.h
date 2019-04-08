@@ -41,5 +41,6 @@ private:
     std::string file_;
    
     std::string loggingJoints_;
+    std::string loggingwrapperName_;
     std::vector<loggingType> loggingType_;
 };

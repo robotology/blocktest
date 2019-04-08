@@ -55,17 +55,17 @@ void ActionYarp::getJointNames(yarp::dev::PolyDriver& drive,std::map<std::string
     if(!drive.view(iencs))
     {
         TXLOG(Severity::critical)<<"Unable to view IEncoder interface"<<std::endl;
-        //addProblem(test_->code_,0,Severity::critical);
+        //addProblem(test_->code_,0,Severity::critical,"Unable to view IEncoder interface");
     }
     if(!drive.view(iaxis))
     {
         TXLOG(Severity::critical)<<"Unable to view IAxisInfo interface"<<std::endl;
-        //addProblem(test_->code_,0,Severity::critical);
+        //addProblem(test_->code_,0,Severity::critical,"Unable to view IAxisInfo interface");
     }
     if(!iencs->getAxes(&nj))
     {
         TXLOG(Severity::critical)<<"getAxes failed"<<std::endl;                
-        //addProblem(test_->code_,0,Severity::critical);      
+        //addProblem(test_->code_,0,Severity::critical,"getAxes failed");      
     }
         
     std::string yarpString;
@@ -76,7 +76,7 @@ void ActionYarp::getJointNames(yarp::dev::PolyDriver& drive,std::map<std::string
         if(!ok)
         {
             TXLOG(Severity::critical)<<"getAxisName failed"<<std::endl;        
-            //addProblem(test_->code_,0,Severity::critical);
+            //addProblem(test_->code_,0,Severity::critical,"getAxisName failed");
         }
         jointNames.insert(std::make_pair(yarpString,index));
     }

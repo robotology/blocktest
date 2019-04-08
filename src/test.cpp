@@ -28,7 +28,8 @@ bool Test::load()
     file_ = nodeTest_.attribute("file").value();
     code_ = nodeTest_.attribute("code").value();
     repetitions_ =nodeTest_.attribute("repetitions").as_int();
-    loggingJoints_ = nodeTest_.attribute("logginginfo").value();
+    loggingJoints_ = nodeTest_.attribute("loggingpart").value();
+    loggingwrapperName_ = nodeTest_.attribute("loggingwrappername").value();
 
 
     if(!repetitions_)
@@ -110,7 +111,7 @@ bool Test::execute(bool isRealRobot) const
             return false;
         }
         auto call=LoggerRegister::getCreatorFunction(testDepot_->loggingcommand_);
-        auto action=(call)(loggingJoints_,testDepot_->loggingTime_,"/right_leg",code_,repetitions_);
+        auto action=(call)(loggingJoints_,testDepot_->loggingTime_,loggingwrapperName_,code_,repetitions_);
         //**logging
 
         TXLOG(Severity::info)<<"+++++Subtest code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;;

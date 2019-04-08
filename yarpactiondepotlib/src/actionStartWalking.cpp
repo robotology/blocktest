@@ -31,7 +31,7 @@ bool ActionStartWalking::execute(unsigned int testrepetition)
     if(!ok)
     {
         TXLOG(Severity::critical)<<"start walking failed"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::error);
+        addProblem(test_->code_,testrepetition,Severity::error,"start walking failed");
     }
 
     closeWalking(rpcPortWalking);

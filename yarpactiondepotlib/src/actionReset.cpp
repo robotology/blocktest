@@ -22,7 +22,7 @@
 #include "report.h"
 #include "test.h"
 
-ACTIONREGISTER_DEF_TYPE(ActionReset,"reset");
+ACTIONREGISTER_DEF_TYPE(ActionReset,"yarpreset");
 
 ActionReset::ActionReset(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
 {}     
@@ -32,7 +32,7 @@ bool ActionReset::execute(unsigned int testrepetition)
     GazeboYarpPlugins::ClockServer clockServer;
     yarp::os::Port clockClientPort;
 
-    std::string localRpcPort =  "/isaacBaseTest/test";
+    std::string localRpcPort =  "/resetxxx";
     std::string remoteRpcPort = "/clock/rpc";
     bool ok=clockClientPort.open(localRpcPort);
     if(ok)
@@ -42,7 +42,7 @@ bool ActionReset::execute(unsigned int testrepetition)
         if(!ok)
         {
             TXLOG(Severity::error)<<"Unable to open clock/rpc"<<std::endl;
-            addProblem(test_->code_,testrepetition,Severity::critical);
+            addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open clock/rpc");
         }
         clockServer.yarp().attachAsClient(clockClientPort);
     }

@@ -22,7 +22,7 @@
 #include <yarp/dev/PolyDriver.h>
 #include <yarp/dev/ControlBoardInterfaces.h>
 
-ACTIONREGISTER_DEF_TYPE(ActionCheckVertical,"checkrobotisvertical");
+ACTIONREGISTER_DEF_TYPE(ActionCheckVertical,"yarpcheckrobotisvertical");
 
 ActionCheckVertical::ActionCheckVertical(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
 {}
@@ -36,14 +36,14 @@ bool ActionCheckVertical::execute(unsigned int testrepetition)
     if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to open ports checkvertical"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open ports checkvertical");
         return false;
     }
     ok=yarp::os::Network::connect(remoteImuPort.c_str(), localImuPort.c_str());
     if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to connect to imu port"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to connect to imu port");
         return false;
     }
 
@@ -53,13 +53,13 @@ bool ActionCheckVertical::execute(unsigned int testrepetition)
     if(!imuReadings)
     {
         TXLOG(Severity::critical)<<"Impossible to read accelerometer measurements"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Impossible to read accelerometer measurements");
         return false;
     }
     if(imuReadings->size()<12)
     {
         TXLOG(Severity::critical)<<"IMU readings should have at least 12 elements current:"<<imuReadings->size()<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"IMU readings should have at least 12 elements");
         return false;        
     }
 
@@ -80,7 +80,7 @@ bool ActionCheckVertical::execute(unsigned int testrepetition)
     }
 
     if(error)
-        addProblem(test_->code_,testrepetition,Severity::error);
+        addProblem(test_->code_,testrepetition,Severity::error,"Absolute gravity");
 
     imuPort.interrupt();
     imuPort.close();

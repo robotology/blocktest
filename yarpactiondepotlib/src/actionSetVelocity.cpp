@@ -36,7 +36,7 @@ bool ActionSetVelocity::execute(unsigned int testrepetition)
     if(!ok)
     {
         TXLOG(Severity::critical)<<"send velocity failed"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"send velocity failed");
     }
 
     closeWalking(rpcPortWalking);    

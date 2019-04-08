@@ -34,7 +34,7 @@ class Action
         std::string normalize(const std::string& str,bool justFetch) const;
         double normalizeDouble(const std::string& str,bool justFetch) const;
         Test& getMyTest();
-        void addProblem(const std::string& code,unsigned int repetition,Severity severity) const;
+        void addProblem(const std::string& code,unsigned int repetition,Severity severity,const std::string& errorMessage) const;
         Test_sptr test_;
 
         bool reporterror_{true};

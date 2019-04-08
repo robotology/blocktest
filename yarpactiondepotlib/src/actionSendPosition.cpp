@@ -19,7 +19,7 @@
 #include "testsDepot.h"
 #include "yarpActionDepotStart.h"
 
-ACTIONREGISTER_DEF_TYPE(ActionSendPosition,"sendpos");
+ACTIONREGISTER_DEF_TYPE(ActionSendPosition,"yarpsendpos");
 
 ActionSendPosition::ActionSendPosition(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
 {    
@@ -44,14 +44,14 @@ bool ActionSendPosition::execute(unsigned int testrepetition)
     if(degree_.size()!=velocity_.size())
     {
         TXLOG(Severity::error)<<"Joint info not cooerent"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Joint info not cooerent");
         return false;      
     }
 
     if(degree_.size()!=jointToMove_.size())
     {
         TXLOG(Severity::error)<<"Joint info not cooerent"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Joint info not cooerent");
         return false;      
     }
 
@@ -62,14 +62,14 @@ bool ActionSendPosition::execute(unsigned int testrepetition)
     if(!ok)
     {
         TXLOG(Severity::error)<<"Unable to open pos mode interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open pos mode interface");
         return false;
     }
     ok=YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(icmd);
     if(!ok)
     {
         TXLOG(Severity::error)<<"Unable to open control mode interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open control mode interface");
         return false;
     }
  
@@ -84,7 +84,7 @@ bool ActionSendPosition::execute(unsigned int testrepetition)
         if(it==jointNames.end())
         {
             TXLOG(Severity::error)<<"Error joint not found:"<<jointToMove_[index]<<std::endl;
-            addProblem(test_->code_,testrepetition,Severity::critical);
+            addProblem(test_->code_,testrepetition,Severity::critical,"Error joint not found");
             return false;
         }
         desiredJoint.push_back(it->second);

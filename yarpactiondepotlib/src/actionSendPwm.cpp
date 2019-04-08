@@ -29,7 +29,7 @@ using namespace yarp::os;
 using namespace yarp::sig;
 using namespace yarp::dev;
 
-ACTIONREGISTER_DEF_TYPE(ActionSendPwm,"sendpwm");
+ACTIONREGISTER_DEF_TYPE(ActionSendPwm,"yarpsendpwm");
 
 ActionSendPwm::ActionSendPwm(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
 {
@@ -54,13 +54,13 @@ bool ActionSendPwm::execute(unsigned int testrepetition)
     if(!YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(ipwm))
     {
         TXLOG(Severity::critical)<<"Unable to open pwm mode interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open pwm mode interface");
     }
 
     if(!YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(icmd))
     {
         TXLOG(Severity::critical)<<"Unable to open control mode interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open control mode interface");
     }    
 
     std::map<std::string,int> jointNames;
@@ -69,7 +69,7 @@ bool ActionSendPwm::execute(unsigned int testrepetition)
     if(it==jointNames.end())
     {
         TXLOG(Severity::error)<<"Error joint not found:"<<jointname_<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Error joint not found");
         return false;
     }
 

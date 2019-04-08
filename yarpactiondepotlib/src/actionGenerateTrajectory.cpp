@@ -36,7 +36,7 @@ bool ActionGenerateTrajectory::execute(unsigned int testrepetition)
     if(!ok)
     {
         TXLOG(Severity::error)<<"Generate trajectory failed"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::error);
+        addProblem(test_->code_,testrepetition,Severity::error,"Generate trajectory failed");
     }
 
     closeWalking(rpcPortWalking);

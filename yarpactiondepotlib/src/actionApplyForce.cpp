@@ -39,7 +39,7 @@ bool ActionApplyForce::execute(unsigned int testrepetition)
    if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to open ports applyforce"<<std::endl;        
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open ports applyforce");
         return false;
     }
 
@@ -51,7 +51,7 @@ bool ActionApplyForce::execute(unsigned int testrepetition)
     if(tokenized.size()!=8)
     {
         TXLOG(Severity::error)<<"Error in parameter number for applyForce"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical);
+        addProblem(test_->code_,testrepetition,Severity::critical,"Error in parameter number for applyForce");
         return false;
     }
 
@@ -71,7 +71,7 @@ bool ActionApplyForce::execute(unsigned int testrepetition)
     if(response.toString().empty())
     {
           TXLOG(Severity::critical)<<"No response from ExternalWrench plugin"<<std::endl;        
-          addProblem(test_->code_,testrepetition,Severity::critical);
+          addProblem(test_->code_,testrepetition,Severity::critical,"No response from ExternalWrench plugin");
     }
       
     extWrenchPort.interrupt();

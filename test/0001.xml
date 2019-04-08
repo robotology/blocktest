@@ -1,46 +1,41 @@
-<subtestbody>
-    <command name="senddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="0" repetitions="1" wait="0" reporterror="true"></command>
-    <!-- 
-    <command name="updatefile" sourcefile="./test/files/head_mc.ini" destinationfile="/home/ltricerri/isaac-superbuild/build/install/share/gazebo/models/isaac-next-proto-yarp-modelica/conf/head_mc.ini" repetitions="1" wait="0" reporterror="true">
-    </command>
-
-    <command name="updatefile" sourcefile="./test/files/isaac-next-proto-yarp-modelica.sdf" destinationfile="/home/ltricerri/isaac-superbuild/build/install/share/gazebo/models/isaac-next-proto-yarp-modelica/isaac-next-proto-yarp-modelica.sdf" repetitions="1" wait="0" reporterror="true">
-    </command>    -->
-
-    <command name="checkrobotisvertical" repetitions="1" wait="0" reporterror="true"></command>
+<testbody>
+    <command name="yarpreset" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="20" repetitions="1" wait="0" reporterror="true"></command>
+    
+    <command name="yarpcheckrobotisvertical" repetitions="1" wait="0" reporterror="true"></command>
     <command name="yarpwait" seconds="1" repetitions="1" wait="0" reporterror="true"></command>
     
-    <command name="sendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="15 15" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpsendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="15 15" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
     <command name="yarpwait" seconds="3" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="15" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="15" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="15" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="15" repetitions="1" wait="0" reporterror="true"></command>
     
-    <command name="sendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="0 0" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpsendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="0 0" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
     <command name="yarpwait" seconds="3" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>    
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>    
 
-    <command name="sendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="-15 -15" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpsendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="-15 -15" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
     <command name="yarpwait" seconds="3" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="-15" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="-15" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="-15" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="-15" repetitions="1" wait="0" reporterror="true"></command>
 
-    <command name="sendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="0 0" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpsendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="0 0" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
     <command name="yarpwait" seconds="3" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>   
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>   
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>
 
-    <command name="sendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="15 15" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpsendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="15 15" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
     <command name="yarpwait" seconds="3" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="15" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="15" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="15" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="15" repetitions="1" wait="0" reporterror="true"></command>
 
-    <command name="sendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="0 0" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpsendpos" wrappername="/right_leg" jointname="r_ankle_roll r_ankle_pitch" degree="0 0" velocity="10 10" repetitions="1" wait="0" reporterror="true"></command>
     <command name="yarpwait" seconds="3" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="checkjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_roll" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true"></command>
 
-    <command name="checkrobotisvertical" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="yarpcheckrobotisvertical" repetitions="1" wait="0" reporterror="true"></command>
     <command name="yarpwait" seconds="2" repetitions="1" wait="0" reporterror="true"></command>
     
-</subtestbody>
+</testbody>

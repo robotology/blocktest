@@ -32,7 +32,7 @@ bool ActionPrepareStraightWalking::execute(unsigned int testrepetition)
     if(!ok)
     {
         TXLOG(Severity::error)<<"Prepare straight walking failed"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::error);
+        addProblem(test_->code_,testrepetition,Severity::error,"Prepare straight walking failed");
     }
     closeWalking(rpcPortWalking);
     TXLOG(Severity::info)<<"Prepare straight walking OK"<<std::endl;

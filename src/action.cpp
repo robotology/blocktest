@@ -45,10 +45,10 @@ double Action::normalizeDouble(const std::string& str,bool justFetch) const
     double out=std::atof(normalize(str,justFetch).c_str());
 }
 
-void Action::addProblem(const std::string& code,unsigned int repetition,Severity severity) const
+void Action::addProblem(const std::string& code,unsigned int repetition,Severity severity,const std::string& errorMessage) const
 {
     if(reporterror_)
-        Report::instance().addProblem(code,repetition,severity);
+        Report::instance().addProblem(code,repetition,severity,errorMessage);
 }
 
 Action::~Action()

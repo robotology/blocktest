@@ -1,25 +1,28 @@
-# Block Test
+# 1. Block Test
 
-## Introduction
+## 1.1. Introduction
 
 The application provides functionalities for developing and running not regression tests in a likely natural language as close as possibile to test case writing.
 The test philosopy is to divide a test into elementary blocks. The
 blocks can be used to build different tests (See Figure below).
+<br/><br/>
+
 
 ![alt text](img/img001.png "The tests are made by elementary blocks.")
+<br/><br/>
 
-## Installation
+## 1.2. Installation
 
 TODO     
 
-## Test writing
+## 1.3. Test writing
 
 The starting point for writing a test is the file ./test/test.xml
 
 ```xml
     <testlist repetitions="1">
 
-   <settings robotname="icubSim" realrobot="false" onlysimcommands="checkrobotisvertical checkRobot reset applyForce" netclock="true" 
+   <settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" 
             neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab" 
             waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp"/> <!--loggingtime in sec-->
 
@@ -43,7 +46,7 @@ The starting point for writing a test is the file ./test/test.xml
     <!--**************************-->
 
     <!--ICub pos && directpos-->
-    <test file="test//0001.xml" repetitions="2" name="ICub right ankle roll move" note="xxx" code="0001" version="1" loggingtype="position" logginginfo="r_ankle_roll r_ankle_pitch"/>
+    <test file="test//0001.xml" repetitions="2" name="ICub right ankle roll move" note="xxx" code="0001" version="1" loggingtype="position" loggingwrappername="/right_leg" loggingpart="r_ankle_roll r_ankle_pitch"/>
 
     </testlist>   
 ```
@@ -54,10 +57,10 @@ This file contains:
  * the prerequisites
  * the tests link list
 
-## General Settings
+## 1.4. General Settings
 
 ```xml
-<settings robotname="icubSim" realrobot="false" onlysimcommands="checkrobotisvertical checkRobot reset applyForce" netclock="true" 
+<settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" 
             neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab" 
             waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp"/> <!--loggingtime in sec-->
 ```
@@ -66,7 +69,7 @@ This file contains:
 |------------|---------------|---------|
 | robotname             | icubSim    | Robot name to be used  |
 | realrobot             | false     | Indicates if it is a real robot in test, or it is a Gazebo simulation |
-| onlysimcommands       | reset applyForce| Indicates which are the commands to be executed only in simulation |
+| onlysimcommands       | yarpreset applyForce| Indicates which are the commands to be executed only in simulation |
 | simclock              | true     | Indicates if the network clock should be used. In the case it is used the one on "/clock" port  |
 | neverexecutecommands  | ---   | Indicates which are the commands not to be executed.        |
 | logseverity           | info     | Indicates the severity to be logged in log.log   |
@@ -76,12 +79,12 @@ This file contains:
 | nowcommand            | yaronow       | Indicates the command blocks to be used for now|
 | loggingcommand        | infologgeryarp    | Indicates the command blocks to be used for logging   |
 
-## Library Settings
+## 1.5. Library Settings
 In this section it is possible to specify the plugin library to be used.
 
 ```xml
 <library enabled="true" path="genericactiondepotlib/libgenericactiondepot.so" name="genericactiondepot" note="System generic action library"/>
-    <library enabled="true" path="yarpactiondepotlib/libyarpactiondepot.so" name="yarpactiondepot" note="Yarp action library"/>
+<library enabled="true" path="yarpactiondepotlib/libyarpactiondepot.so" name="yarpactiondepot" note="Yarp action library"/>
 ```
 
 | Param name | Default value | Comment |
@@ -91,12 +94,13 @@ In this section it is possible to specify the plugin library to be used.
 | name       | ---| library tag name |
 | note              | ---     | Explanation notes  |
 
-In this section it is possible to specify the plugin library settings.
+In this section it is also possible to specify the plugin library settings.
 
 ```xml
 <!--Libraries settings-->
-    <librarysettings enabled="true" name="genericactiondepot"/>
-    <librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm"/>
+<librarysettings enabled="true" name="genericactiondepot"/>
+
+<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm"/>
 ```
 
 | Param name | Default value | Comment |
@@ -106,10 +110,10 @@ In this section it is possible to specify the plugin library settings.
 | ...              | ...     | ...  |
 
 
-## Prerequisites
+## 1.6. Prerequisites
 
 The prerequisites are applications to be executed before the tests, if
-necessary with parameters. The attribute kill means that the current prerequisite will be killed at the end of the tests. The attribute prefix is the prefix to the command.
+necessary with parameters.
 
 ```xml
  <prerequisite enabled="true" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true"/>
@@ -117,177 +121,83 @@ necessary with parameters. The attribute kill means that the current prerequisit
 | Param name | Default value | Comment |
 |------------|---------------|---------|
 | ebabled             | true    | If the prerequisite will be loaded  |
-| command             | ---     | Command to be executed |
-| waitafter       | 5000| Time to wait after command execution |
-| param              | ---     | Command parameters  |
-| prefix              | ---     | Command prefixes  |
-| kill              | true     | The current prerequisite will be killed at the end of the tests  |
+| command             | ---     | Command to be executed. |
+| waitafter       | 5000| Time to wait after command execution. |
+| param              | ---     | Command parameters.  |
+| prefix              | ---     | Command prefixes.  |
+| kill              | true     | The current prerequisite will be killed at the end of the tests.  |
 
 
-## Test list
+## 1.7. Test list
 
 The test list include all the tests written. The test list, basically,
 list the tests together with the file in which the test has been written.
 
 ```xml
-    <test file="test//0001.xml" repetitions="2" name="ICub right ankle roll move" note="xxx" code="0001" version="1" loggingtype="position" logginginfo="r_ankle_roll r_ankle_pitch"/>
-    <test file="test//0100.xml" repetitions="2" name="ICub right ankle roll pwm injection" note="xxx" code="0100" version="1" loggingtype="position" logginginfo="r_ankle_roll r_ankle_pitch"/>
-    <test file="test//0110.xml" repetitions="0" name="ICub right ankle roll pwmtrain injection" note="xxx" code="0110" version="1" loggingtype="" logginginfo=""/>
+<test file="test//0001.xml" repetitions="2" name="ICub right ankle  roll move" note="xxx" code="0001" version="1" loggingtype="position" loggingwrappername="/right_leg" loggingpart="r_ankle_roll r_ankle_pitch"/>
+
+<test file="test//0100.xml" repetitions="2" name="ICub right ankle roll pwm injection" note="xxx" code="0100" version="1" loggingtype="position" loggingwrappername="/right_leg" loggingpart="r_ankle_roll r_ankle_pitch"/>
+
+<test file="test//0110.xml" repetitions="0" name="ICub right ankle roll pwmtrain injection" note="xxx" code="0110" version="1" loggingtype="" loggingwrappername="" loggingpart=""/>
 
 ```
 
 | Param name | Default value | Comment |
 |------------|---------------|---------|
-| file             | ---    | File in which the test is written  |
-| repetitions             | 1     | How many times the test is repeated |
-| name       | ---| Test name |
-| note              | ---     | Test description  |
-| code              | ---     | Numeric code for identify the test, could be related to test case  |
-| version              | ---     | Test version  |
+| file             | ---    | File in which the test is written.  |
+| repetitions             | 1     | How many times the test is repeated. |
+| name       | ---| Test name. |
+| note              | ---     | Test description.  |
+| code              | ---     | Numeric code for identify the test, could be related to test case.  |
+| version              | ---     | Test version.  |
 | loggingtype              | ---     | Indicates what kind of logging you need. For now it can be "position", "com" or both.  |
-| logginginfo             | ---     | Joints name to be logged  |
+| loggingpart             | ---     | Joints name to be logged.  |
+| loggingwrappername             | ---     | The wrapper that controls the joints. Note that for now is possibile to specify just one wrapper.  |
 
-## Test
+## 1.8. Finally the test
 
 The test is written in a separate file. Here is shown an example of a
 simple test.
 ```xml
-    <testbody>
-    <command name="nop" param1="" repetitions="0" wait="0"  reporterror="true"></command>
-    <command name="sendpos" jointname="L_AK_R" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="sendpos" jointname="R_AK_R" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="sendpos" jointname="L_AK_P" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="sendpos" jointname="R_AK_P" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="sendpos" jointname="L_KN_P" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="sendpos" jointname="R_KN_P" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="sendpos" jointname="L_HP_P" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="sendpos" jointname="R_HP_P" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="sendpos" jointname="L_HP_R" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="sendpos" jointname="R_HP_R" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="sendpos" jointname="L_HP_Y" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>
-    <command name="sendpos" jointname="R_HP_Y" degree="0" velocity="20" param3="" repetitions="1" wait="0" reporterror="true"></command>            
-    </testbody>
+<testbody>
+    <command name="yarpreset" repetitions="1" wait="0" reporterror="true"/>
+   
+   <command name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="20" repetitions="1" wait="0" reporterror="true"/>    
+</testbody>
 ```  
 
-The test is composed by commands. Here is included a list of the
-available commands:
+The test is composed by commands and each command has a parameters list.
 
--   prepareStraightWalking
+The common parameters are shown in the following table.
 
-    ```xml
-        <command name="prepareStraightWalking" repetitions="1" wait="0" reporterror="true"></command>
-    ```
+| Param name | Default | Comment |
+|------------|---------------|---------|
+| name             | ---    | Command name.  |
+| repetitions             | 1     | How many times the command is repeated. |
+| wait       | 0| Wait time ad the end of the command execution in seconds. |
+| reporterror              | true     | If the command should report error if necessary.  |
 
-    No params needed
+### 1.8.1. Generic commands
+These commands are contained in the generic command library.
 
--   startWalking
-
-    ```xml
-        <command name="startWalking" repetitions="1" wait="0" reporterror="true"></command>
-    ```
-
-    No params needed
-
--   resetWalking
+-   **wait**
 
     ```xml
-        <command name="resetWalking" repetitions="1" wait="0" reporterror="true"></command>
-    ```
-
-    No params needed
-
--   wait
-
-    ```xml
-        <command name="yarpwait" seconds="5" repetitions="1" wait="0" reporterror="true"></command>   
+        <command name="yarpwait" seconds="5" repetitions="1" wait="0" reporterror="true"/>   
     ```
 
     The parameter in seconds, is the wait time in seconds. Could be a double 0.001 means 1 msec.
 
--   setVelocity
+
+-   **nop**
 
     ```xml
-        <command name="setVelocity" xvelocity="0.05" yvelocity="0.00001" repetitions="1" wait="0" reporterror="true"></command>
-    ```
-
-    The attributes xvelocity and yvelocity rapesent the velocity in that direction.
-
--   applyForce
-
--   reset
-
-    Reset the robot to the original frame position and pose.
-
-    ```xml
-        <command name="reset" repetitions="1" wait="0" reporterror="true"></command>
-    ```
-
--   sendpwm
-    Send the pwm value to a specific jointname. The pwm profile can be: sin/const/stepwave
-
-    ```xml
-        <command name="sendpwm" profile="sin" frequency="1" dutycycle="20" time="20" jointname="L_AK_R" repetitions="1" wait="0" reporterror="true"></command>
-    ```
-
--   sendposdirect
-
-    Send the position to a specific jointname in close loop with direct pos API
-
-    ```xml
-        <command name="senddirectpos" jointname="L_AK_R" degree="-30" repetitions="1" wait="0" reporterror="true"></command>
-    ```
-
--   sendpos
-
-    Send the position to a specific jointname in close loop
-
-    ```xml
-        <command name="sendpos" jointname="L_AK_R" degree="0" velocity="20" repetitions="1" wait="0" reporterror="true"></command>
-    ```
-
--   checkRobot
-
-    ```xml
-        <command name="checkRobot" repetitions="1" wait="0" reporterror="true"></command>
-    ```
-
-    Check if joints are present.
-
--   checkPosition
-
-    ```xml
-        <command name="checkPosition" xminposition="0.14" yminposition="0.13" zminposition="0.15" repetitions="1" wait="0" reporterror="true"></command>
-    ```
-
-    If the robot position is less than xminposition,yminposition,zminposition the check fails. If the position is 0 it doesn't check on that axis.
-    For now only the abs value of the position is checked.
-
--   checkRobotIsVertical
-
-    ```xml
-        <command name="checkRobotIsVertical" repetitions="1" wait="0" reporterror="true"></command>
-    ```
-
-    If the robot position is not vertical the check fails
-
--   sendPwmTrain
-
-    ```xml
-        <command name="sendpwmtrain" dutycycle="20" maxposition="20" minposition="-20" cycletime="10" cyclesleep="8" jointname="L_AK_R" repetitions="1" wait="0" reporterror="true"></command>
-    ```
-
-    Send a PWM train. Chenge PWM sign when the position is reached
-
-
--   nop
-
-    ```xml
-    <command name="nop" fixvalue="" tables="kp" printerror="true" printtestinfo="true" justonetime="false" repetitions="1" wait="0" reporterror="true"></command>
+    <command name="nop" fixvalue="" tables="kp" printerror="true" printtestinfo="true" justonetime="false" repetitions="1" wait="0" reporterror="true"/>
     ```
 
     The nop command is used to print log on the plot.log file.
 
--   updatefile     
+-   **updatefile**     
 
     ```xml
         <command    name="updatefile" 
@@ -296,11 +206,12 @@ available commands:
                 repetitions="1" 
                 wait="0"
                 reporterror="true">
-    </command>```
+    </command>
+    ```
 
     The command copy and update the specified file.
 
--   execute
+-   **execute**
 
     ```xml       
 	<command    name="execute" 
@@ -312,17 +223,135 @@ available commands:
                 repetitions="1" 
                 wait="0"
                 reporterror="true">
-    </command>```
+    </command>
+    ```
 
     The command execute the specified application.
 
-Some of the command parameters are common to all commands:
--   name: the name of the command see above. 
--   repetitions: command repetition time.
--   wait: wait in second after the command has been executed.
--   reporterror: if false the command never generate an error. 
 
-## Parametric test
+### 1.8.2. Yarp commands
+These commands are contained in the yarp command library.
+
+-   **yarpreset**
+
+    Reset the robot to the original frame position and pose.
+
+    ```xml
+        <command name="yarpreset" repetitions="1" wait="0" reporterror="true"/>
+    ```
+
+-   **yarpsendpwm**
+
+    Send the pwm value to a specific jointname. The pwm profile can be: sin/const/stepwave
+
+    ```xml
+        <command name="yarpsendpwm" profile="sin" frequency="1" dutycycle="20" time="20" jointname="L_AK_R" repetitions="1" wait="0" reporterror="true"/>
+    ```
+
+
+-   **yarpsendposdirect**
+
+    Send the position to a specific jointname
+
+    ```xml
+        <command name="yarpsenddirectpos" jointname="L_AK_R" degree="-30" repetitions="1" wait="0" reporterror="true"/>
+    ```
+
+-   **yarpsendpos**
+
+    Send the position to a specific jointname using a minimum jerk trajectory.
+
+    ```xml
+        <command name="yarpsendpos" jointname="L_AK_R" degree="0" velocity="20" repetitions="1" wait="0" reporterror="true"/>
+    ```
+
+-   **yarpcheckRobot**
+
+    ```xml
+        <command name="checkRobot" repetitions="1" wait="0" reporterror="true"/>
+    ```
+    Check if joints are present.
+
+-   **yarpcheckjointposition**
+
+    Check if the joint position is correct.
+
+
+    ```xml
+        <command name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="15" repetitions="1" wait="0" reporterror="true"/>
+    ``` 
+
+-   **yarpcheckrobotisvertical**
+
+    Check if robot is vertical.
+
+    ```xml
+        <command name="yarpcheckrobotisvertical" repetitions="1" wait="0" reporterror="true"/>
+    ``` 
+-   **yarpsendpwmtrain**
+
+    ```xml
+        <command name="yarpsendpwmtrain" dutycycle="20" maxposition="20" minposition="-20" cycletime="10" cyclesleep="8" jointname="L_AK_R" repetitions="1" wait="0" reporterror="true"/>
+    ```
+    Send a PWM train. Chenge PWM sign when the position is reached
+
+-   **applyForce**
+
+    Apply force to the robot.
+
+
+### 1.8.3. Yarp walking commands
+
+
+-   **setVelocity**
+
+    ```xml
+        <command name="setVelocity" xvelocity="0.05" yvelocity="0.00001" repetitions="1" wait="0" reporterror="true"/>
+    ```
+
+    The attributes xvelocity and yvelocity rapesent the velocity in that direction.
+
+
+
+-   **checkPosition**
+    ```xml
+        <command name="checkPosition" xminposition="0.14" yminposition="0.13" zminposition="0.15" repetitions="1" wait="0" reporterror="true"/>
+    ```
+    Check if joints are present.
+
+
+-   **prepareStraightWalking**
+
+    ```xml
+        <command name="prepareStraightWalking" repetitions="1" wait="0" reporterror="true"/>
+    ```
+
+    No params needed
+
+-   **startWalking**
+
+    ```xml
+        <command name="startWalking" repetitions="1" wait="0" reporterror="true"/>
+    ```
+
+    No params needed
+
+-   **resetWalking**
+
+    ```xml
+        <command name="resetWalking" repetitions="1" wait="0" reporterror="true"/>
+    ```
+
+    No params needed
+
+
+
+
+    If the robot position is less than xminposition,yminposition,zminposition the check fails. If the position is 0 it doesn't check on that axis.
+    For now only the abs value of the position is checked.
+
+
+## 1.9. Parametric test
 
 It is possible to execute the same test many times changing one ore more parameters every execution. 
 
@@ -331,7 +360,7 @@ It is possible to execute the same test many times changing one ore more paramet
 We use a file, to specify the parameters value and parameters changing rules.
 
 ```xml
-<settings robotname="icubSim" realrobot="false"  onlysimcommands="checkRobotIsVertical checkRobot reset applyForce" simclock="true" neverexecutecommands="" logseverity="debug" loggingtime="0.008" tablename="test/tables/main.tab"/> 
+<settings robotname="icubSim" realrobot="false"  onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" simclock="true" neverexecutecommands="" logseverity="debug" loggingtime="0.008" tablename="test/tables/main.tab"/> 
 ```
 
 In the settings section you can find the **tablename parameter** (**main.tab**) that is the file in which
@@ -377,26 +406,26 @@ It is possibile to specify how the parameters will change during the execution. 
     in this case the parameter value will start from the min value to the max value using the
     given increment.
 
-## Using the parameter
+## 1.10. Using the parameter
 
 In the test you can specify the table name you want to use, the paameter name is surround by 
 $:
 
 ```xml
- <command name="setVelocity" xvelocity="$xvelocity$" yvelocity="0.5" repetitions="1" wait="0" reporterror="true"></command>
+ <command name="setVelocity" xvelocity="$xvelocity$" yvelocity="0.5" repetitions="1" wait="0" reporterror="true"/>
 ```
 
 In this case the xvelocity parameter will use the table xvelocity.
 
 The test should be executed at least 10 times so:
 ```xml
-    <test file="test//411.xml" repetitions="10" name="xxx" note="xxx" code="0411" version="1" loggingtype="" logginginfo=""/>
+    <test file="test//411.xml" repetitions="10" name="xxx" note="xxx" code="0411" version="1" loggingtype="" loggingwrappername="" loggingpart=""/>
 ```
 
-## Examples
+## 1.11. Examples
 Not regression tests and example are present in folder test.
 
-## Model settings
+## 1.12. Model settings
 
 World model file is referenced by (See section [prerequisite](#prerequisite)):
 
@@ -437,7 +466,7 @@ and execute:
 If you need to execute the test on the real robot use the appropriate settings:
 
 ```xml
-    <settings robotname="icubSim" realrobot="true" onlysimcommands="checkRobotIsVertical checkRobot reset applyForce" simclock="false" neverexecutecommands=""/>
+    <settings robotname="icubSim" realrobot="true" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" simclock="false" neverexecutecommands=""/>
 ```
 
 No prerequisites are necessary in this case.
@@ -454,7 +483,7 @@ Application logging is log/log.log You can read it by:\
 It is possibile to set the logs line to be shown using the attribute  logseverity="debug" inside of the
 
 ```xml
-    <settings robotname="icubSim" realrobot="false"  onlysimcommands="checkRobotIsVertical checkRobot reset applyForce" simclock="false" positionfor="" neverexecutecommands="" logseverity="debug"/>
+    <settings robotname="icubSim" realrobot="false"  onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" simclock="false" positionfor="" neverexecutecommands="" logseverity="debug"/>
 ```
 
 The awailable levels are:
@@ -477,7 +506,7 @@ If sensor logging is setted (See section [test list](#testlist)) throught
 If logging is setted throught **com** parameter the position log file has the format: \<test number>-CoM-\<repetition number>.
 
 ```xml
-    <test file="test//000.xml" repetitions="1" name="Position to 0" note="none"  code="0000" version="1" loggingtype="position com"  logginginfo=" L_AK_R R_AK_R"/>
+    <test file="test//000.xml" repetitions="1" name="Position to 0" note="none"  code="0000" version="1" loggingtype="position com"  loggingwrappername="/right_leg" loggingpart=" L_AK_R R_AK_R"/>
 ```  
 
 ## Plot logging
@@ -517,4 +546,4 @@ None to be signaled
 ## Authors
 * Luca Tricerri ([*personal page*](http://www.iit.it/en/people/Luca-tricerri.html))
 
-*/
+
