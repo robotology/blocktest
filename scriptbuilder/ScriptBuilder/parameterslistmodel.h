@@ -11,7 +11,6 @@ class ParametersListModel : public QStandardItemModel
 public:
     ParametersListModel();
 
-    void updateData(const QStringList& data);
     void updateData(const QModelIndex &index);
 
     std::string dataRetrive(QModelIndex &index);
@@ -19,6 +18,7 @@ public:
 private:
     void stringToXmlNodesToItems(const std::string& xmlString);
     std::string itemsToXmlNodesToString();
+    void updateData(const QStringList& data);
 
     QModelIndex index_;
 

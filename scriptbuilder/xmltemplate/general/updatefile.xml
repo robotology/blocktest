@@ -1,0 +1,7 @@
+<command    library="general" name="updatefile" 
+            sourcefile="" 
+            destinationfile="" 
+            repetitions="1" 
+            wait="0"
+            reporterror="true">
+</command>

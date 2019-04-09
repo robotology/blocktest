@@ -45,6 +45,7 @@ void ParametersListModel::stringToXmlNodesToItems(const std::string& xmlString)
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_string(xmlString.c_str());
 
+    std::string library;
     pugi::xml_node rootNode=doc.child("command");
     for (pugi::xml_attribute_iterator ait = rootNode.attributes_begin(); ait != rootNode.attributes_end(); ++ait)
     {
@@ -57,10 +58,21 @@ void ParametersListModel::stringToXmlNodesToItems(const std::string& xmlString)
             name->setFont(font);
             value->setFont(font);
         }
+
+        if(std::string(ait->name())=="library")
+        {
+            library=ait->value();
+        }
+
         QList<QStandardItem*> toInsert;
         toInsert.insert(0,name);
         toInsert.insert(1,value);
-        name->setIcon(QIcon(":/icons/script.png"));
+
+        QStringList role;
+        role<<ait->name();
+        role<<library.c_str();
+        name->setData(role,Qt::UserRole);
+        name->setIcon(QIcon(":/icons/parameter.png"));
         item->appendRow(toInsert);
 
     }

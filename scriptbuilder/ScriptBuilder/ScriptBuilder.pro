@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     actiontreemodel.cpp \
     scripttreemodel.cpp \
     parameterslistmodel.cpp \
-    pugixml.cpp
+    pugixml.cpp \
+    parametercommentmodel.cpp
 
 HEADERS  += mainwindow.h \
     actiontreemodel.h \
     scripttreemodel.h \
-    parameterslistmodel.h \
     pugiconfig.hpp \
-    pugixml.hpp
+    pugixml.hpp \
+    parameterslistmodel.h \
+    parametercommentmodel.h
 
 LIBS += -lstdc++fs
 

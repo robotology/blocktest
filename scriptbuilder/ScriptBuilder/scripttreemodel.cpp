@@ -163,8 +163,24 @@ void ScriptTreeModel::load(const std::string& fileName)
         list[URxmlStruct]=xml.c_str();//xmlStruct
         command->setData(list,Qt::UserRole);
         script_->appendRow(command);
-
-       // std::cout << node.node().attribute("Filename").value() << "\n";
     }
 }
 
+void ScriptTreeModel::save(const std::string& fileName)
+{
+    std::ofstream ofs(fileName+".xml");
+
+    ofs<<"<testbody>"<<std::endl;
+    for(int index=0;index<script_->rowCount();++index)
+    {
+        QStandardItem *current=script_->child(index);
+        QStringList list=current->data(Qt::UserRole).toStringList();
+        ofs<<list[URxmlStruct].toStdString()<<std::endl;
+    }
+    ofs<<"</testbody>"<<std::endl;
+}
+
+void ScriptTreeModel::clearall()
+{
+    clear();
+}

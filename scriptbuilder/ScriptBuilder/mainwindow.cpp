@@ -11,8 +11,11 @@ MainWindow::MainWindow(QWidget *parent) :
     commandsModel_ = new ActionTreeModel;
     scriptModel_ = new ScriptTreeModel;
     parametersModel_ = new ParametersListModel;
+    parameterCommentModel_ = new ParameterCommentModel;
 
     ui->setupUi(this);
+
+    ui->parameterComment->setModel(parameterCommentModel_);
 
     ui->parametersList->setModel(parametersModel_);
     ui->parametersList->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -32,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->scriptTree->setDragEnabled(true);
     ui->scriptTree->setAcceptDrops(true);
     ui->scriptTree->setDropIndicatorShown(true);
+    ui->scriptTree->expandAll();
 }
 
 MainWindow::~MainWindow()
@@ -58,5 +62,16 @@ void MainWindow::on_scriptTree_clicked(const QModelIndex &index)
 
 void MainWindow::on_saveButton_clicked()
 {
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save test"), "./","*.xml");
+    scriptModel_->save(fileName.toStdString());
+}
 
+void MainWindow::on_parametersList_clicked(const QModelIndex &index)
+{
+    parameterCommentModel_->updateData(index);
+}
+
+void MainWindow::on_clearButton_clicked()
+{
+    scriptModel_->clearall();
 }

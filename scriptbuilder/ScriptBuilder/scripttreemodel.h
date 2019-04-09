@@ -17,6 +17,8 @@ public:
     ScriptTreeModel();
 
     void load(const std::string& fileName);
+    void save(const std::string& fileName);
+    void clearall();
     void updateParameters(const QModelIndex &index,const std::string& parameters);
 
     Qt::ItemFlags flags(const QModelIndex &index) const;

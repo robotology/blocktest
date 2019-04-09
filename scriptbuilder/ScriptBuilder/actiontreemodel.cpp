@@ -14,15 +14,20 @@ void ActionTreeModel::LoadXml()
 {
     QStandardItem *item = invisibleRootItem();
     std::string path = "./xmltemplate";
-    for (const auto & folder : fs::directory_iterator(path))
+    for (const fs::directory_entry & folder : fs::directory_iterator(path))
     {
          QStandardItem * library = new QStandardItem(folder.path().filename().string().c_str());
          item->appendRow(library);
          library->setIcon(QIcon(":/icons/library.png"));
 
+         if(!fs::is_directory(folder))
+             continue;
 
          for (const auto & filename : fs::directory_iterator(folder))
          {
+             std::string name=filename.path().stem().string();
+             if(name=="parameters")
+                 continue;
              QStandardItem * action = new QStandardItem();
              library->appendRow(action);
              action->setIcon(QIcon(":/icons/envelope.png"));
@@ -30,7 +35,7 @@ void ActionTreeModel::LoadXml()
              list<<filename.path().string().c_str();
              list<<filename.path().stem().string().c_str();
              action->setData(list,Qt::UserRole);
-             action->setData(filename.path().stem().string().c_str(),Qt::EditRole);
+             action->setData(name.c_str(),Qt::EditRole);
          }
     }
 }
