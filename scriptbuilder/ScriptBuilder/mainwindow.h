@@ -8,7 +8,10 @@
 #include "parametercommentmodel.h"
 #include "parameterslistmodel.h"
 #include "scripttreemodel.h"
+#include "testsdepotmodel.h"
 
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +24,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    bool eventFilter( QObject* o, QEvent* e );
 
 
 private slots:
@@ -28,13 +32,17 @@ private slots:
 
     void on_saveButton_clicked();
 
-    void on_applyButton_clicked();
-
     void on_scriptTree_clicked(const QModelIndex &index);
 
     void on_parametersList_clicked(const QModelIndex &index);
 
-    void on_clearButton_clicked();
+    void on_closeButton_clicked();
+
+    void parameterChanged(QStandardItem * item);
+
+    void on_loadTests_clicked();
+
+    void on_testsDepot_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
@@ -43,6 +51,7 @@ private:
     ScriptTreeModel  *scriptModel_{nullptr};
     ParametersListModel *parametersModel_{nullptr};
     ParameterCommentModel *parameterCommentModel_{nullptr};
+    TestsDepotModel *testsDepotModel_{nullptr};
 
 };
 

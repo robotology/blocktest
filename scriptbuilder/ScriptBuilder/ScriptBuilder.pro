@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT     += core gui
 CONFIG += c++14
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     scripttreemodel.cpp \
     parameterslistmodel.cpp \
     pugixml.cpp \
-    parametercommentmodel.cpp
+    parametercommentmodel.cpp \
+    testsdepotmodel.cpp
 
 HEADERS  += mainwindow.h \
     actiontreemodel.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     pugiconfig.hpp \
     pugixml.hpp \
     parameterslistmodel.h \
-    parametercommentmodel.h
+    parametercommentmodel.h \
+    testsdepotmodel.h
 
 LIBS += -lstdc++fs
 

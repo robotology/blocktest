@@ -2,6 +2,7 @@
 
 #include <qmimedata.h>
 #include <qdebug.h>
+#include <QKeyEvent>
 
 #include <experimental/filesystem>
 #include <string>
@@ -119,6 +120,10 @@ std::string ScriptTreeModel::getXmlString(const std::string& file)
 
 void ScriptTreeModel::updateParameters(const QModelIndex &index,const std::string& parameters)
 {
+    if(script_->rowCount()<=1)
+        return;
+    QStandardItem* item=itemFromIndex(index);
+
     QStringList toChange=itemFromIndex(index)->data(Qt::UserRole).toStringList();
     toChange[URxmlStruct]=parameters.c_str();
     itemFromIndex(index)->setData(toChange,Qt::UserRole);
@@ -183,4 +188,24 @@ void ScriptTreeModel::save(const std::string& fileName)
 void ScriptTreeModel::clearall()
 {
     clear();
+    QStandardItem *item = invisibleRootItem();
+
+    script_ = new QStandardItem("script");
+    script_->setIcon(QIcon(":/icons/script.png"));
+    item->appendRow(script_);
 }
+
+void ScriptTreeModel::keypressed(QEvent* e,const QModelIndex &index)
+{
+    QStandardItem *root = invisibleRootItem();
+    if(index.parent()==root->index())
+        return;
+
+    QString pressedK=((QKeyEvent*)e)->text();
+    if(pressedK=="\177") //DEL
+    {
+        removeRow(index.row(),index.parent());
+    }
+}
+
+

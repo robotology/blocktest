@@ -96,3 +96,8 @@ std::string ParametersListModel::itemsToXmlNodesToString()
     doc.save(ss,"  ");
     return ss.str();
 }
+
+void ParametersListModel::clearall()
+{
+    clear();
+}

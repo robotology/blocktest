@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QKeyEvent>
 #include <qfiledialog.h>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -12,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     scriptModel_ = new ScriptTreeModel;
     parametersModel_ = new ParametersListModel;
     parameterCommentModel_ = new ParameterCommentModel;
+    testsDepotModel_ = new TestsDepotModel;
 
     ui->setupUi(this);
 
@@ -23,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->commandTree->setModel(commandsModel_);
     ui->commandTree->expandAll();
     ui->commandTree->setDragDropMode(QAbstractItemView::DragOnly);
-    ui->commandTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    ui->commandTree->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->commandTree->setDragEnabled(true);
     ui->commandTree->setAcceptDrops(true);
     ui->commandTree->setDropIndicatorShown(true);
@@ -31,11 +33,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->scriptTree->setModel(scriptModel_);
     ui->scriptTree->expandAll();
     ui->scriptTree->setDragDropMode(QAbstractItemView::DragDrop);
-    ui->scriptTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    ui->scriptTree->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->scriptTree->setDragEnabled(true);
     ui->scriptTree->setAcceptDrops(true);
     ui->scriptTree->setDropIndicatorShown(true);
     ui->scriptTree->expandAll();
+    ui->scriptTree->installEventFilter(this);
+
+    ui->testsDepot->setModel(testsDepotModel_);
+
+
+    auto resp=connect(parametersModel_,SIGNAL(itemChanged(QStandardItem*)),this,SLOT(parameterChanged(QStandardItem*)));
 }
 
 MainWindow::~MainWindow()
@@ -46,13 +54,12 @@ void MainWindow::on_loadButton_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,tr("Open test"), "./","*.xml");
     scriptModel_->load(fileName.toStdString());
-}
 
-void MainWindow::on_applyButton_clicked()
-{
-    QModelIndex index;
-    std::string parameters=parametersModel_->dataRetrive(index);
-    scriptModel_->updateParameters(index,parameters);
+    fs::directory_entry tmp(fileName.toStdString());
+    std::string strInLable=tmp.path().stem().string()+".xml";
+
+    ui->testname->setText(strInLable.c_str());
+    ui->scriptTree->expandAll();
 }
 
 void MainWindow::on_scriptTree_clicked(const QModelIndex &index)
@@ -64,6 +71,10 @@ void MainWindow::on_saveButton_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName(this,tr("Save test"), "./","*.xml");
     scriptModel_->save(fileName.toStdString());
+
+    fs::directory_entry tmp(fileName.toStdString());
+    std::string strInLable=tmp.path().stem().string()+".xml";
+    ui->testname->setText(strInLable.c_str());
 }
 
 void MainWindow::on_parametersList_clicked(const QModelIndex &index)
@@ -71,7 +82,47 @@ void MainWindow::on_parametersList_clicked(const QModelIndex &index)
     parameterCommentModel_->updateData(index);
 }
 
-void MainWindow::on_clearButton_clicked()
+void MainWindow::on_closeButton_clicked()
 {
     scriptModel_->clearall();
+    parametersModel_->clearall();
+}
+
+bool MainWindow::eventFilter(QObject* o,QEvent* e)
+{
+    if( o == ui->scriptTree && e->type() == QEvent::KeyRelease)
+    {
+        QModelIndex index=ui->scriptTree->currentIndex();
+        scriptModel_->keypressed(e,index);
+    }
+
+    return false;
+}
+
+void MainWindow::parameterChanged(QStandardItem * item)
+{
+    QModelIndex index;
+    std::string parameters=parametersModel_->dataRetrive(index);
+    scriptModel_->updateParameters(index,parameters);
+}
+
+
+void MainWindow::on_loadTests_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), "./","*.xml");
+    testsDepotModel_->load(fileName.toStdString());
+}
+
+void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
+{
+    QStringList paramToShow=index.sibling(index.row(),0).data(Qt::UserRole).toStringList();
+    QString fileName=paramToShow[0];
+
+    scriptModel_->load(testsDepotModel_->testPath_+"/"+fileName.toStdString());
+
+    fs::directory_entry tmp(fileName.toStdString());
+    std::string strInLable=tmp.path().stem().string()+".xml";
+
+    ui->testname->setText(strInLable.c_str());
+    ui->scriptTree->expandAll();
 }

@@ -19,6 +19,7 @@ public:
     void load(const std::string& fileName);
     void save(const std::string& fileName);
     void clearall();
+    void keypressed(QEvent* e,const QModelIndex &index);
     void updateParameters(const QModelIndex &index,const std::string& parameters);
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -27,6 +28,7 @@ public:
     QStringList mimeTypes() const;
     QMimeData *mimeData(const QModelIndexList &indexes) const;
     bool dropMimeData(const QMimeData *data, Qt::DropAction action,int row, int column, const QModelIndex &parent);
+
 
 private:
      QStandardItem * script_{nullptr};

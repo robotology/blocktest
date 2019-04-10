@@ -12,7 +12,7 @@ public:
     ParametersListModel();
 
     void updateData(const QModelIndex &index);
-
+    void clearall();
     std::string dataRetrive(QModelIndex &index);
 
 private:
