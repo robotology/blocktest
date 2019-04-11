@@ -49,6 +49,7 @@ blocks can be used to build different tests (See Figure below).
 ```bash
 sudo apt-get install build-essential qtcreator qt5-default
 ```
+At the moment the application is only for Linux type OS.
 
 ## 3.2. Installation and compilation
 
