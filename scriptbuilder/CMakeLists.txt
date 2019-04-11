@@ -56,5 +56,8 @@ if(COMPILE_SCRIPTBUILDER)
 
   #install
   install(TARGETS Scriptbuilder RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/..)
+
+  #xml template folder
+  file(COPY xmltemplate DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     
 endif()

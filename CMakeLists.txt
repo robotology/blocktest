@@ -65,9 +65,6 @@ target_link_libraries(${PROJECT_NAME} -ldl pthread stdc++fs)
 #test file folder
 file(COPY test DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-#xml template folder
-file(COPY xmltemplate DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
 #install
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
