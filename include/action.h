@@ -6,7 +6,7 @@
  ******************************************************************************/
 
 /**
- * @file Action.h
+ * @file action.h
  * @author Luca Tricerri <luca.tricerri@iit.it>
  */
 
@@ -39,7 +39,8 @@ class Action
 
         bool reporterror_{true};
 
-    public: //helper funcion        
+    public:  
+        //helper funcion      
         template <typename T> static void tokenize(const std::string& toTokenize,std::vector<T>& out){
             std::istringstream ss{toTokenize};
             out=std::vector<T>{std::istream_iterator<T>{ss},std::istream_iterator<T>()};

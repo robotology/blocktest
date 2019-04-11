@@ -1,3 +1,15 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file actiontreemodel.h
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
 #ifndef MYTREEMODEL_H
 #define MYTREEMODEL_H
 

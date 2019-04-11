@@ -1,3 +1,15 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file scripttreemodel.h
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
 #ifndef SCRIPTTREEMODEL_H
 #define SCRIPTTREEMODEL_H
 

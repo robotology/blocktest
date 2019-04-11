@@ -1,8 +1,22 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file actiontreemodel.cpp
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
 #include "actiontreemodel.h"
 
 #include <QMimeData>
+
 #include <string>
 #include <experimental/filesystem>
+
 namespace fs = std::experimental::filesystem;
 
 ActionTreeModel::ActionTreeModel()

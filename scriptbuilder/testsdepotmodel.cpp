@@ -1,9 +1,20 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file testsdepotmodel.cpp
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
 #include "pugixml.hpp"
 #include "testsdepotmodel.h"
 
 TestsDepotModel::TestsDepotModel()
 {
-
 }
 
 void TestsDepotModel::load(const std::string& fileName)
@@ -41,17 +52,6 @@ void TestsDepotModel::load(const std::string& fileName)
         list[URFnote]=note.c_str();
         nameItem->setData(list,Qt::UserRole);
 
-
-        //test->setData(name.c_str(),Qt::EditRole);
-       /* xml_string_writer writer;
-        node.node().print(writer);
-        std::string xml=writer.result;
-        QStringList list{"","",""};
-        list[URfile]="unknown";
-        list[URname]=name.c_str();
-        list[URxmlStruct]=xml.c_str();//xmlStruct
-        test->setData(list,Qt::UserRole);
-        */
         item->appendRow(itemList);
     }
 

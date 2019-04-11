@@ -1,3 +1,16 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file mainwindow.cpp
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 

@@ -1,3 +1,17 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file parameterslistmodel.h
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
+
+
 #ifndef PARAMETERSLISTMODEL_H
 #define PARAMETERSLISTMODEL_H
 

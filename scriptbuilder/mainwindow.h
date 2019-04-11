@@ -1,8 +1,20 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file mainwindow.h
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <qtreeview.h>
 
 #include "actiontreemodel.h"
 #include "parametercommentmodel.h"

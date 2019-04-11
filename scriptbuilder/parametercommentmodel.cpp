@@ -1,3 +1,15 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file parametercommentmodel.cpp
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
 #include "parametercommentmodel.h"
 #include "pugixml.hpp"
 
