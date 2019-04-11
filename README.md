@@ -1,6 +1,34 @@
 # 1. Block Test
 
-## 1.1. Introduction
+- [1. Block Test](#1-block-test)
+- [2. Introduction](#2-introduction)
+- [3. Installation](#3-installation)
+- [4. Test writing](#4-test-writing)
+  - [4.1. General Settings](#41-general-settings)
+  - [4.2. Library Settings](#42-library-settings)
+  - [4.3. Prerequisites](#43-prerequisites)
+  - [4.4. Test list](#44-test-list)
+  - [4.5. Finally the test](#45-finally-the-test)
+    - [4.5.1. Generic commands](#451-generic-commands)
+    - [4.5.2. Yarp commands](#452-yarp-commands)
+    - [4.5.3. Yarp walking commands](#453-yarp-walking-commands)
+  - [Test writing with scriptbuilder](#test-writing-with-scriptbuilder)
+  - [4.6. Parametric test](#46-parametric-test)
+  - [4.7. Using the parameter](#47-using-the-parameter)
+  - [4.8. Examples](#48-examples)
+- [5. Model settings](#5-model-settings)
+- [6. Test execution](#6-test-execution)
+- [7. Logging](#7-logging)
+  - [7.1. Application logging](#71-application-logging)
+  - [7.2. Sensors logging](#72-sensors-logging)
+  - [7.3. Plot logging](#73-plot-logging)
+  - [7.4. Report](#74-report)
+  - [7.5. Timeout](#75-timeout)
+- [8. Specific library writing](#8-specific-library-writing)
+- [9. Bugs](#9-bugs)
+- [10. Authors](#10-authors)
+
+# 2. Introduction
 
 The application provides functionalities for developing and running not regression tests in a likely natural language as close as possibile to test case writing.
 The test philosopy is to divide a test into elementary blocks. The
@@ -11,11 +39,11 @@ blocks can be used to build different tests (See Figure below).
 ![alt text](img/img001.png "The tests are made by elementary blocks.")
 <br/><br/>
 
-## 1.2. Installation
+# 3. Installation
 
 TODO     
 
-## 1.3. Test writing
+# 4. Test writing
 
 The starting point for writing a test is the file ./test/test.xml
 
@@ -57,7 +85,7 @@ This file contains:
  * the prerequisites
  * the tests link list
 
-## 1.4. General Settings
+## 4.1. General Settings
 
 ```xml
 <settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" 
@@ -79,7 +107,7 @@ This file contains:
 | nowcommand            | yaronow       | Indicates the command blocks to be used for now|
 | loggingcommand        | infologgeryarp    | Indicates the command blocks to be used for logging   |
 
-## 1.5. Library Settings
+## 4.2. Library Settings
 In this section it is possible to specify the plugin library to be used.
 
 ```xml
@@ -110,7 +138,7 @@ In this section it is also possible to specify the plugin library settings.
 | ...              | ...     | ...  |
 
 
-## 1.6. Prerequisites
+## 4.3. Prerequisites
 
 The prerequisites are applications to be executed before the tests, if
 necessary with parameters.
@@ -128,7 +156,7 @@ necessary with parameters.
 | kill              | true     | The current prerequisite will be killed at the end of the tests.  |
 
 
-## 1.7. Test list
+## 4.4. Test list
 
 The test list include all the tests written. The test list, basically,
 list the tests together with the file in which the test has been written.
@@ -154,7 +182,7 @@ list the tests together with the file in which the test has been written.
 | loggingpart             | ---     | Joints name to be logged.  |
 | loggingwrappername             | ---     | The wrapper that controls the joints. Note that for now is possibile to specify just one wrapper.  |
 
-## 1.8. Finally the test
+## 4.5. Finally the test
 
 The test is written in a separate file. Here is shown an example of a
 simple test.
@@ -177,7 +205,7 @@ The common parameters are shown in the following table.
 | wait       | 0| Wait time ad the end of the command execution in seconds. |
 | reporterror              | true     | If the command should report error if necessary.  |
 
-### 1.8.1. Generic commands
+### 4.5.1. Generic commands
 These commands are contained in the generic command library.
 
 -   **wait**
@@ -229,7 +257,7 @@ These commands are contained in the generic command library.
     The command execute the specified application.
 
 
-### 1.8.2. Yarp commands
+### 4.5.2. Yarp commands
 These commands are contained in the yarp command library.
 
 -   **yarpreset**
@@ -265,7 +293,7 @@ These commands are contained in the yarp command library.
         <command name="yarpsendpos" jointname="L_AK_R" degree="0" velocity="20" repetitions="1" wait="0" reporterror="true"/>
     ```
 
--   **yarpcheckRobot**
+-   **yarpcheckrobot**
 
     ```xml
         <command name="checkRobot" repetitions="1" wait="0" reporterror="true"/>
@@ -295,15 +323,15 @@ These commands are contained in the yarp command library.
     ```
     Send a PWM train. Chenge PWM sign when the position is reached
 
--   **applyForce**
+-   **applyforce**
 
-    Apply force to the robot.
-
-
-### 1.8.3. Yarp walking commands
+    Apply wrench to the robot.
 
 
--   **setVelocity**
+### 4.5.3. Yarp walking commands
+
+
+-   **setvelocity**
 
     ```xml
         <command name="setVelocity" xvelocity="0.05" yvelocity="0.00001" repetitions="1" wait="0" reporterror="true"/>
@@ -313,14 +341,14 @@ These commands are contained in the yarp command library.
 
 
 
--   **checkPosition**
+-   **checkposition**
     ```xml
         <command name="checkPosition" xminposition="0.14" yminposition="0.13" zminposition="0.15" repetitions="1" wait="0" reporterror="true"/>
     ```
     Check if joints are present.
 
 
--   **prepareStraightWalking**
+-   **preparestraightwalking**
 
     ```xml
         <command name="prepareStraightWalking" repetitions="1" wait="0" reporterror="true"/>
@@ -328,7 +356,7 @@ These commands are contained in the yarp command library.
 
     No params needed
 
--   **startWalking**
+-   **startwalking**
 
     ```xml
         <command name="startWalking" repetitions="1" wait="0" reporterror="true"/>
@@ -336,7 +364,7 @@ These commands are contained in the yarp command library.
 
     No params needed
 
--   **resetWalking**
+-   **resetwalking**
 
     ```xml
         <command name="resetWalking" repetitions="1" wait="0" reporterror="true"/>
@@ -350,8 +378,14 @@ These commands are contained in the yarp command library.
     If the robot position is less than xminposition,yminposition,zminposition the check fails. If the position is 0 it doesn't check on that axis.
     For now only the abs value of the position is checked.
 
+## Test writing with scriptbuilder
+Script builder is an UI for test and test list writing.
 
-## 1.9. Parametric test
+![alt text](img/img002.png "Scriptbuilder.")
+
+TODO
+
+## 4.6. Parametric test
 
 It is possible to execute the same test many times changing one ore more parameters every execution. 
 
@@ -406,7 +440,7 @@ It is possibile to specify how the parameters will change during the execution. 
     in this case the parameter value will start from the min value to the max value using the
     given increment.
 
-## 1.10. Using the parameter
+## 4.7. Using the parameter
 
 In the test you can specify the table name you want to use, the paameter name is surround by 
 $:
@@ -422,34 +456,14 @@ The test should be executed at least 10 times so:
     <test file="test//411.xml" repetitions="10" name="xxx" note="xxx" code="0411" version="1" loggingtype="" loggingwrappername="" loggingpart=""/>
 ```
 
-## 1.11. Examples
+## 4.8. Examples
 Not regression tests and example are present in folder test.
 
-## 1.12. Model settings
+# 5. Model settings
 
-World model file is referenced by (See section [prerequisite](#prerequisite)):
+TODO
 
-```xml
-    <prerequisite command="gzserver" param=" -e ode --profile ode_default -slibgazebo_yarp_clock.so ./icub_fixed.world" prefix="" kill="true"/>
- ```
-
-The world file is in the blocktest folder.\
-The robot model referenced by the world file is in
-blocktest/icub_fixed
-
-Only if you need to execute the tests on Gazebo check if the robot model
-is correctly setted. The model is in file:\
-*./icub_fixed/icub_fixed.sdf*\
-You can choose one of the following:
-
--   `<uri>model://icub_fixed</uri>`
-
--   `<uri>model://icub</uri>`
-
-Be sure also to have the prerequisite in test.xml correctly setted (See
-section [prerequisite](#prerequisite)).
-
-##  Test execution
+# 6. Test execution
 
 To execute the test you should compile the test environment:
 
@@ -471,11 +485,11 @@ If you need to execute the test on the real robot use the appropriate settings:
 
 No prerequisites are necessary in this case.
 
-## Logging
+# 7. Logging
 
 Various logging file are present in the system.
 
-## Application logging
+## 7.1. Application logging
 
 Application logging is log/log.log You can read it by:\
 *tail -f log.log*
@@ -499,7 +513,7 @@ The awailable levels are:
 
 There are 10 logs used in a circular way.
 
-## Sensors logging
+## 7.2. Sensors logging
 
 If sensor logging is setted (See section [test list](#testlist)) throught
 **position** parameter in loggingtype, the position log file has the format: \<test number>-\<joint name>-\<repetition number>.
@@ -509,11 +523,11 @@ If logging is setted throught **com** parameter the position log file has the fo
     <test file="test//000.xml" repetitions="1" name="Position to 0" note="none"  code="0000" version="1" loggingtype="position com"  loggingwrappername="/right_leg" loggingpart=" L_AK_R R_AK_R"/>
 ```  
 
-## Plot logging
+## 7.3. Plot logging
 
 The command **nop** write on the file log/plot.log.
 
-## Report
+## 7.4. Report
 
 At the end of the test a report summary is been written:
 
@@ -533,17 +547,19 @@ At the end of the test a report summary is been written:
 
 @section future-blocktest Future
 
-## Timeout
+## 7.5. Timeout
 
 Timeout for tests, after the timeout the test is failed.
 
-## Specific library writing
+# 8. Specific library writing
 
-## Bugs
+TODO
+
+# 9. Bugs
 
 None to be signaled
 
-## Authors
+# 10. Authors
 * Luca Tricerri ([*personal page*](http://www.iit.it/en/people/Luca-tricerri.html))
 
 
