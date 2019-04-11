@@ -3,6 +3,8 @@
 - [1. Block Test](#1-block-test)
 - [2. Introduction](#2-introduction)
 - [3. Installation](#3-installation)
+  - [3.1. Prerequisite](#31-prerequisite)
+  - [3.2. Installation and compilation](#32-installation-and-compilation)
 - [4. Test writing](#4-test-writing)
   - [4.1. General Settings](#41-general-settings)
   - [4.2. Library Settings](#42-library-settings)
@@ -11,27 +13,28 @@
   - [4.5. Finally the test](#45-finally-the-test)
     - [4.5.1. Generic commands](#451-generic-commands)
     - [4.5.2. Yarp commands](#452-yarp-commands)
-    - [4.5.3. Yarp walking commands](#453-yarp-walking-commands)
-  - [Test writing with scriptbuilder](#test-writing-with-scriptbuilder)
-  - [4.6. Parametric test](#46-parametric-test)
-  - [4.7. Using the parameter](#47-using-the-parameter)
-  - [4.8. Examples](#48-examples)
-- [5. Model settings](#5-model-settings)
-- [6. Test execution](#6-test-execution)
-- [7. Logging](#7-logging)
-  - [7.1. Application logging](#71-application-logging)
-  - [7.2. Sensors logging](#72-sensors-logging)
-  - [7.3. Plot logging](#73-plot-logging)
-  - [7.4. Report](#74-report)
-  - [7.5. Timeout](#75-timeout)
-- [8. Specific library writing](#8-specific-library-writing)
-- [9. Bugs](#9-bugs)
-- [10. Authors](#10-authors)
+    - [4.5.3. Yarp walking commands (not tested)](#453-yarp-walking-commands-not-tested)
+  - [4.6. Test writing with scriptbuilder](#46-test-writing-with-scriptbuilder)
+- [5. Parametric test](#5-parametric-test)
+  - [5.1. Table](#51-table)
+  - [5.2. Using the parameter](#52-using-the-parameter)
+  - [5.3. Examples](#53-examples)
+- [6. Model settings](#6-model-settings)
+- [7. Test execution](#7-test-execution)
+- [8. Logging](#8-logging)
+  - [8.1. Application logging](#81-application-logging)
+  - [8.2. Sensors logging](#82-sensors-logging)
+  - [8.3. Plot logging](#83-plot-logging)
+  - [8.4. Report](#84-report)
+  - [8.5. Timeout](#85-timeout)
+- [9. Specific library writing](#9-specific-library-writing)
+- [10. Bugs](#10-bugs)
+- [11. Authors](#11-authors)
 
 # 2. Introduction
 
-The application provides functionalities for developing and running not regression tests in a likely natural language as close as possibile to test case writing.
-The test philosopy is to divide a test into elementary blocks. The
+The application provides functionalities for developing and running not regression tests in a likely natural language as close as possible to test case writing.
+The test philosophy is to divide a test into elementary blocks. The
 blocks can be used to build different tests (See Figure below).
 <br/><br/>
 
@@ -41,7 +44,32 @@ blocks can be used to build different tests (See Figure below).
 
 # 3. Installation
 
-TODO     
+## 3.1. Prerequisite
+
+```bash
+sudo apt-get install build-essential qtcreator qt5-default
+```
+
+## 3.2. Installation and compilation
+
+```bash
+git clone https://github.com/robotology/blocktest     
+cd blocktest
+mkdir build
+cd build
+ccmake ..
+<type c>
+<type g>
+```
+
+It is possible to select the Scriptbuilder compilation and Yarp integration.
+
+![alt text](img/img003.png "Tarp and Scriptbuilder options.")
+
+compile and install 
+```bash
+make -j 4 install
+```
 
 # 4. Test writing
 
@@ -117,7 +145,7 @@ In this section it is possible to specify the plugin library to be used.
 
 | Param name | Default value | Comment |
 |------------|---------------|---------|
-| ebabled             | true    | If the library will be loaded  |
+| enabled             | true    | If the library will be loaded  |
 | path             | ---     | Librari .so file path |
 | name       | ---| library tag name |
 | note              | ---     | Explanation notes  |
@@ -133,7 +161,7 @@ In this section it is also possible to specify the plugin library settings.
 
 | Param name | Default value | Comment |
 |------------|---------------|---------|
-| ebabled             | true    | If these settings will be loaded  |
+| enabled             | true    | If these settings will be loaded  |
 | name       | ---| library tag name |
 | ...              | ...     | ...  |
 
@@ -141,14 +169,14 @@ In this section it is also possible to specify the plugin library settings.
 ## 4.3. Prerequisites
 
 The prerequisites are applications to be executed before the tests, if
-necessary with parameters.
+necessary, and their parameters.
 
 ```xml
  <prerequisite enabled="true" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true"/>
 ```
 | Param name | Default value | Comment |
 |------------|---------------|---------|
-| ebabled             | true    | If the prerequisite will be loaded  |
+| enabled             | true    | If the prerequisite will be loaded  |
 | command             | ---     | Command to be executed. |
 | waitafter       | 5000| Time to wait after command execution. |
 | param              | ---     | Command parameters.  |
@@ -158,8 +186,8 @@ necessary with parameters.
 
 ## 4.4. Test list
 
-The test list include all the tests written. The test list, basically,
-list the tests together with the file in which the test has been written.
+The test list includes all the tests written. The test list, basically,
+list the tests together with the **file** in which the test has been written.
 
 ```xml
 <test file="test//0001.xml" repetitions="2" name="ICub right ankle  roll move" note="xxx" code="0001" version="1" loggingtype="position" loggingwrappername="/right_leg" loggingpart="r_ankle_roll r_ankle_pitch"/>
@@ -176,16 +204,16 @@ list the tests together with the file in which the test has been written.
 | repetitions             | 1     | How many times the test is repeated. |
 | name       | ---| Test name. |
 | note              | ---     | Test description.  |
-| code              | ---     | Numeric code for identify the test, could be related to test case.  |
+| code              | ---     | Numeric code for identifying the test, could be related to test case.  |
 | version              | ---     | Test version.  |
 | loggingtype              | ---     | Indicates what kind of logging you need. For now it can be "position", "com" or both.  |
 | loggingpart             | ---     | Joints name to be logged.  |
-| loggingwrappername             | ---     | The wrapper that controls the joints. Note that for now is possibile to specify just one wrapper.  |
+| loggingwrappername             | ---     | The wrapper that controls the joints. Note that for now is possible to specify just one wrapper.  |
 
 ## 4.5. Finally the test
 
 The test is written in a separate file. Here is shown an example of a
-simple test.
+simple test. Also take a look at the following section for graphical test creation.
 ```xml
 <testbody>
     <command name="yarpreset" repetitions="1" wait="0" reporterror="true"/>
@@ -258,7 +286,7 @@ These commands are contained in the generic command library.
 
 
 ### 4.5.2. Yarp commands
-These commands are contained in the yarp command library.
+These commands are contained in yarp command library.
 
 -   **yarpreset**
 
@@ -328,7 +356,7 @@ These commands are contained in the yarp command library.
     Apply wrench to the robot.
 
 
-### 4.5.3. Yarp walking commands
+### 4.5.3. Yarp walking commands (not tested)
 
 
 -   **setvelocity**
@@ -378,18 +406,18 @@ These commands are contained in the yarp command library.
     If the robot position is less than xminposition,yminposition,zminposition the check fails. If the position is 0 it doesn't check on that axis.
     For now only the abs value of the position is checked.
 
-## Test writing with scriptbuilder
-Script builder is an UI for test and test list writing.
+## 4.6. Test writing with scriptbuilder
+Script builder is a UI for test and test list writing.
 
 ![alt text](img/img002.png "Scriptbuilder.")
 
 TODO
 
-## 4.6. Parametric test
+# 5. Parametric test
 
-It is possible to execute the same test many times changing one ore more parameters every execution. 
+It is possible to execute the same test many times changing one or more parameters every execution. 
 
-@subsection table-blocktest Table
+## 5.1. Table
 
 We use a file, to specify the parameters value and parameters changing rules.
 
@@ -429,7 +457,7 @@ increment   (table type)
 ```
 
 Here we have two parameters, kppos and kp in two tables.
-It is possibile to specify how the parameters will change during the execution. There are two ways to do so, throught the **table type** parameter.
+It is possible to specify how the parameters will change during the execution. There are two ways to do so, through the **table type** parameter.
 
 -   normal:
     in this case the parameter will have the value in the order the values are specified.
@@ -440,7 +468,7 @@ It is possibile to specify how the parameters will change during the execution. 
     in this case the parameter value will start from the min value to the max value using the
     given increment.
 
-## 4.7. Using the parameter
+## 5.2. Using the parameter
 
 In the test you can specify the table name you want to use, the paameter name is surround by 
 $:
@@ -456,26 +484,22 @@ The test should be executed at least 10 times so:
     <test file="test//411.xml" repetitions="10" name="xxx" note="xxx" code="0411" version="1" loggingtype="" loggingwrappername="" loggingpart=""/>
 ```
 
-## 4.8. Examples
-Not regression tests and example are present in folder test.
+## 5.3. Examples
+Tests and example are present in folder test.
 
-# 5. Model settings
+# 6. Model settings
 
 TODO
 
-# 6. Test execution
+# 7. Test execution
 
 To execute the test you should compile the test environment:
 
--   *cd ./build/blocktest*
--   *make rebuild_cache*
--   *make*
--   *make install*
-
-from ./build/blocktest
-and execute:
-
--   *./blocktest*
+```bash
+cd ./blocktest/build
+make rebuild_cache install
+./blocktest
+```
 
 If you need to execute the test on the real robot use the appropriate settings:
 
@@ -485,16 +509,16 @@ If you need to execute the test on the real robot use the appropriate settings:
 
 No prerequisites are necessary in this case.
 
-# 7. Logging
+# 8. Logging
 
-Various logging file are present in the system.
+Various logging files are present in the system.
 
-## 7.1. Application logging
+## 8.1. Application logging
 
 Application logging is log/log.log You can read it by:\
 *tail -f log.log*
 
-It is possibile to set the logs line to be shown using the attribute  logseverity="debug" inside of the
+It is possible to set the logs line to be shown using the attribute  logseverity="debug" inside of the
 
 ```xml
     <settings robotname="icubSim" realrobot="false"  onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" simclock="false" positionfor="" neverexecutecommands="" logseverity="debug"/>
@@ -513,21 +537,21 @@ The awailable levels are:
 
 There are 10 logs used in a circular way.
 
-## 7.2. Sensors logging
+## 8.2. Sensors logging
 
-If sensor logging is setted (See section [test list](#testlist)) throught
+If sensor logging is setted (See section [test list](#testlist)) through
 **position** parameter in loggingtype, the position log file has the format: \<test number>-\<joint name>-\<repetition number>.
-If logging is setted throught **com** parameter the position log file has the format: \<test number>-CoM-\<repetition number>.
+If logging is setted through **com** parameter the position log file has the format: \<test number>-CoM-\<repetition number>.
 
 ```xml
     <test file="test//000.xml" repetitions="1" name="Position to 0" note="none"  code="0000" version="1" loggingtype="position com"  loggingwrappername="/right_leg" loggingpart=" L_AK_R R_AK_R"/>
 ```  
 
-## 7.3. Plot logging
+## 8.3. Plot logging
 
 The command **nop** write on the file log/plot.log.
 
-## 7.4. Report
+## 8.4. Report
 
 At the end of the test a report summary is been written:
 
@@ -547,19 +571,19 @@ At the end of the test a report summary is been written:
 
 @section future-blocktest Future
 
-## 7.5. Timeout
+## 8.5. Timeout
 
 Timeout for tests, after the timeout the test is failed.
 
-# 8. Specific library writing
+# 9. Specific library writing
 
 TODO
 
-# 9. Bugs
+# 10. Bugs
 
-None to be signaled
+None to be signalled
 
-# 10. Authors
+# 11. Authors
 * Luca Tricerri ([*personal page*](http://www.iit.it/en/people/Luca-tricerri.html))
 
 

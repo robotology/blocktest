@@ -433,7 +433,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <x>10</x>
        <y>40</y>
        <width>341</width>
-       <height>571</height>
+       <height>491</height>
       </rect>
      </property>
      <property name="font">
@@ -503,6 +503,16 @@ background-color: rgba(0, 0, 0, 0);</string>
      </property>
      <property name="text">
       <string>Load</string>
+     </property>
+    </widget>
+    <widget class="QTextBrowser" name="testNote">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>540</y>
+       <width>341</width>
+       <height>71</height>
+      </rect>
      </property>
     </widget>
    </widget>
