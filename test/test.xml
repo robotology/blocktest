@@ -14,7 +14,7 @@
     <prerequisite enabled="true" command="yarpserver" waitafter="5000" param="--silent" prefix="" kill="true"/>
     <prerequisite enabled="false" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub.world" prefix="" kill="true"/>
     <prerequisite enabled="true" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true"/>
-    <prerequisite enabled="true" command="gzclient" waitafter="5000" param="" prefix="" kill="true"/>
+    <prerequisite enabled="false" command="gzclient" waitafter="5000" param="" prefix="" kill="true"/>
     <prerequisite enabled="false" command="yarpdev" waitafter="5000" param="--device transformServer --ROS::enable_ros_publisher 1 --ROS::enable_ros_subscriber 1 --transforms_lifetime 0.5" prefix="YARP_CLOCK=/clock" kill="true"/>
     <prerequisite enabled="false" command="yarprobotinterface" waitafter="5000" param="--config main-fbe.xml" prefix="" kill="true"/>
     <prerequisite enabled="false" command="roslaunch" waitafter="5000" param="isaac robotStatePublisher.launch" prefix="" kill="true"/>
@@ -33,112 +33,10 @@
     <!--**************************-->
 
     <!--ICub pos && directpos-->
-    <test file="0001.xml" repetitions="2" name="ICub right ankle roll move" note="xxx" code="0001" version="1" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg"/>
+    <test file="test/0001.xml" repetitions="2" name="xxx" note="ICub right ankle roll move" code="0001" version="1" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg"/>
 
     <!--ICub pwm & pwm train-->
-    <test file="0100.xml" repetitions="2" name="ICub right ankle roll pwm injection" note="xxx" code="0100" version="1" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg"/>
-    <test file="0110.xml" repetitions="0" name="ICub right ankle roll pwmtrain injection" note="xxx" code="0110" version="1" loggingtype="" loggingpart="" loggingwrappername=""/>
-
-    <!--**************************-->
-    <!--*******Old Tests**********-->
-    <!--**************************-->
-
-    <test file="test//test000.xml" repetitions="0" name="Position to 0" note="file test" code="0000" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-
-    <!--PWM tests open loop-->
-    <test file="test//test011.xml" repetitions="0" note="PWM control sin base on Ankle rool left 1Hz 20%dc" name="file test" code="0011" version="1" loggingtype="position" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test012.xml" repetitions="0" note="PWM control sin base on Ankle rool right 1Hz 20%dc" name="file test" code="0012" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test013.xml" repetitions="0" note="PWM control sin base on Ankle rool left 2Hz 20%dc" name="file test" code="0013" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test014.xml" repetitions="0" note="PWM control sin base on Ankle rool right 2Hz 20%dc" name="file test" code="0014" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test015.xml" repetitions="0" note="PWM control sin base on Ankle rool left 0.5Hz 20%dc" name="file test" code="0015" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test016.xml" repetitions="0" note="PWM control sin base on Ankle rool right 0.5Hz 20%dc" name="file test" code="0016" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test017.xml" repetitions="0" note="PWM control sin base on Ankle rool left 1Hz 30%dc" name="file test" code="0017" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test018.xml" repetitions="0" note="PWM control sin base on Ankle rool right 1Hz 30%dc" name="file test" code="0018" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test019.xml" repetitions="0" note="PWM control sin base on Ankle rool left 2Hz 30%dc" name="file test" code="0019" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test020.xml" repetitions="0" note="PWM control sin base on Ankle rool right 2Hz 30%dc" name="file test" code="0020" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test021.xml" repetitions="0" note="PWM control sin base on Ankle rool right 2Hz 30%dc negative" name="file test" code="0021" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test022.xml" repetitions="0" note="PWM control sin base on Ankle rool right 1Hz 20%dc negative" name="file test" code="0022" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test023.xml" repetitions="0" note="PWM control sin base on Ankle rool left 2Hz 20%dc negative" name="file test" code="0023" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test024.xml" repetitions="0" note="PWM control sin base on Ankle rool right 2Hz 20%dc negative" name="file test" code="0024" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test025.xml" repetitions="0" note="PWM control sin base on Ankle rool left 0.5Hz 20%dc negative" name="file test" code="0025" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test026.xml" repetitions="0" note="PWM control sin base on Ankle rool right 0.5Hz 20%dc negative" name="file test" code="0026" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test027.xml" repetitions="0" note="PWM control sin base on Ankle rool left 1Hz 30%dc negative" name="file test" code="0027" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test028.xml" repetitions="0" note="PWM control sin base on Ankle rool right 1Hz 30%dc negative" name="file test" code="0028" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test029.xml" repetitions="0" note="PWM control sin base on Ankle rool left 2Hz 30%dc negative" name="file test" code="0029" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test030.xml" repetitions="0" note="PWM control sin base on Ankle rool right 2Hz 30%dc negative" name="file test" code="0030" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test040.xml" repetitions="0" name="PWM control const base on Ankle rool left 20%dc" note="file test" code="0040" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test041.xml" repetitions="0" name="PWM control const base on Ankle rool right 20%dc" note="file test" code="0041" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test042.xml" repetitions="0" name="PWM control const base on Ankle rool left 10%dc" note="file test" code="0042" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-    <test file="test//test043.xml" repetitions="0" name="PWM control const base on Ankle rool right 10%dc" note="file test" code="0043" version="1" loggingtype="position" loggingpart=" L_AK_R R_AK_R"/>
-
-    <!--Position control tests-->
-    <test file="test//test060.xml" repetitions="0" name="Position control AK_R" note="file test" code="0060" version="1" loggingtype="position" loggingpart=" L_AK_R"/>
-
-    <test file="test//test065.xml" repetitions="0" name="All leg joint 10 degree position control vel 20" note="file test" code="0065" version="1" loggingtype="position" loggingpart=" L_AK_R L_AK_P L_KN_P L_HP_P L_HP_Y L_HP_R" />
-    <test file="test//test066.xml" repetitions="0" name="All leg joint 20 degree position control vel 20" note="file test" code="0066" version="1" loggingtype="position" loggingpart=" L_AK_R L_AK_P L_KN_P L_HP_P L_HP_Y L_HP_R" />
-    <test file="test//test067.xml" repetitions="0" name="All leg joint 20 degree position control vel 100" note="file test" code="0067" version="1" loggingtype="position" loggingpart=" L_AK_R L_AK_P L_KN_P L_HP_P L_HP_Y L_HP_R" />
-
-    <test file="test//test070.xml" repetitions="0" name="L_KN_P 20 degree position control " note="file test" code="0070" version="1" loggingtype="position" loggingpart="L_KN_P" />
-    <test file="test//test075.xml" repetitions="0" name="Position control HED_R" note="file test" code="0075" version="1" loggingtype="position" loggingpart=" HED_R"/>
-    <test file="test//test076.xml" repetitions="0" name="Position control 12 degree HED_R velocity 10" note="file test" code="0076" version="1" loggingtype="piderror pidoutput position reference" loggingpart=" HED_R"/>
-    <test file="test//test077.xml" repetitions="0" name="Position control 12 degree HED_R velocity 20" note="file test" code="0077" version="1" loggingtype="position reference" loggingpart=" HED_R"/>
-    <test file="test//test078.xml" repetitions="0" name="Position control 12 degree HED_R velocity 40" note="file test" code="0078" version="1" loggingtype="position reference" loggingpart=" HED_R"/>
-    <test file="test//test079.xml" repetitions="0" name="Position control 12 degree HED_R velocity 10 small step" note="file test" code="0079" version="1" loggingtype="position reference" loggingpart=" HED_R"/>
-    <test file="test//test086.xml" repetitions="0" name="Position control 3 degree HED_R velocity 10" note="file test" code="0086" version="1" loggingtype="piderror pidoutput position reference" loggingpart=" HED_R"/>
-    <test file="test//test087.xml" repetitions="0" name="Position control 9 degree HED_R velocity 10" note="file test" code="0087" version="1" loggingtype="pidoutput position reference" loggingpart=" HED_R"/>
-
-    <!--Direct position control tests-->
-    <test file="test//test080.xml" repetitions="0" name="Direct position control AK_R" note="file test" code="0080" version="1" loggingtype="position" loggingpart=" L_AK_R"/>
-    <test file="test//test081.xml" repetitions="0" name="Direct position control L_AK_R L_AK_P L_KN_P L_HP_P L_HP_R L_HP_Y" note="file test" code="0081" version="1" loggingtype="position" loggingpart=" L_AK_R L_AK_P L_KN_P L_HP_P L_HP_R L_HP_Y"/>
-    <test file="test//test082.xml" repetitions="0" name="Direct position control AK_R" note="file test" code="0082" version="1" loggingtype="position" loggingpart=" L_AK_R"/>
-    <test file="test//test083.xml" repetitions="0" name="Direct position control L_AK_R L_AK_P L_KN_P L_HP_P L_HP_R L_HP_Y" note="file test" code="0083" version="1" loggingtype="position" loggingpart=" L_AK_R L_AK_P L_KN_P L_HP_P L_HP_R L_HP_Y"/>
-    <test file="test//test084.xml" repetitions="0" name="Direct position control L_AK_R L_AK_P L_KN_P L_HP_P L_HP_R L_HP_Y R_AK_R R_AK_P R_KN_P R_HP_P R_HP_R R_HP_Y" note="file test" code="0084" version="1" loggingtype="position" loggingpart=" R_AK_R R_AK_P R_KN_P R_HP_P R_HP_R R_HP_Y L_AK_R L_AK_P L_KN_P L_HP_P L_HP_R L_HP_Y"/>
-    <test file="test//test085.xml" repetitions="0" name="Direct position control HED_R 9 degree" note="file test" code="0085" version="1" loggingtype="piderror pidoutput position reference" loggingpart=" HED_R"/>
-
-    <test file="test//test089.xml" repetitions="0" name="Direct position control HED_R 0 egree and ext force" note="file test" code="0089" version="1" loggingtype="piderror pidoutput position reference" loggingpart=" HED_R"/>
-
-    <!--Move tests-->
-    <test file="test//test090.xml" repetitions="0" name="Straight walking with UNICYCLE" note="file test" code="0090" version="1" loggingtype="" loggingpart=""/>
-    <test file="test//test091.xml" repetitions="0" name="Base test apply force x" note="file test" code="0091" version="1" loggingtype="" loggingpart=""/>
-    <test file="test//test100.xml" repetitions="0" name="Turn base test left" note="xxx" code="0100" version="1" loggingtype="" loggingpart=""/>
-    <test file="test//test101.xml" repetitions="0" name="Turn base test right" note="xxx" code="0101" version="1" loggingtype="" loggingpart=""/>
-    <test file="test//test102.xml" repetitions="0" name="Turn 180 right" note="xxx" code="0102" version="1" loggingtype="" loggingpart=""/>
-    <test file="test//test103.xml" repetitions="0" name="Turn 180 left" note="xxx" code="0103" version="1" loggingtype="" loggingpart=""/>
-    <test file="test//test104.xml" repetitions="0" name="Base test apply force y" note="xxx" code="0104" version="1" loggingtype="" loggingpart=""/>
-    <test file="test//test105.xml" repetitions="0" name="Base test apply force z" note="xxx" code="0105" version="1" loggingtype="" loggingpart=""/>
-    <test file="test//test106.xml" repetitions="0" name="Turn 180 right and force apply" note="xxx" code="0106" version="1" loggingtype="" loggingpart=""/>
-
-    <test file="test//test110.xml" repetitions="0" name="Straight walking with generate trajectory. WalkingV2 inside" note="xxx" code="0110" version="1" loggingtype="position" loggingpart=" R_AK_R R_AK_P R_KN_P R_HP_P R_HP_R R_HP_Y L_AK_R L_AK_P L_KN_P L_HP_P L_HP_R L_HP_Y"/>
-    <test file="test//test111.xml" repetitions="0" name="Do nothing but wait" note="xxx" code="0111" version="1" loggingtype="position" loggingpart=" R_AK_R R_AK_P R_KN_P R_HP_P R_HP_R R_HP_Y L_AK_R L_AK_P L_KN_P L_HP_P L_HP_R L_HP_Y"/>
-
-    <!--Position check tests-->
-    <test file="test//test200.xml" repetitions="0" name="Check position" note="xxx" code="0200" version="1" loggingtype="" loggingpart=""/>
-
-    <!--PWM train-->
-    <test file="test//test300.xml" repetitions="0" name="PWM 20% train on AK_R" note="xxx" code="0300" version="1" loggingtype="position" loggingpart=" L_AK_R"/>
-    <test file="test//test301.xml" repetitions="0" name="PWM 80% train on AK_R" note="xxx" code="0301" version="1" loggingtype="position" loggingpart=" L_AK_R"/>
-    <test file="test//test302.xml" repetitions="0" name="PWM 20% train on HP_P" note="xxx" code="0302" version="1" loggingtype="position" loggingpart=" L_HP_P"/>
-    <test file="test//test303.xml" repetitions="0" name="PWM 80% train on HP_P" note="xxx" code="0303" version="1" loggingtype="position" loggingpart=" L_HP_P"/>
-    <test file="test//test304.xml" repetitions="0" name="PWM 20% train on HP_Y" note="xxx" code="0304" version="1" loggingtype="position" loggingpart=" L_HP_Y"/>
-    <test file="test//test305.xml" repetitions="0" name="PWM 80% train on HP_Y" note="xxx" code="0305" version="1" loggingtype="position" loggingpart=" L_HP_Y"/>
-    <test file="test//test306.xml" repetitions="0" name="PWM 20% train on AK_P" note="xxx" code="0306" version="1" loggingtype="position" loggingpart=" L_AK_P"/>
-    <test file="test//test307.xml" repetitions="0" name="PWM 80% train on AK_P" note="xxx" code="0307" version="1" loggingtype="position" loggingpart=" L_AK_P"/>
-    <test file="test//test308.xml" repetitions="0" name="PWM 20% train on KN_P" note="xxx" code="0308" version="1" loggingtype="position" loggingpart=" L_KN_P"/>
-    <test file="test//test309.xml" repetitions="0" name="PWM 80% train on KN_P" note="xxx" code="0309" version="1" loggingtype="position" loggingpart=" L_KN_P"/>
-    <test file="test//test310.xml" repetitions="0" name="PWM 20% train on HP_R" note="xxx" code="0310" version="1" loggingtype="position" loggingpart=" L_HP_R"/>
-    <test file="test//test311.xml" repetitions="0" name="PWM 80% train on HP_R" note="xxx" code="0311" version="1" loggingtype="position" loggingpart=" L_HP_R"/>
-    <test file="test//test312.xml" repetitions="0" name="PWM 60% train on HP_P" note="xxx" code="0312" version="1" loggingtype="position" loggingpart=" L_HP_P"/>
-    <test file="test//test313.xml" repetitions="0" name="PWM 60% train on KN_P" note="xxx" code="0313" version="1" loggingtype="position" loggingpart=" L_KN_P"/>
-
-    <!--Update files-->
-    <test file="test//test400.xml" repetitions="0" name="Update file test" note="xxx" code="0400" version="1" loggingtype="" loggingpart=""/>
-
-    <!--Execute-->
-    <test file="test//test410.xml" repetitions="0" name="Execute application" note="xxx" code="0410" version="1" loggingtype="" loggingpart=""/>
-    <test file="test//test411.xml" repetitions="0" name="Unicycle walking with parametric velocity" note="xxx" code="0411" version="1" loggingtype="position com" loggingpart="L_KN_P"/>
-    <test file="test//test412.xml" repetitions="0" name="Unicycle straight walking with parametric Kp" note="xxx" code="0412" version="1" loggingtype="" loggingpart=""/>
-    <test file="test//test413.xml" repetitions="0" name="No unicycle with parametric Kp" note="xxx" code="0413" version="1" loggingtype="position com" loggingpart="L_AK_R"/>
-    <test file="test//test414.xml" repetitions="0" name="Unicycle walking with parametric velocity and parametric UNICYCLE::PLANNER::switchover_swingratio" note="xxx" code="0414" version="1" loggingtype="com" loggingpart=""/>
-
+    <test file="test/0100.xml" repetitions="2" name="xxx" note="ICub right ankle roll pwm injection" code="0100" version="1" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg"/>
+    <test file="test/0110.xml" repetitions="0" name="xxx" note="ICub right ankle roll pwmtrain injection" code="0110" version="1" loggingtype="" loggingpart="" loggingwrappername=""/>
 
 </subtestlist>    

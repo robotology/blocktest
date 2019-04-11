@@ -125,7 +125,7 @@ void ScriptTreeModel::updateParameters(const QModelIndex &index,const std::strin
     QStandardItem* item=itemFromIndex(index);
 
     QStringList toChange=itemFromIndex(index)->data(Qt::UserRole).toStringList();
-    toChange[URxmlStruct]=parameters.c_str();
+    toChange[URSxmlStruct]=parameters.c_str();
     itemFromIndex(index)->setData(toChange,Qt::UserRole);
 }
 
@@ -163,9 +163,9 @@ void ScriptTreeModel::load(const std::string& fileName)
         node.node().print(writer);
         std::string xml=writer.result;
         QStringList list{"","",""};
-        list[URfile]="unknown";
-        list[URname]=name.c_str();
-        list[URxmlStruct]=xml.c_str();//xmlStruct
+        list[URSfile]="unknown";
+        list[URSname]=name.c_str();
+        list[URSxmlStruct]=xml.c_str();//xmlStruct
         command->setData(list,Qt::UserRole);
         script_->appendRow(command);
     }
@@ -180,7 +180,7 @@ void ScriptTreeModel::save(const std::string& fileName)
     {
         QStandardItem *current=script_->child(index);
         QStringList list=current->data(Qt::UserRole).toStringList();
-        ofs<<list[URxmlStruct].toStdString()<<std::endl;
+        ofs<<list[URSxmlStruct].toStdString()<<std::endl;
     }
     ofs<<"</testbody>"<<std::endl;
 }

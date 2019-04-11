@@ -116,13 +116,16 @@ void MainWindow::on_loadTests_clicked()
 void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
 {
     QStringList paramToShow=index.sibling(index.row(),0).data(Qt::UserRole).toStringList();
-    QString fileName=paramToShow[0];
-
-    scriptModel_->load(testsDepotModel_->testPath_+"/"+fileName.toStdString());
+    QString fileName=paramToShow[URFfile];
+    QString note=paramToShow[URFnote];
+    size_t pos=testsDepotModel_->testPath_.find_last_of("/");
+    std::string smallpath=testsDepotModel_->testPath_.substr(0,pos);
+    scriptModel_->load(smallpath+"/"+fileName.toStdString());
 
     fs::directory_entry tmp(fileName.toStdString());
     std::string strInLable=tmp.path().stem().string()+".xml";
 
     ui->testname->setText(strInLable.c_str());
     ui->scriptTree->expandAll();
+    ui->testNote->setText(note);
 }

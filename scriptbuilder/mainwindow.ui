@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1368</width>
-    <height>698</height>
+    <height>785</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,7 +26,7 @@
       <x>310</x>
       <y>10</y>
       <width>661</width>
-      <height>651</height>
+      <height>761</height>
      </rect>
     </property>
     <property name="font">
@@ -41,7 +41,7 @@
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>620</y>
+       <y>730</y>
        <width>80</width>
        <height>22</height>
       </rect>
@@ -59,7 +59,7 @@
      <property name="geometry">
       <rect>
        <x>190</x>
-       <y>620</y>
+       <y>730</y>
        <width>80</width>
        <height>22</height>
       </rect>
@@ -100,7 +100,7 @@
        <x>10</x>
        <y>70</y>
        <width>261</width>
-       <height>541</height>
+       <height>551</height>
       </rect>
      </property>
      <property name="font">
@@ -125,7 +125,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>620</y>
+       <y>730</y>
        <width>80</width>
        <height>22</height>
       </rect>
@@ -145,7 +145,7 @@
        <x>290</x>
        <y>70</y>
        <width>341</width>
-       <height>331</height>
+       <height>381</height>
       </rect>
      </property>
      <property name="font">
@@ -200,9 +200,9 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>430</y>
+       <y>480</y>
        <width>341</width>
-       <height>211</height>
+       <height>271</height>
       </rect>
      </property>
      <property name="font">
@@ -263,7 +263,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>410</y>
+       <y>460</y>
        <width>201</width>
        <height>21</height>
       </rect>
@@ -361,6 +361,56 @@ background-color: rgba(0, 0, 0, 0);</string>
       <bool>false</bool>
      </property>
     </widget>
+    <widget class="QLineEdit" name="lineEdit_7">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>630</y>
+       <width>201</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sans Serif</family>
+       <pointsize>12</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 12pt &quot;Sans Serif&quot;;
+background-color: rgba(0, 0, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>Test note and comment</string>
+     </property>
+     <property name="frame">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QTextBrowser" name="testNote">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>650</y>
+       <width>261</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="actionsBox">
     <property name="geometry">
@@ -368,7 +418,7 @@ background-color: rgba(0, 0, 0, 0);</string>
       <x>10</x>
       <y>10</y>
       <width>281</width>
-      <height>651</height>
+      <height>761</height>
      </rect>
     </property>
     <property name="font">
@@ -385,7 +435,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <x>10</x>
        <y>40</y>
        <width>261</width>
-       <height>601</height>
+       <height>711</height>
       </rect>
      </property>
      <property name="font">
@@ -410,7 +460,7 @@ background-color: rgba(0, 0, 0, 0);</string>
       <x>990</x>
       <y>10</y>
       <width>361</width>
-      <height>651</height>
+      <height>761</height>
      </rect>
     </property>
     <property name="font">
@@ -433,7 +483,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <x>10</x>
        <y>40</y>
        <width>341</width>
-       <height>491</height>
+       <height>681</height>
       </rect>
      </property>
      <property name="font">
@@ -491,7 +541,7 @@ background-color: rgba(0, 0, 0, 0);</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>620</y>
+       <y>730</y>
        <width>80</width>
        <height>22</height>
       </rect>
@@ -503,16 +553,6 @@ background-color: rgba(0, 0, 0, 0);</string>
      </property>
      <property name="text">
       <string>Load</string>
-     </property>
-    </widget>
-    <widget class="QTextBrowser" name="testNote">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>540</y>
-       <width>341</width>
-       <height>71</height>
-      </rect>
      </property>
     </widget>
    </widget>

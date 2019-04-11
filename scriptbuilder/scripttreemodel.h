@@ -4,11 +4,11 @@
 #include <qstandarditemmodel.h>
 
 
-enum UsrRole
+enum UsrRoleScript
 {
-    URfile=0,
-    URname=1,
-    URxmlStruct=2
+    URSfile=0,
+    URSname=1,
+    URSxmlStruct=2
 };
 
 class ScriptTreeModel : public QStandardItemModel

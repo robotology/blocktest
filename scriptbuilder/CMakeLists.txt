@@ -5,6 +5,7 @@
 # BSD-3-Clause license. See the accompanying LICENSE file for details.
 
 project (Scriptbuilder)
+set(CMAKE_AUTOMOC TRUE)
 file(GLOB scriptbuilder_src "*.cpp")
 file(GLOB scriptbuilder_header "*.h" )
 
