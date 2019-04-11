@@ -1,0 +1,1 @@
+<command library="yarp" name="yarpsendpwm" wrappername="" jointname="" profile="const" frequency="1" dutycycle="20" time="5"  repetitions="1" wait="0" reporterror="true"></command>

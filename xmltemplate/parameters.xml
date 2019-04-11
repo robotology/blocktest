@@ -1,0 +1,23 @@
+<repetitions 
+    short="command repetitions" 
+    complite="command repetitions" 
+    values=""  
+    uom="" 
+    type="integer" 
+/>
+
+<wait 
+    short="wait after command" 
+    complite="wait after command execution" 
+    values=""  
+    uom="second" 
+    type="integer" 
+/>
+
+<reporterror 
+    short="report error" 
+    complite="can this command report errors" 
+    values=""  
+    uom="" 
+    type="boolean" 
+/>

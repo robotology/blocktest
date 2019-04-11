@@ -11,6 +11,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(blockTest)
 file(GLOB allSrc "*.h" "*.cpp" "include/*.h" "src/*.cpp")
+set(CMAKE_AUTOMOC ON)
 
 include(GNUInstallDirs)
 
@@ -43,7 +44,7 @@ if(NOT CMAKE_CONFIGURATION_TYPES)
     endif()
 endif()
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -57,18 +58,16 @@ if(USES_YARP)
 endif()
 
 add_executable(${PROJECT_NAME} ${allSrc} )
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/lib/include)
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} -ldl pthread stdc++fs)
 
-#test file
-file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/test")
-set(TEST_FOLDER "${CMAKE_CURRENT_BINARY_DIR}/test/test.xml")
-configure_file("test/test.xml" ${TEST_FOLDER} @ONLY)
+#test file folder
 file(COPY test DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-#test tables
-file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/test/tables")
-file(COPY test/tables DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/test)
+#xml template folder
+file(COPY xmltemplate DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 #install
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+add_subdirectory(scriptbuilder)

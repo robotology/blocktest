@@ -1,0 +1,2 @@
+<command library="yarp" name="yarpsenddirectpos" wrappername="" jointname="" degree="0" repetitions="1" wait="0" reporterror="true"></command>
+ 
