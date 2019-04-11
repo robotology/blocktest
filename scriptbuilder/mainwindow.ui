@@ -20,12 +20,12 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QGroupBox" name="paramBox">
+   <widget class="QGroupBox" name="scriptBox">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>310</x>
       <y>10</y>
-      <width>361</width>
+      <width>661</width>
       <height>651</height>
      </rect>
     </property>
@@ -34,22 +34,118 @@
       <pointsize>14</pointsize>
      </font>
     </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
     <property name="title">
-     <string>Action</string>
+     <string>Current test</string>
     </property>
-    <widget class="QTableView" name="parametersList">
+    <widget class="QPushButton" name="saveButton">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>620</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Save</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="closeButton">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>620</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Close</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="testname">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>50</y>
+       <width>111</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>50</weight>
+       <italic>true</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>test name</string>
+     </property>
+    </widget>
+    <widget class="QTreeView" name="scriptTree">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>40</y>
+       <y>70</y>
+       <width>261</width>
+       <height>541</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="dragEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="defaultDropAction">
+      <enum>Qt::MoveAction</enum>
+     </property>
+     <attribute name="headerVisible">
+      <bool>false</bool>
+     </attribute>
+    </widget>
+    <widget class="QPushButton" name="loadButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>620</y>
+       <width>80</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Load</string>
+     </property>
+    </widget>
+    <widget class="QTableView" name="parametersList">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>70</y>
        <width>341</width>
-       <height>351</height>
+       <height>331</height>
       </rect>
      </property>
      <property name="font">
@@ -103,10 +199,10 @@
     <widget class="QTableView" name="parameterComment">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>440</y>
+       <x>290</x>
+       <y>430</y>
        <width>341</width>
-       <height>201</height>
+       <height>211</height>
       </rect>
      </property>
      <property name="font">
@@ -124,7 +220,7 @@
       <bool>false</bool>
      </property>
      <property name="selectionMode">
-      <enum>QAbstractItemView::SingleSelection</enum>
+      <enum>QAbstractItemView::NoSelection</enum>
      </property>
      <property name="showGrid">
       <bool>true</bool>
@@ -166,10 +262,10 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>400</y>
-       <width>331</width>
-       <height>31</height>
+       <x>290</x>
+       <y>410</y>
+       <width>201</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -195,124 +291,74 @@ background-color: rgba(0, 0, 0, 0);</string>
       <bool>false</bool>
      </property>
     </widget>
-   </widget>
-   <widget class="QGroupBox" name="scriptBox">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>10</y>
-      <width>281</width>
-      <height>651</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>14</pointsize>
-     </font>
-    </property>
-    <property name="title">
-     <string>Current test</string>
-    </property>
-    <widget class="QPushButton" name="saveButton">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>620</y>
-       <width>80</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Save</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="closeButton">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>620</y>
-       <width>80</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Close</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="testname">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>271</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>test name</string>
-     </property>
-    </widget>
-    <widget class="QTreeView" name="scriptTree">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>70</y>
-       <width>261</width>
-       <height>541</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="dragEnabled">
+    <widget class="QLineEdit" name="lineEdit_5">
+     <property name="enabled">
       <bool>true</bool>
      </property>
-     <property name="defaultDropAction">
-      <enum>Qt::MoveAction</enum>
-     </property>
-     <attribute name="headerVisible">
-      <bool>false</bool>
-     </attribute>
-    </widget>
-    <widget class="QPushButton" name="loadButton">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>620</y>
-       <width>80</width>
-       <height>22</height>
+       <x>290</x>
+       <y>50</y>
+       <width>161</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>9</pointsize>
+       <family>Sans Serif</family>
+       <pointsize>12</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 12pt &quot;Sans Serif&quot;;
+background-color: rgba(0, 0, 0, 0);</string>
+     </property>
      <property name="text">
-      <string>Load</string>
+      <string>Action parameters</string>
+     </property>
+     <property name="frame">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_6">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>41</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Sans Serif</family>
+       <pointsize>12</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 12pt &quot;Sans Serif&quot;;
+background-color: rgba(0, 0, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>Test:</string>
+     </property>
+     <property name="frame">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>
@@ -339,7 +385,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <x>10</x>
        <y>40</y>
        <width>261</width>
-       <height>591</height>
+       <height>601</height>
       </rect>
      </property>
      <property name="font">
@@ -462,7 +508,6 @@ background-color: rgba(0, 0, 0, 0);</string>
    </widget>
    <zorder>actionsBox</zorder>
    <zorder>scriptBox</zorder>
-   <zorder>paramBox</zorder>
    <zorder>testListBox</zorder>
   </widget>
  </widget>

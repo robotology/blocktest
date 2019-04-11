@@ -16,6 +16,7 @@ set(CMAKE_AUTOMOC ON)
 include(GNUInstallDirs)
 
 option(USES_YARP "Compile software that depends on the YARP library" ON)
+option(COMPILE_SCRIPTBUILDER "Compile the UI for creating the test" ON)
 
 if(USES_YARP)
     set(YARP_MINIMUM_REQUIRED_VERSION 3.0.102)

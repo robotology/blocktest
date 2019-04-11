@@ -35,6 +35,8 @@ void ParameterCommentModel::updateData(const QModelIndex &index)
         toInsert.insert(1,value);
 
         name->setIcon(QIcon(":/icons/info.png"));
+        name->setFlags(Qt::NoItemFlags|Qt::ItemIsEnabled);
+        value->setFlags(Qt::NoItemFlags|Qt::ItemIsEnabled);
         item->appendRow(toInsert);
     }
 

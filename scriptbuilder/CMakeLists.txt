@@ -8,7 +8,7 @@ project (Scriptbuilder)
 file(GLOB scriptbuilder_src "*.cpp")
 file(GLOB scriptbuilder_header "*.h" )
 
-#if(CREATE_SCRIPTBUILDER)
+if(COMPILE_SCRIPTBUILDER)
 
   find_package(Qt5 COMPONENTS REQUIRED Core Gui Widgets)
   
@@ -18,7 +18,6 @@ file(GLOB scriptbuilder_header "*.h" )
   set(scriptbuilder_ui mainwindow.ui)
 
   qt5_add_resources(qrc_moc ${scriptbuilder_qrc})
-  add_custom_target(gen_qrc DEPENDS ${qrc_moc})
   qt5_wrap_cpp(moc_src ${scriptbuilder_header})
   qt5_wrap_ui (ui_wrap  ${scriptbuilder_ui})
   
@@ -31,30 +30,30 @@ file(GLOB scriptbuilder_header "*.h" )
                           ${qrc_moc}
                           
               )
-target_link_libraries (resourcelib  
-                       PUBLIC
-                       Qt5::Core  
-                       Qt5::Widgets
-                       Qt5::Gui
-                       stdc++fs
-                      )
-add_dependencies(resourcelib gen_qrc)                      
 
-add_executable(${PROJECT_NAME}  
-                ${scriptbuilder_src} 
-                ${qrc_moc}
-              )
-
-target_link_libraries (${PROJECT_NAME}  
+  target_link_libraries(resourcelib  
                         PUBLIC
                         Qt5::Core  
                         Qt5::Widgets
                         Qt5::Gui
                         stdc++fs
-                        resourcelib
-                        )
+                       )
+
+  add_executable(${PROJECT_NAME}  
+                  ${scriptbuilder_src} 
+                  ${qrc_moc}
+                )
+
+  target_link_libraries(${PROJECT_NAME}  
+                          PUBLIC
+                          Qt5::Core  
+                          Qt5::Widgets
+                          Qt5::Gui
+                          stdc++fs
+                          resourcelib
+                       )
 
   #install
-  install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-   
-#endif()
+  install(TARGETS Scriptbuilder RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/..)
+    
+endif()
