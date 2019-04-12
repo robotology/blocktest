@@ -35,7 +35,6 @@ void TestsDepotModel::load(const std::string& fileName)
         pugi::xpath_node node = *it;
         std::string name=node.node().attribute("code").value();
         std::string repetitions=node.node().attribute("repetitions").value();
-        std::string note=node.node().attribute("note").value();
         std::string file=node.node().attribute("file").value();
 
         QStandardItem* nameItem = new QStandardItem(name.c_str());
@@ -49,7 +48,6 @@ void TestsDepotModel::load(const std::string& fileName)
 
         QStringList list{"","",""};
         list[URFfile]=file.c_str();
-        list[URFnote]=note.c_str();
         nameItem->setData(list,Qt::UserRole);
 
         item->appendRow(itemList);

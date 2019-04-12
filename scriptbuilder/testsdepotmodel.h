@@ -19,7 +19,6 @@
 enum UsrRoleTests
 {
     URFfile=0,
-    URFnote=1,
 };
 
 class TestsDepotModel : public QStandardItemModel

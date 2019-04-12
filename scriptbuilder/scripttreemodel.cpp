@@ -21,8 +21,6 @@
 #include <fstream>
 #include <streambuf>
 
-#include "pugixml.hpp"
-
 namespace fs = std::experimental::filesystem;
 
 ScriptTreeModel::ScriptTreeModel()
@@ -159,10 +157,9 @@ void ScriptTreeModel::load(const std::string& fileName)
     script_->setIcon(QIcon(":/icons/script.png"));
     item->appendRow(script_);
 
-    pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_file(fileName.c_str());
+    pugi::xml_parse_result result = doc_.load_file(fileName.c_str());
 
-    pugi::xpath_node_set commands = doc.select_nodes("/testbody/command");
+    pugi::xpath_node_set commands = doc_.select_nodes("/testbody/command");
 
     for (pugi::xpath_node_set::const_iterator it = commands.begin(); it != commands.end(); ++it)
     {
@@ -218,6 +215,19 @@ void ScriptTreeModel::keypressed(QEvent* e,const QModelIndex &index)
     {
         removeRow(index.row(),index.parent());
     }
+}
+
+std::string ScriptTreeModel::getNote() const
+{
+    pugi::xpath_node info = doc_.select_node("/testbody/info");
+    if(info.node()==nullptr)
+        return "";
+
+    std::string noteStr=info.node().attribute("note").value();
+    std::string versionStr=info.node().attribute("version").value();
+    std::stringstream ss;
+    ss<<noteStr<<std::endl<<"Version:"<<versionStr;
+    return ss.str();
 }
 
 

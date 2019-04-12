@@ -1,4 +1,6 @@
 <testbody>
+    <info note="ICub right ankle roll pwm injection." shortnote="" version="1"></info>
+
     <command library="yarp" name="yarpreset" repetitions="1" wait="0" reporterror="true"></command>
     <command library="yarp" name="yarpwait" seconds="1" repetitions="1" wait="0" reporterror="true"></command>
     

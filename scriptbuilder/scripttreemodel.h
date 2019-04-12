@@ -14,7 +14,7 @@
 #define SCRIPTTREEMODEL_H
 
 #include <qstandarditemmodel.h>
-
+#include "pugixml.hpp"
 
 enum UsrRoleScript
 {
@@ -34,6 +34,8 @@ public:
     void keypressed(QEvent* e,const QModelIndex &index);
     void updateParameters(const QModelIndex &index,const std::string& parameters);
 
+    std::string getNote() const;
+
     Qt::ItemFlags flags(const QModelIndex &index) const;
     Qt::DropActions supportedDropActions() const;
 
@@ -45,6 +47,8 @@ public:
 private:
      QStandardItem * script_{nullptr};
      std::string getXmlString(const std::string& file);
+
+     pugi::xml_document doc_;
 
 };
 

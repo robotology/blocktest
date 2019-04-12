@@ -33,10 +33,10 @@
     <!--**************************-->
 
     <!--ICub pos && directpos-->
-    <test file="test/0001.xml" repetitions="2" name="xxx" note="ICub right ankle roll move" code="0001" version="1" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg"/>
+    <test file="test/0001.xml" repetitions="2" code="0001" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg"/>
 
     <!--ICub pwm & pwm train-->
-    <test file="test/0100.xml" repetitions="2" name="xxx" note="ICub right ankle roll pwm injection" code="0100" version="1" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg"/>
-    <test file="test/0110.xml" repetitions="0" name="xxx" note="ICub right ankle roll pwmtrain injection" code="0110" version="1" loggingtype="" loggingpart="" loggingwrappername=""/>
+    <test file="test/0100.xml" repetitions="2" code="0100" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg"/>
+    <test file="test/0110.xml" repetitions="0" code="0110" loggingtype="" loggingpart="" loggingwrappername=""/>
 
 </subtestlist>    

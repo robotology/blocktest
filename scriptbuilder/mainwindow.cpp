@@ -73,6 +73,9 @@ void MainWindow::on_loadButton_clicked()
 
     ui->testname->setText(strInLable.c_str());
     ui->scriptTree->expandAll();
+
+    std::string note=scriptModel_->getNote();
+    ui->testNote->setText(note.c_str());
 }
 
 void MainWindow::on_scriptTree_clicked(const QModelIndex &index)
@@ -130,7 +133,7 @@ void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
 {
     QStringList paramToShow=index.sibling(index.row(),0).data(Qt::UserRole).toStringList();
     QString fileName=paramToShow[URFfile];
-    QString note=paramToShow[URFnote];
+    //QString note=paramToShow[URFnote];
     size_t pos=testsDepotModel_->testPath_.find_last_of("/");
     std::string smallpath=testsDepotModel_->testPath_.substr(0,pos);
     scriptModel_->load(smallpath+"/"+fileName.toStdString());
@@ -140,5 +143,7 @@ void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
 
     ui->testname->setText(strInLable.c_str());
     ui->scriptTree->expandAll();
-    ui->testNote->setText(note);
+
+    std::string note=scriptModel_->getNote();
+    ui->testNote->setText(note.c_str());
 }

@@ -61,6 +61,7 @@ cd build
 ccmake ..
 <type c>
 <type g>
+<type e>
 ```
 
 It is possible to select the Scriptbuilder compilation and Yarp integration.

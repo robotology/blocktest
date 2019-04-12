@@ -12,6 +12,7 @@
 
 #include "actiontreemodel.h"
 
+#include <QMessageBox>
 #include <QMimeData>
 
 #include <string>
@@ -28,6 +29,15 @@ void ActionTreeModel::LoadXml()
 {
     QStandardItem *item = invisibleRootItem();
     std::string path = "./xmltemplate";
+
+    if(!fs::exists(path))
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"ERROR","Missing the actions templates folder 'xmltemplate.xml'. Some functionalities will not be active.");
+        messageBox.setFixedSize(800,400);
+        return;
+    }
+
     for (const fs::directory_entry & folder : fs::directory_iterator(path))
     {
          QStandardItem * library = new QStandardItem(folder.path().filename().string().c_str());
