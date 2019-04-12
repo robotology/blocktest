@@ -104,7 +104,7 @@ The starting point for writing a test is the file ./test/test.xml
     <!--**************************-->
 
     <!--ICub pos && directpos-->
-    <test file="test//0001.xml" repetitions="2" name="ICub right ankle roll move" note="xxx" code="0001" version="1" loggingtype="position" loggingwrappername="/right_leg" loggingpart="r_ankle_roll r_ankle_pitch"/>
+    <test file="test//0001.xml" repetitions="2" name="ICub right ankle roll move"  code="0001"  loggingtype="position" loggingwrappername="/right_leg" loggingpart="r_ankle_roll r_ankle_pitch"/>
 
     </testlist>   
 ```
@@ -192,11 +192,11 @@ The test list includes all the tests written. The test list, basically,
 list the tests together with the **file** in which the test has been written.
 
 ```xml
-<test file="test//0001.xml" repetitions="2" name="ICub right ankle  roll move" note="xxx" code="0001" version="1" loggingtype="position" loggingwrappername="/right_leg" loggingpart="r_ankle_roll r_ankle_pitch"/>
+<test file="test//0001.xml" repetitions="2" name="ICub right ankle  roll move"  code="0001"  loggingtype="position" loggingwrappername="/right_leg" loggingpart="r_ankle_roll r_ankle_pitch"/>
 
-<test file="test//0100.xml" repetitions="2" name="ICub right ankle roll pwm injection" note="xxx" code="0100" version="1" loggingtype="position" loggingwrappername="/right_leg" loggingpart="r_ankle_roll r_ankle_pitch"/>
+<test file="test//0100.xml" repetitions="2" name="ICub right ankle roll pwm injection"  code="0100"  loggingtype="position" loggingwrappername="/right_leg" loggingpart="r_ankle_roll r_ankle_pitch"/>
 
-<test file="test//0110.xml" repetitions="0" name="ICub right ankle roll pwmtrain injection" note="xxx" code="0110" version="1" loggingtype="" loggingwrappername="" loggingpart=""/>
+<test file="test//0110.xml" repetitions="0" name="ICub right ankle roll pwmtrain injection"  code="0110"  loggingtype="" loggingwrappername="" loggingpart=""/>
 
 ```
 
@@ -205,9 +205,7 @@ list the tests together with the **file** in which the test has been written.
 | file             | ---    | File in which the test is written.  |
 | repetitions             | 1     | How many times the test is repeated. |
 | name       | ---| Test name. |
-| note              | ---     | Test description.  |
 | code              | ---     | Numeric code for identifying the test, could be related to test case.  |
-| version              | ---     | Test version.  |
 | loggingtype              | ---     | Indicates what kind of logging you need. For now it can be "position", "com" or both.  |
 | loggingpart             | ---     | Joints name to be logged.  |
 | loggingwrappername             | ---     | The wrapper that controls the joints. Note that for now is possible to specify just one wrapper.  |
@@ -218,13 +216,16 @@ The test is written in a separate file. Here is shown an example of a
 simple test. Also take a look at the following section for graphical test creation.
 ```xml
 <testbody>
+    <info note="ICub right ankle roll move." shortnote="" version="1"/>
+    
     <command name="yarpreset" repetitions="1" wait="0" reporterror="true"/>
    
    <command name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="20" repetitions="1" wait="0" reporterror="true"/>    
 </testbody>
 ```  
 
-The test is composed by commands and each command has a parameters list.
+The test is composed by **commands** and each command has a parameters list.
+
 
 The common parameters are shown in the following table.
 
@@ -234,6 +235,14 @@ The common parameters are shown in the following table.
 | repetitions             | 1     | How many times the command is repeated. |
 | wait       | 0| Wait time ad the end of the command execution in seconds. |
 | reporterror              | true     | If the command should report error if necessary.  |
+
+The info node contains the following parameters:
+| Param name | Default | Comment |
+|------------|---------------|---------|
+| note              | ---     | Test description.  |
+| shortnote              | ---     | Short test description.  |
+| version              | ---     | Test version.  |
+
 
 ### 4.5.1. Generic commands
 These commands are contained in the generic command library.
@@ -258,7 +267,7 @@ These commands are contained in the generic command library.
 -   **updatefile**     
 
     ```xml
-        <command    name="updatefile" 
+    <command    name="updatefile" 
                 sourcefile="./walkingV2PIDparameters.ini" 
                 destinationfile="./test/walkingV2PIDparameters.ini" 
                 repetitions="1" 
@@ -483,7 +492,7 @@ In this case the xvelocity parameter will use the table xvelocity.
 
 The test should be executed at least 10 times so:
 ```xml
-    <test file="test//411.xml" repetitions="10" name="xxx" note="xxx" code="0411" version="1" loggingtype="" loggingwrappername="" loggingpart=""/>
+    <test file="test//411.xml" repetitions="10" name="xxx"  code="0411"  loggingtype="" loggingwrappername="" loggingpart=""/>
 ```
 
 ## 5.3. Examples
@@ -546,7 +555,7 @@ If sensor logging is setted (See section [test list](#testlist)) through
 If logging is setted through **com** parameter the position log file has the format: \<test number>-CoM-\<repetition number>.
 
 ```xml
-    <test file="test//000.xml" repetitions="1" name="Position to 0" note="none"  code="0000" version="1" loggingtype="position com"  loggingwrappername="/right_leg" loggingpart=" L_AK_R R_AK_R"/>
+    <test file="test//000.xml" repetitions="1" name="Position to 0" note="none"  code="0000"  loggingtype="position com"  loggingwrappername="/right_leg" loggingpart=" L_AK_R R_AK_R"/>
 ```  
 
 ## 8.3. Plot logging
