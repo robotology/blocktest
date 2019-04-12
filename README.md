@@ -53,25 +53,29 @@ At the moment the application is only for Linux type OS.
 
 ## 3.2. Installation and compilation
 
+In order to compile just execute the following commands in a bash
+terminal.
 ```bash
 git clone https://github.com/robotology/blocktest     
 cd blocktest
 mkdir build
 cd build
+cmake ..
+make -j 4 install
+```
+
+Or it is possible to select the Scriptbuilder compilation and Yarp integration options. Note that they are active by defoult.
+
+```bash
 ccmake ..
+<select options>
 <type c>
 <type g>
 <type e>
+
 ```
-
-It is possible to select the Scriptbuilder compilation and Yarp integration.
-
 ![alt text](img/img003.png "Tarp and Scriptbuilder options.")
 
-compile and install 
-```bash
-make -j 4 install
-```
 
 # 4. Test writing
 
@@ -419,10 +423,11 @@ These commands are contained in yarp command library.
 
 ## 4.6. Test writing with scriptbuilder
 Script builder is a UI for test and test list writing.
-
+See at https://github.com/robotology/blocktest/tree/master/scriptbuilder
+for more informations.
 ![alt text](img/img002.png "Scriptbuilder.")
 
-TODO
+
 
 # 5. Parametric test
 

@@ -33,7 +33,7 @@ ActionApplyForce::ActionApplyForce(const pugi::xml_node& nodeCommand,Test_sptr t
 bool ActionApplyForce::execute(unsigned int testrepetition)
 {
     std::string localExtWrenchPort = "/myPortForExternalWrench:o";
-    std::string remoteExtWrenchPort = "/isaac-next-proto-yarp-modelica-fixed/applyExternalWrench/rpc:i";
+    std::string remoteExtWrenchPort = "/icab/applyExternalWrench/rpc:i";
     yarp::os::RpcClient extWrenchPort;
     bool ok=extWrenchPort.open(localExtWrenchPort);
    if(!ok)

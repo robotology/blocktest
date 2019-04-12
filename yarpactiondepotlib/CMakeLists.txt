@@ -19,7 +19,6 @@ list(REMOVE_ITEM allSrc "${CMAKE_CURRENT_SOURCE_DIR}/src/actionGenerateTrajector
 add_library(${PROJECT_NAME} SHARED ${allSrc})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${YARP_HELPERS_INCLUDE_DIR} ${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/../include)
-#target_link_libraries(${PROJECT_NAME} ${YARP_LIBRARIES} isaacWalkingV2-service)
 target_link_libraries(${PROJECT_NAME} ${YARP_LIBRARIES} )
 
 # Add install target

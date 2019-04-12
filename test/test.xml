@@ -2,8 +2,8 @@
 
     <!--Scenario-->
 
-    <!--<settings robotname="isaac" realrobot="true" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" simclock="false" neverexecutecommands="" logseverity="debug" loggingtime="0.005" tablename="test/tables/main.tab" waitcommand="yarpwait" nowcommand="yarpnow"/>
-    <settings robotname="isaacSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" neverexecutecommands="" logseverity="debug" loggingtime="0.01" tablename="test/tables/main.tab" waitcommand="yarpwait" nowcommand="yarpnow"/>-->
+    <!--<settings robotname="icub" realrobot="true" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" simclock="false" neverexecutecommands="" logseverity="debug" loggingtime="0.005" tablename="test/tables/main.tab" waitcommand="yarpwait" nowcommand="yarpnow"/>
+    -->
 
     <settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab" 
         waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp"/> <!--loggingtime in sec-->
@@ -17,7 +17,7 @@
     <prerequisite enabled="false" command="gzclient" waitafter="5000" param="" prefix="" kill="true"/>
     <prerequisite enabled="false" command="yarpdev" waitafter="5000" param="--device transformServer --ROS::enable_ros_publisher 1 --ROS::enable_ros_subscriber 1 --transforms_lifetime 0.5" prefix="YARP_CLOCK=/clock" kill="true"/>
     <prerequisite enabled="false" command="yarprobotinterface" waitafter="5000" param="--config main-fbe.xml" prefix="" kill="true"/>
-    <prerequisite enabled="false" command="roslaunch" waitafter="5000" param="isaac robotStatePublisher.launch" prefix="" kill="true"/>
+    <prerequisite enabled="false" command="roslaunch" waitafter="5000" param="icub robotStatePublisher.launch" prefix="" kill="true"/>
 
     <!--Libraries-->
     <library enabled="true" path="genericactiondepotlib/libgenericactiondepot.so" name="genericactiondepot" note="System generic action library"/>

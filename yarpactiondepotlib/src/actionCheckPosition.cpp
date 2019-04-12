@@ -33,7 +33,7 @@ bool ActionCheckPosition::execute(unsigned int testrepetition)
 {
     yarp::os::Port fbePort;
     std::string localfbePort  = "/myrobot/odometry:i";
-    std::string remotefbePort = "/isaacFloatingBaseEstimator/floating_base/state:o";
+    std::string remotefbePort = "/icubFloatingBaseEstimator/floating_base/state:o";
     bool ok=fbePort.open(localfbePort);
     if(!ok)
     {
