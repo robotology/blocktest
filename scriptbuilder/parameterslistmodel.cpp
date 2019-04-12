@@ -82,13 +82,12 @@ void ParametersListModel::stringToXmlNodesToItems(const std::string& xmlString)
         toInsert.insert(0,name);
         toInsert.insert(1,value);
 
-        QStringList role;
-        role<<ait->name();
-        role<<library.c_str();
+        QStringList role{"",""};
+        role[URPname]=ait->name();
+        role[URPlibrary]=library.c_str();
         name->setData(role,Qt::UserRole);
         name->setIcon(QIcon(":/icons/parameter.png"));
         item->appendRow(toInsert);
-
     }
 }
 

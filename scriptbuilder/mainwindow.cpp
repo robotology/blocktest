@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->parameterComment->setModel(parameterCommentModel_);
+    ui->parameterComment->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     ui->parametersList->setModel(parametersModel_);
     ui->parametersList->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);

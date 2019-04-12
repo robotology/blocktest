@@ -11,13 +11,12 @@
  */
 
 #include "parametercommentmodel.h"
+#include "parameterslistmodel.h"
 #include "pugixml.hpp"
 
 ParameterCommentModel::ParameterCommentModel()
 {
-
 }
-
 
 void ParameterCommentModel::updateData(const QModelIndex &index)
 {
@@ -30,11 +29,18 @@ void ParameterCommentModel::updateData(const QModelIndex &index)
     QStringList param=index.sibling(index.row(),0).data(Qt::UserRole).toStringList();
 
     pugi::xml_document doc;
-    std::string path="./xmltemplate/"+param[1].toStdString()+"/parameters.xml";
+    std::string path="./xmltemplate/"+param[URPlibrary].toStdString()+"/parameters.xml";
     pugi::xml_parse_result result = doc.load_file(path.c_str());
 
     item = invisibleRootItem();
-    pugi::xml_node rootNode=doc.child(param[0].toStdString().c_str());
+    pugi::xml_node rootNode=doc.child(param[URPname].toStdString().c_str());
+    if(rootNode.empty())
+    {
+        path="./xmltemplate/parameters.xml";
+        result = doc.load_file(path.c_str());
+        rootNode=doc.child(param[URPname].toStdString().c_str());
+    }
+
     for (pugi::xml_attribute_iterator ait = rootNode.attributes_begin(); ait != rootNode.attributes_end(); ++ait)
     {
         QStandardItem * name{nullptr};
@@ -49,6 +55,19 @@ void ParameterCommentModel::updateData(const QModelIndex &index)
         name->setIcon(QIcon(":/icons/info.png"));
         name->setFlags(Qt::NoItemFlags|Qt::ItemIsEnabled);
         value->setFlags(Qt::NoItemFlags|Qt::ItemIsEnabled);
+        item->appendRow(toInsert);
+    }
+
+    if(rootNode.empty())
+    {
+        QStandardItem * name{nullptr};
+        name = new QStandardItem("No information.");
+
+        QList<QStandardItem*> toInsert;
+        toInsert.insert(0,name);
+
+        name->setIcon(QIcon(":/icons/info.png"));
+        name->setFlags(Qt::NoItemFlags|Qt::ItemIsEnabled);
         item->appendRow(toInsert);
     }
 

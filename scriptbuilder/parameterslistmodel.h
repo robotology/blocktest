@@ -18,6 +18,11 @@
 #include <qstandarditemmodel.h>
 #include <qstringlist.h>
 
+enum UsrRoleParameters
+{
+    URPname=0,
+    URPlibrary=1,
+};
 
 
 class ParametersListModel : public QStandardItemModel
