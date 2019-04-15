@@ -56,6 +56,12 @@ private slots:
 
     void on_testsDepot_clicked(const QModelIndex &index);
 
+    void on_scriptTree_customContextMenuRequested(const QPoint &pos);
+
+    void deleteAction();
+    void copyAction();
+    void pasteAction();
+
 private:
     Ui::MainWindow *ui;
 

@@ -32,6 +32,7 @@ public:
     void save(const std::string& fileName);
     void clearall();
     void keypressed(QEvent* e,const QModelIndex &index);
+    void keypressed(const QString& pressedK,const QModelIndex& index);
     void updateParameters(const QModelIndex &index,const std::string& parameters);
 
     std::string getNote() const;
@@ -49,6 +50,8 @@ private:
      std::string getXmlString(const std::string& file);
 
      pugi::xml_document doc_;
+
+     QStringList actionCopy_;
 
 };
 

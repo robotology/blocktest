@@ -15,6 +15,7 @@
 #include "ui_mainwindow.h"
 
 #include <QKeyEvent>
+#include <QMenu>
 #include <qfiledialog.h>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -53,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->scriptTree->setDropIndicatorShown(true);
     ui->scriptTree->expandAll();
     ui->scriptTree->installEventFilter(this);
+    ui->scriptTree->setContextMenuPolicy(Qt::CustomContextMenu);
 
     ui->testsDepot->setModel(testsDepotModel_);
 
@@ -147,4 +149,40 @@ void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
 
     std::string note=scriptModel_->getNote();
     ui->testNote->setText(note.c_str());
+}
+
+void MainWindow::on_scriptTree_customContextMenuRequested(const QPoint &pos)
+{
+    QAction *deleteAction = new QAction(tr("&Delete"), this);
+    deleteAction->setShortcut(Qt::Key_Delete);
+    QAction *copyAction = new QAction(tr("&Copy"), this);
+    copyAction->setShortcut(Qt::CTRL + Qt::Key_C);
+    QAction *pasteAction = new QAction(tr("&Paste"), this);
+    pasteAction->setShortcut(Qt::CTRL + Qt::Key_P);
+    connect(deleteAction, &QAction::triggered, this, &MainWindow::deleteAction);
+    connect(copyAction, &QAction::triggered, this, &MainWindow::copyAction);
+    connect(pasteAction, &QAction::triggered, this, &MainWindow::pasteAction);
+    QMenu menu(this);
+    menu.addAction(deleteAction);
+    menu.addAction(copyAction);
+    menu.addAction(pasteAction);
+    menu.exec(ui->scriptTree->viewport()->mapToGlobal(pos));
+}
+
+void MainWindow::deleteAction()
+{
+    QModelIndex index=ui->scriptTree->currentIndex();
+    scriptModel_->keypressed("\177",index);
+}
+
+void MainWindow::copyAction()
+{
+    QModelIndex index=ui->scriptTree->currentIndex();
+    scriptModel_->keypressed("\003",index);
+}
+
+void MainWindow::pasteAction()
+{
+    QModelIndex index=ui->scriptTree->currentIndex();
+    scriptModel_->keypressed("\026",index);
 }

@@ -58,7 +58,7 @@ QMimeData *ScriptTreeModel::mimeData(const QModelIndexList &indexes) const
 
          foreach (QModelIndex index, indexes) {
              if (index.isValid()) {
-                 QStandardItem *test = this->itemFromIndex(index);
+                 QStandardItem *test = itemFromIndex(index);
                  QStringList out=(test->data(Qt::UserRole)).toStringList();
                  stream << out;
              }
@@ -206,14 +206,33 @@ void ScriptTreeModel::clearall()
 
 void ScriptTreeModel::keypressed(QEvent* e,const QModelIndex &index)
 {
+    QString pressedK=((QKeyEvent*)e)->text();
+    keypressed(pressedK,index);
+}
+
+void ScriptTreeModel::keypressed(const QString& pressedK,const QModelIndex& index)
+{
     QStandardItem *root = invisibleRootItem();
     if(index.parent()==root->index())
         return;
 
-    QString pressedK=((QKeyEvent*)e)->text();
     if(pressedK=="\177") //DEL
     {
         removeRow(index.row(),index.parent());
+    }
+    else if(pressedK=="\003") //CTRL-c
+    {
+        actionCopy_=itemFromIndex(index)->data(Qt::UserRole).toStringList();
+    }
+    else if(pressedK=="\026") //CTRL-v
+    {
+        if(actionCopy_.size()==0)
+            return;
+
+        QStandardItem* command = new QStandardItem(actionCopy_[URSname]);
+        command->setIcon(QIcon(":/icons/envelope.png"));
+        command->setData(actionCopy_,Qt::UserRole);
+        script_->appendRow(command);
     }
 }
 
