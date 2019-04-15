@@ -28,8 +28,7 @@ if(COMPILE_SCRIPTBUILDER)
   add_library(resourcelib  STATIC                                 
                           ${moc_src}
                           ${ui_wrap}
-                          ${qrc_moc}
-                          
+                          ${qrc_moc}       
               )
 
   target_link_libraries(resourcelib  

@@ -9,9 +9,17 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-project(blockTest)
+project(blockTest
+        LANGUAGES C CXX
+        VERSION 0.1)
+
 file(GLOB allSrc "*.h" "*.cpp" "include/*.h" "src/*.cpp")
 set(CMAKE_AUTOMOC ON)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+if (CMAKE_VERSION VERSION_LESS 3.11)
+  list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake-3.11)
+endif() 
 
 include(GNUInstallDirs)
 
@@ -25,7 +33,17 @@ if(USES_YARP)
         message(FATAL_ERROR "YARP version ${YARP_VERSION} not sufficient, at least version ${YARP_MINIMUM_REQUIRED_VERSION} is required.")
     endif()
 else()
-endif()  
+endif() 
+
+
+#find_package(TinyProcessLibrary QUIET)
+#option(USE_SYSTEM_FMILIBRARY "If TRUE/ON use system TinyProcessLibrary, otherwise download and compile using FetchContent" ${TinyProcessLibrary_FOUND})
+#if (USE_SYSTEM_FMILIBRARY)
+#    find_package(TinyProcessLibrary REQUIRED)
+#else()
+    include(FetchTinyProcessLibrary)
+#endif()
+
 
 # Control where libraries and executables are placed during the build.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")

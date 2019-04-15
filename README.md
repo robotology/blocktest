@@ -64,7 +64,7 @@ cmake ..
 make -j 4 install
 ```
 
-Or it is possible to select the Scriptbuilder compilation and Yarp integration options. Note that they are active by defoult.
+Or it is possible to select the Scriptbuilder compilation and Yarp integration options. Note that they are active by default.
 
 ```bash
 ccmake ..
