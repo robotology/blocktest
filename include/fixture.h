@@ -15,6 +15,8 @@
 #include "type.h"
 #include "general.h"
 
+#include "process.hpp"
+
 /**
  * @class Fixture
  * @brief ...
@@ -25,7 +27,7 @@ class Fixture
     public:
         Fixture(const std::string& path);
         ~Fixture();
-        void execute() const;
+        void execute();
 
     private:
         class FixtureParam
@@ -45,6 +47,7 @@ class Fixture
                 bool enabled_;
                 std::string prefix_;
                 unsigned int waitafter_;
+                std::shared_ptr<TinyProcessLib::Process> process_;
         };
 
         const std::string testName_{"./test/test.xml"};

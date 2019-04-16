@@ -42,8 +42,11 @@ Fixture::Fixture(const std::string& path)
 
 Fixture::~Fixture()
 {
-    for(const auto& current:fixtures_)
+    std::list<FixtureParam>::reverse_iterator it;
+    for(it=fixtures_.rbegin();it!=fixtures_.rend();++it)
+    //for(const auto& current: std::reverse(fixtures_))
     {
+        FixtureParam current=*it;
         if(!current.enabled_)
             continue;
 
@@ -54,13 +57,15 @@ Fixture::~Fixture()
 
         TXLOG(Severity::info)<<"fixture destroy:"<<ss.str()<<std::endl;
 
-        auto out=system(ss.str().c_str());
+        current.process_->kill(true);
+        std::this_thread::sleep_for(std::chrono::milliseconds(current.waitafter_));
+        //auto out=system(ss.str().c_str());
     }
 }
 
-void Fixture::execute() const
+void Fixture::execute()
 {
-    for(const auto& current:fixtures_)
+    for(auto& current:fixtures_)
     {
         if(!current.enabled_)
             continue;
@@ -76,7 +81,8 @@ void Fixture::execute() const
         std::cout<<"fixture execute:"<<ss.str()<<std::endl;
         std::cout<<"-------------------------------------------"<<std::endl;
 
-        auto out=std::system(ss.str().c_str());
+        current.process_=std::make_shared<TinyProcessLib::Process>(ss.str());
+        //auto out=std::system(ss.str().c_str());
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 }

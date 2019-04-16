@@ -35,7 +35,6 @@ if(USES_YARP)
 else()
 endif() 
 
-
 #find_package(TinyProcessLibrary QUIET)
 #option(USE_SYSTEM_FMILIBRARY "If TRUE/ON use system TinyProcessLibrary, otherwise download and compile using FetchContent" ${TinyProcessLibrary_FOUND})
 #if (USE_SYSTEM_FMILIBRARY)
@@ -43,7 +42,6 @@ endif()
 #else()
     include(FetchTinyProcessLibrary)
 #endif()
-
 
 # Control where libraries and executables are placed during the build.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
@@ -67,7 +65,9 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+#-------Important
 #Let the singleton to be unique
+#-------Important
 set(CMAKE_EXE_LINKER_FLAGS  "-rdynamic")
 
 #add the action libraries
@@ -78,7 +78,7 @@ endif()
 
 add_executable(${PROJECT_NAME} ${allSrc} )
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(${PROJECT_NAME} -ldl pthread stdc++fs)
+target_link_libraries(${PROJECT_NAME} dl pthread stdc++fs TinyProcessLibrary::TinyProcessLibrary)
 
 #test file folder
 file(COPY test DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
