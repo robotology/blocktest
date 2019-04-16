@@ -1,42 +1,20 @@
+<?xml version="1.0"?>
 <testlist repetitions="1">
-
-    <!--Scenario-->
-
-    <!--<settings robotname="icub" realrobot="true" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" simclock="false" neverexecutecommands="" logseverity="debug" loggingtime="0.005" tablename="test/tables/main.tab" waitcommand="yarpwait" nowcommand="yarpnow"/>
-    -->
-
-    <settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab" 
-        waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp"/> <!--loggingtime in sec-->
-
-    <!--Prerequisites-->
-    <prerequisite enabled="false" command="roscore" waitafter="5000" param="" prefix="" kill="true"/>
-    <prerequisite enabled="false" command="yarpserver" waitafter="5000" param="--silent --write --ros" prefix="" kill="true"/>
-    <prerequisite enabled="true" command="yarpserver" waitafter="5000" param="--silent" prefix="" kill="true"/>
-    <prerequisite enabled="false" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub.world" prefix="" kill="true"/>
-    <prerequisite enabled="true" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true"/>
-    <prerequisite enabled="false" command="gzclient" waitafter="5000" param="" prefix="" kill="true"/>
-    <prerequisite enabled="false" command="yarpdev" waitafter="5000" param="--device transformServer --ROS::enable_ros_publisher 1 --ROS::enable_ros_subscriber 1 --transforms_lifetime 0.5" prefix="YARP_CLOCK=/clock" kill="true"/>
-    <prerequisite enabled="false" command="yarprobotinterface" waitafter="5000" param="--config main-fbe.xml" prefix="" kill="true"/>
-    <prerequisite enabled="false" command="roslaunch" waitafter="5000" param="icub robotStatePublisher.launch" prefix="" kill="true"/>
-
-    <!--Libraries-->
-    <library enabled="true" path="genericactiondepotlib/libgenericactiondepot.so" name="genericactiondepot" note="System generic action library"/>
-    <library enabled="true" path="yarpactiondepotlib/libyarpactiondepot.so" name="yarpactiondepot" note="Yarp action library"/>
-
-    <!--Libraries settings-->
-    <librarysettings enabled="true" name="genericactiondepot"/>
-    <librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm"/>
-   
-    
-    <!--**************************-->
-    <!--**********Tests***********-->
-    <!--**************************-->
-
-    <!--ICub pos && directpos-->
-    <test file="test/0001.xml" repetitions="2" code="0001" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg"/>
-
-    <!--ICub pwm & pwm train-->
-    <test file="test/0100.xml" repetitions="2" code="0100" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg"/>
-    <test file="test/0110.xml" repetitions="0" code="0110" loggingtype="" loggingpart="" loggingwrappername=""/>
-
-</subtestlist>    
+	<settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" neverexecutecommands="" logseverity="debug" loggingtime="0.01" tablename="test/tables/main.tab" waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp" />
+	<prerequisite enabled="false" command="roscore" waitafter="5000" param="" prefix="" kill="true" />
+	<prerequisite enabled="false" command="yarpserver" waitafter="5000" param="--silent --write --ros" prefix="" kill="true" />
+	<prerequisite enabled="true" command="yarpserver" waitafter="5000" param="--silent" prefix="" kill="true" />
+	<prerequisite enabled="false" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub.world" prefix="" kill="true" />
+	<prerequisite enabled="true" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true" />
+	<prerequisite enabled="false" command="gzclient" waitafter="5000" param="" prefix="" kill="true" />
+	<prerequisite enabled="false" command="yarpdev" waitafter="5000" param="--device transformServer --ROS::enable_ros_publisher 1 --ROS::enable_ros_subscriber 1 --transforms_lifetime 0.5" prefix="YARP_CLOCK=/clock" kill="true" />
+	<prerequisite enabled="false" command="yarprobotinterface" waitafter="5000" param="--config main-fbe.xml" prefix="" kill="true" />
+	<prerequisite enabled="false" command="roslaunch" waitafter="5000" param="icub robotStatePublisher.launch" prefix="" kill="true" />
+	<library enabled="true" path="genericactiondepotlib/libgenericactiondepot.so" name="genericactiondepot" note="System generic action library" />
+	<library enabled="true" path="yarpactiondepotlib/libyarpactiondepot.so" name="yarpactiondepot" note="Yarp action library" />
+	<librarysettings enabled="true" name="genericactiondepot" />
+	<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" />
+	<test file="test/0001.xml" repetitions="1" code="0001" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
+	<test file="test/0100.xml" repetitions="1" code="0100" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
+	<test file="test/0110.xml" repetitions="0" code="0110" loggingtype="" loggingpart="" loggingwrappername="" />
+</testlist>

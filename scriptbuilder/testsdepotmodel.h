@@ -14,6 +14,8 @@
 #ifndef TESTSDEPOTMODEL_H
 #define TESTSDEPOTMODEL_H
 
+#include "pugixml.hpp"
+
 #include <QStandardItemModel>
 
 enum UsrRoleTests
@@ -24,6 +26,8 @@ enum UsrRoleTests
 
 class TestsDepotModel : public QStandardItemModel
 {
+    Q_OBJECT
+
 public:
     TestsDepotModel();
     void load(const std::string& fileName);
