@@ -15,29 +15,28 @@
 
 TestsDepotModel::TestsDepotModel()
 {
+    bool ok=QObject::connect(this,&QStandardItemModel::itemChanged, this, &TestsDepotModel::onChanged);
+    Q_ASSERT(ok);
 }
 
 void TestsDepotModel::load(const std::string& fileName)
 {
-
     size_t pos = fileName.find_last_of("/");
     testPath_=fileName.substr(0,pos);
     clear();
     QStandardItem *item = invisibleRootItem();
 
-    pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_file(fileName.c_str());
+    pugi::xml_parse_result result = doc_.load_file(fileName.c_str());
 
-    pugi::xpath_node_set commands = doc.select_nodes("/testlist/test");
+    pugi::xpath_node_set commands = doc_.select_nodes("/testlist/test");
 
-    for (pugi::xpath_node_set::const_iterator it = commands.begin(); it != commands.end(); ++it)
+    for (pugi::xpath_node current:commands)
     {
-        pugi::xpath_node node = *it;
-        std::string name=node.node().attribute("code").value();
-        std::string repetitions=node.node().attribute("repetitions").value();
-        std::string file=node.node().attribute("file").value();
+        std::string code=current.node().attribute("code").value();
+        std::string repetitions=current.node().attribute("repetitions").value();
+        std::string file=current.node().attribute("file").value();
 
-        QStandardItem* nameItem = new QStandardItem(name.c_str());
+        QStandardItem* nameItem = new QStandardItem(code.c_str());
         nameItem->setIcon(QIcon(":/icons/envelope.png"));
 
         QStandardItem* repetitionItem = new QStandardItem(repetitions.c_str());
@@ -48,7 +47,9 @@ void TestsDepotModel::load(const std::string& fileName)
 
         QStringList list{"","",""};
         list[URFfile]=file.c_str();
+        list[URFcode]=code.c_str();
         nameItem->setData(list,Qt::UserRole);
+        repetitionItem->setData(list,Qt::UserRole);
 
         item->appendRow(itemList);
     }
@@ -57,3 +58,34 @@ void TestsDepotModel::load(const std::string& fileName)
     setHeaderData(1,Qt::Horizontal,"Repetitions");
 }
 
+void TestsDepotModel::save(const std::string& fileName) const
+{
+    doc_.save_file((fileName+".xml").c_str());
+}
+
+void TestsDepotModel::onChanged(QStandardItem * item)
+{
+    std::string toModify;
+    int column=item->column();
+    if(column==0)
+        toModify="code";
+    else
+        toModify="repetitions";
+
+    std::string newValue=item->text().toStdString();
+
+    QStringList itemList;
+    itemList=item->data(Qt::UserRole).toStringList();
+    QString code;
+    code=itemList[URFcode];
+
+    auto commands = doc_.select_nodes("/testlist/test");
+    for (auto &current:commands)
+    {
+        std::string currentCode=current.node().attribute("code").value();
+        if(code.toStdString()==currentCode)
+        {
+            current.node().attribute(toModify.c_str())=newValue.c_str();
+        }
+    }
+}

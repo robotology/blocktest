@@ -15,6 +15,7 @@
 #include <qmimedata.h>
 #include <qdebug.h>
 #include <QKeyEvent>
+#include <qmessagebox.h>
 
 #include <experimental/filesystem>
 #include <string>
@@ -159,6 +160,14 @@ void ScriptTreeModel::load(const std::string& fileName)
 
     pugi::xml_parse_result result = doc_.load_file(fileName.c_str());
 
+    if(!result)
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"ERROR","Missing test file.");
+        messageBox.setFixedSize(800,400);
+        return;
+    }
+
     pugi::xpath_node_set commands = doc_.select_nodes("/testbody/command");
 
     for (pugi::xpath_node_set::const_iterator it = commands.begin(); it != commands.end(); ++it)
@@ -182,16 +191,28 @@ void ScriptTreeModel::load(const std::string& fileName)
 
 void ScriptTreeModel::save(const std::string& fileName)
 {
-    std::ofstream ofs(fileName+".xml");
+    pugi::xpath_node info = doc_.select_node("/testbody/info");
 
-    ofs<<"<testbody>"<<std::endl;
+    pugi::xml_document doc;
+    pugi::xml_node body=doc.append_child("testbody");
+    body.append_copy(info.node());
+
+
     for(int index=0;index<script_->rowCount();++index)
     {
         QStandardItem *current=script_->child(index);
         QStringList list=current->data(Qt::UserRole).toStringList();
-        ofs<<list[URSxmlStruct].toStdString()<<std::endl;
+        std::string commandStr=list[URSxmlStruct].toStdString();
+
+        pugi::xml_document commanddoc;
+        pugi::xml_parse_result result = commanddoc.load_string(commandStr.c_str());
+        pugi::xpath_node commandNode = commanddoc.select_node("/command");
+        body.append_copy(commandNode.node());
     }
-    ofs<<"</testbody>"<<std::endl;
+
+    doc.save_file((fileName+".xml").c_str());
+
+    doc_.reset(doc);
 }
 
 void ScriptTreeModel::clearall()
@@ -249,4 +270,23 @@ std::string ScriptTreeModel::getNote() const
     return ss.str();
 }
 
+void ScriptTreeModel::getInfo(std::string& note,std::string& version ) const
+{
+    pugi::xpath_node info = doc_.select_node("/testbody/info");
+    if(info.node()==nullptr)
+        return ;
+
+    note=info.node().attribute("note").value();
+    version=info.node().attribute("version").value();
+}
+
+void ScriptTreeModel::setInfo(const std::string& note,const std::string& version)
+{
+    pugi::xpath_node info = doc_.select_node("/testbody/info");
+    if(info.node()==nullptr)
+        return ;
+
+    info.node().attribute("note").set_value(note.c_str());
+    info.node().attribute("version").set_value(version.c_str());
+}
 

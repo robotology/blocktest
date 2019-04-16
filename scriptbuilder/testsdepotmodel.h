@@ -19,6 +19,7 @@
 enum UsrRoleTests
 {
     URFfile=0,
+    URFcode=1
 };
 
 class TestsDepotModel : public QStandardItemModel
@@ -26,11 +27,16 @@ class TestsDepotModel : public QStandardItemModel
 public:
     TestsDepotModel();
     void load(const std::string& fileName);
+    void save(const std::string& fileName) const;
 
     std::string testPath_;
 
+public slots:
+    void onChanged(QStandardItem * item);
+
 private:
-    QStandardItem * tests_{nullptr};
+    pugi::xml_document doc_;
+
 };
 
 #endif // TESTSDEPOTMODEL_H

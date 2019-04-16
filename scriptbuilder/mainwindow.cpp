@@ -57,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->scriptTree->setContextMenuPolicy(Qt::CustomContextMenu);
 
     ui->testsDepot->setModel(testsDepotModel_);
+    ui->testsDepot->setContextMenuPolicy(Qt::CustomContextMenu);
 
 
     auto resp=connect(parametersModel_,SIGNAL(itemChanged(QStandardItem*)),this,SLOT(parameterChanged(QStandardItem*)));
@@ -77,8 +78,7 @@ void MainWindow::on_loadButton_clicked()
     ui->testname->setText(strInLable.c_str());
     ui->scriptTree->expandAll();
 
-    std::string note=scriptModel_->getNote();
-    ui->testNote->setText(note.c_str());
+    populateInfo();
 }
 
 void MainWindow::on_scriptTree_clicked(const QModelIndex &index)
@@ -136,7 +136,8 @@ void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
 {
     QStringList paramToShow=index.sibling(index.row(),0).data(Qt::UserRole).toStringList();
     QString fileName=paramToShow[URFfile];
-    //QString note=paramToShow[URFnote];
+    QString code=paramToShow[URFcode];
+
     size_t pos=testsDepotModel_->testPath_.find_last_of("/");
     std::string smallpath=testsDepotModel_->testPath_.substr(0,pos);
     scriptModel_->load(smallpath+"/"+fileName.toStdString());
@@ -145,10 +146,10 @@ void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
     std::string strInLable=tmp.path().stem().string()+".xml";
 
     ui->testname->setText(strInLable.c_str());
+    ui->testCode->setText(code);
     ui->scriptTree->expandAll();
 
-    std::string note=scriptModel_->getNote();
-    ui->testNote->setText(note.c_str());
+    populateInfo();
 }
 
 void MainWindow::on_scriptTree_customContextMenuRequested(const QPoint &pos)
@@ -186,3 +187,52 @@ void MainWindow::pasteAction()
     QModelIndex index=ui->scriptTree->currentIndex();
     scriptModel_->keypressed("\026",index);
 }
+
+void MainWindow::on_testNote_textChanged()
+{
+    QString note=ui->testNote->toPlainText();
+    QString version=ui->testVersion->toPlainText();
+    scriptModel_->setInfo(note.toStdString(),version.toStdString());
+}
+
+void MainWindow::populateInfo()
+{
+    std::string note;
+    std::string version;
+    scriptModel_->getInfo(note,version);
+    ui->testNote->setText(note.c_str());
+    ui->testVersion->setText(version.c_str());
+}
+
+void MainWindow::on_testsDepot_customContextMenuRequested(const QPoint &pos)
+{
+    QAction *deleteTest = new QAction(tr("&Delete"), this);
+    deleteTest->setShortcut(Qt::Key_Delete);
+    QAction *newTest = new QAction(tr("&New"), this);
+    newTest->setShortcut(Qt::CTRL + Qt::Key_C);
+    connect(deleteTest, &QAction::triggered, this, &MainWindow::deleteTest);
+    connect(newTest, &QAction::triggered, this, &MainWindow::newTest);
+
+    QMenu menu(this);
+    menu.addAction(deleteTest);
+    menu.addAction(newTest);
+    menu.exec(ui->testsDepot->viewport()->mapToGlobal(pos));
+}
+
+void MainWindow::deleteTest()
+{
+    QModelIndex index=ui->testsDepot->currentIndex();
+}
+
+void MainWindow::newTest()
+{
+    QModelIndex index=ui->testsDepot->currentIndex();
+}
+
+void MainWindow::on_saveTests_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save tests list"), "./","*.xml");
+    testsDepotModel_->save(fileName.toStdString());
+}
+
+

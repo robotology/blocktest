@@ -36,6 +36,8 @@ public:
     void updateParameters(const QModelIndex &index,const std::string& parameters);
 
     std::string getNote() const;
+    void setInfo(const std::string& note,const std::string& version);
+    void getInfo(std::string& note,std::string& version) const;
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
     Qt::DropActions supportedDropActions() const;

@@ -57,10 +57,17 @@ private slots:
     void on_testsDepot_clicked(const QModelIndex &index);
 
     void on_scriptTree_customContextMenuRequested(const QPoint &pos);
-
     void deleteAction();
     void copyAction();
     void pasteAction();
+
+    void on_testNote_textChanged();
+
+    void on_testsDepot_customContextMenuRequested(const QPoint &pos);
+    void deleteTest();
+    void newTest();
+
+    void on_saveTests_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -70,6 +77,7 @@ private:
     ParametersListModel *parametersModel_{nullptr};
     ParameterCommentModel *parameterCommentModel_{nullptr};
     TestsDepotModel *testsDepotModel_{nullptr};
+    void populateInfo();
 
 };
 
