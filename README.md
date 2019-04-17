@@ -4,7 +4,8 @@
 - [2. Introduction](#2-introduction)
 - [3. Installation](#3-installation)
   - [3.1. Prerequisite](#31-prerequisite)
-  - [3.2. Installation and compilation](#32-installation-and-compilation)
+  - [3.2. Dependancy](#32-dependancy)
+  - [3.3. Installation and compilation](#33-installation-and-compilation)
 - [4. Test writing](#4-test-writing)
   - [4.1. General Settings](#41-general-settings)
   - [4.2. Library Settings](#42-library-settings)
@@ -14,8 +15,8 @@
     - [4.5.1. Generic commands](#451-generic-commands)
     - [4.5.2. Yarp commands](#452-yarp-commands)
     - [4.5.3. Yarp walking commands (not tested)](#453-yarp-walking-commands-not-tested)
-  - [Folder structure](#folder-structure)
-  - [4.6. Test writing with scriptbuilder](#46-test-writing-with-scriptbuilder)
+  - [4.6. Folder structure](#46-folder-structure)
+  - [4.7. Test writing with Scriptbuilder](#47-test-writing-with-scriptbuilder)
 - [5. Parametric test](#5-parametric-test)
   - [5.1. Table](#51-table)
   - [5.2. Using the parameter](#52-using-the-parameter)
@@ -52,7 +53,12 @@ sudo apt-get install build-essential qtcreator qt5-default
 ```
 At the moment the application is only for Linux type OS.
 
-## 3.2. Installation and compilation
+## 3.2. Dependancy
+The application uses the following third part libraries (although you don't need to install by yourself)
+- Tiny process library: https://github.com/eidheim/tiny-process-library
+- Pugixml: https://github.com/zeux/pugixml
+
+## 3.3. Installation and compilation
 
 In order to compile just execute the following commands in a bash
 terminal.
@@ -80,7 +86,8 @@ ccmake ..
 
 # 4. Test writing
 
-The starting point for writing a test is the file ./test/test.xml
+If you don't like work with a text editor you can skip directly to the section [Scriptbuilder](##4.7.-test-writing-with-scriptbuilder). <br>
+Else the starting point for writing a test is the file ./test/test.xml
 
 ```xml
     <testlist repetitions="1">
@@ -417,12 +424,10 @@ These commands are contained in yarp command library.
     No params needed
 
 
-
-
     If the robot position is less than xminposition,yminposition,zminposition the check fails. If the position is 0 it doesn't check on that axis.
     For now only the abs value of the position is checked.
 
-## Folder structure
+## 4.6. Folder structure
 The following folder structure is necessary to make the blocktest
 application work in the correct way.
 
@@ -433,7 +438,7 @@ In this case in the folder are present the 0100.xml, 0100.xml and 0001.xml file 
 The folder table contains the file main.tab that is the file for parametric tests.<br>
 The folder xmltemplate is used by Scriptbuider.
 
-## 4.6. Test writing with scriptbuilder
+## 4.7. Test writing with Scriptbuilder
 Script builder is a UI for test and test list writing.
 See at https://github.com/robotology/blocktest/tree/master/scriptbuilder
 for more informations.
