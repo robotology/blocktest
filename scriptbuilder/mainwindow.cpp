@@ -58,7 +58,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->testsDepot->setModel(testsDepotModel_);
     ui->testsDepot->setContextMenuPolicy(Qt::CustomContextMenu);
-
+    ui->testsDepot->installEventFilter(this);
 
     auto resp=connect(parametersModel_,SIGNAL(itemChanged(QStandardItem*)),this,SLOT(parameterChanged(QStandardItem*)));
 }
@@ -113,6 +113,12 @@ bool MainWindow::eventFilter(QObject* o,QEvent* e)
     {
         QModelIndex index=ui->scriptTree->currentIndex();
         scriptModel_->keypressed(e,index);
+    }
+
+    if( o == ui->testsDepot && e->type() == QEvent::KeyRelease)
+    {
+        QModelIndex index=ui->testsDepot->currentIndex();
+        testsDepotModel_->keypressed(e,index);
     }
 
     return false;
@@ -222,6 +228,7 @@ void MainWindow::on_testsDepot_customContextMenuRequested(const QPoint &pos)
 void MainWindow::deleteTest()
 {
     QModelIndex index=ui->testsDepot->currentIndex();
+    testsDepotModel_->deleteTest(index);
 }
 
 void MainWindow::newTest()

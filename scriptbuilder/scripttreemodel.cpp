@@ -160,6 +160,7 @@ void ScriptTreeModel::load(const std::string& fileName)
 
     pugi::xml_parse_result result = doc_.load_file(fileName.c_str());
 
+    /*
     if(!result)
     {
         QMessageBox messageBox;
@@ -167,6 +168,7 @@ void ScriptTreeModel::load(const std::string& fileName)
         messageBox.setFixedSize(800,400);
         return;
     }
+    */
 
     pugi::xpath_node_set commands = doc_.select_nodes("/testbody/command");
 

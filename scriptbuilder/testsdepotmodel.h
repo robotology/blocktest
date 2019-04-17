@@ -26,11 +26,17 @@ enum UsrRoleTests
 
 class TestsDepotModel : public QStandardItemModel
 {
-
+    Q_OBJECT
 public:
     TestsDepotModel();
     void load(const std::string& fileName);
     void save(const std::string& fileName) const;
+
+    void keypressed(QEvent* e,const QModelIndex &index);
+    void keypressed(const QString& pressedK,const QModelIndex& index);
+
+    void deleteTest(const QModelIndex& index);
+    void newTest(const QModelIndex& index);
 
     std::string testPath_;
 
@@ -39,6 +45,7 @@ public slots:
 
 private:
     pugi::xml_document doc_;
+    void redraw();
 
 };
 
