@@ -234,6 +234,7 @@ void MainWindow::deleteTest()
 void MainWindow::newTest()
 {
     QModelIndex index=ui->testsDepot->currentIndex();
+    testsDepotModel_->newTest(index);
 }
 
 void MainWindow::on_saveTests_clicked()
