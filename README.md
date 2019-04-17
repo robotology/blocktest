@@ -14,6 +14,7 @@
     - [4.5.1. Generic commands](#451-generic-commands)
     - [4.5.2. Yarp commands](#452-yarp-commands)
     - [4.5.3. Yarp walking commands (not tested)](#453-yarp-walking-commands-not-tested)
+  - [Folder structure](#folder-structure)
   - [4.6. Test writing with scriptbuilder](#46-test-writing-with-scriptbuilder)
 - [5. Parametric test](#5-parametric-test)
   - [5.1. Table](#51-table)
@@ -421,10 +422,22 @@ These commands are contained in yarp command library.
     If the robot position is less than xminposition,yminposition,zminposition the check fails. If the position is 0 it doesn't check on that axis.
     For now only the abs value of the position is checked.
 
+## Folder structure
+The following folder structure is necessary to make the blocktest
+application work in the correct way.
+
+![alt text](img/img004.png "Scriptbuilder.")
+
+The test folder contains the test.xml file that is the tests list.
+In this case in the folder are present the 0100.xml, 0100.xml and 0001.xml file that are tests.<br>
+The folder table contains the file main.tab that is the file for parametric tests.<br>
+The folder xmltemplate is used by Scriptbuider.
+
 ## 4.6. Test writing with scriptbuilder
 Script builder is a UI for test and test list writing.
 See at https://github.com/robotology/blocktest/tree/master/scriptbuilder
 for more informations.
+
 ![alt text](img/img002.png "Scriptbuilder.")
 
 
