@@ -13,7 +13,7 @@
   - [5.6. Tests list](#56-tests-list)
 - [6. Writing the test](#6-writing-the-test)
   - [6.1. Write the test](#61-write-the-test)
-  - [Write the test list](#write-the-test-list)
+  - [6.2. Write the test list](#62-write-the-test-list)
 - [7. Authors](#7-authors)
 
 # 2. Introduction
@@ -75,7 +75,7 @@ The first step is to write the test. You can drag and drop the block from sectio
 You can select the block in section **#2** and modify the default parameters in section **#3**. The possibile parameters values and parameters meanings are shown in section **#4**.
 You can save your test with the SAVE button.
 
-## Write the test list
+## 6.2. Write the test list
 You can add the new tests in the test list in section **#6**.
 To add or delete use the right click context menu on the tests list.
 You can save the tests list with the SAVE button.
