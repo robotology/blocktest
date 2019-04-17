@@ -26,7 +26,6 @@ enum UsrRoleTests
 
 class TestsDepotModel : public QStandardItemModel
 {
-    Q_OBJECT
 
 public:
     TestsDepotModel();

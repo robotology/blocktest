@@ -44,7 +44,6 @@ Fixture::~Fixture()
 {
     std::list<FixtureParam>::reverse_iterator it;
     for(it=fixtures_.rbegin();it!=fixtures_.rend();++it)
-    //for(const auto& current: std::reverse(fixtures_))
     {
         FixtureParam current=*it;
         if(!current.enabled_)
