@@ -10,8 +10,8 @@
 	<prerequisite enabled="false" command="yarpdev" waitafter="5000" param="--device transformServer --ROS::enable_ros_publisher 1 --ROS::enable_ros_subscriber 1 --transforms_lifetime 0.5" prefix="YARP_CLOCK=/clock" kill="true" />
 	<prerequisite enabled="false" command="yarprobotinterface" waitafter="5000" param="--config main-fbe.xml" prefix="" kill="true" />
 	<prerequisite enabled="false" command="roslaunch" waitafter="5000" param="icub robotStatePublisher.launch" prefix="" kill="true" />
-	<library enabled="true" path="genericactiondepotlib/libgenericactiondepot.so" name="genericactiondepot" note="System generic action library" />
-	<library enabled="true" path="yarpactiondepotlib/libyarpactiondepot.so" name="yarpactiondepot" note="Yarp action library" />
+	<library enabled="true" path="genericactiondepot/genericactiondepot.so" name="genericactiondepot" note="System generic action library" />
+	<library enabled="true" path="yarpactiondepot/yarpactiondepot.so" name="yarpactiondepot" note="Yarp action library" />
 	<librarysettings enabled="true" name="genericactiondepot" />
 	<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" />
 	<test file="test/0001.xml" repetitions="1" code="0001" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />

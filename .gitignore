@@ -37,3 +37,5 @@ build
 *.log
 *.make
 *.cmake
+tmp
+scriptbuilder-build

@@ -56,10 +56,11 @@ if(COMPILE_SCRIPTBUILDER)
                           resourcelib
                        )
 
-  #install
-  install(TARGETS Scriptbuilder RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/..)
-
   #xml template folder
-  file(COPY xmltemplate DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/..)
+  file(COPY xmltemplate DESTINATION ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+
+  #install
+  install(TARGETS Scriptbuilder RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
     
 endif()
