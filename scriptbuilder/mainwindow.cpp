@@ -104,6 +104,8 @@ void MainWindow::on_saveButton_clicked()
     fs::directory_entry tmp(fileName.toStdString());
     std::string strInLable=tmp.path().stem().string()+".xml";
     ui->testname->setText(strInLable.c_str());
+
+    testsDepotModel_->redraw();
 }
 
 void MainWindow::on_parametersList_clicked(const QModelIndex &index)
@@ -184,6 +186,9 @@ void MainWindow::on_scriptTree_customContextMenuRequested(const QPoint &pos)
     menu.addAction(copyAction);
     menu.addAction(pasteAction);
     menu.exec(ui->scriptTree->viewport()->mapToGlobal(pos));
+
+    parameterCommentModel_->clear();
+    parametersModel_->clearall();
 }
 
 void MainWindow::deleteAction()
@@ -233,6 +238,13 @@ void MainWindow::on_testsDepot_customContextMenuRequested(const QPoint &pos)
     menu.addAction(deleteTest);
     menu.addAction(newTest);
     menu.exec(ui->testsDepot->viewport()->mapToGlobal(pos));
+
+    scriptModel_->clearall();
+    parameterCommentModel_->clear();
+    parametersModel_->clearall();
+    ui->testNote->clear();
+    ui->testCode->clear();
+    ui->testVersion->clear();
 }
 
 void MainWindow::deleteTest()

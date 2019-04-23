@@ -37,6 +37,7 @@ public:
 
     void deleteTest(const QModelIndex& index);
     void newTest(const QModelIndex& index);
+    void redraw();
 
     std::string testPath_;
 
@@ -45,7 +46,7 @@ public slots:
 
 private:
     pugi::xml_document doc_;
-    void redraw();
+
 
 };
 

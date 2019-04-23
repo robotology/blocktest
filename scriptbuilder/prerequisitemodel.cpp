@@ -6,6 +6,9 @@ PrerequisiteModel::PrerequisiteModel()
     Q_ASSERT(ok);
 }
 
+PrerequisiteModel::~PrerequisiteModel()
+{}
+
 void PrerequisiteModel::load(const std::string& fileName)
 {
     size_t pos = fileName.find_last_of("/");

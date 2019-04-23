@@ -8,8 +8,10 @@
 
 class PrerequisiteModel : public QStandardItemModel
 {
+    Q_OBJECT
 public:
     PrerequisiteModel();
+    virtual ~PrerequisiteModel();
     void load(const std::string& fileName);
     const pugi::xml_document& getDocument();
 

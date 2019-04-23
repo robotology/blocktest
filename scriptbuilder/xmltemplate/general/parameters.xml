@@ -1,6 +1,6 @@
 <command 
     short="command to be executed" 
-    complite="application command to be executed" 
+    full="application command to be executed" 
     values=""  
     uom="" 
     type="string" 
@@ -8,7 +8,7 @@
 
 <prefix 
     short="application prerequisite" 
-    complite="application prerequisite for execution" 
+    full="application prerequisite for execution" 
     values=""  
     uom="" 
     type="" 
@@ -16,7 +16,7 @@
 
 <param 
     short="application parameters" 
-    complite="application parateters for execution" 
+    full="application parateters for execution" 
     values=""  
     uom="" 
     type="" 
@@ -24,7 +24,7 @@
 
 <waitafter 
     short="wait after command" 
-    complite="waiting time after the command has been executed" 
+    full="waiting time after the command has been executed" 
     values=""  
     uom="second" 
     type="integer" 
@@ -32,7 +32,7 @@
 
 <kill 
     short="kill" 
-    complite="if the application should be killed after the test has been executed" 
+    full="if the application should be killed after the test has been executed" 
     values=""  
     uom="" 
     type="boolean" 

@@ -72,6 +72,7 @@ void ParametersListModel::stringToXmlNodesToItems(const std::string& xmlString)
             name->setFont(font);
             value->setFont(font);
         }
+        name->setFlags(name->flags() &  ~Qt::ItemIsEditable);
 
         if(std::string(ait->name())=="library")
         {

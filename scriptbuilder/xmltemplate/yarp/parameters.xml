@@ -1,6 +1,6 @@
 <wrappername 
     short="wrapper name" 
-    complite="name of the wrapper for this joint" 
+    full="name of the wrapper for this joint" 
     values=""  
     uom="" 
     type="string" 
@@ -8,7 +8,7 @@
 
 <jointname 
     short="joint name" 
-    complite="joint name for this command, can be a list" 
+    full="joint name for this command, can be a list" 
     values=""  
     uom="" 
     type="string" 
@@ -16,7 +16,7 @@
 
 <degree 
     short="degree" 
-    complite="movment extension" 
+    full="movment extension" 
     values=""  
     uom="degree" 
     type="double" 
@@ -24,7 +24,7 @@
 
 <velocity 
     short="used velocity" 
-    complite="used velocity for this command" 
+    full="used velocity for this command" 
     values=""  
     uom="degree/second"  
     type="double" 
@@ -33,7 +33,7 @@
 
 <profile 
     short="pwm profile" 
-    complite="profile used for this command" 
+    full="profile used for this command" 
     values="const sin"  
     uom="voltage" 
     type="double" 
@@ -41,7 +41,7 @@
 
 <frequency 
     short="command frequency" 
-    complite="frequency used for this command" 
+    full="frequency used for this command" 
     values=""  
     uom="hertz" 
     type="double" 
@@ -49,7 +49,7 @@
 
 <dutycycle 
     short="pwm dutycycle" 
-    complite="pwm dutycycle for this command" 
+    full="pwm dutycycle for this command" 
     values=""  
     uom="" 
     type="double" 
@@ -57,7 +57,7 @@
 
 <time 
     short="cycles numbers" 
-    complite="cycles executions number" 
+    full="cycles executions number" 
     values=""  
     uom="" 
     type="integer" 

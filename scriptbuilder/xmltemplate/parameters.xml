@@ -1,6 +1,6 @@
 <repetitions 
     short="command repetitions" 
-    complite="command repetitions" 
+    full="command repetitions" 
     values=""  
     uom="" 
     type="integer" 
@@ -8,7 +8,7 @@
 
 <wait 
     short="wait after command" 
-    complite="wait after command execution" 
+    full="wait after command execution" 
     values=""  
     uom="second" 
     type="integer" 
@@ -16,8 +16,24 @@
 
 <reporterror 
     short="report error" 
-    complite="can this command report errors" 
+    full="can this command report errors" 
     values=""  
     uom="" 
     type="boolean" 
+/>
+
+<name 
+    short="command name" 
+    full="command name" 
+    values=""  
+    uom="" 
+    type="string" 
+/>
+
+<library
+    short="library name" 
+    full="name of the library that contains the command" 
+    values=""  
+    uom="" 
+    type="string" 
 />
