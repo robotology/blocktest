@@ -19,6 +19,7 @@
 #include "actiontreemodel.h"
 #include "parametercommentmodel.h"
 #include "parameterslistmodel.h"
+#include "prerequisitemodel.h"
 #include "scripttreemodel.h"
 #include "testsdepotmodel.h"
 
@@ -77,6 +78,7 @@ private:
     ParametersListModel *parametersModel_{nullptr};
     ParameterCommentModel *parameterCommentModel_{nullptr};
     TestsDepotModel *testsDepotModel_{nullptr};
+    PrerequisiteModel *prerequisiteModel_{nullptr};
     void populateInfo();
 
 };

@@ -79,8 +79,23 @@ void TestsDepotModel::redraw()
     setHeaderData(2,Qt::Horizontal,"File");
 }
 
-void TestsDepotModel::save(const std::string& fileName) const
+void TestsDepotModel::save(const std::string& fileName,const pugi::xml_document& prerequisiteDoc)
 {
+    //Delete old prerequisite
+    pugi::xpath_node_set prerequisiteOldNodes = doc_.select_nodes("/testlist/prerequisite");
+    for(const pugi::xpath_node& current:prerequisiteOldNodes)
+    {
+        current.parent().remove_child(current.node());
+    }
+
+    //Add new prerequisite
+    pugi::xpath_node testListRoot = doc_.select_node("/testlist");
+    pugi::xpath_node_set prerequisiteNewNodes = prerequisiteDoc.select_nodes("/testlist/prerequisite");
+    for(const pugi::xpath_node& current:prerequisiteNewNodes)
+    {
+        testListRoot.node().append_copy(current.node());
+    }
+
     doc_.save_file((fileName+".xml").c_str());
 }
 

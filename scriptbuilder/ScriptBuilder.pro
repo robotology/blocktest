@@ -24,7 +24,10 @@ SOURCES += main.cpp\
     parameterslistmodel.cpp \
     pugixml.cpp \
     parametercommentmodel.cpp \
-    testsdepotmodel.cpp
+    testsdepotmodel.cpp \
+    prerequisitemodel.cpp \
+    comboboxitemdelegate.cpp \
+    spinboxdelegate.cpp
 
 HEADERS  += mainwindow.h \
     actiontreemodel.h \
@@ -33,7 +36,10 @@ HEADERS  += mainwindow.h \
     pugixml.hpp \
     parameterslistmodel.h \
     parametercommentmodel.h \
-    testsdepotmodel.h
+    testsdepotmodel.h \
+    prerequisitemodel.h \
+    comboboxitemdelegate.h \
+    spinboxdelegate.h
 
 LIBS += -lstdc++fs
 

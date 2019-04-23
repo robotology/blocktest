@@ -11,7 +11,9 @@
  */
 
 
+#include "comboboxitemdelegate.h"
 #include "mainwindow.h"
+#include "spinboxdelegate.h"
 #include "ui_mainwindow.h"
 
 #include <QKeyEvent>
@@ -28,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     parametersModel_ = new ParametersListModel;
     parameterCommentModel_ = new ParameterCommentModel;
     testsDepotModel_ = new TestsDepotModel;
+    prerequisiteModel_= new PrerequisiteModel;
 
     ui->setupUi(this);
 
@@ -46,19 +49,26 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->commandTree->setDropIndicatorShown(true);
 
     ui->scriptTree->setModel(scriptModel_);
-    ui->scriptTree->expandAll();
     ui->scriptTree->setDragDropMode(QAbstractItemView::DragDrop);
     ui->scriptTree->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->scriptTree->setDragEnabled(true);
     ui->scriptTree->setAcceptDrops(true);
     ui->scriptTree->setDropIndicatorShown(true);
-    ui->scriptTree->expandAll();
     ui->scriptTree->installEventFilter(this);
     ui->scriptTree->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->scriptTree->expandAll();
 
     ui->testsDepot->setModel(testsDepotModel_);
     ui->testsDepot->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->testsDepot->installEventFilter(this);
+    SpinBoxDelegate* numDelegate = new SpinBoxDelegate(ui->testsDepot,1000,0);
+    ui->testsDepot->setItemDelegateForColumn(1,numDelegate);
+
+
+    ui->prerequisites->setModel(prerequisiteModel_);
+    ComboBoxItemDelegate* cbid = new ComboBoxItemDelegate(ui->prerequisites);
+    ui->prerequisites->setItemDelegateForColumn(1, cbid);
+    ui->prerequisites->setItemDelegateForColumn(3, cbid);
 
     auto resp=connect(parametersModel_,SIGNAL(itemChanged(QStandardItem*)),this,SLOT(parameterChanged(QStandardItem*)));
 }
@@ -131,11 +141,11 @@ void MainWindow::parameterChanged(QStandardItem * item)
     scriptModel_->updateParameters(index,parameters);
 }
 
-
 void MainWindow::on_loadTests_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), "./","*.xml");
     testsDepotModel_->load(fileName.toStdString());
+    prerequisiteModel_->load(fileName.toStdString());
 }
 
 void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
@@ -240,7 +250,8 @@ void MainWindow::newTest()
 void MainWindow::on_saveTests_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName(this,tr("Save tests list"), "./","*.xml");
-    testsDepotModel_->save(fileName.toStdString());
+    const pugi::xml_document& prerequisiteDocument=prerequisiteModel_->getDocument();
+    testsDepotModel_->save(fileName.toStdString(),prerequisiteDocument);
 }
 
 
