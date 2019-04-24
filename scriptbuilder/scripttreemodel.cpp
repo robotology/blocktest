@@ -211,7 +211,7 @@ void ScriptTreeModel::save(const std::string& fileName)
         body.append_copy(commandNode.node());
     }
 
-    doc.save_file((fileName+".xml").c_str());
+    doc.save_file((fileName).c_str());
 
     doc_.reset(doc);
 }

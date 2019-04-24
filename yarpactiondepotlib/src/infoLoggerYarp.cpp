@@ -24,6 +24,8 @@ InfoLoggerYarp::InfoLoggerYarp(const std::string &toLog, double loggingTime, con
 
 void InfoLoggerYarp::Start()
 {
+    working_ = true;
+
     if (loggingJoints_.empty())
     {
         //TXLOG(Severity::debug)<<"Logging joint is empty"<<std::endl;
@@ -32,7 +34,7 @@ void InfoLoggerYarp::Start()
 
     ActionYarp::getJointNames(*YarpActionDepotStart::polyDriverDepot_[wrapperName_], jointNames_);
 
-    //TXLOG(Severity::debug) << "Logging joint (pos) is not empty:"  << std::endl;
+    TXLOG(Severity::debug) << "Logging joint start test code:" <<testCode_<<" repetition:"<<repetition_<< std::endl;
 
     std::map<std::string, std::shared_ptr<DataLogger>> loggers;
 
@@ -60,7 +62,8 @@ void InfoLoggerYarp::Start()
 
     while (working_)
     {
-        ClockFacility::Instance().wait(loggingTime_);
+        //ClockFacility::Instance().wait(loggingTime_);
+        std::this_thread::sleep_for(std::chrono::milliseconds((int)(loggingTime_*1000)));
         for (std::string current : loggingJoints_)
         {
             double ref{0};
@@ -84,5 +87,5 @@ InfoLoggerYarp::~InfoLoggerYarp()
 {
     working_ = false;
     work_->join();
-    TXLOG(Severity::trace) << "Logging position joint now exit test code:" << std::endl;
+    TXLOG(Severity::trace) << "Logging position joint now exit test code:" <<testCode_<<" repetition:"<<repetition_<< std::endl;
 }

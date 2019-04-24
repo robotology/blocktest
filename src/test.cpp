@@ -111,7 +111,7 @@ bool Test::execute(bool isRealRobot) const
             return false;
         }
         auto call=LoggerRegister::getCreatorFunction(testDepot_->loggingcommand_);
-        auto action=(call)(loggingJoints_,testDepot_->loggingTime_,loggingwrapperName_,code_,repetitions_);
+        auto action=(call)(loggingJoints_,testDepot_->loggingTime_,loggingwrapperName_,code_,index);
         //**logging
 
         TXLOG(Severity::info)<<"+++++Subtest code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;;

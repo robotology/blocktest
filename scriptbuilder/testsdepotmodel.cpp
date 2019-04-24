@@ -96,7 +96,7 @@ void TestsDepotModel::save(const std::string& fileName,const pugi::xml_document&
         testListRoot.node().append_copy(current.node());
     }
 
-    doc_.save_file((fileName+".xml").c_str());
+    doc_.save_file((fileName).c_str());
 }
 
 void TestsDepotModel::onChanged(QStandardItem * item)
