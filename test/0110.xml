@@ -1,5 +1,6 @@
 <testbody>
     <info note="ICub right ankle roll pwmtrain injection." shortnote="" version="1"></info>
+    <logging loggingtype="" loggingpart="" loggingwrappername="" /> 
 
 	<command library="yarp" name="yarpsendpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="0" velocity="20" repetitions="1" wait="0" reporterror="true"></command>
     <command library="yarp" name="yarpwait" seconds="1" repetitions="1" wait="0" reporterror="true"></command>    

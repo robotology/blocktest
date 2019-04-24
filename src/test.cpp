@@ -23,15 +23,10 @@ Test::Test(const pugi::xml_node& nodeTest,const TestsDepot_sptr& testDepot):node
 
 bool Test::load()
 {
-    name_ = nodeTest_.attribute("name").value();
-    note_ = nodeTest_.attribute("note").value();
     file_ = nodeTest_.attribute("file").value();
     code_ = nodeTest_.attribute("code").value();
     repetitions_ =nodeTest_.attribute("repetitions").as_int();
-    loggingJoints_ = nodeTest_.attribute("loggingpart").value();
-    loggingwrapperName_ = nodeTest_.attribute("loggingwrappername").value();
-
-
+    
     if(!repetitions_)
         return false;
 
@@ -73,6 +68,13 @@ bool Test::load()
         command->load();
         data_.emplace_back(command);
         //TXLOG(Severity::debug)<<"file code:"<<code_<<":"<<outCommand.dumpCommand()<<std::endl;
+    }
+
+    pugi::xpath_node loggingNode = doc.select_node("//logging");
+    if(loggingNode.node()!=nullptr)
+    {
+        loggingJoints_ = loggingNode.node().attribute("loggingpart").value();
+        loggingwrapperName_ = loggingNode.node().attribute("loggingwrappername").value();
     }
 
     if(repetitions_)
