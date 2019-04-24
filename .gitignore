@@ -36,6 +36,5 @@ build
 *.bin
 *.log
 *.make
-*.cmake
 tmp
 scriptbuilder-build
