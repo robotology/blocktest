@@ -39,7 +39,7 @@ for i in range(tablenumber):
     ax.grid(True)
     ax.set_ylabel("degree")   
     ax.set_xlabel("sec") 
-    ax.set_xlim(0,10)
+    ax.set_xlim(0,40)
     ax.plot(AKPtime[i],AKP[i],label=label[i])
     ax.legend(loc='upper right') 
 

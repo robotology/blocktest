@@ -62,8 +62,8 @@ void InfoLoggerYarp::Start()
 
     while (working_)
     {
-        //ClockFacility::Instance().wait(loggingTime_);
-        std::this_thread::sleep_for(std::chrono::milliseconds((int)(loggingTime_*1000)));
+        ClockFacility::Instance().wait(loggingTime_);
+        //std::this_thread::sleep_for(std::chrono::milliseconds((int)(loggingTime_*1000)));
         for (std::string current : loggingJoints_)
         {
             double ref{0};
