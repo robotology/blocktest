@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <testbody>
 	<info note="ICub right ankle roll move." shortnote="" version="" />
+	<logging loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
+	
 	<command library="yarp" name="yarpreset" repetitions="1" wait="0" reporterror="true" />
 	<command library="yarp" name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="20" repetitions="1" wait="0" reporterror="true" />
 	<command library="yarp" name="yarpcheckrobotisvertical" repetitions="1" wait="0" reporterror="true" />

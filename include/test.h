@@ -36,8 +36,6 @@ private:
     std::vector<Command_sptr> data_;
     const pugi::xml_node& nodeTest_;
 
-    std::string name_;
-    std::string note_;
     std::string file_;
    
     std::string loggingJoints_;

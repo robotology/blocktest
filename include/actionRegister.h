@@ -37,6 +37,7 @@ class ActionRegister
         creator &mymap = getMap();
         if(mymap.find(commandname)!=mymap.end())
             return mymap[commandname];
+        TXLOG(Severity::error)<<"Function creator not found for:"<<commandname<<std::endl;  
     }
 
     void Dump()
