@@ -43,7 +43,7 @@ add_library(${PROJECT_NAME} MODULE ${allSrc})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${YARP_HELPERS_INCLUDE_DIR} ${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/../include)
-target_link_libraries(${PROJECT_NAME} PRIVATE ${YARP_LIBRARIES} ClockRpc)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${YARP_LIBRARIES} ClockRpc Pugixml::Pugixml)
 
 # Add install target
 set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECT_NAME}")
