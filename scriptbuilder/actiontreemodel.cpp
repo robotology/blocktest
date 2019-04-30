@@ -40,7 +40,11 @@ void ActionTreeModel::LoadXml()
 
     for (const fs::directory_entry & folder : fs::directory_iterator(path))
     {
-         QStandardItem * library = new QStandardItem(folder.path().filename().string().c_str());
+        std::string folderName=folder.path().stem().string();
+        if(folderName=="parameters")
+            continue;
+
+         QStandardItem * library = new QStandardItem(folderName.c_str());
          item->appendRow(library);
          library->setIcon(QIcon(":/icons/library.png"));
 
