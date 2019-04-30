@@ -16,9 +16,10 @@ FetchContent_Declare(Pugixml
                         )
 
 if(NOT Pugixml_POPULATED)
-        #set(BUILD_SHARED_LIBS ON)
-        FetchContent_Populate(Pugixml)
-        FetchContent_GetProperties(Pugixml 
+        set(BUILD_SHARED_LIBS ON)
+        FetchContent_Populate(Pugixml
+                            )
+        FetchContent_GetProperties(Pugixml
                                         SOURCE_DIR Pugixml_SOURCE_DIR 
                                         BINARY_DIR Pugixml_BINARY_DIR
                                         POPULATED Pugixml_POPULATED
