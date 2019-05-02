@@ -63,6 +63,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->testsDepot->installEventFilter(this);
     SpinBoxDelegate* numDelegate = new SpinBoxDelegate(ui->testsDepot,1000,0);
     ui->testsDepot->setItemDelegateForColumn(1,numDelegate);
+    ui->testsDepot->setDragDropMode(QAbstractItemView::DragDrop);
+    ui->testsDepot->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->testsDepot->setDragEnabled(true);
+    ui->testsDepot->setAcceptDrops(true);
+    ui->testsDepot->setDropIndicatorShown(true);
 
 
     ui->prerequisites->setModel(prerequisiteModel_);
@@ -71,6 +76,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->prerequisites->setItemDelegateForColumn(3, cbid);
 
     auto resp=connect(parametersModel_,SIGNAL(itemChanged(QStandardItem*)),this,SLOT(parameterChanged(QStandardItem*)));
+
+    setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
 }
 
 MainWindow::~MainWindow()
@@ -153,6 +160,8 @@ void MainWindow::on_loadTests_clicked()
 void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
 {
     QStringList paramToShow=index.sibling(index.row(),0).data(Qt::UserRole).toStringList();
+    if(paramToShow.empty())
+        return;
     QString fileName=paramToShow[URFfile];
     QString code=paramToShow[URFcode];
 

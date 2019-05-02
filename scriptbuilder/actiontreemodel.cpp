@@ -33,7 +33,7 @@ void ActionTreeModel::LoadXml()
     if(!fs::exists(path))
     {
         QMessageBox messageBox;
-        messageBox.critical(0,"ERROR","Missing the actions templates folder 'xmltemplate.xml'. Some functionalities will not be active.");
+        messageBox.critical(nullptr,"ERROR","Missing the actions templates folder 'xmltemplate.xml'. Some functionalities will not be active.");
         messageBox.setFixedSize(800,400);
         return;
     }

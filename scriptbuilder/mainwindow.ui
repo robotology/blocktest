@@ -3,7 +3,7 @@
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="windowModality">
-   <enum>Qt::WindowModal</enum>
+   <enum>Qt::ApplicationModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -12,6 +12,18 @@
     <width>1553</width>
     <height>800</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1553</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1553</width>
+    <height>800</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Scriptbuilder</string>
@@ -23,7 +35,7 @@
    <widget class="QGroupBox" name="scriptBox">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>880</x>
       <y>10</y>
       <width>661</width>
       <height>761</height>
@@ -123,7 +135,7 @@
       <bool>true</bool>
      </property>
      <property name="defaultDropAction">
-      <enum>Qt::MoveAction</enum>
+      <enum>Qt::IgnoreAction</enum>
      </property>
      <attribute name="headerVisible">
       <bool>false</bool>
@@ -547,7 +559,7 @@ background-color: rgba(0, 0, 0, 0);</string>
    <widget class="QGroupBox" name="actionsBox">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>580</x>
       <y>10</y>
       <width>281</width>
       <height>761</height>
@@ -593,7 +605,7 @@ background-color: rgba(0, 0, 0, 0);</string>
    <widget class="QGroupBox" name="testListBox">
     <property name="geometry">
      <rect>
-      <x>990</x>
+      <x>20</x>
       <y>10</y>
       <width>521</width>
       <height>761</height>

@@ -14,6 +14,8 @@
 #include "testsdepotmodel.h"
 #include <experimental/filesystem>
 #include <QKeyEvent>
+#include <qdebug.h>
+#include <qmimedata.h>
 
 namespace fs = std::experimental::filesystem;
 
@@ -36,6 +38,7 @@ void TestsDepotModel::redraw()
     clear();
     pugi::xpath_node_set commands = doc_.select_nodes("/testlist/test");
     QStandardItem *item = invisibleRootItem();
+
     for (pugi::xpath_node current:commands)
     {
         std::string code=current.node().attribute("code").value();
@@ -67,6 +70,7 @@ void TestsDepotModel::redraw()
         QStringList list{"","",""};
         list[URFfile]=file.c_str();
         list[URFcode]=code.c_str();
+        list[URFrepetition]=repetitions.c_str();
         nameItem->setData(list,Qt::UserRole);
         repetitionItem->setData(list,Qt::UserRole);
         fileItem->setData(list,Qt::UserRole);
@@ -115,6 +119,8 @@ void TestsDepotModel::onChanged(QStandardItem * item)
 
     QStringList itemList;
     itemList=item->data(Qt::UserRole).toStringList();
+    if(itemList.empty())
+        return;
     QString code;
     code=itemList[URFcode];
 
@@ -187,3 +193,125 @@ void TestsDepotModel::keypressed(const QString& pressedK,const QModelIndex& inde
 }
 
 
+bool TestsDepotModel::dropMimeData(const QMimeData *data, Qt::DropAction action,int row, int column, const QModelIndex &parent)
+{
+    if (action == Qt::IgnoreAction)
+        return true;
+
+    qDebug() << "dropMimeData: " << row << " " << column;
+
+    QByteArray encodedData;
+
+    if (data->hasFormat("test"))
+    {
+        encodedData = data->data("test");
+    }
+    else if (data->hasFormat("command/script"))
+    {
+        return true;
+    }
+
+    QDataStream stream(&encodedData, QIODevice::ReadOnly);
+    QStringList newItems;
+    int rows = 0;
+
+    while (!stream.atEnd()) {
+        QStringList text;
+        stream >> text;
+        newItems << text;
+        ++rows;
+    }
+
+
+    int newrow=parent.row();
+    int newcol=parent.column();
+
+
+    pugi::xpath_node_set commands = doc_.select_nodes("/testlist/test");
+    pugi::xml_node nodeToMove;
+    for (pugi::xpath_node current:commands)
+    {
+        std::string code=current.node().attribute("code").value();
+        if(code==newItems[URFcode].toStdString())
+        {
+            nodeToMove=current.node();
+            //current.node().parent().remove_child(current.node());
+        }
+    }
+
+    pugi::xpath_node_set::iterator current=commands.begin();
+    pugi::xml_node nodeDestination;
+    int index=0;
+    while (index!=newrow+1)
+    {
+        nodeDestination=(*current).node();
+        std::string name=nodeDestination.name();
+        if(name=="test")
+        {
+            ++index;
+        }
+        ++current;
+    }
+
+    pugi::xpath_node testlist = doc_.select_node("/testlist");
+    testlist.node().insert_move_after(nodeToMove,nodeDestination);
+
+    redraw();
+
+
+/*
+   std::string commandName=newItems[1].toStdString();
+
+   QStandardItem * command = new QStandardItem(commandName.c_str());
+
+   if(row==-1)
+       script_->appendRow(command);
+   else
+       script_->insertRow(row,command);
+
+   std::string out=getXmlString(newItems[0].toStdString());
+   newItems<<out.c_str();
+   command->setIcon(QIcon(":/icons/envelope.png"));
+   command->setData(commandName.c_str(),Qt::EditRole);
+   command->setData(newItems,Qt::UserRole);
+*/
+    return true;
+}
+
+Qt::DropActions TestsDepotModel::supportedDropActions() const
+{
+    return Qt::MoveAction;
+}
+
+QMimeData *TestsDepotModel::mimeData(const QModelIndexList &indexes) const
+{
+    QMimeData *mimeData = new QMimeData();
+    QByteArray encodedData;
+
+    QDataStream stream(&encodedData, QIODevice::WriteOnly);
+
+         foreach (QModelIndex index, indexes) {
+             if (index.isValid()) {
+                 QStandardItem *test = itemFromIndex(index);
+                 QStringList out=(test->data(Qt::UserRole)).toStringList();
+                 stream << out;
+             }
+         }
+
+    mimeData->setData("test", encodedData);
+    return mimeData;
+}
+
+
+QStringList TestsDepotModel::mimeTypes() const
+{
+    QStringList types;
+    types << "test";
+    return types;
+}
+
+
+Qt::ItemFlags TestsDepotModel::flags(const QModelIndex &index) const
+{
+    return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+}

@@ -21,7 +21,8 @@
 enum UsrRoleTests
 {
     URFfile=0,
-    URFcode=1
+    URFcode=1,
+    URFrepetition=2
 };
 
 class TestsDepotModel : public QStandardItemModel
@@ -40,6 +41,12 @@ public:
     void redraw();
 
     std::string testPath_;
+
+    Qt::DropActions supportedDropActions() const;
+    bool dropMimeData(const QMimeData *data, Qt::DropAction action,int row, int column, const QModelIndex &parent);
+    QMimeData *mimeData(const QModelIndexList &indexes) const;
+    QStringList mimeTypes() const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
 
 public slots:
     void onChanged(QStandardItem * item);

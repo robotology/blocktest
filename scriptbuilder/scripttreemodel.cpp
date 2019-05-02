@@ -98,7 +98,7 @@ bool ScriptTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
         ++rows;
     }
 
-   std::string commandName=newItems[1].toStdString();
+   std::string commandName=newItems[URSname].toStdString();
 
    QStandardItem * command = new QStandardItem(commandName.c_str());
 
