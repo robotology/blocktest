@@ -235,7 +235,6 @@ bool TestsDepotModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
         if(code==newItems[URFcode].toStdString())
         {
             nodeToMove=current.node();
-            //current.node().parent().remove_child(current.node());
         }
     }
 
@@ -257,24 +256,6 @@ bool TestsDepotModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
     testlist.node().insert_move_after(nodeToMove,nodeDestination);
 
     redraw();
-
-
-/*
-   std::string commandName=newItems[1].toStdString();
-
-   QStandardItem * command = new QStandardItem(commandName.c_str());
-
-   if(row==-1)
-       script_->appendRow(command);
-   else
-       script_->insertRow(row,command);
-
-   std::string out=getXmlString(newItems[0].toStdString());
-   newItems<<out.c_str();
-   command->setIcon(QIcon(":/icons/envelope.png"));
-   command->setData(commandName.c_str(),Qt::EditRole);
-   command->setData(newItems,Qt::UserRole);
-*/
     return true;
 }
 
