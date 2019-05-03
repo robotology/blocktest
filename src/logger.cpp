@@ -15,7 +15,7 @@ Logger::Logger()
             currentFile_ = 0;
     }
 
-    threadHandler_ = std::make_shared<std::thread>(&Logger::Writing, this);
+    threadHandler_ = std::make_unique<std::thread>(&Logger::Writing, this);
 
     outStreamFile_.open(txlogfilename_, std::ios::out | std::ios::app); 
     plotStreamFile_.open(txplotfilename_, std::ios::out); 

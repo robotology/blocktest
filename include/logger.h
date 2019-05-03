@@ -44,7 +44,7 @@ private:
 
     std::map<Severity, int> statistics;
 
-    std::shared_ptr<std::thread> threadHandler_;
+    std::unique_ptr<std::thread> threadHandler_;
     std::atomic<bool> continueLogging_{true};
     void Writing();
     std::list<std::tuple<Severity,std::string>> loggingQueue_;

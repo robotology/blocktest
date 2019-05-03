@@ -49,9 +49,11 @@ blocks can be used to build different tests (See Figure below).
 ## 3.1. Prerequisite
 
 ```bash
-sudo apt-get install build-essential qtcreator qt5-default
+sudo apt-get install build-essential qtcreator qt5-default libboost-all-dev
 ```
 At the moment the application is only for Linux type OS.
+
+Boost version must be >1.63.
 
 ## 3.2. Dependancy
 The application uses the following third part libraries (although you don't need to install by yourself)

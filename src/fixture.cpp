@@ -42,23 +42,23 @@ Fixture::Fixture(const std::string& path)
 
 Fixture::~Fixture()
 {
+    fixtureCheckerActive_=false;
+    fixtureCheck_->join();
+
     std::list<FixtureParam>::reverse_iterator it;
     for(it=fixtures_.rbegin();it!=fixtures_.rend();++it)
     {
-        FixtureParam current=*it;
-        if(!current.enabled_)
+        if(!(*it).enabled_)
             continue;
 
-        if(!current.kill_)
+        if(!(*it).kill_)
             continue;
-        std::stringstream ss;
-        ss<<"killall -9 "<<current.commandName_;
 
-        TXLOG(Severity::info)<<"fixture destroy:"<<ss.str()<<std::endl;
+        (*it).process_->terminate();
 
-        current.process_->kill(true);
-        std::this_thread::sleep_for(std::chrono::milliseconds(current.waitafter_));
-        //auto out=system(ss.str().c_str());
+        TXLOG(Severity::info)<<"prerequisite destroyed:"<<(*it).commandName_<<std::endl;
+
+        std::this_thread::sleep_for(std::chrono::milliseconds((*it).waitafter_));
     }
 }
 
@@ -74,14 +74,36 @@ void Fixture::execute()
         std::stringstream ss;
         ss<<current.prefix_<<" "<<current.commandName_<<" "<<current.commandParam_<<" &";
 
-        TXLOG(Severity::info)<<"fixture execute:"<<ss.str()<<std::endl;
+        TXLOG(Severity::info)<<"prerequisite executed:"<<ss.str()<<std::endl;
         
         std::cout<<"-------------------------------------------"<<std::endl;
-        std::cout<<"fixture execute:"<<ss.str()<<std::endl;
+        std::cout<<"prerequisite executed:"<<ss.str()<<std::endl;
         std::cout<<"-------------------------------------------"<<std::endl;
 
-        current.process_=std::make_shared<TinyProcessLib::Process>(ss.str());
-        //auto out=std::system(ss.str().c_str());
+        current.process_=std::make_unique<boost::process::child>(ss.str()/*, boost::process::std_out > current.out_*/);
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+
+    fixtureCheck_=std::make_unique<std::thread>(&Fixture::fixtureCheker,this);
+}
+
+void Fixture::fixtureCheker()
+{
+    while(fixtureCheckerActive_)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        for(auto& current:fixtures_)
+        {
+            if(!current.enabled_)
+                continue;
+
+            int status;
+            bool run=current.process_->running();
+            if(!run)
+            {
+                TXLOG(Severity::critical)<<"Prerequisite stopped:"<<current.commandName_<<" status:"<<run<<std::endl;
+                fixtureCheckerActive_=false;
+            }
+        }
+    }
 }

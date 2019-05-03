@@ -23,4 +23,6 @@
 #include <dlfcn.h>
 #include <experimental/filesystem>
 
+#include <boost/process.hpp>
+
 #include "pugixml.hpp"
