@@ -36,6 +36,14 @@ bool LibraryLoader::load(const std::string& path)
         std::string currentPath=nodeLibrary.node().attribute("path").as_string();
         std::string libraryName=nodeLibrary.node().attribute("name").as_string();
         TXLOG(Severity::info)<<"Try load lib:"<<currentPath<<std::endl;
+/*
+        typedef void (funcptr)( char*,char* );
+        auto startFunction =  boost::dll::import<funcptr>(
+        currentPath,
+        "Start",
+        boost::dll::load_mode::rtld_lazy
+        );
+*/        
 
         void* handle = dlopen(currentPath.c_str(), RTLD_LAZY);
         if(!handle)
@@ -49,6 +57,8 @@ bool LibraryLoader::load(const std::string& path)
         }
         typedef void (*funcptr)( char*,char* );
         funcptr startFunction = (funcptr)dlsym(handle, "Start");
+      
+      
         if(startFunction)
         {
             startFunction((char*)completePath.c_str(),(char*)libraryName.c_str());

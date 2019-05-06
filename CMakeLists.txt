@@ -38,7 +38,7 @@ endif()
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREAD ON)
 set(BOOST_MIN_VERSION "1.64.0")
-find_package(Boost ${BOOST_MIN_VERSION} REQUIRED)
+find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
 if (NOT Boost_FOUND)
       message(FATAL_ERROR "Fatal error: Boost (version >= 1.64.0) required.\n")
 endif (NOT Boost_FOUND)
@@ -50,7 +50,7 @@ endif (NOT Boost_FOUND)
 #if (USE_SYSTEM_FMILIBRARY)
 #    find_package(TinyProcessLibrary REQUIRED)
 #else()
-    include(FetchTinyProcessLibrary)  
+#    include(FetchTinyProcessLibrary)  
 #endif()
 
 #Pugixml library
@@ -80,9 +80,8 @@ if(NOT CMAKE_CONFIGURATION_TYPES)
     endif()
 endif()
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
 #-------Important
 #Let the singleton to be unique
@@ -97,7 +96,7 @@ endif()
 
 add_executable(${PROJECT_NAME} ${allSrc} )
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${Boost_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} dl pthread stdc++fs TinyProcessLibrary::TinyProcessLibrary Pugixml::Pugixml)
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} dl pthread stdc++fs Pugixml::Pugixml)
 
 #test file folder
 file(COPY test DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
