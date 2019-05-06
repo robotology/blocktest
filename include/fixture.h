@@ -46,7 +46,7 @@ class Fixture
                 bool enabled_;
                 std::string prefix_;
                 unsigned int waitafter_;
-                std::unique_ptr<boost::process::child> process_;
+                std::shared_ptr<boost::process::child> process_;
         };
 
         const std::string testName_{"./test/test.xml"};

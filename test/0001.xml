@@ -33,6 +33,6 @@
 	<command library="yarp" name="yarpcheckjointposition" wrappername="/right_leg" jointname="r_ankle_pitch" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true" />
 	<command library="yarp" name="yarpcheckrobotisvertical" repetitions="1" wait="0" reporterror="true" />
 	<command library="yarp" name="yarpwait" seconds="2" repetitions="1" wait="0" reporterror="true" />
-	<command library="general" name="execute" command="python3" param=".//test//files//plot.py 1 log//pos_0001-r_ankle_roll-0 Ankle_roll_0001" prefix="" waitafter="2" kill="no" repetitions="1" wait="0" reporterror="true" />
-	<command library="general" name="execute" command="python3" param=".//test//files//plot.py 1 log//pos_0001-r_ankle_pitch-0 Ankle_pitch_0001" prefix="" waitafter="2" kill="no" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="execute" command="python3" param=".//test//files//plot.py 1 log//pos_0001-r_ankle_roll-0 Ankle_roll_0001" tag="exe1" prefix="" waitafter="2" kill="no" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="execute" command="python3" param=".//test//files//plot.py 1 log//pos_0001-r_ankle_pitch-0 Ankle_pitch_0001" prefix="" tag="exe2" waitafter="2" kill="no" repetitions="1" wait="0" reporterror="true" />
 </testbody>

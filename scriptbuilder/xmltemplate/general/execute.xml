@@ -3,6 +3,7 @@
                 command="" 
                 param="" 
                 prefix="" 
+                tag="" 
                 waitafter="2"
                 kill="no"
                 repetitions="1" 

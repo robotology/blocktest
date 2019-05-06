@@ -165,13 +165,9 @@ void TestsDepotModel::newTest(const QModelIndex& index)
     pugi::xpath_node rootPath = doc_.select_node("/testlist");
     pugi::xml_node root=rootPath.node();
     pugi::xml_node added=root.append_child("test");
-    added.append_attribute("code").set_value("9999");
     added.append_attribute("file").set_value("xxx");
     added.append_attribute("repetitions").set_value(0);
-    added.append_attribute("loggingtype");
-    added.append_attribute("loggingpart");
-    added.append_attribute("loggingwrappername");
-
+    added.append_attribute("code").set_value("9999");
     redraw();
 }
 
