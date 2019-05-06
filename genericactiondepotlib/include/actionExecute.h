@@ -24,7 +24,7 @@ class ActionExecute : public Action
         std::string commandName_;
         std::string commandParam_;
         std::string prefix_;
-        std::string kill_;
+        bool kill_;
         unsigned int waitafter_;
         std::string tag_;
 

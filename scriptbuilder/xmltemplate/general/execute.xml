@@ -5,7 +5,7 @@
                 prefix="" 
                 tag="" 
                 waitafter="2"
-                kill="no"
+                kill="false"
                 repetitions="1" 
                 wait="0"
                 reporterror="true">

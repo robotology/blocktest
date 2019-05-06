@@ -26,12 +26,12 @@ ActionExecute::ActionExecute(const pugi::xml_node& nodeCommand,Test_sptr test):A
     commandParam_=nodeCommand_.attribute("param").value();
     prefix_=nodeCommand_.attribute("prefix").value();
     waitafter_=nodeCommand_.attribute("waitafter").as_int();
-    kill_=nodeCommand_.attribute("kill").value();  
+    kill_=nodeCommand_.attribute("kill").as_bool();  
 }     
 
 bool ActionExecute::execute(unsigned int testrepetition)
 {
-    if(kill_=="yes")
+    if(kill_)
     {
         if(processes_.find(tag_)==processes_.end())
         {

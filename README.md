@@ -300,7 +300,7 @@ These commands are contained in the generic command library.
                 param="--gazeboClock --MPC::solver_name mumps --IK::solver_name mumps" 
                 prefix="" 
                 waitafter="2"
-                kill="no"
+                kill="false"
                 repetitions="1" 
                 wait="0"
                 reporterror="true">
