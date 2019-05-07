@@ -55,5 +55,6 @@ class Fixture
         std::unique_ptr<std::thread> fixtureCheck_;
         void fixtureCheker();
         std::atomic<bool> fixtureCheckerActive_{true};
+        
 };
 

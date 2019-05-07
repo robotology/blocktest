@@ -35,12 +35,13 @@ if(USES_YARP)
 else()
 endif() 
 
+set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREAD ON)
 set(BOOST_MIN_VERSION "1.64.0")
 find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
 if (NOT Boost_FOUND)
-      message(FATAL_ERROR "Fatal error: Boost (version >= 1.64.0) required.\n")
+      message(FATAL_ERROR "Fatal error: Boost (version >= ${BOOST_MIN_VERSION}) required.\n")
 endif (NOT Boost_FOUND)
 
 

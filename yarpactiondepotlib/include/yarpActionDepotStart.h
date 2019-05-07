@@ -38,5 +38,3 @@ class YarpActionDepotStart :public ActionDepotStart
         static std::map<std::string,PolyDriver_sptr> polyDriverDepot_;//PolyDrive collection for each wrappers
 };
 
-static YarpActionDepotStart start;
-

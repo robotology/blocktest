@@ -80,7 +80,7 @@ void Fixture::execute()
         std::cout<<"prerequisite executed:"<<ss.str()<<std::endl;
         std::cout<<"-------------------------------------------"<<std::endl;
 
-        current.process_=std::make_shared<boost::process::child>(ss.str()/*, boost::process::std_out > current.out_*/);
+        current.process_=std::make_shared<boost::process::child>(ss.str());
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 

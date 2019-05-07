@@ -36,41 +36,23 @@ bool LibraryLoader::load(const std::string& path)
         std::string currentPath=nodeLibrary.node().attribute("path").as_string();
         std::string libraryName=nodeLibrary.node().attribute("name").as_string();
         TXLOG(Severity::info)<<"Try load lib:"<<currentPath<<std::endl;
-/*
-        typedef void (funcptr)( char*,char* );
-        auto startFunction =  boost::dll::import<funcptr>(
-        currentPath,
-        "Start",
-        boost::dll::load_mode::rtld_lazy
-        );
-*/        
 
-        void* handle = dlopen(currentPath.c_str(), RTLD_LAZY);
-        if(!handle)
+        try
         {
-            TXLOG(Severity::error)<<"Custom lib not found:"<<currentPath<<" error:"<<dlerror()<<std::endl;        
-            return false;
-        }
-        else
-        {
-            TXLOG(Severity::info)<<"Custom lib found:"<<currentPath<<std::endl;        
-        }
-        typedef void (*funcptr)( char*,char* );
-        funcptr startFunction = (funcptr)dlsym(handle, "Start");
-      
-      
-        if(startFunction)
-        {
+            typedef void (funcptr)( char*,char* );
+            auto startFunction =  boost::dll::import<funcptr>(
+                currentPath,
+                "Start",
+                boost::dll::load_mode::rtld_lazy
+                );
+
             startFunction((char*)completePath.c_str(),(char*)libraryName.c_str());
         }
-        else
-        {
-            char *errstr = dlerror();
-            if (errstr)
-            {
-                TXLOG(Severity::error)<<"Start function not found lib:"<<currentPath<<" err:"<<errstr<<std::endl;
-            }
+        catch(boost::exception const& e) {
+            TXLOG(Severity::critical)<<"Custom lib:"<<currentPath<<" error:"<<boost::diagnostic_information(e, true)<<std::endl;
+            return false;
         }
+        TXLOG(Severity::info)<<"Custom ok:"<<currentPath<<std::endl;
     }
     return true;
 }
