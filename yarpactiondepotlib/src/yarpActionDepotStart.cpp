@@ -18,6 +18,7 @@
 #include "yarpActionDepotStart.h"
 #include <yarp/os/Network.h>
 
+static YarpActionDepotStart start;
 std::map<std::string,PolyDriver_sptr> YarpActionDepotStart::polyDriverDepot_;
 
 YarpActionDepotStart::YarpActionDepotStart()

@@ -275,4 +275,7 @@ void MainWindow::on_saveTests_clicked()
     testsDepotModel_->save(fileName.toStdString(),prerequisiteDocument);
 }
 
-
+void MainWindow::on_scriptTree_pressed(const QModelIndex &index)
+{
+    scriptModel_->selectedIndex_=index;
+}

@@ -32,6 +32,6 @@ class InfoLogger
         std::string testCode_;
         int repetition_{0};
 
-        std::shared_ptr<std::thread> work_;
+        std::unique_ptr<std::thread> work_;
         std::atomic_bool working_{true};
 };

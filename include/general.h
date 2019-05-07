@@ -23,4 +23,10 @@
 #include <dlfcn.h>
 #include <experimental/filesystem>
 
+#include <boost/process.hpp>
+#include <boost/dll/import.hpp>   
+#include <boost/dll/shared_library.hpp> 
+#include <boost/exception/diagnostic_information.hpp>
+#include <boost/filesystem.hpp>
+
 #include "pugixml.hpp"

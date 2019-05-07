@@ -37,3 +37,11 @@
     uom="" 
     type="boolean" 
 />
+
+<tag 
+    short="tag" 
+    full="Identify this command for a future kill" 
+    values=""  
+    uom="" 
+    type="string" 
+/>

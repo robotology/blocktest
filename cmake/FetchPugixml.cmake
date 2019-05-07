@@ -16,7 +16,7 @@ FetchContent_Declare(Pugixml
                         )
 
 if(NOT Pugixml_POPULATED)
-        set(BUILD_SHARED_LIBS ON)
+        set(BUILD_SHARED_LIBS ON CACHE BOOL "sss")                                        
         FetchContent_Populate(Pugixml
                             )
         FetchContent_GetProperties(Pugixml
@@ -24,6 +24,9 @@ if(NOT Pugixml_POPULATED)
                                         BINARY_DIR Pugixml_BINARY_DIR
                                         POPULATED Pugixml_POPULATED
                                         )
+        set(BUILD_SHARED_LIBS ON CACHE BOOL "sss")                                        
 endif()
+
+set(BUILD_SHARED_LIBS ON CACHE BOOL "sss")
 add_subdirectory(${Pugixml_SOURCE_DIR} ${Pugixml_BINARY_DIR} )
 add_library(Pugixml::Pugixml ALIAS pugixml)

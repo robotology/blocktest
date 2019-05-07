@@ -6,35 +6,25 @@
  ******************************************************************************/
 
 /**
- * @file yarpActionDepotStart.h
+ * @file actionReset.h
  * @author Luca Tricerri <luca.tricerri@iit.it>
  */
 
 #pragma once
 
-#include "actionDepotStart.h"
-
-#include <yarp/dev/PolyDriver.h>
-
-extern "C"{
-    void Start(char* data,char* name);  
-}
-
-using PolyDriver_sptr=std::shared_ptr<yarp::dev::PolyDriver>;
+#include "actionYarp.h"
 
 /**
- * @class YarpActionDepotStart
+ * @class ActionResetPose
  * @brief ...
  * @todo missing brief and detailed description
  */
-class YarpActionDepotStart :public ActionDepotStart
+class ActionResetPose : public ActionYarp
 {
     public:
-        YarpActionDepotStart(); 
-        ~YarpActionDepotStart(); 
+        ActionResetPose(const pugi::xml_node& nodeCommand,Test_sptr test);
+        bool execute(unsigned int testrepetition) override;
 
-        void configure(const std::string& path,const std::string& name) override;
-
-        static std::map<std::string,PolyDriver_sptr> polyDriverDepot_;//PolyDrive collection for each wrappers
+    ACTIONREGISTER_DEC_TYPE(ActionResetPose)        
 };
 

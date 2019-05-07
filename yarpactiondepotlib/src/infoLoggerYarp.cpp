@@ -19,7 +19,7 @@ LOGGERREGISTER_DEF_TYPE(InfoLoggerYarp, "infologgeryarp");
 
 InfoLoggerYarp::InfoLoggerYarp(const std::string &toLog, double loggingTime, const std::string &wrapperName, const std::string &testCode, int repetition) : InfoLogger(toLog, loggingTime, wrapperName, testCode, repetition)
 {
-    work_ = std::make_shared<std::thread>(&InfoLoggerYarp::Start,this);
+    work_ = std::make_unique<std::thread>(&InfoLoggerYarp::Start,this);
 }
 
 void InfoLoggerYarp::Start()

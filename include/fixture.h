@@ -15,8 +15,6 @@
 #include "type.h"
 #include "general.h"
 
-#include "process.hpp"
-
 /**
  * @class Fixture
  * @brief ...
@@ -47,11 +45,16 @@ class Fixture
                 bool enabled_;
                 std::string prefix_;
                 unsigned int waitafter_;
-                std::shared_ptr<TinyProcessLib::Process> process_;
+                std::shared_ptr<boost::process::child> process_;
         };
 
         const std::string testName_{"./test/test.xml"};
 
         std::list<FixtureParam> fixtures_;
+
+        std::unique_ptr<std::thread> fixtureCheck_;
+        void fixtureCheker();
+        std::atomic<bool> fixtureCheckerActive_{true};
+        
 };
 

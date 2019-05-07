@@ -14,11 +14,12 @@
 #include "logger.h"
 #include "genericActionDepotStart.h"
 
+static GenericActionDepotStart start;
 std::chrono::milliseconds GenericActionDepotStart::begin_;
 
 GenericActionDepotStart::GenericActionDepotStart()
 {
-    TXLOG(Severity::info)<<"Library setup"<<std::endl;
+    TXLOG(Severity::info)<<"Library creation"<<std::endl;
     begin_ = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
 }     
 
@@ -31,7 +32,7 @@ void Start(char* data,char* name)
 {
     if(data)
     {
-        TXLOG(Severity::info)<<"Library start:"<<data<<std::endl;
+        TXLOG(Severity::info)<<"Library start called:"<<data<<std::endl;
         start.configure(data,name);
     }
 }

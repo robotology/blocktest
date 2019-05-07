@@ -49,9 +49,11 @@ blocks can be used to build different tests (See Figure below).
 ## 3.1. Prerequisite
 
 ```bash
-sudo apt-get install build-essential qtcreator qt5-default
+sudo apt-get install build-essential qtcreator qt5-default libboost-all-dev
 ```
 At the moment the application is only for Linux type OS.
+
+Boost library version must be >1.63.
 
 ## 3.2. Dependancy
 The application uses the following third part libraries (although you don't need to install by yourself)
@@ -298,7 +300,7 @@ These commands are contained in the generic command library.
                 param="--gazeboClock --MPC::solver_name mumps --IK::solver_name mumps" 
                 prefix="" 
                 waitafter="2"
-                kill="no"
+                kill="false"
                 repetitions="1" 
                 wait="0"
                 reporterror="true">

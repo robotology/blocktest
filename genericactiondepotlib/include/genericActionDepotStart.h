@@ -31,5 +31,3 @@ class GenericActionDepotStart : public ActionDepotStart
 
         static std::chrono::milliseconds begin_;
 };
-
-static GenericActionDepotStart start;

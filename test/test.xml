@@ -5,9 +5,10 @@
 	<library enabled="true" path="yarpactiondepot/yarpactiondepot.so" name="yarpactiondepot" note="Yarp action library" />
 	<librarysettings enabled="true" name="genericactiondepot" />
 	<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" />
-	<test file="test/0001.xml" repetitions="1" code="0001" />
-	<test file="test/0100.xml" repetitions="1" code="0100" />
+	<test file="test/0001.xml" repetitions="0" code="0001" />
+	<test file="test/0100.xml" repetitions="0" code="0100" />
 	<test file="test/0110.xml" repetitions="0" code="0110" />
+	<test file="test/0600.xml" repetitions="1" code="0600" />
 	<prerequisite enabled="false" command="roscore" waitafter="5000" param="" prefix="" kill="true" />
 	<prerequisite enabled="false" command="yarpserver" waitafter="5000" param="--silent --write --ros" prefix="" kill="true" />
 	<prerequisite enabled="true" command="yarpserver" waitafter="5000" param="--silent" prefix="" kill="true" />
