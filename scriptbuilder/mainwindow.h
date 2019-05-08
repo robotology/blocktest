@@ -62,6 +62,9 @@ private slots:
     void copyAction();
     void pasteAction();
 
+    void actionSettings();
+    void actionExit();
+
     void on_testNote_textChanged();
 
     void on_testsDepot_customContextMenuRequested(const QPoint &pos);
@@ -82,6 +85,8 @@ private:
     TestsDepotModel *testsDepotModel_{nullptr};
     PrerequisiteModel *prerequisiteModel_{nullptr};
     void populateInfo();
+
+    std::string testFolder_;
 
 };
 

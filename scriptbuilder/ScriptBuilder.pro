@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     testsdepotmodel.cpp \
     prerequisitemodel.cpp \
     comboboxitemdelegate.cpp \
-    spinboxdelegate.cpp
+    spinboxdelegate.cpp \
+    settingdialog.cpp
 
 HEADERS  += mainwindow.h \
     actiontreemodel.h \
@@ -39,11 +40,13 @@ HEADERS  += mainwindow.h \
     testsdepotmodel.h \
     prerequisitemodel.h \
     comboboxitemdelegate.h \
-    spinboxdelegate.h
+    spinboxdelegate.h \
+    settingdialog.h
 
 LIBS += -lstdc++fs
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    settingdialog.ui
 
 RESOURCES += \
     resource.qrc

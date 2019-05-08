@@ -19,7 +19,7 @@ if(COMPILE_SCRIPTBUILDER)
   set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 
   set(scriptbuilder_qrc resource.qrc)
-  set(scriptbuilder_ui mainwindow.ui)
+  set(scriptbuilder_ui mainwindow.ui settingdialog.ui)
 
   qt5_add_resources(qrc_moc ${scriptbuilder_qrc})
   qt5_wrap_cpp(moc_src ${scriptbuilder_header})
@@ -40,7 +40,7 @@ if(COMPILE_SCRIPTBUILDER)
                         Qt5::Widgets
                         Qt5::Gui
                         stdc++fs
-                       )
+                       )  
 
   add_executable(${PROJECT_NAME}  
                   ${scriptbuilder_src} 

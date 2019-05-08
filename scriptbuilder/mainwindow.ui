@@ -3,7 +3,7 @@
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
+   <enum>Qt::NonModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -559,7 +559,7 @@ background-color: rgba(0, 0, 0, 0);</string>
    <widget class="QGroupBox" name="actionsBox">
     <property name="geometry">
      <rect>
-      <x>580</x>
+      <x>570</x>
       <y>10</y>
       <width>281</width>
       <height>761</height>

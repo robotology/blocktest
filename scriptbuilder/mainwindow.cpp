@@ -13,6 +13,7 @@
 
 #include "comboboxitemdelegate.h"
 #include "mainwindow.h"
+#include "settingdialog.h"
 #include "spinboxdelegate.h"
 #include "ui_mainwindow.h"
 
@@ -76,6 +77,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->prerequisites->setItemDelegateForColumn(3, cbid);
 
     auto resp=connect(parametersModel_,SIGNAL(itemChanged(QStandardItem*)),this,SLOT(parameterChanged(QStandardItem*)));
+    resp=connect(ui->actionSetting, &QAction::triggered, this, &MainWindow::actionSettings);
+    resp=connect(ui->actionExit, &QAction::triggered, this, &MainWindow::actionExit);
 
     setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
 }
@@ -86,7 +89,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_loadButton_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Open test"), "./","*.xml");
+    std::string total=testFolder_;
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Open test"), testFolder_.c_str(),"*.xml");
     scriptModel_->load(fileName.toStdString());
 
     fs::directory_entry tmp(fileName.toStdString());
@@ -152,7 +156,8 @@ void MainWindow::parameterChanged(QStandardItem * item)
 
 void MainWindow::on_loadTests_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), "test.xml","*.xml");
+    std::string total=testFolder_+"/test.xml";
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), total.c_str(),"*.xml");
     testsDepotModel_->load(fileName.toStdString());
     prerequisiteModel_->load(fileName.toStdString());
 }
@@ -197,7 +202,7 @@ void MainWindow::on_scriptTree_customContextMenuRequested(const QPoint &pos)
     menu.exec(ui->scriptTree->viewport()->mapToGlobal(pos));
 
     parameterCommentModel_->clear();
-    parametersModel_->clearall();
+    parametersModel_->clearall();   
 }
 
 void MainWindow::deleteAction()
@@ -279,4 +284,19 @@ void MainWindow::on_saveTests_clicked()
 void MainWindow::on_scriptTree_pressed(const QModelIndex &index)
 {
     scriptModel_->selectedIndex_=index;
+}
+
+void MainWindow::actionSettings()
+{
+    SettingDialog* settings = new SettingDialog();
+    settings->setModal(true);
+    settings->SetTestFolder(testFolder_);
+
+    settings->exec();
+    testFolder_=settings->GetTestFolder();
+}
+
+void MainWindow::actionExit()
+{
+     QCoreApplication::quit();
 }
