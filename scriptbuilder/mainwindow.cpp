@@ -105,7 +105,7 @@ void MainWindow::on_scriptTree_clicked(const QModelIndex &index)
 
 void MainWindow::on_saveButton_clicked()
 {
-    QString fileName = QFileDialog::getSaveFileName(this,tr("Save test"), "./","*.xml");
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save test"),  ui->testname->text(),"*.xml");
     scriptModel_->save(fileName.toStdString());
 
     fs::directory_entry tmp(fileName.toStdString());
@@ -152,7 +152,7 @@ void MainWindow::parameterChanged(QStandardItem * item)
 
 void MainWindow::on_loadTests_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), "./","*.xml");
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), "test.xml","*.xml");
     testsDepotModel_->load(fileName.toStdString());
     prerequisiteModel_->load(fileName.toStdString());
 }
@@ -270,7 +270,8 @@ void MainWindow::newTest()
 
 void MainWindow::on_saveTests_clicked()
 {
-    QString fileName = QFileDialog::getSaveFileName(this,tr("Save tests list"), "./","*.xml");
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save tests list"), "test.xml","*.xml");
+
     const pugi::xml_document& prerequisiteDocument=prerequisiteModel_->getDocument();
     testsDepotModel_->save(fileName.toStdString(),prerequisiteDocument);
 }

@@ -76,8 +76,6 @@ bool ScriptTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
     if (action == Qt::IgnoreAction)
         return true;
 
-    script_->removeRow(selectedIndex_.row());
-
     QByteArray encodedData;
 
     if (data->hasFormat("command/action"))
@@ -106,8 +104,25 @@ bool ScriptTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
 
    if(row==-1)
        script_->appendRow(command);
-   else
-       script_->insertRow(row,command);
+   else      
+      script_->insertRow(row,command);
+
+   if (data->hasFormat("command/script"))
+   {
+       if(row==-1)
+       {
+           script_->removeRow(selectedIndex_.row());
+       }
+       else if(selectedIndex_.row()<row)
+       {
+           script_->removeRow(selectedIndex_.row());
+       }
+       else if(selectedIndex_.row()>row)
+       {
+           script_->removeRow(selectedIndex_.row()+1);
+       }
+
+   }
 
    std::string out=getXmlString(newItems[0].toStdString());
    newItems<<out.c_str();
