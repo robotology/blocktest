@@ -1,3 +1,16 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file SettingDialog.h
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
+
 #ifndef SETTINGDIALOG_H
 #define SETTINGDIALOG_H
 

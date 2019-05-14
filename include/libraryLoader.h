@@ -17,8 +17,12 @@ class LibraryLoader
 {
     public:
         LibraryLoader();
+        ~LibraryLoader();
         bool load(const std::string& path);
 
     private:
         const std::string testName_{"./test/test.xml"};
+        typedef void (funcptr)( char*,char* );
+
+        std::list<boost::function<funcptr>> stopFunction_;
 };

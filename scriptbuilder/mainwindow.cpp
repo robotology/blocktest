@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     parameterCommentModel_ = new ParameterCommentModel;
     testsDepotModel_ = new TestsDepotModel;
     prerequisiteModel_= new PrerequisiteModel;
+    loggerModel_ = new LoggerModel;
 
     ui->setupUi(this);
 
@@ -69,6 +70,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->testsDepot->setDragEnabled(true);
     ui->testsDepot->setAcceptDrops(true);
     ui->testsDepot->setDropIndicatorShown(true);
+
+    ui->logView->setModel(loggerModel_);
 
 
     ui->prerequisites->setModel(prerequisiteModel_);
@@ -202,7 +205,7 @@ void MainWindow::on_scriptTree_customContextMenuRequested(const QPoint &pos)
     menu.exec(ui->scriptTree->viewport()->mapToGlobal(pos));
 
     parameterCommentModel_->clear();
-    parametersModel_->clearall();   
+    parametersModel_->clearall();
 }
 
 void MainWindow::deleteAction()
@@ -299,4 +302,22 @@ void MainWindow::actionSettings()
 void MainWindow::actionExit()
 {
      QCoreApplication::quit();
+}
+
+void MainWindow::on_startButton_clicked()
+{
+    process_=std::make_shared<boost::process::child>("./blockTest");
+    process_->detach();
+    checkrunning_=std::make_unique<std::thread>(&MainWindow::checkrunning,this);
+}
+
+void MainWindow::checkrunning()
+{
+    while (process_->running())
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        ui->startButton->setEnabled(false);
+    }
+
+    ui->startButton->setEnabled(true);
 }

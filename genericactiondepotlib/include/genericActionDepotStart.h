@@ -16,6 +16,7 @@
 
 extern "C"{
     void Start(char* data,char* name);  
+    void Stop(char* data,char* name);  
 }
 
 /**
@@ -27,6 +28,7 @@ class GenericActionDepotStart : public ActionDepotStart
 {
     public:
         GenericActionDepotStart(); 
+        virtual ~GenericActionDepotStart(); 
         void configure(const std::string& path,const std::string& name) override;
 
         static std::chrono::milliseconds begin_;

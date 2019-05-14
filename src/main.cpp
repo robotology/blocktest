@@ -12,12 +12,21 @@
 
 #include "blockTest.h"
 
-int main(int argc,char* argv[])
+int main(int argc,char* argv[]) noexcept
 {    
-    std::string path;
-    if(argc>1)
-        path=argv[1];
+    try
+    {
+        std::string path;
+        if(argc>1)
+            path=argv[1];
 
-    BlockTest test(path);
-    return test.run();
+        BlockTest test(path);
+        bool out=test.run();
+        return out;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return -1;
+    }
 }

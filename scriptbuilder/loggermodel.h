@@ -6,36 +6,26 @@
  ******************************************************************************/
 
 /**
- * @file prerequisiteModel.h
+ * @file loggermodel.h
  * @author Luca Tricerri <luca.tricerri@iit.it>
  */
 
 
-#ifndef PREREQUISITEMODEL_H
-#define PREREQUISITEMODEL_H
-
-#include "pugixml.hpp"
+#ifndef LOGGERMODEL_H
+#define LOGGERMODEL_H
 
 #include <qstandarditemmodel.h>
 
+#include <memory>
+#include <thread>
 
-class PrerequisiteModel : public QStandardItemModel
+class LoggerModel : public QStandardItemModel
 {
-    Q_OBJECT
 public:
-    PrerequisiteModel();
-    virtual ~PrerequisiteModel();
-    void load(const std::string& fileName);
-    const pugi::xml_document& getDocument();
-
-public slots:
-    void onChanged(QStandardItem * item);
-
+    LoggerModel();
 private:
-    pugi::xml_document doc_;
-    std::string testPath_;
-
-    void redraw();
+    std::unique_ptr<std::thread> logger_;
+    void logger();
 };
 
-#endif // PREREQUISITEMODEL_H
+#endif // LOGGERMODEL_H

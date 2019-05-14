@@ -39,20 +39,38 @@ bool LibraryLoader::load(const std::string& path)
 
         try
         {
-            typedef void (funcptr)( char*,char* );
-            auto startFunction =  boost::dll::import<funcptr>(
+            
+            boost::function<funcptr> startFunction =  boost::dll::import<funcptr>(
                 currentPath,
                 "Start",
                 boost::dll::load_mode::rtld_lazy
                 );
 
-            startFunction((char*)completePath.c_str(),(char*)libraryName.c_str());
+            boost::function<funcptr> stopFunction = boost::dll::import<funcptr>(
+                currentPath,
+                "Stop",
+                boost::dll::load_mode::rtld_lazy
+                );
+
+            stopFunction_.emplace_back(stopFunction);                
+
+            if(startFunction)
+                startFunction((char*)completePath.c_str(),(char*)libraryName.c_str());    
         }
         catch(boost::exception const& e) {
-            TXLOG(Severity::critical)<<"Custom lib:"<<currentPath<<" error:"<<boost::diagnostic_information(e, true)<<std::endl;
+            TXLOG(Severity::critical)<<"Custom lib:"<<currentPath<<" error missing Start/Stop function in lib----"<<boost::diagnostic_information(e, true)<<std::endl;
             return false;
         }
         TXLOG(Severity::info)<<"Custom ok:"<<currentPath<<std::endl;
     }
     return true;
+}
+
+LibraryLoader::~LibraryLoader()
+{
+    for(auto current:stopFunction_)
+    {
+        if(current)
+            current(nullptr,nullptr); 
+    }
 }

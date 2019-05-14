@@ -24,6 +24,7 @@ enum class Severity : int {
 
 inline std::string SeverityToString(Severity error) {
     switch (error) {
+#ifdef COLORED_LOG        
         case Severity::plot:
             return "\033[34mPlot*\033[0m";        
         case Severity::critical:
@@ -36,6 +37,20 @@ inline std::string SeverityToString(Severity error) {
             return "\033[93mWarning**\033[0m";
         case Severity::info:
             return "\033[34mInfo*****\033[0m";
+#else
+       case Severity::plot:
+            return "Plot*";        
+        case Severity::critical:
+            return "Critical*";
+        case Severity::exception:
+            return "Exception";
+        case Severity::error:
+            return "Error****";
+        case Severity::warning:
+            return "Warning**";
+        case Severity::info:
+            return "Info*****";
+#endif
         case Severity::trace:
             return "Trace****";
         case Severity::debug:

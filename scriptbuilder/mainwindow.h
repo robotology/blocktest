@@ -22,6 +22,9 @@
 #include "prerequisitemodel.h"
 #include "scripttreemodel.h"
 #include "testsdepotmodel.h"
+#include "loggermodel.h"
+
+#include <boost/process.hpp>
 
 #include <experimental/filesystem>
 namespace fs = std::experimental::filesystem;
@@ -75,6 +78,8 @@ private slots:
 
 
 
+    void on_startButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -84,10 +89,15 @@ private:
     ParameterCommentModel *parameterCommentModel_{nullptr};
     TestsDepotModel *testsDepotModel_{nullptr};
     PrerequisiteModel *prerequisiteModel_{nullptr};
+    LoggerModel *loggerModel_{nullptr};
     void populateInfo();
 
     std::string testFolder_;
 
+    std::shared_ptr<boost::process::child> process_;
+
+    std::unique_ptr<std::thread> checkrunning_;
+    void checkrunning();
 };
 
 #endif // MAINWINDOW_H

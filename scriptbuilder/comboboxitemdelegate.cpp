@@ -1,3 +1,17 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file comboBoxItemDelegate.cpp
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
+
+
 #include "comboboxitemdelegate.h"
 #include <QComboBox>
 

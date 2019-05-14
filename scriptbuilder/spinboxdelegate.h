@@ -1,3 +1,16 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file SpinBoxDelegate.h
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
+
 #ifndef NUMBERITEMDELEGATE_H
 #define NUMBERITEMDELEGATE_H
 

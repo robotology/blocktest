@@ -28,6 +28,11 @@ void GenericActionDepotStart::configure(const std::string& path,const std::strin
     //Nothing todo
 }
 
+GenericActionDepotStart::~GenericActionDepotStart()
+{
+    //Nothing todo
+}
+
 void Start(char* data,char* name)
 {
     if(data)
@@ -36,3 +41,10 @@ void Start(char* data,char* name)
         start.configure(data,name);
     }
 }
+
+void Stop(char* data,char* name)
+{
+    TXLOG(Severity::info)<<"Library stop called:"<<std::endl;
+}
+
+

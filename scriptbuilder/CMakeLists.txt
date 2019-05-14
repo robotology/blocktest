@@ -25,7 +25,7 @@ if(COMPILE_SCRIPTBUILDER)
   qt5_wrap_cpp(moc_src ${scriptbuilder_header})
   qt5_wrap_ui (ui_wrap  ${scriptbuilder_ui})
   
-  include_directories (${PROJECT_SOURCE_DIR})
+  include_directories (${PROJECT_SOURCE_DIR}  ${Boost_INCLUDE_DIRS})
   include_directories (${PROJECT_BINARY_DIR})
 
   add_library(resourcelib  STATIC                                 
@@ -53,6 +53,7 @@ if(COMPILE_SCRIPTBUILDER)
                           Qt5::Widgets
                           Qt5::Gui
                           stdc++fs
+                          pthread
                           resourcelib
                        )
 

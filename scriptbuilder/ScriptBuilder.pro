@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     prerequisitemodel.cpp \
     comboboxitemdelegate.cpp \
     spinboxdelegate.cpp \
-    settingdialog.cpp
+    settingdialog.cpp \
+    loggermodel.cpp
 
 HEADERS  += mainwindow.h \
     actiontreemodel.h \
@@ -41,7 +42,8 @@ HEADERS  += mainwindow.h \
     prerequisitemodel.h \
     comboboxitemdelegate.h \
     spinboxdelegate.h \
-    settingdialog.h
+    settingdialog.h \
+    loggermodel.h
 
 LIBS += -lstdc++fs
 

@@ -79,10 +79,6 @@ void YarpActionDepotStart::configure(const std::string& path,const std::string& 
 
 YarpActionDepotStart::~YarpActionDepotStart()
 {
-    for(auto& current:polyDriverDepot_)
-    {
-        current.second->close();
-    }
 }
 
 void Start(char* data,char* name)
@@ -92,5 +88,16 @@ void Start(char* data,char* name)
         TXLOG(Severity::info)<<"Library start:"<<data<<std::endl;
         start.configure(data,name);
     }
+}
+
+void Stop(char* data,char* name)
+{
+    TXLOG(Severity::info)<<"Library stop called:"<<std::endl;
+    
+    for(auto& current:YarpActionDepotStart::polyDriverDepot_)
+    {
+        current.second->close();
+    }
+    YarpActionDepotStart::polyDriverDepot_.clear();
 }
 

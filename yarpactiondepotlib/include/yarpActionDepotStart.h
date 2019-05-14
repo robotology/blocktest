@@ -18,6 +18,7 @@
 
 extern "C"{
     void Start(char* data,char* name);  
+    void Stop(char* data,char* name);  
 }
 
 using PolyDriver_sptr=std::shared_ptr<yarp::dev::PolyDriver>;
@@ -31,7 +32,7 @@ class YarpActionDepotStart :public ActionDepotStart
 {
     public:
         YarpActionDepotStart(); 
-        ~YarpActionDepotStart(); 
+        virtual ~YarpActionDepotStart(); 
 
         void configure(const std::string& path,const std::string& name) override;
 

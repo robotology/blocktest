@@ -1,3 +1,15 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file comboBoxItemDelegate.h
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
+
 #ifndef COMBOBOXITEMDELEGATE_H
 #define COMBOBOXITEMDELEGATE_H
 
