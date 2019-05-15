@@ -100,7 +100,7 @@ private:
 
     std::shared_ptr<boost::process::child> process_;
 
-    std::shared_ptr<std::thread> checkrunning_;
+    std::unique_ptr<std::thread> checkrunning_;
     void checkrunning();
 };
 

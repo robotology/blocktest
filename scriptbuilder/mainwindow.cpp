@@ -322,7 +322,7 @@ void MainWindow::on_startButton_clicked()
         return;
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    checkrunning_=std::make_shared<std::thread>(&MainWindow::checkrunning,this);
+    checkrunning_=std::make_unique<std::thread>(&MainWindow::checkrunning,this);
     checkrunning_->detach();
 }
 
