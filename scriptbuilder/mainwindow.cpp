@@ -20,6 +20,9 @@
 #include <QKeyEvent>
 #include <QMenu>
 #include <qfiledialog.h>
+#include <qmessagebox.h>
+
+namespace fs = std::experimental::filesystem;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -306,18 +309,47 @@ void MainWindow::actionExit()
 
 void MainWindow::on_startButton_clicked()
 {
-    process_=std::make_shared<boost::process::child>("./blockTest");
-    process_->detach();
-    checkrunning_=std::make_unique<std::thread>(&MainWindow::checkrunning,this);
+    try
+    {
+        process_=std::make_shared<boost::process::child>("./blockTest");
+        process_->detach();
+    }
+    catch (...)
+    {
+        QMessageBox messageBox;
+        messageBox.critical(nullptr,"ERROR","Missing blockTest application in current folder.");
+        messageBox.setFixedSize(800,400);
+        return;
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    checkrunning_=std::make_shared<std::thread>(&MainWindow::checkrunning,this);
+    checkrunning_->detach();
 }
 
 void MainWindow::checkrunning()
 {
-    while (process_->running())
+    while (process_ && process_->running())
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
         ui->startButton->setEnabled(false);
     }
 
     ui->startButton->setEnabled(true);
+}
+
+void MainWindow::on_clearButton_clicked()
+{
+    try {
+        fs::remove("./log/log.log");
+    } catch (...)
+    {
+    }
+
+    loggerModel_->clean();
+
+}
+
+void MainWindow::on_stopButton_clicked()
+{
+
 }

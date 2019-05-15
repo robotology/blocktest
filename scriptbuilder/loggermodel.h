@@ -16,6 +16,8 @@
 
 #include <qstandarditemmodel.h>
 
+#include <boost/process.hpp>
+
 #include <memory>
 #include <thread>
 
@@ -23,9 +25,12 @@ class LoggerModel : public QStandardItemModel
 {
 public:
     LoggerModel();
+    void clean();
+    void start();
 private:
     std::unique_ptr<std::thread> logger_;
     void logger();
+    bool loggerActive_{true};
 };
 
 #endif // LOGGERMODEL_H

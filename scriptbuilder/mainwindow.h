@@ -80,6 +80,10 @@ private slots:
 
     void on_startButton_clicked();
 
+    void on_clearButton_clicked();
+
+    void on_stopButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -96,7 +100,7 @@ private:
 
     std::shared_ptr<boost::process::child> process_;
 
-    std::unique_ptr<std::thread> checkrunning_;
+    std::shared_ptr<std::thread> checkrunning_;
     void checkrunning();
 };
 

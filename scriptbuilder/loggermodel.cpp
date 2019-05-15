@@ -13,6 +13,7 @@
 #include "loggermodel.h"
 
 #include <fstream>
+#include <qmessagebox.h>
 
 LoggerModel::LoggerModel()
 {
@@ -21,17 +22,44 @@ LoggerModel::LoggerModel()
 
 void LoggerModel::logger()
 {
-    std::ifstream ifs("log/log.log");
-    while(1)
+    std::ifstream ifs;
+    while(loggerActive_)
     {
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        if(!ifs.is_open())
+        {
+            ifs.open("log/log.log");
+            continue;
+        }
+
         std::string line;
         std::istream& res=getline(ifs,line);
         if(!res.eof())
         {
             QStandardItem* nameItem = new QStandardItem(line.c_str());
-            appendRow(nameItem);
+            insertRow(0,nameItem);
         }
         res.clear();
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
+}
+
+void LoggerModel::clean()
+{
+   removeRows( 0,rowCount() );
+   loggerActive_=false;
+   logger_->join();
+   loggerActive_=true;
+   logger_=std::make_unique<std::thread>(&LoggerModel::logger,this);
+}
+
+
+void LoggerModel::start()
+{
+
+
+/*
+   loggerActive_=false;
+   logger_->join();
+   loggerActive_=true;
+   logger_=std::make_unique<std::thread>(&LoggerModel::logger,this);*/
 }

@@ -91,6 +91,12 @@ void Logger::Writing()
             }
         }
 
+        if(!std::experimental::filesystem::exists(txlogfilename_))
+        {
+            outStreamFile_.close();
+            outStreamFile_.open(txlogfilename_, std::ios::out | std::ios::app); 
+        }
+            
         outStreamFile_ << tmpOut << std::flush;
         currentLine_ += writtenLine;
         

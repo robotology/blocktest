@@ -1,0 +1,53 @@
+sudo: required
+dist: xenial
+
+language: cpp
+
+compiler:
+  - gcc
+  - clang
+
+addons:
+  apt:
+    update: true
+    packages:
+    - build-essential 
+    - qtcreator 
+    - qt5-default 
+    - libboost-all-dev
+
+  homebrew:
+    update: true
+    packages:
+    - cmake
+    - qt
+
+os:
+  - linux
+  - osx
+
+env:
+  global:
+    - CTEST_OUTPUT_ON_FAILURE=1
+  matrix:
+    - TRAVIS_BUILD_TYPE=Debug
+    - TRAVIS_BUILD_TYPE=Release
+
+
+before_script:
+
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then export PATH=/usr/local/opt/qt5/bin:$PATH; fi
+  - qmake --version
+  - cmake --version
+
+script:
+  # configure rfsmTools
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+  - sudo make install
+
+notifications:
+  email:
+    - luca.tricerri@iit.it
