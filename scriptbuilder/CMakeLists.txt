@@ -25,8 +25,8 @@ if(COMPILE_SCRIPTBUILDER)
   qt5_wrap_cpp(moc_src ${scriptbuilder_header})
   qt5_wrap_ui (ui_wrap  ${scriptbuilder_ui})
   
-  include_directories (${PROJECT_SOURCE_DIR}  ${Boost_INCLUDE_DIRS})
-  include_directories (${PROJECT_BINARY_DIR})
+  include_directories (${PROJECT_SOURCE_DIR} ${PROJECT_BINARY_DIR})
+
 
   add_library(resourcelib  STATIC                                 
                           ${moc_src}
@@ -55,6 +55,7 @@ if(COMPILE_SCRIPTBUILDER)
                           stdc++fs
                           pthread
                           resourcelib
+                          ${Boost_LIBRARIES}
                        )
 
   #xml template folder

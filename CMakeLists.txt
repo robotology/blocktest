@@ -96,7 +96,7 @@ if(USES_YARP)
 endif()
 
 add_executable(${PROJECT_NAME} ${allSrc} )
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${Boost_INCLUDE_DIRS})
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} dl pthread stdc++fs Pugixml::Pugixml)
 
 #test file folder
