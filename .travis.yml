@@ -36,7 +36,7 @@ env:
 
 before_script:
     #install yarp
-  - git clone --depth 1 -b $YARP_BRANCH https://github.com/robotology/yarp
+  - git clone --depth 1 --branch=devel  https://github.com/robotology/yarp
   - cd yarp
   - mkdir build
   - cd build
