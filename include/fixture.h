@@ -31,21 +31,19 @@ class Fixture
         class FixtureParam
         {
             public:
-                FixtureParam(const std::string& commandName,const std::string& commandParam,const std::string& prefix,bool kill,bool enabled,unsigned int waitafter):
-                                                                                                                                                commandName_(commandName),
-                                                                                                                                                commandParam_(commandParam),
-                                                                                                                                                prefix_(prefix),
-                                                                                                                                                kill_(kill),
-                                                                                                                                                enabled_(enabled),
-                                                                                                                                                waitafter_(waitafter)
-                                                                                                                                                {};
+                FixtureParam(const std::string& commandName,const std::string& commandParam,const std::string& prefix,bool kill,bool enabled,unsigned int waitafter);
                 std::string commandName_;
                 std::string commandParam_;
                 bool kill_;
                 bool enabled_;
                 std::string prefix_;
                 unsigned int waitafter_;
+                
                 std::shared_ptr<boost::process::child> process_;
+                boost::process::ipstream output_;
+                
+                std::unique_ptr<std::thread> writer_;
+                bool writerActive_{true};
         };
 
         const std::string testName_{"./test/test.xml"};

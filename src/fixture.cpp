@@ -55,7 +55,9 @@ Fixture::~Fixture()
             continue;
 
         (*it).process_->terminate();
-
+        (*it).writerActive_=false;
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        //(*it).writer_->join();
         TXLOG(Severity::info)<<"prerequisite destroyed:"<<(*it).commandName_<<std::endl;
 
         std::this_thread::sleep_for(std::chrono::milliseconds((*it).waitafter_));
@@ -80,7 +82,24 @@ void Fixture::execute()
         std::cout<<"prerequisite executed:"<<ss.str()<<std::endl;
         std::cout<<"-------------------------------------------"<<std::endl;
 
-        current.process_=std::make_shared<boost::process::child>(ss.str());
+        current.process_=std::make_shared<boost::process::child>(ss.str(),boost::process::std_err > current.output_);
+
+        current.writer_=std::make_unique<std::thread>([&] {
+            std::this_thread::sleep_for(std::chrono::microseconds(10));
+            std::ofstream ofs("./log/prerequisite_"+current.commandName_);
+            std::string line;
+            while (current.process_->running() && current.writerActive_)
+            {
+                std::getline(current.output_, line);
+                std::this_thread::sleep_for(std::chrono::microseconds(10));
+                if(line=="")
+                    continue;
+                ofs << line << std::endl;
+            }
+    });
+
+
+
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 
@@ -106,4 +125,14 @@ void Fixture::fixtureCheker()
             }
         }
     }
+}
+
+Fixture::FixtureParam::FixtureParam(const std::string& commandName,const std::string& commandParam,const std::string& prefix,bool kill,bool enabled,unsigned int waitafter):
+                                                                                                                                                commandName_(commandName),
+                                                                                                                                                commandParam_(commandParam),
+                                                                                                                                                prefix_(prefix),
+                                                                                                                                                kill_(kill),
+                                                                                                                                                enabled_(enabled),
+                                                                                                                                                waitafter_(waitafter)
+{
 }

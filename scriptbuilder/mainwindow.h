@@ -27,6 +27,7 @@
 #include <boost/process.hpp>
 
 #include <experimental/filesystem>
+
 namespace fs = std::experimental::filesystem;
 
 namespace Ui {
@@ -84,6 +85,8 @@ private slots:
 
     void on_stopButton_clicked();
 
+    void on_prerequisiteCombo_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 
@@ -94,6 +97,7 @@ private:
     TestsDepotModel *testsDepotModel_{nullptr};
     PrerequisiteModel *prerequisiteModel_{nullptr};
     LoggerModel *loggerModel_{nullptr};
+    LoggerModel *prerequisiteLoggerModel_{nullptr};
     void populateInfo();
 
     std::string testFolder_;

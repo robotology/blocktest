@@ -30,7 +30,6 @@ void PrerequisiteModel::load(const std::string& fileName)
     redraw();
 }
 
-
 void PrerequisiteModel::redraw()
 {
     clear();
@@ -40,6 +39,8 @@ void PrerequisiteModel::redraw()
     {
         std::string command=current.node().attribute("command").value();
         std::string enabled=current.node().attribute("enabled").value();
+        if(enabled=="true")
+            prerequisiteList_.emplace_back(command);
         std::string param=current.node().attribute("param").value();
         std::string kill=current.node().attribute("kill").value();
         std::string waitafter=current.node().attribute("waitafter").value();
@@ -111,4 +112,9 @@ void PrerequisiteModel::onChanged(QStandardItem * item)
 
     pugi::xml_node toModifyNode=commands[row].node();
     toModifyNode.attribute(toModify.c_str())=newValue.c_str();
+}
+
+std::list<std::string> PrerequisiteModel::getPrerequisite() const
+{
+    return prerequisiteList_;
 }

@@ -13,9 +13,14 @@
 #include "loggermodel.h"
 
 #include <fstream>
+
 #include <qmessagebox.h>
 
-LoggerModel::LoggerModel()
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
+
+LoggerModel::LoggerModel(const std::string& name):logName_(name)
 {
     logger_=std::make_unique<std::thread>(&LoggerModel::logger,this);
 }
@@ -28,7 +33,7 @@ void LoggerModel::logger()
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
         if(!ifs.is_open())
         {
-            ifs.open("log/log.log");
+            ifs.open(logName_);
             continue;
         }
 
@@ -43,8 +48,19 @@ void LoggerModel::logger()
     }
 }
 
-void LoggerModel::clean()
+void LoggerModel::clean(bool alsoFile)
 {
+    if(alsoFile)
+    {
+        try
+        {
+            fs::remove(logName_);
+        }
+        catch (...)
+        {
+        }
+    }
+
    removeRows( 0,rowCount() );
    loggerActive_=false;
    logger_->join();
@@ -55,11 +71,10 @@ void LoggerModel::clean()
 
 void LoggerModel::start()
 {
+}
 
-
-/*
-   loggerActive_=false;
-   logger_->join();
-   loggerActive_=true;
-   logger_=std::make_unique<std::thread>(&LoggerModel::logger,this);*/
+void LoggerModel::changeFile(const std::string& name)
+{
+    logName_=name;
+    clean(false);
 }

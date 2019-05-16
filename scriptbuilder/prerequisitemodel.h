@@ -27,6 +27,7 @@ public:
     virtual ~PrerequisiteModel();
     void load(const std::string& fileName);
     const pugi::xml_document& getDocument();
+    std::list<std::string> getPrerequisite() const;
 
 public slots:
     void onChanged(QStandardItem * item);
@@ -34,6 +35,7 @@ public slots:
 private:
     pugi::xml_document doc_;
     std::string testPath_;
+    std::list<std::string> prerequisiteList_;
 
     void redraw();
 };

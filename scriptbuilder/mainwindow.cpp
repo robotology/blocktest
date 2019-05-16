@@ -19,6 +19,7 @@
 
 #include <QKeyEvent>
 #include <QMenu>
+#include <QDebug>
 #include <qfiledialog.h>
 #include <qmessagebox.h>
 
@@ -35,7 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     parameterCommentModel_ = new ParameterCommentModel;
     testsDepotModel_ = new TestsDepotModel;
     prerequisiteModel_= new PrerequisiteModel;
-    loggerModel_ = new LoggerModel;
+    loggerModel_ = new LoggerModel("log/log.log");
+    prerequisiteLoggerModel_=new LoggerModel("");
 
     ui->setupUi(this);
 
@@ -81,6 +83,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ComboBoxItemDelegate* cbid = new ComboBoxItemDelegate(ui->prerequisites);
     ui->prerequisites->setItemDelegateForColumn(1, cbid);
     ui->prerequisites->setItemDelegateForColumn(3, cbid);
+
+    ui->prerequisiteLog->setModel(prerequisiteLoggerModel_);
 
     auto resp=connect(parametersModel_,SIGNAL(itemChanged(QStandardItem*)),this,SLOT(parameterChanged(QStandardItem*)));
     resp=connect(ui->actionSetting, &QAction::triggered, this, &MainWindow::actionSettings);
@@ -166,6 +170,13 @@ void MainWindow::on_loadTests_clicked()
     QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), total.c_str(),"*.xml");
     testsDepotModel_->load(fileName.toStdString());
     prerequisiteModel_->load(fileName.toStdString());
+    ui->prerequisiteCombo->clear();
+    std::list<std::string> prerequisites=prerequisiteModel_->getPrerequisite();
+    for(const std::string& current:prerequisites)
+    {
+        ui->prerequisiteCombo->addItem(current.c_str());
+    }
+
 }
 
 void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
@@ -339,17 +350,16 @@ void MainWindow::checkrunning()
 
 void MainWindow::on_clearButton_clicked()
 {
-    try {
-        fs::remove("./log/log.log");
-    } catch (...)
-    {
-    }
-
-    loggerModel_->clean();
-
+    loggerModel_->clean(true);
 }
 
 void MainWindow::on_stopButton_clicked()
 {
+}
 
+void MainWindow::on_prerequisiteCombo_currentIndexChanged(const QString &arg1)
+{
+    qInfo()<<arg1;
+    std::string out="./log/prerequisite_"+arg1.toStdString();
+    prerequisiteLoggerModel_->changeFile(out);
 }

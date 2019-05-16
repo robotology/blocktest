@@ -38,7 +38,7 @@
       <x>20</x>
       <y>10</y>
       <width>1531</width>
-      <height>821</height>
+      <height>801</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -912,9 +912,9 @@ background-color: rgba(0, 0, 0, 0);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>10</y>
-        <width>1501</width>
-        <height>701</height>
+        <y>50</y>
+        <width>811</width>
+        <height>661</height>
        </rect>
       </property>
      </widget>
@@ -931,7 +931,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <string>Start</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="stopButton">
+     <widget class="QPushButton" name="clearButton">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -941,20 +941,97 @@ background-color: rgba(0, 0, 0, 0);</string>
        </rect>
       </property>
       <property name="text">
-       <string>Stop</string>
+       <string>Clear</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="clearButton">
+     <widget class="QListView" name="prerequisiteLog">
       <property name="geometry">
        <rect>
-        <x>220</x>
-        <y>720</y>
-        <width>89</width>
+        <x>840</x>
+        <y>50</y>
+        <width>671</width>
+        <height>621</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="prerequisiteCombo">
+      <property name="geometry">
+       <rect>
+        <x>840</x>
+        <y>680</y>
+        <width>211</width>
         <height>25</height>
        </rect>
       </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_14">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>840</x>
+        <y>20</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Sans Serif</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;Sans Serif&quot;;
+background-color: rgba(0, 0, 0, 0);</string>
+      </property>
       <property name="text">
-       <string>Clear</string>
+       <string>Prerequisite logs</string>
+      </property>
+      <property name="frame">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_15">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Sans Serif</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;Sans Serif&quot;;
+background-color: rgba(0, 0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>Application log</string>
+      </property>
+      <property name="frame">
+       <bool>false</bool>
       </property>
      </widget>
     </widget>

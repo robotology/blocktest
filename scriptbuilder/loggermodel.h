@@ -24,13 +24,16 @@
 class LoggerModel : public QStandardItemModel
 {
 public:
-    LoggerModel();
-    void clean();
+    LoggerModel(const std::string& name);
+    void clean(bool alsoFile);
     void start();
+    void changeFile(const std::string& name);
+
 private:
     std::unique_ptr<std::thread> logger_;
     void logger();
     bool loggerActive_{true};
+    std::string logName_;
 };
 
 #endif // LOGGERMODEL_H
