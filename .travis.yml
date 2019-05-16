@@ -15,7 +15,6 @@ addons:
     - qtcreator 
     - qt5-default 
     - libboost-all-dev
-    - libgoocanvasmm-dev
 
   homebrew:
     update: true
@@ -35,12 +34,12 @@ env:
 
 
 before_script:
-#ubuntu dependencies
-  - sudo sh -c 'echo "deb http://www.icub.org/ubuntu trusty contrib/science" > /etc/apt/sources.list.d/icub.list';
+  #ubuntu dependencies
+  #- sudo sh -c 'echo "deb http://www.icub.org/ubuntu trusty contrib/science" > /etc/apt/sources.list.d/icub.list';
   - sudo apt-get update;
-  - sudo apt-get --assume-yes --force-yes install cmake libeigen3-dev icub-common libv4lconvert0 libv4l-dev;
+  - sudo apt-get --assume-yes --force-yes install cmake libeigen3-dev libv4lconvert0 libv4l-dev;
   # Setup the YARP branch 
-  - if [ "$TRAVIS_BRANCH" = "devel" ] ; then export YARP_BRANCH="devel" && echo "Using yarp devel branch" ; fi
+  - export YARP_BRANCH="devel" && echo "Using yarp devel branch"
     #install yarp
   - git clone --depth 1 --branch=devel  https://github.com/robotology/yarp
   - cd yarp
