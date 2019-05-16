@@ -24,7 +24,6 @@ addons:
 
 os:
   - linux
-  - osx
 
 env:
   global:
@@ -36,9 +35,9 @@ env:
 
 before_script:
 #ubuntu dependencies
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo sh -c 'echo "deb http://www.icub.org/ubuntu trusty contrib/science" > /etc/apt/sources.list.d/icub.list'; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get --assume-yes --force-yes install cmake libeigen3-dev icub-common libv4lconvert0 libv4l-dev; fi
+  - sudo sh -c 'echo "deb http://www.icub.org/ubuntu trusty contrib/science" > /etc/apt/sources.list.d/icub.list';
+  - sudo apt-get update;
+  - sudo apt-get --assume-yes --force-yes install cmake libeigen3-dev icub-common libv4lconvert0 libv4l-dev;
   # Setup the YARP branch 
   - if [ "$TRAVIS_BRANCH" = "devel" ] ; then export YARP_BRANCH="devel" && echo "Using yarp devel branch" ; fi
     #install yarp
@@ -52,7 +51,6 @@ before_script:
   - cd ../..
    
   #Blocktest
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then export PATH=/usr/local/opt/qt5/bin:$PATH; fi
   - qmake --version
   - cmake --version
 
