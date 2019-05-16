@@ -15,6 +15,7 @@ addons:
     - qtcreator 
     - qt5-default 
     - libboost-all-dev
+    - ace
 
   homebrew:
     update: true
