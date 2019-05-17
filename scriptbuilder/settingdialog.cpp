@@ -16,11 +16,19 @@
 
 #include <qfiledialog.h>
 
-SettingDialog::SettingDialog(QWidget *parent) :
+SettingDialog::SettingDialog(pugi::xml_document& doc,QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::SettingDialog)
+    ui(new Ui::SettingDialog),
+    doc_(doc)
 {
     ui->setupUi(this);
+    pugi::xpath_node xnode= doc_.select_node("/settings/path");
+    pugi::xml_node node=xnode.node();
+    if(node!=nullptr)
+    {
+       pugi::xml_attribute attribute=node.attribute("testpath");
+       ui->testFolderEdit->setText(attribute.value());
+    }
 }
 
 SettingDialog::~SettingDialog()
@@ -35,13 +43,22 @@ void SettingDialog::on_pathselectorbutton_clicked()
 
 void SettingDialog::on_buttonBox_accepted()
 {
-    testFolder_= ui->testFolderEdit->text().toStdString();
+    QString testFolder= ui->testFolderEdit->text();
+
+    pugi::xpath_node xnode= doc_.select_node("/settings/path");
+    pugi::xml_node node=xnode.node();
+    if(node!=nullptr)
+    {
+        pugi::xml_attribute attribute=node.attribute("testpath");
+        attribute.set_value(testFolder.toStdString().c_str());
+    }
+
 }
 
 void SettingDialog::on_buttonBox_rejected()
 {
 }
-
+/*
 void SettingDialog::SetTestFolder(const std::string& testFolder)
 {
     testFolder_=testFolder;
@@ -52,3 +69,4 @@ std::string SettingDialog::GetTestFolder()
 {
     return testFolder_;
 }
+*/

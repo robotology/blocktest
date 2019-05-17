@@ -59,7 +59,7 @@ bool Command::execute(bool isRealRobot,unsigned int testrepetition)
         if(isCommandOnlyForSimulation(command_))
         {
             TXLOG(Severity::info)<<"--------Command name:"<<command_<< " -->Only for simulation" <<std::endl;
-            return true;
+            return ret;
         }     
     }
 
@@ -69,7 +69,7 @@ bool Command::execute(bool isRealRobot,unsigned int testrepetition)
         ret=ret && action_->execute(testrepetition);
         ret=ret && ClockFacility::Instance().wait(wait_);
     }
-    return true;
+    return ret;
 }
 
 bool Command::isCommandOnlyForSimulation(const std::string& toCheck) const

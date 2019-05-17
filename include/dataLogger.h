@@ -67,7 +67,7 @@ class Data
 class DataLogger 
 {
     public:
-        DataLogger(const std::string& name);
+        explicit DataLogger(const std::string& name);
         ~DataLogger();
         void add(double data,double time);
         void add(const std::string& data,double time);

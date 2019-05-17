@@ -187,10 +187,10 @@ std::string Tables::Table::fetch()
     }
     else if(type_=="increment")
     {
-        double increment=std::atof(table_[0].c_str());
+        /*double increment=std::atof(table_[0].c_str());
         double start=std::atof(table_[1].c_str());
         double max=std::atof(table_[2].c_str());
-
+        */
         std::stringstream ss;
         ss<<currentValue_;
         return ss.str();

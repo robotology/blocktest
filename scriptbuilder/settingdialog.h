@@ -14,6 +14,8 @@
 #ifndef SETTINGDIALOG_H
 #define SETTINGDIALOG_H
 
+#include "pugixml.hpp"
+
 #include <QDialog>
 
 namespace Ui {
@@ -25,11 +27,12 @@ class SettingDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SettingDialog(QWidget *parent = nullptr);
+    explicit SettingDialog(pugi::xml_document& doc,QWidget *parent = nullptr);
     ~SettingDialog();
-
+/*
     void SetTestFolder(const std::string& testFolder);
     std::string GetTestFolder();
+    */
 
 private slots:
     void on_pathselectorbutton_clicked();
@@ -41,7 +44,7 @@ private slots:
 private:
     Ui::SettingDialog *ui;
 
-    std::string testFolder_;
+    pugi::xml_document& doc_;
 };
 
 #endif // SETTINGDIALOG_H

@@ -101,9 +101,11 @@ target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} dl pthread stdc++fs Pug
 
 #test file folder
 file(COPY test DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+file(COPY config.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 
 #install
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(DIRECTORY test DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(FILES config.xml DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 add_subdirectory(scriptbuilder)

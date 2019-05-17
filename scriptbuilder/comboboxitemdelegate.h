@@ -19,7 +19,7 @@ class ComboBoxItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    ComboBoxItemDelegate(QObject *parent = nullptr);
+    explicit ComboBoxItemDelegate(QObject *parent = nullptr);
     ~ComboBoxItemDelegate() override;
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;

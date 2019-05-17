@@ -44,7 +44,7 @@ class Report
         class TestReport
         {
             public:
-                TestReport(int repetitions):totalRepetitions_(repetitions){};
+                explicit TestReport(int repetitions):totalRepetitions_(repetitions){};
                 TestReport(){};
                 int errors_{0};
                 unsigned int totalRepetitions_{0};

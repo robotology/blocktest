@@ -33,6 +33,7 @@ void PrerequisiteModel::load(const std::string& fileName)
 void PrerequisiteModel::redraw()
 {
     clear();
+    prerequisiteList_.clear();
     pugi::xpath_node_set commands = doc_.select_nodes("/testlist/prerequisite");
     QStandardItem *item = invisibleRootItem();
     for (pugi::xpath_node current:commands)

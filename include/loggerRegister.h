@@ -56,7 +56,7 @@ template <typename T>
 class DerivedLoggerRegister : public LoggerRegister
 {
   public:
-    DerivedLoggerRegister(const std::string& commandname)
+    explicit DerivedLoggerRegister(const std::string& commandname)
     {
         auto x = [](const std::string &toLog, double loggingTime, const std::string &wrapperName, const std::string& testCode, int repetition){
             return std::make_shared<T>(toLog,loggingTime,wrapperName,testCode,repetition);

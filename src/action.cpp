@@ -43,6 +43,7 @@ std::string Action::normalize(const std::string& str,bool justFetch) const
 double Action::normalizeDouble(const std::string& str,bool justFetch) const
 {
     double out=std::atof(normalize(str,justFetch).c_str());
+    return out;
 }
 
 void Action::addProblem(const std::string& code,unsigned int repetition,Severity severity,const std::string& errorMessage) const

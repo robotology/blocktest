@@ -24,7 +24,7 @@
 class LoggerModel : public QStandardItemModel
 {
 public:
-    LoggerModel(const std::string& name);
+    explicit LoggerModel(const std::string& name);
     void clean(bool alsoFile);
     void start();
     void changeFile(const std::string& name);

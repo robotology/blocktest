@@ -21,7 +21,7 @@
 class BlockTest 
 {
 public:
-    BlockTest(const std::string &path);
+    explicit BlockTest(const std::string &path);
     ~BlockTest();
 
     unsigned int run();

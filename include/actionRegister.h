@@ -56,7 +56,7 @@ template <typename T>
 class DerivedActionRegister : public ActionRegister
 {
   public:
-    DerivedActionRegister(const std::string& commandname)
+    explicit DerivedActionRegister(const std::string& commandname)
     {
         auto x = [](const pugi::xml_node& mynode,Test_sptr test) {
             return std::make_shared<T>(mynode,test);

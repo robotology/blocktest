@@ -28,8 +28,9 @@ namespace fs = std::experimental::filesystem;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
+{    
+    pugi::xml_parse_result result = doc_.load_file("./config.xml");
 
-{
     commandsModel_ = new ActionTreeModel;
     scriptModel_ = new ScriptTreeModel;
     parametersModel_ = new ParametersListModel;
@@ -38,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     prerequisiteModel_= new PrerequisiteModel;
     loggerModel_ = new LoggerModel("log/log.log");
     prerequisiteLoggerModel_=new LoggerModel("");
+    prerequisiteComboModel_=new QStringListModel();
 
     ui->setupUi(this);
 
@@ -78,6 +80,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->logView->setModel(loggerModel_);
 
+    ui->prerequisiteCombo->setModel(prerequisiteComboModel_);
+
 
     ui->prerequisites->setModel(prerequisiteModel_);
     ComboBoxItemDelegate* cbid = new ComboBoxItemDelegate(ui->prerequisites);
@@ -86,9 +90,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->prerequisiteLog->setModel(prerequisiteLoggerModel_);
 
-    auto resp=connect(parametersModel_,SIGNAL(itemChanged(QStandardItem*)),this,SLOT(parameterChanged(QStandardItem*)));
-    resp=connect(ui->actionSetting, &QAction::triggered, this, &MainWindow::actionSettings);
-    resp=connect(ui->actionExit, &QAction::triggered, this, &MainWindow::actionExit);
+    ui->tabWidget->setCurrentIndex(0);
+
+    auto resp1=connect(parametersModel_,SIGNAL(itemChanged(QStandardItem*)),this,SLOT(parameterChanged(QStandardItem*)));
+    auto resp2=connect(ui->actionSetting, &QAction::triggered, this, &MainWindow::actionSettings);
+    auto resp3=connect(ui->actionExit, &QAction::triggered, this, &MainWindow::actionExit);
 
     setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
 }
@@ -99,8 +105,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_loadButton_clicked()
 {
-    std::string total=testFolder_;
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Open test"), testFolder_.c_str(),"*.xml");
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Open test"), getTestPath().c_str(),"*.xml");
     scriptModel_->load(fileName.toStdString());
 
     fs::directory_entry tmp(fileName.toStdString());
@@ -166,17 +171,22 @@ void MainWindow::parameterChanged(QStandardItem * item)
 
 void MainWindow::on_loadTests_clicked()
 {
-    std::string total=testFolder_+"/test.xml";
+    std::string total=getTestPath()+"/test.xml";
     QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), total.c_str(),"*.xml");
     testsDepotModel_->load(fileName.toStdString());
     prerequisiteModel_->load(fileName.toStdString());
     ui->prerequisiteCombo->clear();
     std::list<std::string> prerequisites=prerequisiteModel_->getPrerequisite();
+
+    QStringList list = prerequisiteComboModel_->stringList();
+    list.clear();
+    prerequisiteComboModel_->removeRows(0,prerequisiteComboModel_->rowCount()-1);
     for(const std::string& current:prerequisites)
     {
-        ui->prerequisiteCombo->addItem(current.c_str());
+        list.append(current.c_str());
     }
-
+    prerequisiteComboModel_->setStringList(list);
+    ui->prerequisiteCombo->setCurrentIndex(0);
 }
 
 void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
@@ -247,6 +257,13 @@ void MainWindow::on_testNote_textChanged()
     scriptModel_->setInfo(note.toStdString(),version.toStdString());
 }
 
+void MainWindow::on_testVersion_textChanged()
+{
+    QString note=ui->testNote->toPlainText();
+    QString version=ui->testVersion->toPlainText();
+    scriptModel_->setInfo(note.toStdString(),version.toStdString());
+}
+
 void MainWindow::populateInfo()
 {
     std::string note;
@@ -305,12 +322,9 @@ void MainWindow::on_scriptTree_pressed(const QModelIndex &index)
 
 void MainWindow::actionSettings()
 {
-    SettingDialog* settings = new SettingDialog();
+    SettingDialog* settings = new SettingDialog(doc_);
     settings->setModal(true);
-    settings->SetTestFolder(testFolder_);
-
     settings->exec();
-    testFolder_=settings->GetTestFolder();
 }
 
 void MainWindow::actionExit()
@@ -362,4 +376,16 @@ void MainWindow::on_prerequisiteCombo_currentIndexChanged(const QString &arg1)
     qInfo()<<arg1;
     std::string out="./log/prerequisite_"+arg1.toStdString();
     prerequisiteLoggerModel_->changeFile(out);
+}
+
+std::string  MainWindow::getTestPath() const
+{
+    pugi::xpath_node xnode= doc_.select_node("/settings/path");
+    pugi::xml_node node=xnode.node();
+    if(node!=nullptr)
+    {
+       pugi::xml_attribute attribute=node.attribute("testpath");
+       return attribute.value();
+    }
+    return "";
 }

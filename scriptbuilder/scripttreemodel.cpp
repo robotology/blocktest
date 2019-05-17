@@ -149,7 +149,6 @@ void ScriptTreeModel::updateParameters(const QModelIndex &index,const std::strin
 {
     if(script_->rowCount()<=1)
         return;
-    QStandardItem* item=itemFromIndex(index);
 
     QStringList toChange=itemFromIndex(index)->data(Qt::UserRole).toStringList();
     toChange[URSxmlStruct]=parameters.c_str();
@@ -210,10 +209,12 @@ void ScriptTreeModel::load(const std::string& fileName)
 void ScriptTreeModel::save(const std::string& fileName)
 {
     pugi::xpath_node info = doc_.select_node("/testbody/info");
+    pugi::xpath_node logging = doc_.select_node("/testbody/logging");
 
     pugi::xml_document doc;
     pugi::xml_node body=doc.append_child("testbody");
     body.append_copy(info.node());
+    body.append_copy(logging.node());
 
 
     for(int index=0;index<script_->rowCount();++index)
@@ -301,10 +302,16 @@ void ScriptTreeModel::getInfo(std::string& note,std::string& version ) const
 void ScriptTreeModel::setInfo(const std::string& note,const std::string& version)
 {
     pugi::xpath_node info = doc_.select_node("/testbody/info");
-    if(info.node()==nullptr)
-        return ;
+    pugi::xml_node infoNode=info.node();
+    if(infoNode==nullptr)
+    {
+        pugi::xpath_node body = doc_.select_node("/testbody");
+        infoNode=body.node().append_child("info");
+        infoNode.append_attribute("note");
+        infoNode.append_attribute("version");
+    }
 
-    info.node().attribute("note").set_value(note.c_str());
-    info.node().attribute("version").set_value(version.c_str());
+    infoNode.attribute("note").set_value(note.c_str());
+    infoNode.attribute("version").set_value(version.c_str());
 }
 

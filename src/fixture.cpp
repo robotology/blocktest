@@ -116,7 +116,6 @@ void Fixture::fixtureCheker()
             if(!current.enabled_)
                 continue;
 
-            int status;
             bool run=current.process_->running();
             if(!run)
             {

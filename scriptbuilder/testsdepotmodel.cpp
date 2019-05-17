@@ -109,7 +109,6 @@ void TestsDepotModel::onChanged(QStandardItem * item)
 
     std::string toModify;
     int column=item->column();
-    int row=item->row();
     if(column==0)
         toModify="code";
     else if(column==1)
@@ -141,7 +140,6 @@ void TestsDepotModel::deleteTest(const QModelIndex& index)
 {
     QStandardItem* item;
     item=itemFromIndex(index);
-    std::string newValue=item->text().toStdString();
 
     QStringList itemList;
     itemList=item->data(Qt::UserRole).toStringList();
@@ -180,8 +178,6 @@ void TestsDepotModel::keypressed(QEvent* e,const QModelIndex &index)
 
 void TestsDepotModel::keypressed(const QString& pressedK,const QModelIndex& index)
 {
-    QStandardItem *root = invisibleRootItem();
-
     if(pressedK=="\177") //DEL
     {
         deleteTest(index);
@@ -218,10 +214,7 @@ bool TestsDepotModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
         ++rows;
     }
 
-
     int newrow=parent.row();
-    int newcol=parent.column();
-
 
     pugi::xpath_node_set commands = doc_.select_nodes("/testlist/test");
     pugi::xml_node nodeToMove;

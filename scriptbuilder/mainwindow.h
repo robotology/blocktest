@@ -23,6 +23,7 @@
 #include "scripttreemodel.h"
 #include "testsdepotmodel.h"
 #include "loggermodel.h"
+#include "prerequisitecombomodel.h"
 
 #include <boost/process.hpp>
 
@@ -87,8 +88,12 @@ private slots:
 
     void on_prerequisiteCombo_currentIndexChanged(const QString &arg1);
 
+    void on_testVersion_textChanged();
+
 private:
     Ui::MainWindow *ui;
+
+    pugi::xml_document doc_;
 
     ActionTreeModel  *commandsModel_{nullptr};
     ScriptTreeModel  *scriptModel_{nullptr};
@@ -98,14 +103,15 @@ private:
     PrerequisiteModel *prerequisiteModel_{nullptr};
     LoggerModel *loggerModel_{nullptr};
     LoggerModel *prerequisiteLoggerModel_{nullptr};
+    QStringListModel *prerequisiteComboModel_{nullptr};
     void populateInfo();
-
-    std::string testFolder_;
 
     std::shared_ptr<boost::process::child> process_;
 
     std::unique_ptr<std::thread> checkrunning_;
     void checkrunning();
+
+    std::string  getTestPath() const;
 };
 
 #endif // MAINWINDOW_H

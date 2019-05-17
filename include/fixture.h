@@ -23,7 +23,7 @@
 class Fixture 
 {
     public:
-        Fixture(const std::string& path);
+        explicit Fixture(const std::string& path);
         ~Fixture();
         void execute();
 
