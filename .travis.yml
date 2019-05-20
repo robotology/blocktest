@@ -12,11 +12,6 @@ addons:
     update: true
     packages:
     - build-essential 
-    - qtbase5-dev
-    - qtdeclarative5-dev
-    - qtmultimedia5-dev
-    - libqt5opengl5-dev
-    - libqcustomplot-dev
     - libboost-all-dev
 
   homebrew:
@@ -39,9 +34,8 @@ env:
 
 before_script:
   #ubuntu dependencies
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo sh -c 'echo "deb http://www.icub.org/ubuntu trusty contrib/science" > /etc/apt/sources.list.d/icub.list'; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get --assume-yes --force-yes install cmake libeigen3-dev icub-common; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt update; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt install cmake qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev libeigen3-dev; fi
   # macOS dependencies
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew tap robotology/cask; fi
