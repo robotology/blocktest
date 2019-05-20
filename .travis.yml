@@ -7,20 +7,6 @@ compiler:
   - gcc
   - clang
 
-addons:
-  apt:
-    update: true
-    packages:
-    - build-essential 
-    - libboost-all-dev
-
-  homebrew:
-    update: true
-    packages:
-    - cmake
-    - qt5
-    - boost
-
 os:
   - linux
 
@@ -35,9 +21,10 @@ env:
 before_script:
   #ubuntu dependencies
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt update; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt install cmake libace-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev libeigen3-dev; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt install cmake libace-dev libboost-all-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev libeigen3-dev; fi
   # macOS dependencies
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install boost; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew tap robotology/cask; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install --only-dependencies yarp; fi
   # Setup the YARP branch 
