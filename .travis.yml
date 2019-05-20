@@ -12,16 +12,25 @@ addons:
     update: true
     packages:
     - build-essential 
-    - qtcreator 
-    - qt5-default 
+    - qtbase5-dev
+    - qtdeclarative5-dev
+    - qtmultimedia5-dev
+    - libqt5opengl5-dev
+    - libqcustomplot-dev
     - libboost-all-dev
-    - ace
+    - libace-dev
+    - libeigen3-dev
 
   homebrew:
     update: true
     packages:
     - cmake
-    - qt
+    - ace
+    - sqlite
+    - tinyxml
+    - libedit
+    - qt5
+    - eigen
 
 os:
   - linux
@@ -46,7 +55,7 @@ before_script:
   - cd yarp
   - mkdir build
   - cd build
-  - cmake ../ -DCREATE_GUIS:BOOL=ON -DCREATE_LIB_MATH:BOOL=ON -DCREATE_OPTIONAL_CARRIERS:BOOL=ON -DENABLE_yarpcar_bayer_carrier:BOOL=ON -DENABLE_icubmod_usbCamera:BOOL=ON -DENABLE_icubmod_usbCameraRaw:BOOL=ON
+  - cmake ../ -DCREATE_GUIS:BOOL=OFF -DCREATE_LIB_MATH:BOOL=ON
   - make
   - sudo make install
   - cd ../..
