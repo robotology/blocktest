@@ -23,7 +23,7 @@
 #include "scripttreemodel.h"
 #include "testsdepotmodel.h"
 #include "loggermodel.h"
-#include "prerequisitecombomodel.h"
+#include <qstringlistmodel.h>
 
 #include <boost/process.hpp>
 
@@ -40,7 +40,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     bool eventFilter( QObject* o, QEvent* e );
 
