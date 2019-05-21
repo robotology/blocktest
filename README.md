@@ -53,7 +53,7 @@ sudo apt-get install build-essential qtcreator qt5-default libboost-all-dev
 ```
 At the moment the application is only for Linux type OS.
 
-Boost library version must be >1.63.
+Boost library version must be >1.64.
 
 ## 3.2. Dependancy
 The application uses the following third part libraries (although you don't need to install by yourself)

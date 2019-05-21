@@ -1,14 +1,6 @@
 #pragma once
 
-#include <string>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <thread>
-#include <mutex>
-#include <map>
-#include <list>
-#include <sys/time.h>
+#include "general.h"
 
 enum class Severity : int {
     plot = 8,

@@ -176,6 +176,8 @@ std::string Tables::Table::get()
     {
         TXLOG(Severity::error)<<"Wrong table type:"<<name_<<std::endl;
     }
+
+    return "";
 };
 
 std::string Tables::Table::fetch()
@@ -199,6 +201,8 @@ std::string Tables::Table::fetch()
     {
         TXLOG(Severity::error)<<"Wrong table type:"<<name_<<std::endl;
     }
+
+    return "";
 };
 
 std::string Tables::Table::get(unsigned int position) const
@@ -217,6 +221,7 @@ std::string Tables::Table::get(unsigned int position) const
         TXLOG(Severity::error)<<"Wrong table type 1:"<<name_<<std::endl;
     }
     
+    return "";
 }
 
 std::string Tables::Table::dump() const
