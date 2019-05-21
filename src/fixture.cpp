@@ -82,7 +82,7 @@ void Fixture::execute()
         std::cout<<"prerequisite executed:"<<ss.str()<<std::endl;
         std::cout<<"-------------------------------------------"<<std::endl;
 
-        current.process_=std::make_shared<boost::process::child>(ss.str(),boost::process::std_err > current.output_);
+        current.process_=std::make_shared<boost::process::child>(ss.str(),boost::process::std_err > *current.output_);
 
         current.writer_=std::make_unique<std::thread>([&] {
             std::this_thread::sleep_for(std::chrono::microseconds(10));
@@ -90,7 +90,7 @@ void Fixture::execute()
             std::string line;
             while (current.process_->running() && current.writerActive_)
             {
-                std::getline(current.output_, line);
+                std::getline(*current.output_, line);
                 std::this_thread::sleep_for(std::chrono::microseconds(10));
                 if(line=="")
                     continue;
@@ -134,4 +134,5 @@ Fixture::FixtureParam::FixtureParam(const std::string& commandName,const std::st
                                                                                                                                                 enabled_(enabled),
                                                                                                                                                 waitafter_(waitafter)
 {
+    output_=std::make_shared<boost::process::ipstream>();
 }

@@ -40,7 +40,7 @@ class Fixture
                 unsigned int waitafter_;
                 
                 std::shared_ptr<boost::process::child> process_;
-                boost::process::ipstream output_;
+                std::shared_ptr<boost::process::ipstream> output_;
                 
                 std::unique_ptr<std::thread> writer_;
                 bool writerActive_{true};
