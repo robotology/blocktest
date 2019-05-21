@@ -77,15 +77,20 @@ std::string ClockFacility::now() const
         }
         else
         {
+            std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+            std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+            /*
             timeval curTime;
             gettimeofday(&curTime, NULL);
             int milli = curTime.tv_usec / 1000;
-
             char buffer[80];
             strftime(buffer, 80, "%Y-%m-%d %H:%M:%S", localtime(&curTime.tv_sec));
-
             std::stringstream out;
             out << buffer << "." << std::setfill('0') << std::setw(3)<<milli;
+            */
+
+            std::stringstream out;
+            out << std::put_time(std::localtime(&now_c), "%F %T");
 
             return out.str();
         }

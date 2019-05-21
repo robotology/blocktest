@@ -19,7 +19,6 @@
 #include <algorithm>
 #include <fstream>
 #include <mutex>
-#include <sys/time.h>
 #include <dlfcn.h>
 #include <experimental/filesystem>
 
