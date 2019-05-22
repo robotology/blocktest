@@ -20,7 +20,7 @@
  * @brief ...
  * @todo missing brief and detailed description
  */
-class Fixture 
+class BLOCKTEST_EXPORT Fixture
 {
     public:
         explicit Fixture(const std::string& path);

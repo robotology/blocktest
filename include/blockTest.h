@@ -18,7 +18,7 @@
 
 #include "general.h"
 
-class BlockTest 
+class BLOCKTEST_EXPORT BlockTest
 {
 public:
     explicit BlockTest(const std::string &path);

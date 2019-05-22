@@ -24,7 +24,6 @@
 #include "testsdepotmodel.h"
 #include "loggermodel.h"
 #include <qstringlistmodel.h>
-
 #include <boost/process.hpp>
 
 #include <experimental/filesystem>

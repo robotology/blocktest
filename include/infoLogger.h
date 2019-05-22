@@ -17,7 +17,7 @@
 
 #pragma once
 
-class InfoLogger
+class BLOCKTEST_EXPORT InfoLogger
 {
     public:
         InfoLogger(const std::string& toLog,double loggingTime,const std::string& wrapperName,const std::string& testCode,int repetition);

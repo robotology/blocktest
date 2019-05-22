@@ -31,7 +31,7 @@ bool ActionCheckVertical::execute(unsigned int testrepetition)
 {
     yarp::os::BufferedPort<yarp::sig::Vector> imuPort;
     std::string localImuPort  = "/myrobot/imu:i";
-    std::string remoteImuPort = "/" + TestsDepot::robotStr_ + "/inertial";
+    std::string remoteImuPort = "/" + TestsDepot::getRobotStr() + "/inertial";
     bool ok=imuPort.open(localImuPort);
     if(!ok)
     {

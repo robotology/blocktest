@@ -19,8 +19,17 @@
 #include <algorithm>
 #include <fstream>
 #include <mutex>
-#include <dlfcn.h>
 #include <experimental/filesystem>
+
+#ifndef _WIN32
+#include <dlfcn.h>
+#endif // _WIN32
+
+#if defined(WIN32) || defined(_WIN32)
+#define BLOCKTEST_EXPORT __declspec(dllexport)
+#else
+#define BLOCKTEST_EXPORT [[gnu::visibility("default")]]
+#endif
 
 #include <boost/process.hpp>
 #include <boost/dll/import.hpp>   

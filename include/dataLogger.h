@@ -21,7 +21,7 @@
  * @todo missing brief and detailed description
  */
 
-class Data
+class BLOCKTEST_EXPORT Data
 {
     public:
         std::string delimiter_{','};
@@ -64,7 +64,7 @@ class Data
         std::string data_;
 };
 
-class DataLogger 
+class BLOCKTEST_EXPORT DataLogger
 {
     public:
         explicit DataLogger(const std::string& name);

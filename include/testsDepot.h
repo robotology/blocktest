@@ -19,11 +19,10 @@
 
 class Test;
 
-class TestsDepot: public std::enable_shared_from_this<TestsDepot>
+class BLOCKTEST_EXPORT TestsDepot: public std::enable_shared_from_this<TestsDepot>
 {
 public:
-    static std::string robotStr_;
-    static std::string waitcommand_;
+
     std::string loggingcommand_;
     double loggingTime_{0.010};
 
@@ -33,10 +32,15 @@ public:
     bool execute() const;
 
     bool valid() const;
+
+    static std::string getRobotStr();
+    static std::string getWaitCommand();
    
     std::set<std::string> commandOnlySim_;   
 
 private:
+    static  std::string robotStr_;
+    static  std::string waitcommand_;
     const std::string testName_{"./test/test.xml"};    
 
     unsigned int repetitions_{0};

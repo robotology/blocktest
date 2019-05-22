@@ -15,7 +15,7 @@
 #include "general.h"
 
 
-class Tables
+class BLOCKTEST_EXPORT Tables
 {
     public:
         static Tables& instance();

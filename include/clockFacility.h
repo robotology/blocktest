@@ -14,7 +14,7 @@
 
 #include "general.h"
 
-class ClockFacility
+class BLOCKTEST_EXPORT ClockFacility
 {
     public:
         bool wait(double value) const;

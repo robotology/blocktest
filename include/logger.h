@@ -16,7 +16,7 @@
 #include "general.h"
 #include "clockFacility.h"
 
-class Logger
+class BLOCKTEST_EXPORT Logger
 {
 private:
     std::ofstream outStreamFile_;
@@ -133,3 +133,10 @@ private:
         return *this;
     }
 };
+
+#define TXLOG(x) if(true)Logger::Instance().SetError(x,__FILE__,__LINE__)
+#define TXLOGDISABLE(x) Logger::Instance().DisableFileLogging(x)
+#define TXLOGOVERSEVERITY(x) Logger::Instance().LogoOverSeverity(x)
+#define TXLOGMAXFILELINE(x) Logger::Instance().MaxFileLine(x)
+#define TXLOGMAXFILE(x) Logger::Instance().MaxFile(x)
+#define TXLOGGETSTAT(x) Logger::Instance().GetStatistics(x)

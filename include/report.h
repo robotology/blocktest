@@ -15,7 +15,7 @@
 #include "general.h"
 #include "logger.h"
 
-class Report
+class BLOCKTEST_EXPORT Report
 {
     public:
         static Report& instance();

@@ -17,11 +17,11 @@
  * @brief ...
  * @todo missing brief and detailed description
  */
-class ActionDepotStart 
+class BLOCKTEST_EXPORT ActionDepotStart
 {
     public:
         virtual void configure(const std::string& path,const std::string& name) =0;
-        virtual ~ActionDepotStart()=0;
+        virtual ~ActionDepotStart() = default;
 };
 
 

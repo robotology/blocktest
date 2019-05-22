@@ -24,7 +24,7 @@
 using logCreationFunction  = std::function<std::shared_ptr<InfoLogger>(const std::string &toLog, double loggingTime, const std::string &wrapperName, const std::string& testCode, int repetition)>;
 using logCreationFuncDepot = std::map<std::string, logCreationFunction>;
 
-class LoggerRegister
+class BLOCKTEST_EXPORT LoggerRegister
 {
   public:
     static logCreationFuncDepot &getMap()
@@ -58,7 +58,7 @@ class LoggerRegister
 };
 
 template <typename T>
-class DerivedLoggerRegister : public LoggerRegister
+class BLOCKTEST_EXPORT DerivedLoggerRegister : public LoggerRegister
 {
   public:
     explicit DerivedLoggerRegister(const std::string& commandname)

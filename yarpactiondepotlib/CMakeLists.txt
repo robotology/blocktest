@@ -8,11 +8,16 @@
 # @author Luca Tricerri <luca.tricerri@iit.it>  
 
 #Thrift for clock
-find_package(YARP 3.0.0 REQUIRED)
+set(YARP_MINIMUM_REQUIRED_VERSION 3.0.102)
+find_package(YARP REQUIRED COMPONENTS OS conf dev sig math rosmsg name idl_tools)
+if(${YARP_VERSION} VERSION_LESS ${YARP_MINIMUM_REQUIRED_VERSION})
+    message(FATAL_ERROR "YARP version ${YARP_VERSION} not sufficient, at least version ${YARP_MINIMUM_REQUIRED_VERSION} is required.")
+endif()
+
 yarp_add_idl(CLOCK_RPC_FILES thrift/clock_rpc.thrift)
-add_library(ClockRpc ${CLOCK_RPC_FILES} thrift/clock_rpc.thrift)
+include_directories(${Boost_INCLUDE_DIRS})
+add_library(ClockRpc STATIC ${CLOCK_RPC_FILES} thrift/clock_rpc.thrift)
 set_target_properties(ClockRpc PROPERTIES POSITION_INDEPENDENT_CODE ON)
-find_package(YARP 3.0.0 REQUIRED)
 target_link_libraries(ClockRpc YARP::YARP_OS)
 
 # Extract the include directory from the files names
@@ -43,7 +48,7 @@ add_library(${PROJECT_NAME} MODULE ${allSrc})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${YARP_HELPERS_INCLUDE_DIR} ${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/../include)
-target_link_libraries(${PROJECT_NAME} PRIVATE ${YARP_LIBRARIES} ClockRpc Pugixml::Pugixml)
+target_link_libraries(${PROJECT_NAME} PRIVATE BlockTestCore ${YARP_LIBRARIES} ClockRpc Pugixml::Pugixml)
 
 # Add install target
 set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECT_NAME}")

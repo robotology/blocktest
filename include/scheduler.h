@@ -21,7 +21,7 @@ class Test;
 class TestsDepot;
 class StatisticsLogger;
 
-class Scheduler
+class BLOCKTEST_EXPORT Scheduler
 {
 public:
     Scheduler();

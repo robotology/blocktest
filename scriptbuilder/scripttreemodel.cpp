@@ -21,6 +21,7 @@
 #include <string>
 #include <fstream>
 #include <streambuf>
+#include <sstream>
 
 namespace fs = std::experimental::filesystem;
 

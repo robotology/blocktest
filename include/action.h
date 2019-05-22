@@ -22,7 +22,7 @@
  * @brief ...
  * @todo missing brief, detailed description and methods documentation
  */
-class Action
+class BLOCKTEST_EXPORT Action
 {
     public:
         Action(const pugi::xml_node& nodeCommand,Test_sptr test);

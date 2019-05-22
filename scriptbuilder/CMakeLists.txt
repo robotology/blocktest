@@ -28,7 +28,7 @@ if(COMPILE_SCRIPTBUILDER)
   include_directories (${PROJECT_SOURCE_DIR} ${PROJECT_BINARY_DIR})
 
 
-  add_library(resourcelib  STATIC                                 
+  add_library(resourcelib  STATIC
                           ${moc_src}
                           ${ui_wrap}
                           ${qrc_moc}       
@@ -39,10 +39,10 @@ if(COMPILE_SCRIPTBUILDER)
                         Qt5::Core  
                         Qt5::Widgets
                         Qt5::Gui
-                        stdc++fs
-                       )  
+                        ${Common_LIBRARIES}
+                       )
 
-  add_executable(${PROJECT_NAME}  
+  add_executable(${PROJECT_NAME}
                   ${scriptbuilder_src} 
                   ${qrc_moc}
                 )
@@ -52,14 +52,23 @@ if(COMPILE_SCRIPTBUILDER)
                           Qt5::Core  
                           Qt5::Widgets
                           Qt5::Gui
-                          stdc++fs
-                          pthread
+                          ${Common_LIBRARIES}
                           resourcelib
                           ${Boost_LIBRARIES}
                        )
 
   #xml template folder
-  file(COPY xmltemplate DESTINATION ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+
+  if(WIN32)
+    add_custom_command(TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_CURRENT_LIST_DIR}/xmltemplate
+    ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/$<CONFIG>/xmltemplate)
+  else()
+    file(COPY ${CMAKE_CURRENT_LIST_DIR}/xmltemplate
+         DESTINATION ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+  endif()
 
   #install
   install(TARGETS Scriptbuilder RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

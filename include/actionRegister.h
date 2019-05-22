@@ -23,7 +23,7 @@
 using creationFunction    = std::function<std::shared_ptr<Action>(const pugi::xml_node& mynode,Test_sptr test)>;
 using creationFuncDepot   = std::map<std::string, creationFunction>;
 
-class ActionRegister
+class BLOCKTEST_EXPORT ActionRegister
 {
   public:
     static creationFuncDepot &getMap()
@@ -57,7 +57,7 @@ class ActionRegister
 };
 
 template <typename T>
-class DerivedActionRegister : public ActionRegister
+class BLOCKTEST_EXPORT DerivedActionRegister : public ActionRegister
 {
   public:
     explicit DerivedActionRegister(const std::string& commandname)

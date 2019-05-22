@@ -63,6 +63,16 @@ bool TestsDepot::valid() const
     return data_.size();
 }
 
+std::string TestsDepot::getRobotStr()
+{
+    return robotStr_;
+}
+
+std::string TestsDepot::getWaitCommand()
+{
+    return waitcommand_;
+}
+
 void TestsDepot::loadSimulationCommand()
 {
     pugi::xpath_node settings = doc_.select_node("//settings");

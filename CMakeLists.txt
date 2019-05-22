@@ -13,9 +13,45 @@ project(blockTest
         LANGUAGES C CXX
         VERSION 0.1)
 
-file(GLOB allSrc "*.h" "*.cpp" "include/*.h" "src/*.cpp")
-set(CMAKE_AUTOMOC ON)
+set(BlockTestSrc src/main.cpp)
+set(BlockTestHdr )
+set(BlockTestCoreSrc    src/action.cpp
+                        src/blockTest.cpp
+                        src/clockFacility.cpp
+                        src/command.cpp
+                        src/dataLogger.cpp
+                        src/fixture.cpp
+                        src/infoLogger.cpp
+                        src/libraryLoader.cpp
+                        src/logger.cpp
+                        src/main.cpp
+                        src/report.cpp
+                        src/scheduler.cpp
+                        src/tables.cpp
+                        src/test.cpp
+                        src/testsDepot.cpp)
 
+set(BlockTestCoreHdr    include/action.h
+                        include/actionDepotStart.h
+                        include/actionRegister.h
+                        include/blockTest.h
+                        include/clockFacility.h
+                        include/command.h
+                        include/dataLogger.h
+                        include/fixture.h
+                        include/general.h
+                        include/infoLogger.h
+                        include/libraryLoader.h
+                        include/logconst.h
+                        include/logger.h
+                        include/loggerRegister.h
+                        include/report.h
+                        include/scheduler.h
+                        include/tables.h
+                        include/test.h
+                        include/testsDepot.h
+                        include/type.h)
+set(CMAKE_AUTOMOC ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 if (CMAKE_VERSION VERSION_LESS 3.11)
   list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake-3.11)
@@ -25,15 +61,6 @@ include(GNUInstallDirs)
 
 option(USES_YARP "Compile software that depends on the YARP library" ON)
 option(COMPILE_SCRIPTBUILDER "Compile the UI for creating the test" ON)
-
-if(USES_YARP)
-    set(YARP_MINIMUM_REQUIRED_VERSION 3.0.102)
-    find_package(YARP REQUIRED COMPONENTS OS conf dev sig math rosmsg name OPTIONAL_COMPONENTS rtf)
-    if(${YARP_VERSION} VERSION_LESS ${YARP_MINIMUM_REQUIRED_VERSION})
-        message(FATAL_ERROR "YARP version ${YARP_VERSION} not sufficient, at least version ${YARP_MINIMUM_REQUIRED_VERSION} is required.")
-    endif()
-else()
-endif() 
 
 set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS OFF)
@@ -94,14 +121,50 @@ add_subdirectory(genericactiondepotlib)
 if(USES_YARP)
     add_subdirectory(yarpactiondepotlib)
 endif()
+if(WIN32)
+    #macro(get_WIN32_WINNT version)
+    #    if (WIN32 AND CMAKE_SYSTEM_VERSION)
+    #        set(ver ${CMAKE_SYSTEM_VERSION})
+    #        string(REPLACE "." "" ver ${ver})
+    #        string(REGEX REPLACE "([0-9])" "0\\1" ver ${ver})
 
-add_executable(${PROJECT_NAME} ${allSrc} )
+ #           set(${version} "0x${ver}")
+ #       endif()
+ #   endmacro()
+
+ #   get_WIN32_WINNT(win_ver)
+ #  add_definitions(-D_WIN32_WINNT=${win_ver})
+    set(Common_LIBRARIES)
+else()
+    set(Common_LIBRARIES dl pthread stdc++fs)
+endif()
+
+add_library(BlockTestCore ${BlockTestCoreHdr} ${BlockTestCoreSrc})
+target_include_directories(BlockTestCore PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_link_libraries(BlockTestCore ${Boost_LIBRARIES} ${Common_LIBRARIES} Pugixml::Pugixml)
+
+include_directories(${Boost_INCLUDE_DIRS})
+add_executable(${PROJECT_NAME} ${BlockTestSrc} ${BlockTestHdr} )
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} dl pthread stdc++fs Pugixml::Pugixml)
 
-#test file folder
-file(COPY test DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
-file(COPY config.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+
+target_link_libraries(${PROJECT_NAME} BlockTestCore)
+
+if(WIN32)
+    add_custom_command(TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${PROJECT_SOURCE_DIR}/test
+    ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/$<CONFIG>/test)
+    file(GENERATE OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/$<CONFIG>/config.xml"
+                  INPUT "${CMAKE_CURRENT_LIST_DIR}/config.xml")
+else()
+    file(COPY ${PROJECT_SOURCE_DIR}/test
+         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+    file(COPY "${CMAKE_CURRENT_LIST_DIR}/config.xml"
+         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+endif()
+
 
 #install
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

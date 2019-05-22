@@ -27,6 +27,8 @@ if(NOT Pugixml_POPULATED)
         set(BUILD_SHARED_LIBS ON CACHE BOOL "sss")                                        
 endif()
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(BUILD_SHARED_LIBS ON CACHE BOOL "sss")
 add_subdirectory(${Pugixml_SOURCE_DIR} ${Pugixml_BINARY_DIR} )
 add_library(Pugixml::Pugixml ALIAS pugixml)
+

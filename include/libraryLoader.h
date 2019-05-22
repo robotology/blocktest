@@ -13,7 +13,7 @@
  */
 #include "general.h"
 
-class LibraryLoader
+class BLOCKTEST_EXPORT LibraryLoader
 {
     public:
         LibraryLoader();

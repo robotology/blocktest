@@ -17,7 +17,7 @@
 #include "type.h"
 #include "action.h"
 
-class Command
+class BLOCKTEST_EXPORT Command
 {
 public:
     unsigned int repetitions_{0};
