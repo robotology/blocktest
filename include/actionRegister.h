@@ -20,30 +20,34 @@
 #define ACTIONREGISTER_DEC_TYPE(CLASS) static DerivedActionRegister<CLASS> reg_;
 #define ACTIONREGISTER_DEF_TYPE(CLASS, NAME) DerivedActionRegister<CLASS> CLASS::reg_(NAME);
 
-using creator = std::map<std::string, std::function<std::shared_ptr<Action>(const pugi::xml_node& mynode,Test_sptr test)>>;
+using creationFunction    = std::function<std::shared_ptr<Action>(const pugi::xml_node& mynode,Test_sptr test)>;
+using creationFuncDepot   = std::map<std::string, creationFunction>;
 
 class ActionRegister
 {
   public:
-    static creator &getMap()
+    static creationFuncDepot &getMap()
     {
-        static creator map_;
+        static creationFuncDepot map_;
         return map_;
-    };
+    }
 
   public:
     static std::function<std::shared_ptr<Action>(const pugi::xml_node& ,Test_sptr )> getCreatorFunction(const std::string& commandname)
     {
-        creator &mymap = getMap();
+        creationFunction func;
+        creationFuncDepot &mymap = getMap();
         if(mymap.find(commandname)!=mymap.end())
-            return mymap[commandname];
-        TXLOG(Severity::error)<<"Function creator not found for:"<<commandname<<std::endl;  
+            func = mymap[commandname];
+        else
+            TXLOG(Severity::error)<<"Function creator not found for:"<<commandname<<std::endl;
+        return func;
     }
 
     void Dump()
     {
         TXLOG(Severity::info)<<"--------"<<std::endl;  
-        creator &mymap = getMap();
+        creationFuncDepot &mymap = getMap();
         for(auto current:mymap)
         {
             TXLOG(Severity::info)<<"--->"<<current.first<<std::endl;  
@@ -62,8 +66,8 @@ class DerivedActionRegister : public ActionRegister
             return std::make_shared<T>(mynode,test);
         };
 
-        creator &mymap = getMap();
+        creationFuncDepot &mymap = getMap();
 
         mymap[commandname] = x;
-    };
+    }
 };
