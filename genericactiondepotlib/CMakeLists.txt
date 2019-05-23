@@ -13,12 +13,12 @@ project(${PROJECT_NAME})
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME})
 
-file(GLOB allSrc "*.h" "*.cpp" "include/*.h" "src/*.cpp")
+file(GLOB allSrc "src/*.h" "src/*.cpp")
 include_directories(${Boost_INCLUDE_DIRS})
 add_library(${PROJECT_NAME} MODULE ${allSrc})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/../include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/../src)
 
 target_link_libraries(${PROJECT_NAME} BlockTestCore ${Boost_LIBRARIES} Pugixml::Pugixml)
 # Add install target

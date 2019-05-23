@@ -31,26 +31,26 @@ set(BlockTestCoreSrc    src/action.cpp
                         src/test.cpp
                         src/testsDepot.cpp)
 
-set(BlockTestCoreHdr    include/action.h
-                        include/actionDepotStart.h
-                        include/actionRegister.h
-                        include/blockTest.h
-                        include/clockFacility.h
-                        include/command.h
-                        include/dataLogger.h
-                        include/fixture.h
-                        include/general.h
-                        include/infoLogger.h
-                        include/libraryLoader.h
-                        include/logconst.h
-                        include/logger.h
-                        include/loggerRegister.h
-                        include/report.h
-                        include/scheduler.h
-                        include/tables.h
-                        include/test.h
-                        include/testsDepot.h
-                        include/type.h)
+set(BlockTestCoreHdr    src/action.h
+                        src/actionDepotStart.h
+                        src/actionRegister.h
+                        src/blockTest.h
+                        src/clockFacility.h
+                        src/command.h
+                        src/dataLogger.h
+                        src/fixture.h
+                        src/general.h
+                        src/infoLogger.h
+                        src/libraryLoader.h
+                        src/logconst.h
+                        src/logger.h
+                        src/loggerRegister.h
+                        src/report.h
+                        src/scheduler.h
+                        src/tables.h
+                        src/test.h
+                        src/testsDepot.h
+                        src/type.h)
 set(CMAKE_AUTOMOC ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 if (CMAKE_VERSION VERSION_LESS 3.11)
@@ -71,24 +71,7 @@ if (NOT Boost_FOUND)
       message(FATAL_ERROR "Fatal error: Boost (version >= ${BOOST_MIN_VERSION}) required.\n")
 endif (NOT Boost_FOUND)
 
-
-#Tiny process library
-#find_package(TinyProcessLibrary QUIET)
-#option(USE_SYSTEM_FMILIBRARY "If TRUE/ON use system TinyProcessLibrary, otherwise download and compile using FetchContent" ${TinyProcessLibrary_FOUND})
-#if (USE_SYSTEM_FMILIBRARY)
-#    find_package(TinyProcessLibrary REQUIRED)
-#else()
-#    include(FetchTinyProcessLibrary)  
-#endif()
-
-#Pugixml library
-#find_package(TinyProcessLibrary QUIET)
-#option(USE_SYSTEM_FMILIBRARY "If TRUE/ON use system TinyProcessLibrary, otherwise download and compile using FetchContent" ${TinyProcessLibrary_FOUND})
-#if (USE_SYSTEM_FMILIBRARY)
-#    find_package(TinyProcessLibrary REQUIRED)
-#else()
-    include(FetchPugixml)
-#endif()
+include(FetchPugixml)
 
 # Control where libraries and executables are placed during the build.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
@@ -122,18 +105,6 @@ if(USES_YARP)
     add_subdirectory(yarpactiondepotlib)
 endif()
 if(WIN32)
-    #macro(get_WIN32_WINNT version)
-    #    if (WIN32 AND CMAKE_SYSTEM_VERSION)
-    #        set(ver ${CMAKE_SYSTEM_VERSION})
-    #        string(REPLACE "." "" ver ${ver})
-    #        string(REGEX REPLACE "([0-9])" "0\\1" ver ${ver})
-
- #           set(${version} "0x${ver}")
- #       endif()
- #   endmacro()
-
- #   get_WIN32_WINNT(win_ver)
- #  add_definitions(-D_WIN32_WINNT=${win_ver})
     set(Common_LIBRARIES)
 else()
     set(Common_LIBRARIES dl pthread stdc++fs)
