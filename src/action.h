@@ -13,9 +13,11 @@
 #pragma once
 
 #include "type.h"
-#include "general.h"
+#include "api.h"
 #include "logger.h"
 #include "actionRegister.h"
+
+#include "pugixml.hpp"
 
 /**
  * @class Action

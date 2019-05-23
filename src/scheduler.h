@@ -12,10 +12,11 @@
 
 #pragma once
 
-#include "general.h"
+#include "api.h"
 #include "type.h"
 #include "clockFacility.h"
 #include "dataLogger.h"  
+#include "general.h"
 
 class Test;
 class TestsDepot;

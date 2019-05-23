@@ -12,6 +12,7 @@
 
 #include "tables.h"
 #include "logger.h"
+#include <iterator>
 
 Tables::Tables()
 {

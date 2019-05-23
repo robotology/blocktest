@@ -11,7 +11,17 @@
  * @file libraryLoader.h
  * @author Luca Tricerri <luca.tricerri@iit.it>
  */
+#include "api.h"
 #include "general.h"
+
+#ifndef _WIN32
+#include <dlfcn.h>
+#endif // _WIN32
+
+#include <boost/process.hpp>
+#include <boost/exception/diagnostic_information.hpp>
+#include <boost/filesystem.hpp>
+
 
 class BLOCKTEST_EXPORT LibraryLoader
 {

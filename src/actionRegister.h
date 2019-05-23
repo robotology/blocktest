@@ -12,10 +12,11 @@
 
 #pragma once
 
-#include "general.h"
+#include "api.h"
 #include "type.h"
 #include "action.h"
-
+#include "general.h"
+#include "pugixml.hpp"
 
 #define ACTIONREGISTER_DEC_TYPE(CLASS) static DerivedActionRegister<CLASS> reg_;
 #define ACTIONREGISTER_DEF_TYPE(CLASS, NAME) DerivedActionRegister<CLASS> CLASS::reg_(NAME);

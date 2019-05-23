@@ -12,6 +12,8 @@
 
 #pragma once
 
+#include "api.h"
+#include <map>
 #include "general.h"
 
 

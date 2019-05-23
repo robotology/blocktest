@@ -13,6 +13,8 @@
 #include "fixture.h"
 #include "logger.h"
 
+#include "pugixml.hpp"
+
 Fixture::Fixture(const std::string& path)
 {
     std::string completePath;

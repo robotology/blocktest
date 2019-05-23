@@ -13,9 +13,15 @@
 
 #pragma once
 
-#include "general.h"
+#include "api.h"
 #include "type.h"
-#include "test.h"
+#include "general.h"
+
+#ifndef _WIN32
+#include <dlfcn.h>
+#endif // _WIN32
+
+#include "pugixml.hpp"
 
 class Test;
 

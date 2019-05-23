@@ -1,6 +1,3 @@
-
-#pragma once
-
 /******************************************************************************
  *                                                                            *
  * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
@@ -8,27 +5,11 @@
  *                                                                            *
  ******************************************************************************/
 
-/**
- * @file BlockTest.cpp
- * @author Luca Tricerri <luca.tricerri@iit.it>
- */
+#pragma once
 
-#include "testsDepot.h"
-#include "scheduler.h"
-#include "general.h"
-#include "api.h"
+#if defined(WIN32) || defined(_WIN32)
+#define BLOCKTEST_EXPORT __declspec(dllexport)
+#else
+#define BLOCKTEST_EXPORT [[gnu::visibility("default")]]
+#endif
 
-class BLOCKTEST_EXPORT BlockTest
-{
-public:
-    explicit BlockTest(const std::string &path);
-    ~BlockTest();
-
-    unsigned int run();
-
-private:
-    std::string path_;
-
-    Scheduler scheduler_;
-    TestsDepot_sptr tests_;
-};

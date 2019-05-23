@@ -13,8 +13,9 @@
 #pragma once
 
 #include "logconst.h"
-#include "general.h"
+#include "api.h"
 #include "clockFacility.h"
+#include "general.h"
 
 class BLOCKTEST_EXPORT Logger
 {

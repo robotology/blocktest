@@ -12,6 +12,9 @@
 
 #pragma once
 
+#include <api.h>
+#include "general.h"
+
 /**
  * @class ActionDepotStart
  * @brief ...

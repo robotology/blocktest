@@ -1,5 +1,6 @@
 #pragma once
 
+#include "api.h"
 #include "general.h"
 
 enum class Severity : int {

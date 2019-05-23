@@ -12,10 +12,11 @@
 
 #pragma once
 
-#include "general.h"
+#include "api.h"
 #include "type.h"
 #include "infoLogger.h"
 #include "logger.h"
+#include "general.h"
 
 
 #define LOGGERREGISTER_DEC_TYPE(CLASS) static DerivedLoggerRegister<CLASS> reg_;

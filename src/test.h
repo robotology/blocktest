@@ -12,9 +12,10 @@
 
 #pragma once
 
-#include "general.h"
+#include "api.h"
 #include "type.h"
 #include "command.h"
+#include "general.h"
 
 class TestsDepot;
 

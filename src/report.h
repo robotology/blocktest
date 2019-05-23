@@ -12,8 +12,9 @@
 
 #pragma once
 
-#include "general.h"
+#include "api.h"
 #include "logger.h"
+#include "general.h"
 
 class BLOCKTEST_EXPORT Report
 {

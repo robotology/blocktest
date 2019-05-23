@@ -13,6 +13,7 @@
 #pragma once
 
 #include "type.h"
+#include "api.h"
 #include "general.h"
 
 /**

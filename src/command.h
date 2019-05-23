@@ -13,9 +13,10 @@
 
 #pragma once
 
-#include "general.h"
+#include "api.h"
 #include "type.h"
 #include "action.h"
+#include "general.h"
 
 class BLOCKTEST_EXPORT Command
 {

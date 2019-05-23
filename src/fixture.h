@@ -13,7 +13,10 @@
 #pragma once
 
 #include "type.h"
+#include "api.h"
 #include "general.h"
+
+#include <boost/process.hpp>
 
 /**
  * @class Fixture

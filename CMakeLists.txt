@@ -31,7 +31,8 @@ set(BlockTestCoreSrc    src/action.cpp
                         src/test.cpp
                         src/testsDepot.cpp)
 
-set(BlockTestCoreHdr    src/action.h
+set(BlockTestCoreHdr    src/api.h
+                        src/action.h
                         src/actionDepotStart.h
                         src/actionRegister.h
                         src/blockTest.h

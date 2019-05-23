@@ -14,6 +14,7 @@
 #include "fixture.h"
 #include "logger.h"
 #include "tables.h"
+#include "test.h"
 
 std::string TestsDepot::robotStr_="";
 std::string TestsDepot::waitcommand_="";
