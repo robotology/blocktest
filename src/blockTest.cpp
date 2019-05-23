@@ -15,7 +15,7 @@
 #include "report.h"
 #include "libraryLoader.h"
 #include "fixture.h"
-#include "actionregister.h"
+#include "actionRegister.h"
 
 BlockTest::BlockTest(const std::string &path):path_(path)  
 {   
