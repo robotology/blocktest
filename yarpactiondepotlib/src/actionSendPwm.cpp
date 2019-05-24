@@ -17,12 +17,10 @@
 #include <yarp/dev/IFrameTransform.h>
 #include <yarp/dev/ControlBoardInterfaces.h>
 
-#include "testsDepot.h"
 #include "yarpActionDepotStart.h"
 
 #include "logger.h"
 #include "report.h"
-#include "test.h"
 
 
 using namespace yarp::os;
@@ -31,7 +29,7 @@ using namespace yarp::dev;
 
 ACTIONREGISTER_DEF_TYPE(ActionSendPwm,"yarpsendpwm");
 
-ActionSendPwm::ActionSendPwm(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionSendPwm::ActionSendPwm(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"profile",profile_);
     getCommandAttribute(commandAttributes,"dutycycle",dutycycle_);
@@ -54,13 +52,13 @@ bool ActionSendPwm::execute(unsigned int testrepetition)
     if(!YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(ipwm))
     {
         TXLOG(Severity::critical)<<"Unable to open pwm mode interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open pwm mode interface");
+        addProblem(testrepetition,Severity::critical,"Unable to open pwm mode interface");
     }
 
     if(!YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(icmd))
     {
         TXLOG(Severity::critical)<<"Unable to open control mode interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open control mode interface");
+        addProblem(testrepetition,Severity::critical,"Unable to open control mode interface");
     }    
 
     std::map<std::string,int> jointNames;
@@ -69,7 +67,7 @@ bool ActionSendPwm::execute(unsigned int testrepetition)
     if(it==jointNames.end())
     {
         TXLOG(Severity::error)<<"Error joint not found:"<<jointname_<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Error joint not found");
+        addProblem(testrepetition,Severity::critical,"Error joint not found");
         return false;
     }
 

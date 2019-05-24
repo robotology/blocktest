@@ -14,7 +14,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionYarpNow,"yarpnow");
 
-ActionYarpNow::ActionYarpNow(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionYarpNow::ActionYarpNow(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {
 }     
 

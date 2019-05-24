@@ -15,7 +15,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionNow,"now");
 
-ActionNow::ActionNow(const CommandAttributes& commandAttributes,Test_sptr test):Action(commandAttributes,test)
+ActionNow::ActionNow(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
 }     
 

@@ -9,14 +9,16 @@
  * @file infoLoggerYarp.h
  * @author Luca Tricerri <luca.tricerri@iit.it>
  */
-
-#include "api.h"
-#include "type.h"
-#include "dataLogger.h"
-#include "clockFacility.h"
-#include "general.h"
-
 #pragma once
+
+
+#include "type.h"
+#include "api.h"
+#include "logger.h"
+#include "general.h"
+#include "dataLogger.h"
+
+#include "loggerRegister.h"
 
 class BLOCKTEST_EXPORT InfoLogger
 {

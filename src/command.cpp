@@ -40,7 +40,7 @@ bool Command::load()
     std::map<std::string,std::string> out;
     xmlCommandToMap(node_,out);
     auto call=ActionRegister::getCreatorFunction(command_);
-    action_=(call)(out,test_);
+    action_=(call)(out,test_->code_);
 
     TXLOG(Severity::debug)<<"Txcommand created:"<<command_<<std::endl;
     return true;

@@ -19,7 +19,6 @@
 
 #include <yarp/dev/PolyDriver.h>    
 
-class TestsDepot;
 class WalkingCommands;
 /**
  * @class ActionYarp
@@ -29,7 +28,7 @@ class WalkingCommands;
 class ActionYarp: public Action
 {
     public:
-        ActionYarp(const CommandAttributes& commandAttributes,Test_sptr test);
+        ActionYarp(const CommandAttributes& commandAttributes,const std::string& testCode);
         ~ActionYarp() override {};
 
         static void getJointNames(yarp::dev::PolyDriver& drive,std::map<std::string,int> &jointNames); 

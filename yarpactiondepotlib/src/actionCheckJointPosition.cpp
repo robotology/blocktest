@@ -12,10 +12,8 @@
 
 
 #include "actionCheckJointPosition.h"
-#include "test.h"
 #include "logger.h"
 #include "report.h"
-#include "testsDepot.h"
 #include "yarpActionDepotStart.h"
 
 #include <yarp/dev/ControlBoardInterfaces.h>
@@ -25,7 +23,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionCheckJointPosition,"yarpcheckjointposition");
 
-ActionCheckJointPosition::ActionCheckJointPosition(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionCheckJointPosition::ActionCheckJointPosition(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"wrappername",wrapperPrefix_);
     getCommandAttribute(commandAttributes,"jointname",jointname_);
@@ -40,7 +38,7 @@ bool ActionCheckJointPosition::execute(unsigned int testrepetition)
     if(!YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(iencoders))
     {
         TXLOG(Severity::error)<<"Unable to open encoder control mode interface 2"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open encoder control mode interface 2");        
+        addProblem(testrepetition,Severity::critical,"Unable to open encoder control mode interface 2");        
         return false;
     }
 
@@ -48,7 +46,7 @@ bool ActionCheckJointPosition::execute(unsigned int testrepetition)
     if(!iencoders->getAxes(&nj))
     {
         TXLOG(Severity::error)<<"Unable to open encoder control mode interface 3"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open encoder control mode interface 3");
+        addProblem(testrepetition,Severity::critical,"Unable to open encoder control mode interface 3");
         return false;    
     }       
          
@@ -59,7 +57,7 @@ bool ActionCheckJointPosition::execute(unsigned int testrepetition)
     if(it==jointNames.end())
     {
         TXLOG(Severity::error)<<"Joint not found:"<<jointname_<<std::endl;   
-        addProblem(test_->code_,testrepetition,Severity::critical,"Joint not found:");
+        addProblem(testrepetition,Severity::critical,"Joint not found:");
         return false;
     }
 
@@ -75,7 +73,7 @@ bool ActionCheckJointPosition::execute(unsigned int testrepetition)
     if(expectedValue_>ref+tolerance_ || expectedValue_<ref-tolerance_)
     {
         TXLOG(Severity::error)<<"Joint position check value:"<<ref<<" expected:" <<expectedValue_<<" tolerance:"<<tolerance_ <<" name:"<<jointname_<<std::endl;   
-        addProblem(test_->code_,testrepetition,Severity::error,"Joint position check value");
+        addProblem(testrepetition,Severity::error,"Joint position check value");
     }
     else
     {

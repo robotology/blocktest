@@ -25,7 +25,7 @@ namespace yarp
 class ActionSendPwmTrain : public ActionYarp
 {
     public:
-        ActionSendPwmTrain(const CommandAttributes& commandAttributes,Test_sptr test);    
+        ActionSendPwmTrain(const CommandAttributes& commandAttributes,const std::string& testCode);    
         bool execute(unsigned int testrepetition) override;
     private:
         std::string jointname_;

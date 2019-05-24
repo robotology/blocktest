@@ -22,7 +22,7 @@
 class ActionCheckJointPosition : public ActionYarp
 {
     public:
-        ActionCheckJointPosition(const CommandAttributes& commandAttributes,Test_sptr test);
+        ActionCheckJointPosition(const CommandAttributes& commandAttributes,const std::string& testCode);
         bool execute(unsigned int testrepetition) override;
     
     private:

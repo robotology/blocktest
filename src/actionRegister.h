@@ -14,11 +14,13 @@
 
 #include "action.h"
 
+class Action;
+
 #define ACTIONREGISTER_DEC_TYPE(CLASS) static DerivedActionRegister<CLASS> reg_;
 #define ACTIONREGISTER_DEF_TYPE(CLASS, NAME) DerivedActionRegister<CLASS> CLASS::reg_(NAME);
 
 
-using creationFunction    = std::function<std::shared_ptr<Action>(const CommandAttributes& commandAttributes,Test_sptr test)>;
+using creationFunction    = std::function<std::shared_ptr<Action>(const CommandAttributes& ,const std::string& )>;
 using creationFuncDepot   = std::map<std::string, creationFunction>;
 
 class BLOCKTEST_EXPORT ActionRegister
@@ -31,7 +33,7 @@ class BLOCKTEST_EXPORT ActionRegister
     }
 
   public:
-    static std::function<std::shared_ptr<Action>(const CommandAttributes& ,Test_sptr )> getCreatorFunction(const std::string& commandname)
+    static std::function<std::shared_ptr<Action>(const CommandAttributes& ,const std::string& )> getCreatorFunction(const std::string& commandname)
     {
         creationFunction func;
         creationFuncDepot &mymap = getMap();
@@ -60,8 +62,8 @@ class BLOCKTEST_EXPORT DerivedActionRegister : public ActionRegister
   public:
     explicit DerivedActionRegister(const std::string& commandname)
     {
-        auto x = [](const CommandAttributes& commandAttributes,Test_sptr test) {
-            return std::make_shared<T>(commandAttributes,test);
+        auto x = [](const CommandAttributes& commandAttributes,const std::string& testCode) {
+            return std::make_shared<T>(commandAttributes,testCode);
         };
 
         creationFuncDepot &mymap = getMap();

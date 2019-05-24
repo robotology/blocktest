@@ -17,11 +17,10 @@
 
 #include "logger.h"
 #include "report.h"
-#include "test.h"
 
 ACTIONREGISTER_DEF_TYPE(ActionGenerateTrajectory,"generatetrajectory");
 
-ActionGenerateTrajectory::ActionGenerateTrajectory(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionGenerateTrajectory::ActionGenerateTrajectory(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"lenght",lenght_);    
 }     
@@ -36,7 +35,7 @@ bool ActionGenerateTrajectory::execute(unsigned int testrepetition)
     if(!ok)
     {
         TXLOG(Severity::error)<<"Generate trajectory failed"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::error,"Generate trajectory failed");
+        addProblem(testrepetition,Severity::error,"Generate trajectory failed");
     }
 
     closeWalking(rpcPortWalking);

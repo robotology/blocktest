@@ -16,7 +16,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionUpdateFile,"updatefile");
 
-ActionUpdateFile::ActionUpdateFile(const CommandAttributes& commandAttributes,Test_sptr test):Action(commandAttributes,test)
+ActionUpdateFile::ActionUpdateFile(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"sourcefile",sourceFile_);
     getCommandAttribute(commandAttributes,"destinationfile",destinationFile_);    

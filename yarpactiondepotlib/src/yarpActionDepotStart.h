@@ -37,5 +37,6 @@ class YarpActionDepotStart :public ActionDepotStart
         void configure(const std::string& path,const std::string& name) override;
 
         static std::map<std::string,PolyDriver_sptr> polyDriverDepot_;//PolyDrive collection for each wrappers
+        static std::string robotName_;
 };
 

@@ -15,11 +15,10 @@
 
 #include "logger.h"
 #include "report.h"
-#include "test.h"
 
 ACTIONREGISTER_DEF_TYPE(ActionSetVelocity,"setvelocity");
 
-ActionSetVelocity::ActionSetVelocity(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionSetVelocity::ActionSetVelocity(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"xvelocity",xVelocity_);    
     getCommandAttribute(commandAttributes,"yvelocity",yVelocity_);      
@@ -36,7 +35,7 @@ bool ActionSetVelocity::execute(unsigned int testrepetition)
     if(!ok)
     {
         TXLOG(Severity::critical)<<"send velocity failed"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"send velocity failed");
+        addProblem(testrepetition,Severity::critical,"send velocity failed");
     }
 
     closeWalking(rpcPortWalking);    

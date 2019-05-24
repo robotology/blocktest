@@ -17,7 +17,7 @@
 class ActionUpdateFile : public Action
 {
     public:
-        ActionUpdateFile(const CommandAttributes& commandAttributes,Test_sptr test);    
+        ActionUpdateFile(const CommandAttributes& commandAttributes,const std::string& testCode);    
         bool execute(unsigned int testrepetition) override;
 
     private:        

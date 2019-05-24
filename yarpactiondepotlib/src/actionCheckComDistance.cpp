@@ -14,7 +14,6 @@
 #include "actionCheckComDistance.h"
 #include "logger.h"
 #include "report.h"
-#include "test.h"
 
 #include <yarp/dev/all.h>
 #include <yarp/dev/IFrameTransform.h>
@@ -23,7 +22,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionCheckComDistance,"checkcomdistance");
 
-ActionCheckComDistance::ActionCheckComDistance(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionCheckComDistance::ActionCheckComDistance(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"comdistancemax",commaxdistance_);
     getCommandAttribute(commandAttributes,"comdistancemin",commindistance_);
@@ -46,7 +45,7 @@ bool ActionCheckComDistance::execute(unsigned int testrepetition)
 
 
     if(error)
-        addProblem(test_->code_,testrepetition,Severity::error);
+        addProblem(testrepetition,Severity::error);
 */
     return false;
 }

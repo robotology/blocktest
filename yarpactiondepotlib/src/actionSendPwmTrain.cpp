@@ -17,11 +17,9 @@
 #include <yarp/dev/IFrameTransform.h>
 #include <yarp/dev/ControlBoardInterfaces.h>
 
-#include "testsDepot.h"
 #include "yarpActionDepotStart.h"
 #include "logger.h"
 #include "report.h"
-#include "test.h"
 
 
 using namespace yarp::os;
@@ -30,7 +28,7 @@ using namespace yarp::dev;
 
 ACTIONREGISTER_DEF_TYPE(ActionSendPwmTrain,"yarpsendpwmtrain");
 
-ActionSendPwmTrain::ActionSendPwmTrain(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionSendPwmTrain::ActionSendPwmTrain(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"cycletime",cycleTime_);
     getCommandAttribute(commandAttributes,"cyclesleep",cycleSleep_);
@@ -53,26 +51,26 @@ bool ActionSendPwmTrain::execute(unsigned int testrepetition)
     if(!YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(ipwm))
     {
         TXLOG(Severity::critical)<<"Unable to open pwm mode interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open pwm mode interface");
+        addProblem(testrepetition,Severity::critical,"Unable to open pwm mode interface");
     }
 
     if(!YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(icmd))
     {
         TXLOG(Severity::critical)<<"Unable to open control mode interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open control mode interface");
+        addProblem(testrepetition,Severity::critical,"Unable to open control mode interface");
     }    
 
     if(!YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(iencs))
     {
         TXLOG(Severity::error)<<"Unable to view IEncoder interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::error,"Unable to view IEncoder interface");
+        addProblem(testrepetition,Severity::error,"Unable to view IEncoder interface");
         return false;
     }
 
     if(!iencs->getAxes(&nj))
     {
         TXLOG(Severity::error)<<"getAxes failed"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::error,"getAxes failed");
+        addProblem(testrepetition,Severity::error,"getAxes failed");
         return false;
     }    
 
@@ -82,7 +80,7 @@ bool ActionSendPwmTrain::execute(unsigned int testrepetition)
     if(it==jointNames.end())
     {
         TXLOG(Severity::error)<<"Error joint not found:"<<jointname_<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Error joint not found");
+        addProblem(testrepetition,Severity::critical,"Error joint not found");
         return false;
     }
     

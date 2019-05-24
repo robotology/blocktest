@@ -15,11 +15,10 @@
 
 #include "logger.h"
 #include "report.h"
-#include "test.h"
 
 ACTIONREGISTER_DEF_TYPE(ActionPrepareStraightWalking,"preparestraightwalking");
 
-ActionPrepareStraightWalking::ActionPrepareStraightWalking(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionPrepareStraightWalking::ActionPrepareStraightWalking(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {}     
 
 bool ActionPrepareStraightWalking::execute(unsigned int testrepetition)
@@ -32,7 +31,7 @@ bool ActionPrepareStraightWalking::execute(unsigned int testrepetition)
     if(!ok)
     {
         TXLOG(Severity::error)<<"Prepare straight walking failed"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::error,"Prepare straight walking failed");
+        addProblem(testrepetition,Severity::error,"Prepare straight walking failed");
     }
     closeWalking(rpcPortWalking);
     TXLOG(Severity::info)<<"Prepare straight walking OK"<<std::endl;

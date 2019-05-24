@@ -13,13 +13,12 @@
 
 #include "actionExecute.h"
 #include "logger.h"
-#include "tables.h"
 
 ACTIONREGISTER_DEF_TYPE(ActionExecute,"execute");
 
 std::map<std::string,std::shared_ptr<boost::process::child>> ActionExecute::processes_;
 
-ActionExecute::ActionExecute(const CommandAttributes& commandAttributes,Test_sptr test):Action(commandAttributes,test)
+ActionExecute::ActionExecute(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"tag",tag_);
     getCommandAttribute(commandAttributes,"command",commandName_);

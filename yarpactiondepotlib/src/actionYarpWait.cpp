@@ -15,7 +15,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionYarpWait,"yarpwait");
 
-ActionYarpWait::ActionYarpWait(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionYarpWait::ActionYarpWait(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"seconds",seconds_);   
 }     

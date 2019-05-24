@@ -30,7 +30,7 @@ using CommandAttributes=std::map<std::string,std::string>;
 class BLOCKTEST_EXPORT Action
 {
     public:      
-        Action(const CommandAttributes& commandAttributes,Test_sptr test);
+        Action(const CommandAttributes& commandAttributes,const std::string& testCode);
         virtual bool execute(unsigned int testrepetition)=0;
         virtual double getDouble() {return 0;};
         virtual ~Action();
@@ -39,8 +39,9 @@ class BLOCKTEST_EXPORT Action
         std::string normalize(const std::string& str,bool justFetch) const;
         double normalizeDouble(const std::string& str,bool justFetch) const;
         Test& getMyTest();
-        void addProblem(const std::string& code,unsigned int repetition,Severity severity,const std::string& errorMessage) const;
-        Test_sptr test_;
+
+        void addProblem(unsigned int repetition,Severity severity,const std::string& errorMessage) const;
+        std::string testCode_;
 
         bool reporterror_{true};
 

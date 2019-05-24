@@ -22,7 +22,7 @@
 class ActionResetWalking : public ActionYarp
 {
     public:
-        ActionResetWalking(const CommandAttributes& commandAttributes,,Test_sptr test);
+        ActionResetWalking(const CommandAttributes& commandAttributes,,const std::string& testCode);
         bool execute(unsigned int testrepetition) override;
 
     ACTIONREGISTER_DEC_TYPE(ActionResetWalking)        

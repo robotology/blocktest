@@ -12,7 +12,6 @@
 
 
 #include "actionCheckPosition.h"
-#include "test.h"
 #include "logger.h"
 #include "report.h"
 
@@ -22,7 +21,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionCheckPosition,"checkposition");
 
-ActionCheckPosition::ActionCheckPosition(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionCheckPosition::ActionCheckPosition(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"xminposition",xminposition_);
     getCommandAttribute(commandAttributes,"yminposition",yminposition_);
@@ -38,13 +37,13 @@ bool ActionCheckPosition::execute(unsigned int testrepetition)
     if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to open ports checkposition"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open ports checkposition");
+        addProblem(testrepetition,Severity::critical,"Unable to open ports checkposition");
     }
     ok=yarp::os::Network::connect(remotefbePort.c_str(), localfbePort.c_str());
     if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to connect to fbe port"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to connect to fbe port");
+        addProblem(testrepetition,Severity::critical,"Unable to connect to fbe port");
     }
     yarp::os::Bottle fbeReadings;
     fbePort.read(fbeReadings);
@@ -53,7 +52,7 @@ bool ActionCheckPosition::execute(unsigned int testrepetition)
     if(coordList->size()<6)
     {
         TXLOG(Severity::critical)<<"FBE readings should have 6 elements current:"<<fbeReadings.size()<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"FBE readings should have 6 elements");
+        addProblem(testrepetition,Severity::critical,"FBE readings should have 6 elements");
         fbePort.interrupt();
         fbePort.close();  
         return false;
@@ -79,7 +78,7 @@ bool ActionCheckPosition::execute(unsigned int testrepetition)
     }
 
     if(error)
-        addProblem(test_->code_,testrepetition,Severity::error,"FBE not enough");
+        addProblem(testrepetition,Severity::error,"FBE not enough");
     
     fbePort.interrupt();
     fbePort.close();  

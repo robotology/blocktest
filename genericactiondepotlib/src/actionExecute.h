@@ -18,7 +18,7 @@
 class ActionExecute : public Action
 {
     public:
-        ActionExecute(const CommandAttributes& commandAttributes,Test_sptr test);    
+        ActionExecute(const CommandAttributes& commandAttributes,const std::string& testCode);    
         bool execute(unsigned int testrepetition) override;
 
     private:        

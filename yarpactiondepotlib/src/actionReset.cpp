@@ -20,11 +20,10 @@
 
 #include "logger.h"
 #include "report.h"
-#include "test.h"
 
 ACTIONREGISTER_DEF_TYPE(ActionReset,"yarpreset");
 
-ActionReset::ActionReset(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionReset::ActionReset(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {}     
 
 bool ActionReset::execute(unsigned int testrepetition)
@@ -42,7 +41,7 @@ bool ActionReset::execute(unsigned int testrepetition)
         if(!ok)
         {
             TXLOG(Severity::error)<<"Unable to open clock/rpc"<<std::endl;
-            addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open clock/rpc");
+            addProblem(testrepetition,Severity::critical,"Unable to open clock/rpc");
         }
         clockServer.yarp().attachAsClient(clockClientPort);
     }

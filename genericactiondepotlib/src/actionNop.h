@@ -13,7 +13,6 @@
 #pragma once
 
 #include "action.h"
-#include "test.h"
 
 /**
  * @class ActionNop
@@ -23,7 +22,7 @@
 class ActionNop : public Action
 {
     public:
-        ActionNop(const CommandAttributes& commandAttributes,Test_sptr test);
+        ActionNop(const CommandAttributes& commandAttributes,const std::string& testCode);
         bool execute(unsigned int testrepetition) override;
     
     private:

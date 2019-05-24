@@ -1,11 +1,10 @@
 
 #include "action.h"
-#include "testsDepot.h"
 #include "logger.h"
 #include "report.h"
 #include "tables.h"
 
-Action::Action(const CommandAttributes& commandAttributes,Test_sptr test):test_(test)
+Action::Action(const CommandAttributes& commandAttributes,const std::string& testCode):testCode_(testCode)
 {
     getCommandAttribute(commandAttributes,"reporterror",reporterror_);
 }
@@ -46,10 +45,10 @@ double Action::normalizeDouble(const std::string& str,bool justFetch) const
     return out;
 }
 
-void Action::addProblem(const std::string& code,unsigned int repetition,Severity severity,const std::string& errorMessage) const
+void Action::addProblem(unsigned int repetition,Severity severity,const std::string& errorMessage) const
 {
     if(reporterror_)
-        Report::instance().addProblem(code,repetition,severity,errorMessage);
+        Report::instance().addProblem(testCode_,repetition,severity,errorMessage);
 }
 
 Action::~Action()

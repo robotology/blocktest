@@ -12,10 +12,9 @@
 
 
 #include "actionCheckVertical.h"
-#include "test.h"
 #include "logger.h"
 #include "report.h"
-#include "testsDepot.h"
+#include "yarpActionDepotStart.h"
 
 #include <yarp/dev/all.h>
 #include <yarp/dev/IFrameTransform.h>
@@ -24,26 +23,26 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionCheckVertical,"yarpcheckrobotisvertical");
 
-ActionCheckVertical::ActionCheckVertical(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionCheckVertical::ActionCheckVertical(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {}
 
 bool ActionCheckVertical::execute(unsigned int testrepetition)
 {
     yarp::os::BufferedPort<yarp::sig::Vector> imuPort;
     std::string localImuPort  = "/myrobot/imu:i";
-    std::string remoteImuPort = "/" + TestsDepot::getRobotStr() + "/inertial";
+    std::string remoteImuPort = "/" + YarpActionDepotStart::robotName_ + "/inertial";
     bool ok=imuPort.open(localImuPort);
     if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to open ports checkvertical"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open ports checkvertical");
+        addProblem(testrepetition,Severity::critical,"Unable to open ports checkvertical");
         return false;
     }
     ok=yarp::os::Network::connect(remoteImuPort.c_str(), localImuPort.c_str());
     if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to connect to imu port"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to connect to imu port");
+        addProblem(testrepetition,Severity::critical,"Unable to connect to imu port");
         return false;
     }
 
@@ -53,13 +52,13 @@ bool ActionCheckVertical::execute(unsigned int testrepetition)
     if(!imuReadings)
     {
         TXLOG(Severity::critical)<<"Impossible to read accelerometer measurements"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Impossible to read accelerometer measurements");
+        addProblem(testrepetition,Severity::critical,"Impossible to read accelerometer measurements");
         return false;
     }
     if(imuReadings->size()<12)
     {
         TXLOG(Severity::critical)<<"IMU readings should have at least 12 elements current:"<<imuReadings->size()<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"IMU readings should have at least 12 elements");
+        addProblem(testrepetition,Severity::critical,"IMU readings should have at least 12 elements");
         return false;        
     }
 
@@ -80,7 +79,7 @@ bool ActionCheckVertical::execute(unsigned int testrepetition)
     }
 
     if(error)
-        addProblem(test_->code_,testrepetition,Severity::error,"Absolute gravity");
+        addProblem(testrepetition,Severity::error,"Absolute gravity");
 
     imuPort.interrupt();
     imuPort.close();

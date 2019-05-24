@@ -22,7 +22,7 @@
 class ActionNow : public Action
 {
     public:
-        ActionNow(const CommandAttributes& commandAttributes,Test_sptr test);    
+        ActionNow(const CommandAttributes& commandAttributes,const std::string& testCode);    
         bool execute(unsigned int testrepetition) override;
         double getDouble() override;    
     private:        

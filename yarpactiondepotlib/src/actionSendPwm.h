@@ -22,7 +22,7 @@
 class ActionSendPwm : public ActionYarp
 {
     public:
-        ActionSendPwm(const CommandAttributes& commandAttributes,Test_sptr test);    
+        ActionSendPwm(const CommandAttributes& commandAttributes,const std::string& testCode);    
         bool execute(unsigned int testrepetition) override;
     
     private:

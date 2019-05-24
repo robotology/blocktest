@@ -12,12 +12,9 @@
 
 #pragma once
 
-#include "api.h"
-#include "type.h"
 #include "infoLogger.h"
-#include "logger.h"
-#include "general.h"
 
+class InfoLogger;
 
 #define LOGGERREGISTER_DEC_TYPE(CLASS) static DerivedLoggerRegister<CLASS> reg_;
 #define LOGGERREGISTER_DEF_TYPE(CLASS, NAME) DerivedLoggerRegister<CLASS> CLASS::reg_(NAME);

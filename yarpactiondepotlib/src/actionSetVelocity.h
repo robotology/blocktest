@@ -26,7 +26,7 @@ class ActionSetVelocity : public ActionYarp
         std::string yVelocity_;
 
     public:
-        ActionSetVelocity(const CommandAttributes& commandAttributes,Test_sptr test);    
+        ActionSetVelocity(const CommandAttributes& commandAttributes,const std::string& testCode);    
         bool execute(unsigned int testrepetition) override;
 
     ACTIONREGISTER_DEC_TYPE(ActionSetVelocity)        

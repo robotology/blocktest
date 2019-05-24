@@ -17,7 +17,7 @@
 class ActionSendDirectPosition : public ActionYarp
 {
     public:
-        ActionSendDirectPosition(const CommandAttributes& commandAttributes,Test_sptr test);    
+        ActionSendDirectPosition(const CommandAttributes& commandAttributes,const std::string& testCode);    
         bool execute(unsigned int testrepetition) override;
     
     private:

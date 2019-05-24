@@ -17,7 +17,7 @@
 class ActionCheckComDistance : public ActionYarp
 {
     public:
-        ActionCheckComDistance(const CommandAttributes& commandAttributes,Test_sptr test);
+        ActionCheckComDistance(const CommandAttributes& commandAttributes,const std::string& testCode);
         bool execute(unsigned int testrepetition) override;
     
     private:

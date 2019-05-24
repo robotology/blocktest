@@ -22,7 +22,7 @@
 class ActionWait : public Action
 {
     public:
-        ActionWait(const CommandAttributes& commandAttributes,Test_sptr test);    
+        ActionWait(const CommandAttributes& commandAttributes,const std::string& testCode);    
         bool execute(unsigned int testrepetition) override;
 
     private:        

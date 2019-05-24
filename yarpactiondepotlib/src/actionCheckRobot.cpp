@@ -12,10 +12,8 @@
 
 
 #include "actionCheckRobot.h"
-#include "test.h"
 #include "logger.h"
 #include "report.h"
-#include "testsDepot.h"
 #include "yarpActionDepotStart.h"
 
 #include <yarp/dev/all.h>
@@ -24,7 +22,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionCheckRobot,"checkrobot");
 
-ActionCheckRobot::ActionCheckRobot(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionCheckRobot::ActionCheckRobot(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"wrappername",wrapperPrefix_);       
 }     
@@ -37,12 +35,12 @@ bool ActionCheckRobot::execute(unsigned int testrepetition)
     if(!YarpActionDepotStart::polyDriverDepot_[wrapperPrefix_]->view(iencs))
     {
         TXLOG(Severity::critical)<<"Unable to view IEncoder interface"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to view IEncoder interface");
+        addProblem(testrepetition,Severity::critical,"Unable to view IEncoder interface");
     }
     if(!iencs->getAxes(&nj))
     {
         TXLOG(Severity::critical)<<"getAxes failed"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"getAxes failed");
+        addProblem(testrepetition,Severity::critical,"getAxes failed");
     }        
     return true;
 }

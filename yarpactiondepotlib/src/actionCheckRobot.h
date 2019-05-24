@@ -17,7 +17,7 @@
 class ActionCheckRobot : public ActionYarp
 {
     public:
-        ActionCheckRobot(const CommandAttributes& commandAttributes,Test_sptr test);
+        ActionCheckRobot(const CommandAttributes& commandAttributes,const std::string& testCode);
         bool execute(unsigned int testrepetition) override;
 
     private:

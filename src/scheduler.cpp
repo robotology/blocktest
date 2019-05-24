@@ -433,7 +433,7 @@ void Scheduler::cmLogger(Test_sptr test,unsigned int repetition)
     if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to open ports comDes"<<std::endl;
-        //addProblem(test_->code_,testrepetition,Severity::critical);
+        //addProblem(testrepetition,Severity::critical);
         return;
     }
 
@@ -441,7 +441,7 @@ void Scheduler::cmLogger(Test_sptr test,unsigned int repetition)
     if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to open ports comMeas"<<std::endl;
-        //addProblem(test_->code_,testrepetition,Severity::critical);
+        //addProblem(testrepetition,Severity::critical);
         return;
     }
 
@@ -452,14 +452,14 @@ void Scheduler::cmLogger(Test_sptr test,unsigned int repetition)
     if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to connect ports comDes"<<std::endl;
-        //addProblem(test_->code_,testrepetition,Severity::critical);
+        //addProblem(testrepetition,Severity::critical);
         return;
     }
     ok=Network::connect(remotecomMeasPortStr.c_str(), localcomMeasPortStr.c_str(),style);
     if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to connect ports comMeas"<<std::endl;
-        //addProblem(test_->code_,testrepetition,Severity::critical);
+        //addProblem(testrepetition,Severity::critical);
         return;
     }
 

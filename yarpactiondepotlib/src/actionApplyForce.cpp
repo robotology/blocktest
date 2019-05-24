@@ -12,7 +12,6 @@
 
 
 #include "actionApplyForce.h"
-#include "test.h"
 
 #include <yarp/dev/all.h>
 #include <yarp/dev/IFrameTransform.h>
@@ -25,7 +24,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionApplyForce,"applyforce");
 
-ActionApplyForce::ActionApplyForce(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionApplyForce::ActionApplyForce(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"force",force_);
 }     
@@ -39,7 +38,7 @@ bool ActionApplyForce::execute(unsigned int testrepetition)
    if(!ok)
     {
         TXLOG(Severity::critical)<<"Unable to open ports applyforce"<<std::endl;        
-        addProblem(test_->code_,testrepetition,Severity::critical,"Unable to open ports applyforce");
+        addProblem(testrepetition,Severity::critical,"Unable to open ports applyforce");
         return false;
     }
 
@@ -51,7 +50,7 @@ bool ActionApplyForce::execute(unsigned int testrepetition)
     if(tokenized.size()!=8)
     {
         TXLOG(Severity::error)<<"Error in parameter number for applyForce"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::critical,"Error in parameter number for applyForce");
+        addProblem(testrepetition,Severity::critical,"Error in parameter number for applyForce");
         return false;
     }
 
@@ -71,7 +70,7 @@ bool ActionApplyForce::execute(unsigned int testrepetition)
     if(response.toString().empty())
     {
           TXLOG(Severity::critical)<<"No response from ExternalWrench plugin"<<std::endl;        
-          addProblem(test_->code_,testrepetition,Severity::critical,"No response from ExternalWrench plugin");
+          addProblem(testrepetition,Severity::critical,"No response from ExternalWrench plugin");
     }
       
     extWrenchPort.interrupt();

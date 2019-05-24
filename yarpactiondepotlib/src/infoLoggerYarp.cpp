@@ -11,7 +11,6 @@
  */
 
 #include "infoLoggerYarp.h"
-#include "testsDepot.h"
 #include "actionYarp.h"
 #include "yarpActionDepotStart.h"
 

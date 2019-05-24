@@ -22,7 +22,7 @@
 class ActionYarpNow : public ActionYarp
 {
     public:
-        ActionYarpNow(const CommandAttributes& commandAttributes,Test_sptr test);    
+        ActionYarpNow(const CommandAttributes& commandAttributes,const std::string& testCode);    
         bool execute(unsigned int testrepetition) override;
         double getDouble() override;    
     private:        

@@ -14,11 +14,10 @@
 #include "logger.h"
 #include "tables.h"
 #include "report.h"
-#include "test.h"
 
 ACTIONREGISTER_DEF_TYPE(ActionNop,"nop");
 
-ActionNop::ActionNop(const CommandAttributes& commandAttributes,Test_sptr test):Action(commandAttributes,test)
+ActionNop::ActionNop(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"fixvalue",fixvalue_);
     getCommandAttribute(commandAttributes,"tables",tables_);
@@ -40,7 +39,7 @@ bool ActionNop::execute(unsigned int testrepetition)
         ss<<fixvalue_<<'\t';
     
     if(printtestinfo_)
-        ss<<test_->code_<<'\t'<<testrepetition<<'\t'; 
+        ss<<testCode_<<'\t'<<testrepetition<<'\t'; 
     
     for(std::string current:tablesDepot)
     {
@@ -49,7 +48,7 @@ bool ActionNop::execute(unsigned int testrepetition)
 
     if(printerror_)
     {
-        ss<<Report::instance().get(Severity::critical,std::make_pair(test_->code_,testrepetition))+Report::instance().get(Severity::error,std::make_pair(test_->code_,testrepetition));
+        ss<<Report::instance().get(Severity::critical,std::make_pair(testCode_,testrepetition))+Report::instance().get(Severity::error,std::make_pair(testCode_,testrepetition));
     }
         
     TXLOG(Severity::plot)<<ss.str()<<std::endl;

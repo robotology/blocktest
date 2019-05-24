@@ -13,10 +13,11 @@
 #include "general.h"
 #include "logger.h"
 #include "action.h"
-#include "testsDepot.h"
 
 #include "yarpActionDepotStart.h"
 #include <yarp/os/Network.h>
+
+#include "pugixml.hpp"
 
 static YarpActionDepotStart start;
 std::map<std::string,PolyDriver_sptr> YarpActionDepotStart::polyDriverDepot_;
@@ -33,7 +34,7 @@ void YarpActionDepotStart::configure(const std::string& path,const std::string& 
     pugi::xml_parse_result result=doc.load_file(path.c_str());
     pugi::xpath_node settings = doc.select_node("//settings");
     bool useSimClock =settings.node().attribute("netclock").as_bool();
-    std::string robotName =settings.node().attribute("robotname").value();
+    robotName_ =settings.node().attribute("robotname").value();
     if(useSimClock)
     {
         TXLOG(Severity::info)<<"Use netclock"<<std::endl;
@@ -66,7 +67,7 @@ void YarpActionDepotStart::configure(const std::string& path,const std::string& 
         yarp::os::Property options;
         options.put("device", "remote_controlboard");
         options.put("local",current+"xx");
-        options.put("remote", "/"+ robotName+current);
+        options.put("remote", "/"+ robotName_+current);
         PolyDriver_sptr toAdd=std::make_shared<yarp::dev::PolyDriver>();
         if(!toAdd->open(options))
         {

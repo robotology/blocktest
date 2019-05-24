@@ -16,7 +16,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionWait,"wait");
 
-ActionWait::ActionWait(const CommandAttributes& commandAttributes,Test_sptr test):Action(commandAttributes,test)
+ActionWait::ActionWait(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
     getCommandAttribute(commandAttributes,"seconds",seconds_);      
 }     

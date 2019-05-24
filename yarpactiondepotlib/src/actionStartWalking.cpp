@@ -14,11 +14,10 @@
 #include "actionStartWalking.h"
 #include "logger.h"
 #include "report.h"
-#include "test.h"
 
 ACTIONREGISTER_DEF_TYPE(ActionStartWalking,"startwalking");
 
-ActionStartWalking::ActionStartWalking(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
+ActionStartWalking::ActionStartWalking(const CommandAttributes& commandAttributes,const std::string& testCode):ActionYarp(commandAttributes,testCode)
 {}     
 
 bool ActionStartWalking::execute(unsigned int testrepetition)
@@ -31,7 +30,7 @@ bool ActionStartWalking::execute(unsigned int testrepetition)
     if(!ok)
     {
         TXLOG(Severity::critical)<<"start walking failed"<<std::endl;
-        addProblem(test_->code_,testrepetition,Severity::error,"start walking failed");
+        addProblem(testrepetition,Severity::error,"start walking failed");
     }
 
     closeWalking(rpcPortWalking);

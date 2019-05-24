@@ -22,7 +22,7 @@
 class ActionApplyForce : public ActionYarp
 {
     public:
-        ActionApplyForce(const CommandAttributes& commandAttributes,Test_sptr test);
+        ActionApplyForce(const CommandAttributes& commandAttributes,const std::string& testCode);
         bool execute(unsigned int testrepetition) override;
 
     private:

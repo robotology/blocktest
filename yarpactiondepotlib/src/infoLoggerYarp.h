@@ -13,7 +13,6 @@
 #include "general.h"
 #include "type.h"
 #include "infoLogger.h"
-#include "loggerRegister.h"
 
 #include <yarp/dev/all.h>
 #include <yarp/dev/IFrameTransform.h>
