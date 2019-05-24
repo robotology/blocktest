@@ -26,7 +26,6 @@ set(BlockTestCoreSrc    src/action.cpp
                         src/logger.cpp
                         src/main.cpp
                         src/report.cpp
-                        src/scheduler.cpp
                         src/tables.cpp
                         src/test.cpp
                         src/testsDepot.cpp)
@@ -47,7 +46,6 @@ set(BlockTestCoreHdr    src/api.h
                         src/logger.h
                         src/loggerRegister.h
                         src/report.h
-                        src/scheduler.h
                         src/tables.h
                         src/test.h
                         src/testsDepot.h

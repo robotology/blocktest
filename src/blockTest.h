@@ -14,7 +14,6 @@
  */
 
 #include "testsDepot.h"
-#include "scheduler.h"
 #include "general.h"
 #include "api.h"
 
@@ -29,6 +28,5 @@ public:
 private:
     std::string path_;
 
-    Scheduler scheduler_;
     TestsDepot_sptr tests_;
 };

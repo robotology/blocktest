@@ -33,6 +33,4 @@ class ActionNop : public Action
         bool printtestinfo_{true};
 
     ACTIONREGISTER_DEC_TYPE(ActionNop)        
-
 };
-
