@@ -31,14 +31,14 @@ using namespace yarp::dev;
 
 ACTIONREGISTER_DEF_TYPE(ActionSendPwm,"yarpsendpwm");
 
-ActionSendPwm::ActionSendPwm(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionSendPwm::ActionSendPwm(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
-    profile_ =nodeCommand.attribute("profile").value();
-    dutycycle_ =nodeCommand.attribute("dutycycle").as_int();
-    time_ =nodeCommand.attribute("time").as_int();
-    jointname_ =nodeCommand.attribute("jointname").value();
-    frequency_ =nodeCommand.attribute("frequency").as_double();
-    wrapperPrefix_=nodeCommand.attribute("wrappername").value();
+    getCommandAttribute(commandAttributes,"profile",profile_);
+    getCommandAttribute(commandAttributes,"dutycycle",dutycycle_);
+    getCommandAttribute(commandAttributes,"time",time_);
+    getCommandAttribute(commandAttributes,"jointname",jointname_);
+    getCommandAttribute(commandAttributes,"frequency",frequency_);
+    getCommandAttribute(commandAttributes,"wrappername",wrapperPrefix_);
 }     
 
 bool ActionSendPwm::execute(unsigned int testrepetition)

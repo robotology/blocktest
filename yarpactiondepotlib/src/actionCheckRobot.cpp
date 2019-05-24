@@ -24,9 +24,9 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionCheckRobot,"checkrobot");
 
-ActionCheckRobot::ActionCheckRobot(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionCheckRobot::ActionCheckRobot(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
-    wrapperPrefix_=nodeCommand.attribute("wrappername").value();
+    getCommandAttribute(commandAttributes,"wrappername",wrapperPrefix_);       
 }     
 
 bool ActionCheckRobot::execute(unsigned int testrepetition)

@@ -15,19 +15,22 @@
 #include "type.h"
 #include "api.h"
 #include "logger.h"
-#include "actionRegister.h"
+#include "general.h"
 
-#include "pugixml.hpp"
+using CommandAttributes=std::map<std::string,std::string>;
+
+#include "actionRegister.h"
 
 /**
  * @class Action
  * @brief ...
  * @todo missing brief, detailed description and methods documentation
  */
+
 class BLOCKTEST_EXPORT Action
 {
-    public:
-        Action(const pugi::xml_node& nodeCommand,Test_sptr test);
+    public:      
+        Action(const CommandAttributes& commandAttributes,Test_sptr test);
         virtual bool execute(unsigned int testrepetition)=0;
         virtual double getDouble() {return 0;};
         virtual ~Action();
@@ -40,6 +43,13 @@ class BLOCKTEST_EXPORT Action
         Test_sptr test_;
 
         bool reporterror_{true};
+
+        //helper funcion
+        void getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,std::string& out) const;
+        void getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,unsigned int& out) const;
+        void getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,int& out) const;
+        void getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,double& out) const;
+        void getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,bool& out) const;
 
     public:  
         //helper funcion      

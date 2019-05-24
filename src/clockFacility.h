@@ -12,10 +12,9 @@
 
 #pragma once
 
-#include "api.h"
 #include "general.h"
 
-class BLOCKTEST_EXPORT ClockFacility
+class ClockFacility
 {
     public:
         bool wait(double value) const;

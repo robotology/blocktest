@@ -16,9 +16,9 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionWait,"wait");
 
-ActionWait::ActionWait(const pugi::xml_node& nodeCommand,Test_sptr test):Action(nodeCommand,test)
+ActionWait::ActionWait(const CommandAttributes& commandAttributes,Test_sptr test):Action(commandAttributes,test)
 {
-    seconds_ =nodeCommand.attribute("seconds").as_double(); 
+    getCommandAttribute(commandAttributes,"seconds",seconds_);      
 }     
 
 bool ActionWait::execute(unsigned int testrepetition)

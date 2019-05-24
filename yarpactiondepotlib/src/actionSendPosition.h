@@ -31,7 +31,7 @@ using namespace yarp::dev;
 class ActionSendPosition : public ActionYarp
 {
     public:
-        ActionSendPosition(const pugi::xml_node& nodeCommand,Test_sptr test);    
+        ActionSendPosition(const CommandAttributes& commandAttributes,Test_sptr test);    
         bool execute(unsigned int testrepetition) override;
         ~ActionSendPosition() override
         {

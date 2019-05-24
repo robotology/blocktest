@@ -22,7 +22,7 @@
 class ActionCheckVertical : public ActionYarp
 {
     public:
-        ActionCheckVertical(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionCheckVertical(const CommandAttributes& commandAttributes,Test_sptr test);
         bool execute(unsigned int testrepetition) override;
 
     ACTIONREGISTER_DEC_TYPE(ActionCheckVertical)        

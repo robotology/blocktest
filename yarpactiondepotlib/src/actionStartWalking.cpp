@@ -18,7 +18,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionStartWalking,"startwalking");
 
-ActionStartWalking::ActionStartWalking(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionStartWalking::ActionStartWalking(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {}     
 
 bool ActionStartWalking::execute(unsigned int testrepetition)

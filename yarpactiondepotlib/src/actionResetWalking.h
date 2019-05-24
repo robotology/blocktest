@@ -22,7 +22,7 @@
 class ActionResetWalking : public ActionYarp
 {
     public:
-        ActionResetWalking(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionResetWalking(const CommandAttributes& commandAttributes,,Test_sptr test);
         bool execute(unsigned int testrepetition) override;
 
     ACTIONREGISTER_DEC_TYPE(ActionResetWalking)        

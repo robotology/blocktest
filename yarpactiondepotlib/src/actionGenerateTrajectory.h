@@ -17,7 +17,7 @@
 class ActionGenerateTrajectory : public ActionYarp
 {
     public:
-        ActionGenerateTrajectory(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionGenerateTrajectory(const CommandAttributes& commandAttributes,Test_sptr test);
         bool execute(unsigned int testrepetition) override;
     private:
         double lenght_{0};

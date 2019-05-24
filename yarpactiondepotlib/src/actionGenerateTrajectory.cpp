@@ -21,9 +21,9 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionGenerateTrajectory,"generatetrajectory");
 
-ActionGenerateTrajectory::ActionGenerateTrajectory(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionGenerateTrajectory::ActionGenerateTrajectory(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
-    lenght_ =nodeCommand.attribute("lenght").as_double();
+    getCommandAttribute(commandAttributes,"lenght",lenght_);    
 }     
 
 bool ActionGenerateTrajectory::execute(unsigned int testrepetition)

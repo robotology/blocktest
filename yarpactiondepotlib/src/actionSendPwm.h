@@ -22,7 +22,7 @@
 class ActionSendPwm : public ActionYarp
 {
     public:
-        ActionSendPwm(const pugi::xml_node& nodeCommand,Test_sptr test);    
+        ActionSendPwm(const CommandAttributes& commandAttributes,Test_sptr test);    
         bool execute(unsigned int testrepetition) override;
     
     private:

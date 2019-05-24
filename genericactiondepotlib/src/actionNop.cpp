@@ -18,13 +18,13 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionNop,"nop");
 
-ActionNop::ActionNop(const pugi::xml_node& nodeCommand,Test_sptr test):Action(nodeCommand,test)
+ActionNop::ActionNop(const CommandAttributes& commandAttributes,Test_sptr test):Action(commandAttributes,test)
 {
-    fixvalue_=nodeCommand.attribute("fixvalue").value();
-    tables_=nodeCommand.attribute("tables").value();
-    printerror_=nodeCommand.attribute("printerror").as_bool();
-    justOneTime_=nodeCommand.attribute("justonetime").as_bool();
-    printtestinfo_=nodeCommand.attribute("printtestinfo").as_bool();
+    getCommandAttribute(commandAttributes,"fixvalue",fixvalue_);
+    getCommandAttribute(commandAttributes,"tables",tables_);
+    getCommandAttribute(commandAttributes,"printerror",printerror_);
+    getCommandAttribute(commandAttributes,"justonetime",justOneTime_);
+    getCommandAttribute(commandAttributes,"printtestinfo",printtestinfo_); 
 }     
 
 bool ActionNop::execute(unsigned int testrepetition)

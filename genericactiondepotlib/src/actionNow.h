@@ -22,7 +22,7 @@
 class ActionNow : public Action
 {
     public:
-        ActionNow(const pugi::xml_node& nodeCommand,Test_sptr test);    
+        ActionNow(const CommandAttributes& commandAttributes,Test_sptr test);    
         bool execute(unsigned int testrepetition) override;
         double getDouble() override;    
     private:        

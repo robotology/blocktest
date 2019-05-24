@@ -24,7 +24,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionReset,"yarpreset");
 
-ActionReset::ActionReset(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionReset::ActionReset(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {}     
 
 bool ActionReset::execute(unsigned int testrepetition)

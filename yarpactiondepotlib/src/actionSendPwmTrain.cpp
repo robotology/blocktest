@@ -30,16 +30,16 @@ using namespace yarp::dev;
 
 ACTIONREGISTER_DEF_TYPE(ActionSendPwmTrain,"yarpsendpwmtrain");
 
-ActionSendPwmTrain::ActionSendPwmTrain(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionSendPwmTrain::ActionSendPwmTrain(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
-    cycleTime_ =nodeCommand.attribute("cycletime").as_int();
-    cycleSleep_ =nodeCommand.attribute("cyclesleep").as_int();
-    maxAngle_ =nodeCommand.attribute("maxposition").as_int();
-    minAngle_ =nodeCommand.attribute("minposition").as_int();
-    dutycycle_ =nodeCommand.attribute("dutycycle").as_int();
-    jointname_ =nodeCommand.attribute("jointname").value();
-    direction_ =nodeCommand.attribute("direction").as_int();
-    wrapperPrefix_=nodeCommand.attribute("wrappername").value();
+    getCommandAttribute(commandAttributes,"cycletime",cycleTime_);
+    getCommandAttribute(commandAttributes,"cyclesleep",cycleSleep_);
+    getCommandAttribute(commandAttributes,"maxposition",maxAngle_);
+    getCommandAttribute(commandAttributes,"minposition",minAngle_);
+    getCommandAttribute(commandAttributes,"dutycycle",dutycycle_);
+    getCommandAttribute(commandAttributes,"jointname",jointname_);
+    getCommandAttribute(commandAttributes,"direction",direction_);    
+    getCommandAttribute(commandAttributes,"wrappername",wrapperPrefix_);        
 }     
 
 bool ActionSendPwmTrain::execute(unsigned int testrepetition)

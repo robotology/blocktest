@@ -22,7 +22,7 @@
 class ActionPrepareStraightWalking : public ActionYarp
 {
     public:
-        ActionPrepareStraightWalking(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionPrepareStraightWalking(const CommandAttributes& commandAttributes,Test_sptr test);
         bool execute(unsigned int testrepetition) override;
 
     ACTIONREGISTER_DEC_TYPE(ActionPrepareStraightWalking)        

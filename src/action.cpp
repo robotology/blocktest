@@ -5,9 +5,9 @@
 #include "report.h"
 #include "tables.h"
 
-Action::Action(const pugi::xml_node& nodeCommand,Test_sptr test):test_(test)
+Action::Action(const CommandAttributes& commandAttributes,Test_sptr test):test_(test)
 {
-    reporterror_ =nodeCommand.attribute("reporterror").as_bool();
+    getCommandAttribute(commandAttributes,"reporterror",reporterror_);
 }
 
 std::string Action::normalize(const std::string& str,bool justFetch) const
@@ -54,4 +54,88 @@ void Action::addProblem(const std::string& code,unsigned int repetition,Severity
 
 Action::~Action()
 {
+}
+
+void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,std::string& out) const
+{
+    std::map<std::string,std::string>::const_iterator found;
+    found=commandAttributes.find(name);
+    if(found==commandAttributes.end())
+    {
+        TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
+        return;
+    }
+    out=found->second;
+}
+
+void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,int& out) const
+{
+    std::map<std::string,std::string>::const_iterator found;
+    found=commandAttributes.find(name);
+    if(found==commandAttributes.end())
+    {
+        TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
+        return;
+    }
+
+    try
+    {
+        out=std::stoi(found->second);
+    }
+    catch(const std::exception& e)
+    {
+        TXLOG(Severity::error)<<"Command attribute value not an int name:"<<name<<std::endl;
+    }
+}
+
+void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,unsigned int& out) const
+{
+    std::map<std::string,std::string>::const_iterator found;
+    found=commandAttributes.find(name);
+    if(found==commandAttributes.end())
+    {
+        TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
+        return;
+    }
+
+    try
+    {
+        out=std::stoul(found->second);
+    }
+    catch(const std::exception& e)
+    {
+        TXLOG(Severity::error)<<"Command attribute value not an unsigned int name:"<<name<<std::endl;
+    }
+}
+
+void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,double& out) const
+{
+    std::map<std::string,std::string>::const_iterator found;
+    found=commandAttributes.find(name);
+    if(found==commandAttributes.end())
+    {
+        TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
+        return;
+    }
+
+    try
+    {
+        out=std::stod(found->second);
+    }
+    catch(const std::exception& e)
+    {
+        TXLOG(Severity::error)<<"Command attribute value not an double name:"<<name<<std::endl;
+    }
+}
+
+void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,bool& out) const
+{
+    std::map<std::string,std::string>::const_iterator found;
+    found=commandAttributes.find(name);
+    if(found==commandAttributes.end())
+    {
+        TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
+        return;
+    }
+    std::istringstream(found->second) >> std::boolalpha >> out;
 }

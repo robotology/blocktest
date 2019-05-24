@@ -23,10 +23,10 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionCheckComDistance,"checkcomdistance");
 
-ActionCheckComDistance::ActionCheckComDistance(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionCheckComDistance::ActionCheckComDistance(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
-    commaxdistance_ =nodeCommand.attribute("comdistancemax").as_double();
-    commindistance_ =nodeCommand.attribute("comdistancemin").as_double();
+    getCommandAttribute(commandAttributes,"comdistancemax",commaxdistance_);
+    getCommandAttribute(commandAttributes,"comdistancemin",commindistance_);
 }     
 
 bool ActionCheckComDistance::execute(unsigned int testrepetition)

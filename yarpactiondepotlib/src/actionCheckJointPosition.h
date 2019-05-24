@@ -22,7 +22,7 @@
 class ActionCheckJointPosition : public ActionYarp
 {
     public:
-        ActionCheckJointPosition(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionCheckJointPosition(const CommandAttributes& commandAttributes,Test_sptr test);
         bool execute(unsigned int testrepetition) override;
     
     private:

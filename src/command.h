@@ -18,7 +18,9 @@
 #include "action.h"
 #include "general.h"
 
-class BLOCKTEST_EXPORT Command
+#include "pugixml.hpp"
+
+class Command
 {
 public:
     unsigned int repetitions_{0};
@@ -40,4 +42,6 @@ private:
     std::string command_;
 
     bool isCommandOnlyForSimulation(const std::string& toCheck) const;
+
+    bool xmlCommandToMap(const pugi::xml_node& nodeCommand,std::map<std::string,std::string>& commandMap) const;
 };

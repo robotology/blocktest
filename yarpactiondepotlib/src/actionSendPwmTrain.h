@@ -25,7 +25,7 @@ namespace yarp
 class ActionSendPwmTrain : public ActionYarp
 {
     public:
-        ActionSendPwmTrain(const pugi::xml_node& nodeCommand,Test_sptr test);    
+        ActionSendPwmTrain(const CommandAttributes& commandAttributes,Test_sptr test);    
         bool execute(unsigned int testrepetition) override;
     private:
         std::string jointname_;

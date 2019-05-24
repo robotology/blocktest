@@ -15,7 +15,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionNow,"now");
 
-ActionNow::ActionNow(const pugi::xml_node& nodeCommand,Test_sptr test):Action(nodeCommand,test)
+ActionNow::ActionNow(const CommandAttributes& commandAttributes,Test_sptr test):Action(commandAttributes,test)
 {
 }     
 

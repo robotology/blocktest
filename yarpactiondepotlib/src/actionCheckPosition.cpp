@@ -22,11 +22,11 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionCheckPosition,"checkposition");
 
-ActionCheckPosition::ActionCheckPosition(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionCheckPosition::ActionCheckPosition(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
-    xminposition_ =nodeCommand.attribute("xminposition").as_double();
-    yminposition_ =nodeCommand.attribute("yminposition").as_double();
-    zminposition_ =nodeCommand.attribute("zminposition").as_double();
+    getCommandAttribute(commandAttributes,"xminposition",xminposition_);
+    getCommandAttribute(commandAttributes,"yminposition",yminposition_);
+    getCommandAttribute(commandAttributes,"zminposition",zminposition_);            
 }     
 
 bool ActionCheckPosition::execute(unsigned int testrepetition)

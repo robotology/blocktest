@@ -24,7 +24,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionCheckVertical,"yarpcheckrobotisvertical");
 
-ActionCheckVertical::ActionCheckVertical(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionCheckVertical::ActionCheckVertical(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {}
 
 bool ActionCheckVertical::execute(unsigned int testrepetition)

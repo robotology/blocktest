@@ -22,7 +22,7 @@
 class ActionYarpWait : public ActionYarp
 {
     public:
-        ActionYarpWait(const pugi::xml_node& nodeCommand,Test_sptr test);    
+        ActionYarpWait(const CommandAttributes& commandAttributes,Test_sptr test);    
         bool execute(unsigned int testrepetition) override;
 
     private:        

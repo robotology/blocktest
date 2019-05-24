@@ -19,14 +19,14 @@ ACTIONREGISTER_DEF_TYPE(ActionExecute,"execute");
 
 std::map<std::string,std::shared_ptr<boost::process::child>> ActionExecute::processes_;
 
-ActionExecute::ActionExecute(const pugi::xml_node& nodeCommand,Test_sptr test):Action(nodeCommand,test),nodeCommand_(nodeCommand)
+ActionExecute::ActionExecute(const CommandAttributes& commandAttributes,Test_sptr test):Action(commandAttributes,test)
 {
-    tag_=nodeCommand_.attribute("tag").value();
-    commandName_=nodeCommand_.attribute("command").value();
-    commandParam_=nodeCommand_.attribute("param").value();
-    prefix_=nodeCommand_.attribute("prefix").value();
-    waitafter_=nodeCommand_.attribute("waitafter").as_int();
-    kill_=nodeCommand_.attribute("kill").as_bool();  
+    getCommandAttribute(commandAttributes,"tag",tag_);
+    getCommandAttribute(commandAttributes,"command",commandName_);
+    getCommandAttribute(commandAttributes,"param",commandParam_);
+    getCommandAttribute(commandAttributes,"prefix",prefix_);
+    getCommandAttribute(commandAttributes,"waitafter",waitafter_);
+    getCommandAttribute(commandAttributes,"kill",kill_); 
 }     
 
 bool ActionExecute::execute(unsigned int testrepetition)

@@ -24,7 +24,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionResetPose,"yarpresetpose");
 
-ActionResetPose::ActionResetPose(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionResetPose::ActionResetPose(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {}     
 
 bool ActionResetPose::execute(unsigned int testrepetition)

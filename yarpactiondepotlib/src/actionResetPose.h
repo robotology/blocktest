@@ -22,7 +22,7 @@
 class ActionResetPose : public ActionYarp
 {
     public:
-        ActionResetPose(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionResetPose(const CommandAttributes& commandAttributes,Test_sptr test);
         bool execute(unsigned int testrepetition) override;
 
     ACTIONREGISTER_DEC_TYPE(ActionResetPose)        

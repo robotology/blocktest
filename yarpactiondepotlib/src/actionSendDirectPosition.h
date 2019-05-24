@@ -17,7 +17,7 @@
 class ActionSendDirectPosition : public ActionYarp
 {
     public:
-        ActionSendDirectPosition(const pugi::xml_node& nodeCommand,Test_sptr test);    
+        ActionSendDirectPosition(const CommandAttributes& commandAttributes,Test_sptr test);    
         bool execute(unsigned int testrepetition) override;
     
     private:

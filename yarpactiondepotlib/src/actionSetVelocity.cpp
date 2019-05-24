@@ -19,10 +19,10 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionSetVelocity,"setvelocity");
 
-ActionSetVelocity::ActionSetVelocity(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionSetVelocity::ActionSetVelocity(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
-    xVelocity_ =nodeCommand.attribute("xvelocity").value();
-    yVelocity_ =nodeCommand.attribute("yvelocity").value();
+    getCommandAttribute(commandAttributes,"xvelocity",xVelocity_);    
+    getCommandAttribute(commandAttributes,"yvelocity",yVelocity_);      
 }     
 
 bool ActionSetVelocity::execute(unsigned int testrepetition)

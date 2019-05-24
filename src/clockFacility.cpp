@@ -3,6 +3,7 @@
 #include "logger.h"
 #include "type.h"
 #include "general.h"
+#include "pugixml.hpp"
 
 #include "actionRegister.h"
 
@@ -31,11 +32,9 @@ bool ClockFacility::wait(double value) const
         }
         auto call=ActionRegister::getCreatorFunction(waitcommand_);
 
-        pugi::xml_document doc;
-        pugi::xml_node node=doc.append_child("command");
-        node.append_attribute("seconds") = value;
+        CommandAttributes commandAttributes{{"command","wait"},{"seconds",std::to_string(value)},{"reporterror","false"}};
 
-        auto action=(call)(node,nullptr);
+        auto action=(call)(commandAttributes,nullptr);
         action->execute(0);
     }
     else
@@ -57,10 +56,9 @@ std::string ClockFacility::now() const
         }
         auto call=ActionRegister::getCreatorFunction(nowcommand_);
 
-        pugi::xml_document doc;
-        pugi::xml_node node=doc.append_child("command");
+        CommandAttributes commandAttributes{{"command","wait"},{"reporterror","false"}};
 
-        auto action=(call)(node,nullptr);
+        auto action=(call)(commandAttributes,nullptr);
         std::stringstream ss;
         ss<<std::setfill('0')<<std::setw(8)<<std::setprecision(4)<<action->getDouble();
         return ss.str();
@@ -79,16 +77,6 @@ std::string ClockFacility::now() const
         {
             std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
             std::time_t now_c = std::chrono::system_clock::to_time_t(now);
-
-            /*
-            timeval curTime;
-            gettimeofday(&curTime, NULL);
-            int milli = curTime.tv_usec / 1000;
-            char buffer[80];
-            strftime(buffer, 80, "%Y-%m-%d %H:%M:%S", localtime(&curTime.tv_sec));
-            std::stringstream out;
-            out << buffer << "." << std::setfill('0') << std::setw(3)<<milli;
-            */
 
             std::stringstream out;
             out << std::put_time(std::localtime(&now_c), "%F %T");

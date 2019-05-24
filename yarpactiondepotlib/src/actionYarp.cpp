@@ -11,7 +11,7 @@
 
 using namespace yarp::os;
 
-ActionYarp::ActionYarp(const pugi::xml_node& nodeCommand,Test_sptr test):Action(nodeCommand,test)
+ActionYarp::ActionYarp(const CommandAttributes& commandAttributes,Test_sptr test):Action(commandAttributes,test)
 {
 }
 /*

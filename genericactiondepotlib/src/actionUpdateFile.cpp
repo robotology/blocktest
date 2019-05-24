@@ -16,10 +16,10 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionUpdateFile,"updatefile");
 
-ActionUpdateFile::ActionUpdateFile(const pugi::xml_node& nodeCommand,Test_sptr test):Action(nodeCommand,test)
+ActionUpdateFile::ActionUpdateFile(const CommandAttributes& commandAttributes,Test_sptr test):Action(commandAttributes,test)
 {
-    sourceFile_ =nodeCommand.attribute("sourcefile").value();
-    destinationFile_ =nodeCommand.attribute("destinationfile").value();
+    getCommandAttribute(commandAttributes,"sourcefile",sourceFile_);
+    getCommandAttribute(commandAttributes,"destinationfile",destinationFile_);    
 }     
 
 bool ActionUpdateFile::execute(unsigned int testrepetition)

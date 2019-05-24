@@ -14,7 +14,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionYarpNow,"yarpnow");
 
-ActionYarpNow::ActionYarpNow(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionYarpNow::ActionYarpNow(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
 }     
 

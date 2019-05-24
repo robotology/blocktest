@@ -22,7 +22,7 @@
 class ActionYarpNow : public ActionYarp
 {
     public:
-        ActionYarpNow(const pugi::xml_node& nodeCommand,Test_sptr test);    
+        ActionYarpNow(const CommandAttributes& commandAttributes,Test_sptr test);    
         bool execute(unsigned int testrepetition) override;
         double getDouble() override;    
     private:        

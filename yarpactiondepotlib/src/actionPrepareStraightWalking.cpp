@@ -19,7 +19,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionPrepareStraightWalking,"preparestraightwalking");
 
-ActionPrepareStraightWalking::ActionPrepareStraightWalking(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionPrepareStraightWalking::ActionPrepareStraightWalking(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {}     
 
 bool ActionPrepareStraightWalking::execute(unsigned int testrepetition)

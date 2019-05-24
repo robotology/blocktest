@@ -22,7 +22,7 @@
 class ActionApplyForce : public ActionYarp
 {
     public:
-        ActionApplyForce(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionApplyForce(const CommandAttributes& commandAttributes,Test_sptr test);
         bool execute(unsigned int testrepetition) override;
 
     private:

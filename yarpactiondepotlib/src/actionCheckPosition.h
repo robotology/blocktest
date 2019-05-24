@@ -17,7 +17,7 @@
 class ActionCheckPosition : public ActionYarp
 {
     public:
-        ActionCheckPosition(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionCheckPosition(const CommandAttributes& commandAttributes,Test_sptr test);
         bool execute(unsigned int testrepetition) override;
     
     private:

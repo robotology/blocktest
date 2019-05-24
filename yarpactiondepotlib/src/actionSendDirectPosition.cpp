@@ -30,12 +30,17 @@ using namespace yarp::dev;
 
 ACTIONREGISTER_DEF_TYPE(ActionSendDirectPosition,"yarpsenddirectpos");
 
-ActionSendDirectPosition::ActionSendDirectPosition(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionSendDirectPosition::ActionSendDirectPosition(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
-    Action::tokenize<double>(nodeCommand.attribute("degree").value(),degree_);
-    Action::tokenize<std::string>(nodeCommand.attribute("jointname").value(),jointToMove_);
+    std::string degreeStr;
+    getCommandAttribute(commandAttributes,"degree",degreeStr);
+    std::string jointnameStr;
+    getCommandAttribute(commandAttributes,"jointname",jointnameStr);
+    
+    Action::tokenize<double>(degreeStr,degree_);
+    Action::tokenize<std::string>(jointnameStr,jointToMove_);
 
-    wrapperPrefix_=nodeCommand.attribute("wrappername").value();
+    getCommandAttribute(commandAttributes,"wrappername",wrapperPrefix_);
 }     
 
 bool ActionSendDirectPosition::execute(unsigned int testrepetition)

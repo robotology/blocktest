@@ -15,9 +15,9 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionYarpWait,"yarpwait");
 
-ActionYarpWait::ActionYarpWait(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionYarpWait::ActionYarpWait(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
-    seconds_ =nodeCommand.attribute("seconds").as_double(); 
+    getCommandAttribute(commandAttributes,"seconds",seconds_);   
 }     
 
 bool ActionYarpWait::execute(unsigned int testrepetition)

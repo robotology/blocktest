@@ -23,7 +23,7 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionResetWalking,"resetwalking");
 
-ActionResetWalking::ActionResetWalking(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionResetWalking::ActionResetWalking(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {}     
 
 bool ActionResetWalking::execute(unsigned int testrepetition)

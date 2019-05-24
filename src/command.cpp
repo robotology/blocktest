@@ -37,8 +37,10 @@ bool Command::load()
         return false;
     }
 
+    std::map<std::string,std::string> out;
+    xmlCommandToMap(node_,out);
     auto call=ActionRegister::getCreatorFunction(command_);
-    action_=(call)(node_,test_);
+    action_=(call)(out,test_);
 
     TXLOG(Severity::debug)<<"Txcommand created:"<<command_<<std::endl;
     return true;
@@ -80,4 +82,17 @@ bool Command::isCommandOnlyForSimulation(const std::string& toCheck) const
         return true;
     }
     return false;
+}
+
+ bool Command::xmlCommandToMap(const pugi::xml_node& nodeCommand,std::map<std::string,std::string>& commandMap) const
+{
+    auto attributes=nodeCommand.attributes();   
+    for(const pugi::xml_attribute& current:attributes)
+    {
+        std::pair<std::string,std::string> toAdd;
+        toAdd.first=current.name();
+        toAdd.second=current.value();
+        commandMap.insert(toAdd);
+    }
+    return true;
 }

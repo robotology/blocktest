@@ -17,7 +17,7 @@
 class ActionUpdateFile : public Action
 {
     public:
-        ActionUpdateFile(const pugi::xml_node& nodeCommand,Test_sptr test);    
+        ActionUpdateFile(const CommandAttributes& commandAttributes,Test_sptr test);    
         bool execute(unsigned int testrepetition) override;
 
     private:        

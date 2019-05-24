@@ -23,7 +23,7 @@
 class ActionNop : public Action
 {
     public:
-        ActionNop(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionNop(const CommandAttributes& commandAttributes,Test_sptr test);
         bool execute(unsigned int testrepetition) override;
     
     private:

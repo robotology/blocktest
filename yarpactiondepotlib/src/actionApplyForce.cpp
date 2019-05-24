@@ -25,9 +25,9 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionApplyForce,"applyforce");
 
-ActionApplyForce::ActionApplyForce(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionApplyForce::ActionApplyForce(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
-    force_ =nodeCommand.attribute("force").value();
+    getCommandAttribute(commandAttributes,"force",force_);
 }     
 
 bool ActionApplyForce::execute(unsigned int testrepetition)

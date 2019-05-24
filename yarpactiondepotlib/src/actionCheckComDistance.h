@@ -17,7 +17,7 @@
 class ActionCheckComDistance : public ActionYarp
 {
     public:
-        ActionCheckComDistance(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionCheckComDistance(const CommandAttributes& commandAttributes,Test_sptr test);
         bool execute(unsigned int testrepetition) override;
     
     private:

@@ -15,7 +15,6 @@
 #include "type.h"
 #include "general.h"
 #include "logger.h"
-#include "actionRegister.h"
 #include "action.h"
 
 #include <yarp/dev/PolyDriver.h>    
@@ -30,7 +29,7 @@ class WalkingCommands;
 class ActionYarp: public Action
 {
     public:
-        ActionYarp(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionYarp(const CommandAttributes& commandAttributes,Test_sptr test);
         ~ActionYarp() override {};
 
         static void getJointNames(yarp::dev::PolyDriver& drive,std::map<std::string,int> &jointNames); 

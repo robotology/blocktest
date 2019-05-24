@@ -17,7 +17,7 @@
 class ActionCheckRobot : public ActionYarp
 {
     public:
-        ActionCheckRobot(const pugi::xml_node& nodeCommand,Test_sptr test);
+        ActionCheckRobot(const CommandAttributes& commandAttributes,Test_sptr test);
         bool execute(unsigned int testrepetition) override;
 
     private:

@@ -25,12 +25,12 @@
 
 ACTIONREGISTER_DEF_TYPE(ActionCheckJointPosition,"yarpcheckjointposition");
 
-ActionCheckJointPosition::ActionCheckJointPosition(const pugi::xml_node& nodeCommand,Test_sptr test):ActionYarp(nodeCommand,test)
+ActionCheckJointPosition::ActionCheckJointPosition(const CommandAttributes& commandAttributes,Test_sptr test):ActionYarp(commandAttributes,test)
 {
-    wrapperPrefix_=nodeCommand.attribute("wrappername").value();
-    jointname_ =nodeCommand.attribute("jointname").value();
-    expectedValue_=nodeCommand.attribute("expectedvalue").as_double();
-    tolerance_=nodeCommand.attribute("tolerance").as_double();
+    getCommandAttribute(commandAttributes,"wrappername",wrapperPrefix_);
+    getCommandAttribute(commandAttributes,"jointname",jointname_);
+    getCommandAttribute(commandAttributes,"expectedvalue",expectedValue_);
+    getCommandAttribute(commandAttributes,"tolerance",tolerance_);
 }     
 
 bool ActionCheckJointPosition::execute(unsigned int testrepetition)

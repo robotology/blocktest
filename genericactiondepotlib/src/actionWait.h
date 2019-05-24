@@ -22,7 +22,7 @@
 class ActionWait : public Action
 {
     public:
-        ActionWait(const pugi::xml_node& nodeCommand,Test_sptr test);    
+        ActionWait(const CommandAttributes& commandAttributes,Test_sptr test);    
         bool execute(unsigned int testrepetition) override;
 
     private:        
