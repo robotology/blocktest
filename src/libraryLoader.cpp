@@ -31,6 +31,7 @@ LibraryLoader::LibraryLoader()
 
 bool LibraryLoader::load(const std::string& path)
 {
+    TXLOG(Severity::debug)<<"LibraryLoader constructor"<<std::endl;
     std::string completePath;
     if(!path.empty())
         completePath=path+"/"+testName_;
@@ -47,26 +48,24 @@ bool LibraryLoader::load(const std::string& path)
         pugi::xpath_node nodeLibrary = *it;
         std::string currentPath=nodeLibrary.node().attribute("path").as_string();
         std::string libraryName=nodeLibrary.node().attribute("name").as_string();
-        TXLOG(Severity::info)<<"Try load lib:"<<currentPath<<std::endl;
+        std::string extension;
+#ifdef _WIN32
+        extension=".dll";
+#else                
+        extension=".so";
+#endif        
+        TXLOG(Severity::info)<<"Try load lib:"<<currentPath<<extension<<std::endl;
 
         try
         {
-            void* handle = dlopen(currentPath.c_str(), RTLD_LAZY);
-            if (!handle) {
-                /* fail to load the library */
-                fprintf(stderr, "Error: %s\n", dlerror());
-                return EXIT_FAILURE;
-            }
-
-
             boost::function<funcptr> startFunction =  boost::dll::import<funcptr>(
-                currentPath,
+                currentPath+extension,
                 "Start",
                 boost::dll::load_mode::rtld_lazy
                 );
 
             boost::function<funcptr> stopFunction = boost::dll::import<funcptr>(
-                currentPath,
+                currentPath+extension,
                 "Stop",
                 boost::dll::load_mode::rtld_lazy
                 );
@@ -77,17 +76,17 @@ bool LibraryLoader::load(const std::string& path)
                 startFunction((char*)completePath.c_str(),(char*)libraryName.c_str());    
         }
         catch(boost::exception const& e) {
-            std::cout<<"xxxxxxxxxxxxxxxxxxx"<<boost::diagnostic_information(e, true)<<std::endl;
-            TXLOG(Severity::critical)<<"Custom lib:"<<currentPath<<" error missing Start/Stop function in lib----"<<boost::diagnostic_information(e, true)<<std::endl;
+            TXLOG(Severity::critical)<<"Custom lib:"<<currentPath<<extension<<" error missing Start/Stop function in lib----"<<boost::diagnostic_information(e, true)<<std::endl;
             return false;
         }
-        TXLOG(Severity::info)<<"Custom ok:"<<currentPath<<std::endl;
+        TXLOG(Severity::info)<<"Load lib ok:"<<currentPath<<extension<<std::endl;
     }
     return true;
 }
 
 LibraryLoader::~LibraryLoader()
 {
+    TXLOG(Severity::debug)<<"LibraryLoader destructor"<<std::endl;
     for(auto current:stopFunction_)
     {
         if(current)

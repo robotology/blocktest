@@ -34,7 +34,7 @@ bool ClockFacility::wait(double value) const
 
         CommandAttributes commandAttributes{{"command","wait"},{"seconds",std::to_string(value)},{"reporterror","false"}};
 
-        auto action=(call)(commandAttributes,nullptr);
+        auto action=(call)(commandAttributes,"");
         action->execute(0);
     }
     else
@@ -58,7 +58,7 @@ std::string ClockFacility::now() const
 
         CommandAttributes commandAttributes{{"command","wait"},{"reporterror","false"}};
 
-        auto action=(call)(commandAttributes,nullptr);
+        auto action=(call)(commandAttributes,"");
         std::stringstream ss;
         ss<<std::setfill('0')<<std::setw(8)<<std::setprecision(4)<<action->getDouble();
         return ss.str();

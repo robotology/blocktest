@@ -30,8 +30,6 @@ TestsDepot::~TestsDepot()
 
 bool TestsDepot::load(const std::string& path)
 {
-    TXLOG(Severity::info)<<"Try load library"<<std::endl;
-
     std::string completePath;
     if(!path.empty())
         completePath=path+"/"+testName_;

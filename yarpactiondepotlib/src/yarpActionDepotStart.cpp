@@ -20,6 +20,7 @@
 #include "pugixml.hpp"
 
 static YarpActionDepotStart start;
+std::string YarpActionDepotStart::robotName_{""};
 std::map<std::string,PolyDriver_sptr> YarpActionDepotStart::polyDriverDepot_;
 
 YarpActionDepotStart::YarpActionDepotStart()

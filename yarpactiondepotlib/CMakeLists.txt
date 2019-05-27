@@ -48,7 +48,7 @@ add_library(${PROJECT_NAME} MODULE ${allSrc})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${YARP_HELPERS_INCLUDE_DIR} ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/../src)
-target_link_libraries(${PROJECT_NAME} PRIVATE BlockTestCore YARP::YARP_OS YARP::YARP_init YARP::YARP_dev YARP::YARP_conf YARP::YARP_sig YARP::YARP_math YARP::YARP_rosmsg ClockRpc Pugixml::Pugixml)
+target_link_libraries(${PROJECT_NAME} PRIVATE BlockTestCore ${Boost_LIBRARIES} YARP::YARP_OS YARP::YARP_init YARP::YARP_dev YARP::YARP_conf YARP::YARP_sig YARP::YARP_math YARP::YARP_rosmsg ClockRpc Pugixml::Pugixml)
 
 # Add install target
 set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECT_NAME}")
