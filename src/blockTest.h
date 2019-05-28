@@ -17,7 +17,7 @@
 #include "general.h"
 #include "api.h"
 
-class BlockTest
+class BLOCKTEST_EXPORT BlockTest
 {
 public:
     explicit BlockTest(const std::string &path);
