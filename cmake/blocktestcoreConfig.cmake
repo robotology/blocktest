@@ -10,8 +10,8 @@
 include(FindPackageHandleStandardArgs)
 include(SelectLibraryConfigurations)
 if(WIN32)
-set(librarydirectory_debug lib/Debug)
-set(librarydirectory_release lib/Release)
+set(librarydirectory_debug lib/Debug/)
+set(librarydirectory_release lib/Release/)
 set(libname_debug BlockTestCore)
 set(libname_release BlockTestCore)
 else()
@@ -63,7 +63,6 @@ select_library_configurations(blocktestcore)
 
 set(blocktestcore_LIBRARIES ${blocktestcore_LIBRARY})
 set(blocktestcore_INCLUDE_DIRS ${blocktestcore_INCLUDE_DIR})
-
 find_package_handle_standard_args(blocktestcore
                                   FOUND_VAR blocktestcore_FOUND
                                   REQUIRED_VARS blocktestcore_LIBRARIES blocktestcore_INCLUDE_DIRS)

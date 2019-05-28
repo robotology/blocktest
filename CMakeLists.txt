@@ -100,9 +100,6 @@ set(CMAKE_EXE_LINKER_FLAGS  "-rdynamic")
 
 #add the action libraries
 add_subdirectory(genericactiondepotlib)
-if(USES_YARP)
-    add_subdirectory(yarpactiondepotlib)
-endif()
 if(WIN32)
     set(Common_LIBRARIES)
 else()
