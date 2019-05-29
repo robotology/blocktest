@@ -4,6 +4,9 @@
 #include "report.h"
 #include "tables.h"
 
+namespace BlockTestCore
+{
+
 Action::Action(const CommandAttributes& commandAttributes,const std::string& testCode):testCode_(testCode)
 {
     getCommandAttribute(commandAttributes,"reporterror",reporterror_);
@@ -137,4 +140,6 @@ void Action::getCommandAttribute(const CommandAttributes& commandAttributes,cons
         return;
     }
     std::istringstream(found->second) >> std::boolalpha >> out;
+}
+
 }

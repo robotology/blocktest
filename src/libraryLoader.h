@@ -22,6 +22,8 @@
 #include <boost/exception/diagnostic_information.hpp>
 #include <boost/filesystem.hpp>
 
+namespace BlockTestCore
+{
 
 class BLOCKTEST_EXPORT LibraryLoader
 {
@@ -36,3 +38,5 @@ class BLOCKTEST_EXPORT LibraryLoader
 
         std::list<boost::function<funcptr>> stopFunction_;
 };
+
+}

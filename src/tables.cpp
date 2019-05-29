@@ -13,6 +13,9 @@
 #include "tables.h"
 #include "logger.h"
 
+namespace BlockTestCore
+{
+
 Tables::Tables()
 {
 }
@@ -270,4 +273,6 @@ bool Tables::Table::needIncrement()
 
     ++currentIncrementByCounter_;
     return false;
+}
+
 }

@@ -17,6 +17,9 @@
 #include "command.h"
 #include "general.h"
 
+namespace BlockTestCore
+{
+
 class TestsDepot;
 
 class BLOCKTEST_EXPORT Test: public std::enable_shared_from_this<Test>
@@ -43,3 +46,4 @@ private:
     std::string loggingwrapperName_;
     std::vector<loggingType> loggingType_;
 };
+}

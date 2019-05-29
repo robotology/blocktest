@@ -15,6 +15,9 @@
 #include "general.h"
 #include "api.h"
 
+namespace BlockTestCore
+{
+
 class BLOCKTEST_EXPORT ClockFacility
 {
     public:
@@ -40,3 +43,5 @@ class BLOCKTEST_EXPORT ClockFacility
         std::string nowcommand_;
         const std::string testPath_{"./test/test.xml"};
 };
+
+}

@@ -14,6 +14,8 @@
 
 #include "action.h"
 
+using namespace BlockTestCore;
+
 namespace GenericActions
 {
 

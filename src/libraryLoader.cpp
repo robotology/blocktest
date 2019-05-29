@@ -25,6 +25,9 @@
 
 #include "pugixml.hpp"
 
+namespace BlockTestCore
+{
+
 LibraryLoader::LibraryLoader()
 {
 }
@@ -92,4 +95,6 @@ LibraryLoader::~LibraryLoader()
         if(current)
             current(nullptr,nullptr); 
     }
+}
+
 }

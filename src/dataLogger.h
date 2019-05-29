@@ -16,6 +16,9 @@
 #include "api.h"
 #include "general.h"
 
+namespace BlockTestCore
+{
+
 /**
  * @class DataLogger
  * @brief ...
@@ -88,3 +91,4 @@ class BLOCKTEST_EXPORT DataLogger
         std::ofstream ofs_;
 };
 
+}

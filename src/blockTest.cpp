@@ -19,8 +19,8 @@
 
 BlockTest::BlockTest(const std::string &path):path_(path)  
 {   
-    tests_=std::make_shared<TestsDepot>();
-    Logger::Instance();
+    tests_=std::make_shared<BlockTestCore::TestsDepot>();
+    BlockTestCore::Logger::Instance();
     
     TXLOG(Severity::info)<<"*******************"<<std::endl;
     TXLOG(Severity::info)<<"**Start simulator**"<<std::endl;
@@ -34,14 +34,14 @@ BlockTest::BlockTest(const std::string &path):path_(path)
 
 unsigned int BlockTest::run()
 {
-    Fixture fixture(path_);
+    BlockTestCore::Fixture fixture(path_);
     fixture.execute();
 
-    LibraryLoader loader;
+    BlockTestCore::LibraryLoader loader;
     loader.load(path_);
 
     //**Only for logging
-    ActionRegister x;
+    BlockTestCore::ActionRegister x;
     x.Dump();
     //**
 
@@ -53,8 +53,8 @@ unsigned int BlockTest::run()
 
     tests_->execute();
 
-    Report::instance().dump();
+    BlockTestCore::Report::instance().dump();
 
-    unsigned int totErrorsOut=Report::instance().totalErrors_;
+    unsigned int totErrorsOut=BlockTestCore::Report::instance().totalErrors_;
     return totErrorsOut;
 }

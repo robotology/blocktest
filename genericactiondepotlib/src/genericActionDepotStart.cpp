@@ -14,6 +14,9 @@
 #include "logger.h"
 #include "genericActionDepotStart.h"
 
+namespace GenericActions
+{
+
 static GenericActionDepotStart start;
 std::chrono::milliseconds GenericActionDepotStart::begin_;
 
@@ -47,4 +50,4 @@ void Stop(char* data,char* name)
     //TXLOG(Severity::info)<<"Library stop called:"<<std::endl;
 }
 
-
+}

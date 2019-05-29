@@ -19,6 +19,11 @@ extern "C"{
     void Stop(char* data,char* name);  
 }
 
+using namespace BlockTestCore;
+
+namespace GenericActions
+{
+
 /**
  * @class GenericActionDepotStart
  * @brief ...
@@ -33,3 +38,5 @@ class GenericActionDepotStart : public ActionDepotStart
 
         static std::chrono::milliseconds begin_;
 };
+
+}

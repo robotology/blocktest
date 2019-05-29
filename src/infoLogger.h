@@ -20,6 +20,9 @@
 
 #include "loggerRegister.h"
 
+namespace BlockTestCore
+{
+
 class BLOCKTEST_EXPORT InfoLogger
 {
     public:
@@ -38,3 +41,5 @@ class BLOCKTEST_EXPORT InfoLogger
         std::unique_ptr<std::thread> work_;
         std::atomic_bool working_{true};
 };
+
+}

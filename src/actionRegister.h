@@ -14,11 +14,13 @@
 
 #include "action.h"
 
+namespace BlockTestCore
+{
+
 class Action;
 
 #define ACTIONREGISTER_DEC_TYPE(CLASS) static DerivedActionRegister<CLASS> reg_;
 #define ACTIONREGISTER_DEF_TYPE(CLASS, NAME) DerivedActionRegister<CLASS> CLASS::reg_(NAME);
-
 
 using creationFunction    = std::function<std::shared_ptr<Action>(const CommandAttributes& ,const std::string& )>;
 using creationFuncDepot   = std::map<std::string, creationFunction>;
@@ -71,3 +73,5 @@ class BLOCKTEST_EXPORT DerivedActionRegister : public ActionRegister
         mymap[commandname] = x;
     }
 };
+
+}

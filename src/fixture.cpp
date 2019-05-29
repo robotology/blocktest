@@ -15,6 +15,9 @@
 
 #include "pugixml.hpp"
 
+namespace BlockTestCore
+{
+
 Fixture::Fixture(const std::string& path)
 {
     std::string completePath;
@@ -135,4 +138,6 @@ Fixture::FixtureParam::FixtureParam(const std::string& commandName,const std::st
                                                                                                                                                 waitafter_(waitafter)
 {
     output_=std::make_shared<boost::process::ipstream>();
+}
+
 }

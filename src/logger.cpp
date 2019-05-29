@@ -1,5 +1,8 @@
 #include "logger.h"
 
+namespace BlockTestCore
+{
+
 Logger::Logger() 
 {
     std::experimental::filesystem::create_directories(logfileName_);
@@ -117,4 +120,6 @@ Logger::~Logger()
 {
     continueLogging_=false;
     threadHandler_->join();
+}
+
 }

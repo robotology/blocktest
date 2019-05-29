@@ -15,6 +15,9 @@
 
 #include "general.h"
 
+namespace BlockTestCore
+{
+
 class Action;
 using Action_sptr=std::shared_ptr<Action>;
 
@@ -56,3 +59,5 @@ inline loggingType stringToLoggingType(const std::string& name)
     }
     return stringToLoggingType_.at(name);
 };
+
+}

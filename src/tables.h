@@ -15,6 +15,8 @@
 #include "api.h"
 #include "general.h"
 
+namespace BlockTestCore
+{
 
 class BLOCKTEST_EXPORT Tables
 {
@@ -58,3 +60,5 @@ class BLOCKTEST_EXPORT Tables
         void commentRemove(std::string& str);
         std::map<std::string,Table> tables_;
 };
+
+}

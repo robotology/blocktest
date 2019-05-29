@@ -14,6 +14,10 @@
 
 #include "infoLogger.h"
 
+namespace BlockTestCore
+{
+
+
 class InfoLogger;
 
 #define LOGGERREGISTER_DEC_TYPE(CLASS) static DerivedLoggerRegister<CLASS> reg_;
@@ -70,3 +74,5 @@ class BLOCKTEST_EXPORT DerivedLoggerRegister : public LoggerRegister
         mymap[commandname] = x;
     }
 };
+
+}

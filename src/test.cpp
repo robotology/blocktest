@@ -17,6 +17,10 @@
 #include "loggerRegister.h"
 #include "testsDepot.h"
 
+
+namespace BlockTestCore
+{
+
 Test::Test(const pugi::xml_node& nodeTest,const TestsDepot_sptr& testDepot):nodeTest_(nodeTest),testDepot_(testDepot)
 {
 }
@@ -126,4 +130,6 @@ bool Test::execute(bool isRealRobot) const
     }
 
     return out;
+}
+
 }

@@ -18,6 +18,9 @@
 
 #include "pugixml.hpp"
 
+namespace BlockTestCore
+{
+
 Command::Command(const pugi::xml_node& nodeCommand,Test_sptr test):
         test_(test),node_(nodeCommand)
 {
@@ -95,4 +98,6 @@ bool Command::isCommandOnlyForSimulation(const std::string& toCheck) const
         commandMap.insert(toAdd);
     }
     return true;
+}
+
 }

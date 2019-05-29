@@ -28,5 +28,5 @@ public:
 private:
     std::string path_;
 
-    TestsDepot_sptr tests_;
+    BlockTestCore::TestsDepot_sptr tests_;
 };

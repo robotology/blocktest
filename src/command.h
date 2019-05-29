@@ -20,6 +20,9 @@
 
 #include "pugixml.hpp"
 
+namespace BlockTestCore
+{
+
 class Command
 {
 public:
@@ -45,3 +48,5 @@ private:
 
     bool xmlCommandToMap(const pugi::xml_node& nodeCommand,std::map<std::string,std::string>& commandMap) const;
 };
+
+}

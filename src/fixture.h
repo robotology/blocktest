@@ -18,6 +18,8 @@
 
 #include <boost/process.hpp>
 
+namespace BlockTestCore
+{
 /**
  * @class Fixture
  * @brief ...
@@ -59,3 +61,4 @@ class BLOCKTEST_EXPORT Fixture
         
 };
 
+}

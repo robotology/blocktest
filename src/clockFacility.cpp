@@ -7,6 +7,9 @@
 
 #include "actionRegister.h"
 
+namespace BlockTestCore
+{
+
 ClockFacility::ClockFacility()
 {  
     begin_ = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
@@ -85,4 +88,6 @@ std::string ClockFacility::now() const
             return out.str();
         }
     }
+}
+
 }

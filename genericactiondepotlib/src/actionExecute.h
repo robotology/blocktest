@@ -15,6 +15,8 @@
 #include "action.h"
 #include <boost/process.hpp>
 
+using namespace BlockTestCore;
+
 namespace GenericActions
 {
 

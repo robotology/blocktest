@@ -12,6 +12,9 @@
 
 #include "dataLogger.h"
 
+namespace BlockTestCore
+{
+
 DataLogger::DataLogger(const std::string& fileName):ofs_(fileName)
 {
     work_=std::make_shared<std::thread>(&DataLogger::work,this);
@@ -66,4 +69,6 @@ DataLogger::~DataLogger()
     threadIsActive_=false;
     if(work_)
         work_->join();
+}
+
 }

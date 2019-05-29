@@ -16,6 +16,9 @@
 #include "logger.h"
 #include "general.h"
 
+namespace BlockTestCore
+{
+
 class BLOCKTEST_EXPORT Report
 {
     public:
@@ -61,3 +64,5 @@ class BLOCKTEST_EXPORT Report
         void addError(const std::string& code,unsigned int repetition,const std::string& errorMessage);
         void addWarning(const std::string& code,unsigned int repetition,const std::string& errorMessage);
 };
+
+}

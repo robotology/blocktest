@@ -21,6 +21,8 @@ using CommandAttributes=std::map<std::string,std::string>;
 
 #include "actionRegister.h"
 
+namespace BlockTestCore
+{
 /**
  * @class Action
  * @brief ...
@@ -59,3 +61,5 @@ class BLOCKTEST_EXPORT Action
             out=std::vector<T>{std::istream_iterator<T>{ss},std::istream_iterator<T>()};
         }  
 };
+
+}

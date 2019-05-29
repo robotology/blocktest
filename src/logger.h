@@ -17,6 +17,9 @@
 #include "clockFacility.h"
 #include "general.h"
 
+namespace BlockTestCore
+{
+
 class BLOCKTEST_EXPORT Logger
 {
 private:
@@ -139,9 +142,11 @@ private:
     }
 };
 
-#define TXLOG(x) if(true)Logger::Instance().SetError(x,__FILE__,__LINE__)
-#define TXLOGDISABLE(x) Logger::Instance().DisableFileLogging(x)
-#define TXLOGOVERSEVERITY(x) Logger::Instance().LogoOverSeverity(x)
-#define TXLOGMAXFILELINE(x) Logger::Instance().MaxFileLine(x)
-#define TXLOGMAXFILE(x) Logger::Instance().MaxFile(x)
-#define TXLOGGETSTAT(x) Logger::Instance().GetStatistics(x)
+#define TXLOG(x) if(true)BlockTestCore::Logger::Instance().SetError(x,__FILE__,__LINE__)
+#define TXLOGDISABLE(x) BlockTestCore::Logger::Instance().DisableFileLogging(x)
+#define TXLOGOVERSEVERITY(x) BlockTestCore::Logger::Instance().LogoOverSeverity(x)
+#define TXLOGMAXFILELINE(x) BlockTestCore::Logger::Instance().MaxFileLine(x)
+#define TXLOGMAXFILE(x) BlockTestCore::Logger::Instance().MaxFile(x)
+#define TXLOGGETSTAT(x) BlockTestCore::Logger::Instance().GetStatistics(x)
+
+}

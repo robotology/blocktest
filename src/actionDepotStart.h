@@ -15,6 +15,8 @@
 #include <api.h>
 #include "general.h"
 
+namespace BlockTestCore
+{
 /**
  * @class ActionDepotStart
  * @brief ...
@@ -27,4 +29,4 @@ class BLOCKTEST_EXPORT ActionDepotStart
         virtual ~ActionDepotStart() = default;
 };
 
-
+}

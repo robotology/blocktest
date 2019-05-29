@@ -13,10 +13,10 @@ project(blockTest
         LANGUAGES C CXX
         VERSION 0.1)
 
-set(BlockTestSrc src/main.cpp)
-set(BlockTestHdr )
-set(BlockTestCoreSrc    src/action.cpp
-                        src/blockTest.cpp
+set(BlockTestSrc src/main.cpp
+                 src/blockTest.cpp)
+set(BlockTestHdr src/blockTest.h)
+set(BlockTestCoreSrc    src/action.cpp        
                         src/clockFacility.cpp
                         src/command.cpp
                         src/dataLogger.cpp
@@ -24,7 +24,6 @@ set(BlockTestCoreSrc    src/action.cpp
                         src/infoLogger.cpp
                         src/libraryLoader.cpp
                         src/logger.cpp
-                        src/main.cpp
                         src/report.cpp
                         src/tables.cpp
                         src/test.cpp
@@ -34,7 +33,6 @@ set(BlockTestCoreHdr    src/api.h
                         src/action.h
                         src/actionDepotStart.h
                         src/actionRegister.h
-                        src/blockTest.h
                         src/clockFacility.h
                         src/command.h
                         src/dataLogger.h

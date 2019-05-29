@@ -16,6 +16,9 @@
 #include "tables.h"
 #include "test.h"
 
+namespace BlockTestCore
+{
+
 std::string TestsDepot::robotStr_="";
 std::string TestsDepot::waitcommand_="";
 
@@ -111,4 +114,6 @@ bool TestsDepot::execute() const
         }
     }
     return out;
+}
+
 }
