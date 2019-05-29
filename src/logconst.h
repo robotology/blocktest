@@ -20,9 +20,9 @@ inline std::string SeverityToString(Severity error) {
     switch (error) {
 #ifdef COLORED_LOG        
         case Severity::plot:
-            return "\033[34mPlot*\033[0m";   
+            return "\033[34mPlot*****\033[0m";   
         case Severity::criticalminimal:
-            return "\033[31mCriticalMinimal*\033[0m";                 
+            return "\033[31mCritMin**\033[0m";                 
         case Severity::critical:
             return "\033[31mCritical*\033[0m";
         case Severity::exception:
@@ -35,9 +35,9 @@ inline std::string SeverityToString(Severity error) {
             return "\033[34mInfo*****\033[0m";
 #else
         case Severity::criticalminimal:
-            return "CriticalMinimal*";
+            return "CritMin**";
         case Severity::plot:
-            return "Plot*";        
+            return "Plot*****";        
         case Severity::critical:
             return "Critical*";
         case Severity::exception:

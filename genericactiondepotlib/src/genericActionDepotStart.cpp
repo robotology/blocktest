@@ -36,12 +36,14 @@ GenericActionDepotStart::~GenericActionDepotStart()
     //Nothing todo
 }
 
+}
+
 void Start(char* data,char* name)
 {
     if(data)
     {
         //TXLOG(Severity::info)<<"Library start called:"<<data<<std::endl;
-        start.configure(data,name);
+        GenericActions::start.configure(data,name);
     }
 }
 
@@ -50,4 +52,4 @@ void Stop(char* data,char* name)
     //TXLOG(Severity::info)<<"Library stop called:"<<std::endl;
 }
 
-}
+
