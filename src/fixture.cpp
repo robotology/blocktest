@@ -60,7 +60,7 @@ Fixture::~Fixture()
         (*it).writerActive_=false;
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
         //(*it).writer_->join();
-        TXLOG(Severity::info)<<"prerequisite destroyed:"<<(*it).commandName_<<std::endl;
+        TXLOG(Severity::criticalminimal)<<"prerequisite destroyed:"<<(*it).commandName_<<std::endl;
 
         std::this_thread::sleep_for(std::chrono::milliseconds((*it).waitafter_));
     }
@@ -99,8 +99,6 @@ void Fixture::execute()
                 ofs << line << std::endl;
             }
     });
-
-
 
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(5000));

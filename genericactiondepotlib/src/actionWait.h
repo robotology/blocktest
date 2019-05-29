@@ -14,6 +14,9 @@
 
 #include "action.h"
 
+namespace GenericActions
+{
+
 /**
  * @class ActionWait
  * @brief ...
@@ -31,3 +34,4 @@ class ActionWait : public Action
     ACTIONREGISTER_DEC_TYPE(ActionWait)        
 };
 
+}

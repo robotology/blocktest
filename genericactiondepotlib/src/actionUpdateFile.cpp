@@ -14,7 +14,11 @@
 #include "actionUpdateFile.h"
 #include "logger.h"
 
-ACTIONREGISTER_DEF_TYPE(ActionUpdateFile,"updatefile");
+ACTIONREGISTER_DEF_TYPE(GenericActions::ActionUpdateFile,"updatefile");
+
+namespace GenericActions
+{
+
 
 ActionUpdateFile::ActionUpdateFile(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
@@ -43,4 +47,6 @@ bool ActionUpdateFile::execute(unsigned int testrepetition)
     ofs<<str;
 
     return true;
+}
+
 }

@@ -14,6 +14,10 @@
 
 #include "action.h"
 
+namespace GenericActions
+{
+
+
 /**
  * @class ActionNop
  * @brief ...
@@ -34,3 +38,5 @@ class ActionNop : public Action
 
     ACTIONREGISTER_DEC_TYPE(ActionNop)        
 };
+
+}

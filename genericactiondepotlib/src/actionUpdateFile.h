@@ -14,6 +14,10 @@
 
 #include "action.h"
 
+namespace GenericActions
+{
+
+
 class ActionUpdateFile : public Action
 {
     public:
@@ -28,3 +32,4 @@ class ActionUpdateFile : public Action
     ACTIONREGISTER_DEC_TYPE(ActionUpdateFile)        
 };
 
+}

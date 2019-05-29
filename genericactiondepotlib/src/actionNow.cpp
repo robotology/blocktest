@@ -13,7 +13,10 @@
 #include "actionNow.h"
 #include "genericActionDepotStart.h"
 
-ACTIONREGISTER_DEF_TYPE(ActionNow,"now");
+ACTIONREGISTER_DEF_TYPE(GenericActions::ActionNow,"now");
+
+namespace GenericActions
+{
 
 ActionNow::ActionNow(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
@@ -30,3 +33,5 @@ double ActionNow::getDouble()
     double value=(double)(now.count()-GenericActionDepotStart::begin_.count())/1000;
     return value;
 }    
+
+}

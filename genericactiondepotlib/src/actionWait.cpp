@@ -14,7 +14,10 @@
 #include "actionWait.h"
 #include "logger.h"
 
-ACTIONREGISTER_DEF_TYPE(ActionWait,"wait");
+ACTIONREGISTER_DEF_TYPE(GenericActions::ActionWait,"wait");
+
+namespace GenericActions
+{
 
 ActionWait::ActionWait(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
@@ -25,4 +28,6 @@ bool ActionWait::execute(unsigned int testrepetition)
 {
     std::this_thread::sleep_for(std::chrono::milliseconds((int) seconds_*1000));
     return true;
+}
+
 }

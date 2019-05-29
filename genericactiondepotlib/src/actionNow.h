@@ -14,6 +14,9 @@
 
 #include "action.h"
 
+namespace GenericActions
+{
+
 /**
  * @class ActionNow
  * @brief ...
@@ -31,3 +34,4 @@ class ActionNow : public Action
     ACTIONREGISTER_DEC_TYPE(ActionNow)        
 };
 
+}

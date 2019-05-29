@@ -106,16 +106,18 @@ bool Test::execute(bool isRealRobot) const
     for(unsigned int index=0;index<repetitions_;++index)
     {
         //**logging
+        logCreationFunction call;
         auto mymap=LoggerRegister::getMap();
         if(mymap.find(testDepot_->loggingcommand_)==mymap.end())
         {
-            TXLOG(Severity::error)<<"Unknown command for logger:"<<std::endl;      
-            return false;
+            TXLOG(Severity::error)<<"Unknown command for logger:"<<testDepot_->loggingcommand_<<std::endl;      
         }
-        auto call=LoggerRegister::getCreatorFunction(testDepot_->loggingcommand_);
-        auto action=(call)(loggingJoints_,testDepot_->loggingTime_,loggingwrapperName_,code_,index);
-        //**logging
-
+        else
+        {
+            call=LoggerRegister::getCreatorFunction(testDepot_->loggingcommand_);
+            (call)(loggingJoints_,testDepot_->loggingTime_,loggingwrapperName_,code_,index);
+        }
+      
         TXLOG(Severity::info)<<"+++++Subtest code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;;
         for(const Command_sptr& current:data_)
         {

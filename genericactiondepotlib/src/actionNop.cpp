@@ -15,7 +15,10 @@
 #include "tables.h"
 #include "report.h"
 
-ACTIONREGISTER_DEF_TYPE(ActionNop,"nop");
+ACTIONREGISTER_DEF_TYPE(GenericActions::ActionNop,"nop");
+
+namespace GenericActions
+{
 
 ActionNop::ActionNop(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
@@ -53,4 +56,6 @@ bool ActionNop::execute(unsigned int testrepetition)
         
     TXLOG(Severity::plot)<<ss.str()<<std::endl;
     return true;
+}
+
 }

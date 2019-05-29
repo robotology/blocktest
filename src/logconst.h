@@ -4,6 +4,7 @@
 #include "general.h"
 
 enum class Severity : int {
+    criticalminimal = 9,
     plot = 8,
     critical = 7,
     exception = 6,
@@ -19,7 +20,9 @@ inline std::string SeverityToString(Severity error) {
     switch (error) {
 #ifdef COLORED_LOG        
         case Severity::plot:
-            return "\033[34mPlot*\033[0m";        
+            return "\033[34mPlot*\033[0m";   
+        case Severity::criticalminimal:
+            return "\033[31mCriticalMinimal*\033[0m";                 
         case Severity::critical:
             return "\033[31mCritical*\033[0m";
         case Severity::exception:
@@ -31,7 +34,9 @@ inline std::string SeverityToString(Severity error) {
         case Severity::info:
             return "\033[34mInfo*****\033[0m";
 #else
-       case Severity::plot:
+        case Severity::criticalminimal:
+            return "CriticalMinimal*";
+        case Severity::plot:
             return "Plot*";        
         case Severity::critical:
             return "Critical*";
@@ -71,6 +76,8 @@ inline Severity StringToSeverity(const std::string& error) {
         return Severity::trace;
     if (error == "debug")
         return Severity::debug;
+    if (error == "criticalminimal")
+        return Severity::criticalminimal;        
     return Severity::debug;
 }
 

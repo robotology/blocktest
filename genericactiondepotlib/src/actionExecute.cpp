@@ -14,8 +14,10 @@
 #include "actionExecute.h"
 #include "logger.h"
 
-ACTIONREGISTER_DEF_TYPE(ActionExecute,"execute");
+ACTIONREGISTER_DEF_TYPE(GenericActions::ActionExecute,"execute");
 
+namespace GenericActions
+{
 std::map<std::string,std::shared_ptr<boost::process::child>> ActionExecute::processes_;
 
 ActionExecute::ActionExecute(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
@@ -58,4 +60,6 @@ bool ActionExecute::execute(unsigned int testrepetition)
 
     std::this_thread::sleep_for(std::chrono::seconds(waitafter_));
     return true;
+}
+
 }

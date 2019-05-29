@@ -27,7 +27,7 @@ bool ClockFacility::wait(double value) const
         auto mymap=ActionRegister::getMap();
         if(mymap.find(waitcommand_)==mymap.end())
         {
-            TXLOG(Severity::error)<<"Unknown command:"<<waitcommand_<<std::endl;      
+            TXLOG(Severity::error)<<"Unknown wait command:"<<waitcommand_<<std::endl;      
             return false;
         }
         auto call=ActionRegister::getCreatorFunction(waitcommand_);
@@ -51,7 +51,8 @@ std::string ClockFacility::now() const
         auto mymap=ActionRegister::getMap();
         if(mymap.find(nowcommand_)==mymap.end())
         {
-            //TXLOG(Severity::error)<<"Unknown command:"<<nowcommand_<<std::endl;      
+            //TXLOG(Severity::criticalminimal)<<"Unknown now command:"<<nowcommand_<<std::endl;      
+            //No log available here due to logger ricorsion and mutex lock
             return "0";
         }
         auto call=ActionRegister::getCreatorFunction(nowcommand_);

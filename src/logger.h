@@ -110,7 +110,11 @@ private:
         }
 
         if (nextIsTheBegin_) {
-            std::string timeheader = "(" + ClockFacility::Instance().now() + ")";
+            std::string timeheader;
+            if(severity_==Severity::criticalminimal)
+                timeheader = "(0)";
+            else
+                timeheader = "(" + ClockFacility::Instance().now() + ")";
             std::stringstream ss;
             ss << "(" << SeverityToString(severity_) << ")";
             std::string severityheader = ss.str();

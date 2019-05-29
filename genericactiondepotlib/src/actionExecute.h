@@ -15,6 +15,9 @@
 #include "action.h"
 #include <boost/process.hpp>
 
+namespace GenericActions
+{
+
 class ActionExecute : public Action
 {
     public:
@@ -36,3 +39,4 @@ class ActionExecute : public Action
     ACTIONREGISTER_DEC_TYPE(ActionExecute)        
 };
 
+}
