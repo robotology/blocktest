@@ -18,7 +18,6 @@ cache:
     - $HOME/Library/Caches/Homebrew
 env:
   global:
-    - YARP_BRANCH="devel"
     - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
   matrix:
     - TRAVIS_BUILD_TYPE="Release" UBUNTU="bionic"
