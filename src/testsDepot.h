@@ -28,7 +28,7 @@ namespace BlockTestCore
 
 class Test;
 
-class BLOCKTEST_EXPORT TestsDepot: public std::enable_shared_from_this<TestsDepot>
+class TestsDepot: public std::enable_shared_from_this<TestsDepot>
 {
 public:
 

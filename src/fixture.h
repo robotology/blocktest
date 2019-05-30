@@ -25,7 +25,7 @@ namespace BlockTestCore
  * @brief ...
  * @todo missing brief and detailed description
  */
-class BLOCKTEST_EXPORT Fixture
+class Fixture
 {
     public:
         explicit Fixture(const std::string& path);

@@ -80,9 +80,16 @@ void Fixture::execute()
 
         std::this_thread::sleep_for(std::chrono::milliseconds(current.waitafter_));
 
-        std::stringstream ss;
-        ss<<current.prefix_<<" "<<current.commandName_<<" "<<current.commandParam_<<" &";
-
+		std::stringstream ss;
+		if (!current.prefix_.empty())
+		{
+			ss << current.prefix_ << " ";
+		}       
+#ifdef WIN32
+		ss /*<< "START /B "*/<< current.commandName_ << " " << current.commandParam_ ;
+#else
+		ss << current.commandName_ << " " << current.commandParam_ << " &";
+#endif
         TXLOG(Severity::info)<<"prerequisite executed:"<<ss.str()<<std::endl;
         
         std::cout<<"-------------------------------------------"<<std::endl;

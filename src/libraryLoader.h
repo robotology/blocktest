@@ -25,7 +25,7 @@
 namespace BlockTestCore
 {
 
-class BLOCKTEST_EXPORT LibraryLoader
+class LibraryLoader
 {
     public:
         LibraryLoader();

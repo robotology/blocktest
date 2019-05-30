@@ -22,7 +22,7 @@ namespace BlockTestCore
 
 class TestsDepot;
 
-class BLOCKTEST_EXPORT Test: public std::enable_shared_from_this<Test>
+class Test: public std::enable_shared_from_this<Test>
 {
 public:
     explicit Test(const pugi::xml_node& nodeTest,const TestsDepot_sptr& testDepot);

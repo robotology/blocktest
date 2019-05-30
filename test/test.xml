@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <testlist repetitions="1">
 	<settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" neverexecutecommands="" logseverity="debug" loggingtime="0.01" tablename="test/tables/main.tab" waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp" />
-	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic action library" />
+	<library enabled="true" path="genericactiondepot" name="genericactiondepot" note="System generic action library" />
 	<library enabled="false" path="libblocktestyarpplugins" name="yarpactiondepot" note="Yarp action library" />
 	<librarysettings enabled="true" name="genericactiondepot" />
 	<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" />

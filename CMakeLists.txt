@@ -20,13 +20,17 @@ set(BlockTestSrc        src/main.cpp
                         src/fixture.cpp
                         src/test.cpp
                         src/command.cpp
+						src/pugixml.cpp
                         )
 set(BlockTestHdr        src/blockTest.h
                         src/libraryLoader.h
                         src/testsDepot.h
                         src/fixture.h
                         src/command.h
-                        src/test.h)
+                        src/test.h
+						src/pugiconfig.hpp
+						src/pugixml.hpp
+						)
 
 set(BlockTestCoreSrc    src/action.cpp        
                         src/clockFacility.cpp
@@ -35,6 +39,7 @@ set(BlockTestCoreSrc    src/action.cpp
                         src/logger.cpp
                         src/report.cpp
                         src/tables.cpp
+						src/pugixml.cpp
                         )
 
 set(BlockTestCoreHdr    src/api.h
@@ -42,7 +47,8 @@ set(BlockTestCoreHdr    src/api.h
                         src/actionDepotStart.h
                         src/actionRegister.h
                         src/clockFacility.h
-
+						src/pugiconfig.hpp
+						src/pugixml.hpp
                         src/dataLogger.h
                         src/general.h
                         src/infoLogger.h    
@@ -72,8 +78,6 @@ find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
 if (NOT Boost_FOUND)
       message(FATAL_ERROR "Fatal error: Boost (version >= ${BOOST_MIN_VERSION}) required.\n")
 endif (NOT Boost_FOUND)
-
-include(FetchPugixml)
 
 # Control where libraries and executables are placed during the build.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
@@ -111,7 +115,7 @@ endif()
 
 add_library(BlockTestCore ${BlockTestCoreHdr} ${BlockTestCoreSrc})
 target_include_directories(BlockTestCore PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(BlockTestCore ${Boost_LIBRARIES} ${Common_LIBRARIES} Pugixml::Pugixml)
+target_link_libraries(BlockTestCore ${Boost_LIBRARIES} ${Common_LIBRARIES})
 
 include_directories(${Boost_INCLUDE_DIRS})
 add_executable(${PROJECT_NAME} ${BlockTestSrc} ${BlockTestHdr} )
