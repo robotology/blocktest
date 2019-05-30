@@ -1,3 +1,8 @@
+# CI Status
+
+[![Build Status (Linux) (master branch)](https://img.shields.io/travis/com/robotology/blocktest/master.svg?logo=travis&label=[master]%20build%20(Linux))](https://travis-ci.com/robotology/blocktest)
+[![Build Status (Linux) (devel branch)](https://img.shields.io/travis/com/robotology/blocktest/devel.svg?logo=travis&label=[devel]%20build%20(Linux))](https://travis-ci.com/robotology/blocktest)
+
 # 1. Block Test
 
 - [1. Block Test](#1-block-test)
@@ -619,7 +624,7 @@ TODO
 
 None to be signalled
 
+
+
 # 11. Authors
 * Luca Tricerri ([*personal page*](http://www.iit.it/en/people/Luca-tricerri.html))
-
-
