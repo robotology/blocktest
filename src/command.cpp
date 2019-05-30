@@ -58,6 +58,12 @@ const std::string Command::dumpCommand() const
 
 bool Command::execute(bool isRealRobot,unsigned int testrepetition)
 {
+	if (!action_)
+	{
+		TXLOG(Severity::critical) << " action not found:" << command_ << std::endl;
+		return false;
+	}
+
     bool ret{true};
     if(isRealRobot)
     {

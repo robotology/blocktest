@@ -48,7 +48,8 @@ Fixture::Fixture(const std::string& path)
 Fixture::~Fixture()
 {
     fixtureCheckerActive_=false;
-    fixtureCheck_->join();
+	if(fixtureCheck_)
+		fixtureCheck_->join();
 
     std::list<FixtureParam>::reverse_iterator it;
     for(it=fixtures_.rbegin();it!=fixtures_.rend();++it)
@@ -59,7 +60,8 @@ Fixture::~Fixture()
         if(!(*it).kill_)
             continue;
 
-        (*it).process_->terminate();
+		if((*it).process_)
+			(*it).process_->terminate();
         (*it).writerActive_=false;
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
         //(*it).writer_->join();
@@ -87,8 +89,16 @@ void Fixture::execute()
         std::cout<<"prerequisite executed:"<<ss.str()<<std::endl;
         std::cout<<"-------------------------------------------"<<std::endl;
 
-        current.process_=std::make_shared<boost::process::child>(ss.str(),boost::process::std_err > *current.output_);
-
+		try
+		{
+			current.process_ = std::make_shared<boost::process::child>(ss.str(), boost::process::std_err > *current.output_);
+		}
+		catch(const boost::process::process_error& e)
+		{
+			TXLOG(Severity::critical) << "load prerequisite:" << ss.str() <<" error:" <<e.what() << std::endl;
+			continue;
+		}
+        
         current.writer_=std::make_unique<std::thread>([&] {
             std::this_thread::sleep_for(std::chrono::microseconds(10));
             std::ofstream ofs("./log/prerequisite_"+current.commandName_);
@@ -118,6 +128,13 @@ void Fixture::fixtureCheker()
         {
             if(!current.enabled_)
                 continue;
+
+			if (!current.process_)
+			{
+				TXLOG(Severity::critical) << "Prerequisite never running:" << current.commandName_ << std::endl;
+				fixtureCheckerActive_ = false;
+				continue;
+			}
 
             bool run=current.process_->running();
             if(!run)

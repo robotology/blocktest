@@ -27,7 +27,6 @@ set(BlockTestCoreSrc    src/action.cpp
                         src/tables.cpp
                         src/test.cpp
                         src/testsDepot.cpp
-                        src/main.cpp
                         src/blockTest.cpp)
 
 set(BlockTestCoreHdr    src/api.h
