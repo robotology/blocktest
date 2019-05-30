@@ -14,22 +14,27 @@ project(blockTest
         VERSION 0.1)
 
 set(BlockTestSrc        src/main.cpp
+                        src/blockTest.cpp
+                        src/libraryLoader.cpp
+                        src/testsDepot.cpp
+                        src/fixture.cpp
+                        src/test.cpp
+                        src/command.cpp
                         )
-set(BlockTestHdr        )
+set(BlockTestHdr        src/blockTest.h
+                        src/libraryLoader.h
+                        src/testsDepot.h
+                        src/fixture.h
+                        src/command.h
+                        src/test.h)
+
 set(BlockTestCoreSrc    src/action.cpp        
                         src/clockFacility.cpp
-                        src/command.cpp
                         src/dataLogger.cpp
-                        src/fixture.cpp
-                        src/infoLogger.cpp
-                        src/libraryLoader.cpp
+                        src/infoLogger.cpp                   
                         src/logger.cpp
                         src/report.cpp
                         src/tables.cpp
-                        src/test.cpp
-                        src/testsDepot.cpp
-                        src/blockTest.cpp
-                        src/main.cpp
                         )
 
 set(BlockTestCoreHdr    src/api.h
@@ -37,21 +42,16 @@ set(BlockTestCoreHdr    src/api.h
                         src/actionDepotStart.h
                         src/actionRegister.h
                         src/clockFacility.h
-                        src/command.h
+
                         src/dataLogger.h
-                        src/fixture.h
                         src/general.h
-                        src/infoLogger.h
-                        src/libraryLoader.h
+                        src/infoLogger.h    
                         src/logconst.h
                         src/logger.h
                         src/loggerRegister.h
                         src/report.h
-                        src/tables.h
-                        src/test.h
-                        src/testsDepot.h
+                        src/tables.h              
                         src/type.h
-                        src/blockTest.h
                         )
 set(CMAKE_AUTOMOC ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
