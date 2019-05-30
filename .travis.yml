@@ -1,56 +1,105 @@
-sudo: required
-dist: bionic
-
+dist: xenial
 language: cpp
+services: docker
+
+stages:
+  - test # Default stage with job matrix
+  # - osx Coming soon
 
 compiler:
   - gcc
   - clang
 
-os:
-  - linux
+os: linux
 
+cache:
+  directories:
+    - $HOME/.ccache
+    - $HOME/Library/Caches/Homebrew
 env:
   global:
     - YARP_BRANCH="devel"
+    - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
   matrix:
-    - TRAVIS_BUILD_TYPE=Debug
-    - TRAVIS_BUILD_TYPE=Release
+    - TRAVIS_BUILD_TYPE="Release" UBUNTU="bionic"
+    - TRAVIS_BUILD_TYPE="Debug" UBUNTU="bionic"
 
-
+# ===================
+# STAGE: test (linux)
+# ===================
 before_script:
-  #ubuntu dependencies
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt update; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt install cmake libace-dev libboost-all-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev libeigen3-dev; fi
-  # macOS dependencies
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install boost; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew tap robotology/cask; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install --only-dependencies yarp; fi
-  # Setup the YARP branch 
-  - export YARP_BRANCH="devel" && echo "Using yarp devel branch"
-    #install yarp
-  - git clone --depth 1 --branch=devel  https://github.com/robotology/yarp
-  - cd yarp
-  - mkdir build
-  - cd build
-  - cmake ../ -DCREATE_GUIS:BOOL=OFF -DCREATE_LIB_MATH:BOOL=ON
-  - make
-  - sudo make install
-  - cd ../..
-   
-  #Blocktest
-  - qmake --version
-  - cmake --version
+  - docker pull ubuntu:$UBUNTU
 
 script:
-  # configure rfsmTools
-  - mkdir build
-  - cd build
-  - cmake ..
-  - make
-  - sudo make install
+
+  - echo "max_size = 1.0G" > $HOME/.ccache/ccache.conf
+  - >-
+    docker run -it \
+      -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR \
+      -v $HOME/.ccache:/root/.ccache \
+      -w $TRAVIS_BUILD_DIR \
+      --env CC \
+      --env CXX \
+      --env TRAVIS_BUILD_DIR \
+      --env TRAVIS_BUILD_TYPE \
+      --env TRAVIS_CMAKE_GENERATOR \
+      ubuntu:$UBUNTU \
+      sh .ci/install_debian_and_script.sh
+
+# osx coming soon
+
+# ==========
+# STAGE: osx
+# ==========
+#
+#stage_osx:
+#  install: &osx_install
+#    # Setup ccache
+#    - brew update
+#    - brew install ccache
+#    - export PATH="/usr/local/opt/ccache/libexec:$PATH"
+#    # Install dependencies available from Homebrew/core
+#    - brew install boost
+#    - brew tap robotology/cask
+#    - brew install --only-dependencies yarp
+#    - export Qt5_DIR=/usr/local/opt/qt5/lib/cmake/Qt5
+#    # Install beautifier for Xcode output
+#    - gem install xcpretty-travis-formatter
+#  script: &osx_script
+#    - cd $TRAVIS_BUILD_DIR/.ci
+#    - sh -c 'sh ./script.sh'
+#  script: &osx_script_xcode
+#    - cd $TRAVIS_BUILD_DIR/.ci
+#    - sh -c 'sh ./script.sh | xcpretty -f `xcpretty-travis-formatter`'
+#
+## ======================
+## BUILD JOBS FROM STAGES
+## ======================
+#
+#jobs:
+#  include:
+#    # ---------
+#    # STAGE OSX
+#    # ---------
+#    - &osx_template
+#      stage: osx
+#      os: osx
+#      services:
+#      osx_image: xcode9.4
+#      before_install: skip
+#      install: *osx_install
+#      before_script: skip
+#      script: *osx_script_xcode
+#      after_failure: skip
+#      after_success: skip
+#      after_script: skip
+#      env:
+#        TRAVIS_CMAKE_GENERATOR="Xcode"
+#        TRAVIS_BUILD_TYPE="Debug"
+
+
 
 notifications:
   email:
     - luca.tricerri@iit.it
+    - nicolo.genesio@iit.it
