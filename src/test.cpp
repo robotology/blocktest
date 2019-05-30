@@ -111,6 +111,7 @@ bool Test::execute(bool isRealRobot) const
     {
         //**logging
         logCreationFunction call;
+        std::shared_ptr<InfoLogger> logger;
         auto mymap=LoggerRegister::getMap();
         if(mymap.find(testDepot_->loggingcommand_)==mymap.end())
         {
@@ -119,8 +120,10 @@ bool Test::execute(bool isRealRobot) const
         else
         {
             call=LoggerRegister::getCreatorFunction(testDepot_->loggingcommand_);
-            (call)(loggingJoints_,testDepot_->loggingTime_,loggingwrapperName_,code_,index);
+            logger=(call)(loggingJoints_,testDepot_->loggingTime_,loggingwrapperName_,code_,index);
+            logger->start();
         }
+        //**end logger
       
         TXLOG(Severity::info)<<"+++++Subtest code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;;
         for(const Command_sptr& current:data_)

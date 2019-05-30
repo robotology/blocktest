@@ -27,8 +27,9 @@ class BLOCKTEST_EXPORT InfoLogger
 {
     public:
         InfoLogger(const std::string& toLog,double loggingTime,const std::string& wrapperName,const std::string& testCode,int repetition);
-        virtual void Start()=0;
-        virtual void Stop()=0;
+        virtual ~InfoLogger(){};
+        virtual void start()=0;
+        virtual void stop()=0;
 
     protected:
         std::string toLog_;
@@ -37,9 +38,6 @@ class BLOCKTEST_EXPORT InfoLogger
         std::vector<std::string> loggingJoints_;
         std::string testCode_;
         int repetition_{0};
-
-        std::unique_ptr<std::thread> work_;
-        std::atomic_bool working_{true};
 };
 
 }

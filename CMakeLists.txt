@@ -13,8 +13,9 @@ project(blockTest
         LANGUAGES C CXX
         VERSION 0.1)
 
-set(BlockTestSrc src/main.cpp)
-set(BlockTestHdr )
+set(BlockTestSrc        src/main.cpp
+                        )
+set(BlockTestHdr        )
 set(BlockTestCoreSrc    src/action.cpp        
                         src/clockFacility.cpp
                         src/command.cpp
@@ -27,7 +28,9 @@ set(BlockTestCoreSrc    src/action.cpp
                         src/tables.cpp
                         src/test.cpp
                         src/testsDepot.cpp
-                        src/blockTest.cpp)
+                        src/blockTest.cpp
+                        src/main.cpp
+                        )
 
 set(BlockTestCoreHdr    src/api.h
                         src/action.h
@@ -48,7 +51,8 @@ set(BlockTestCoreHdr    src/api.h
                         src/test.h
                         src/testsDepot.h
                         src/type.h
-                        src/blockTest.h)
+                        src/blockTest.h
+                        )
 set(CMAKE_AUTOMOC ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 if (CMAKE_VERSION VERSION_LESS 3.11)
