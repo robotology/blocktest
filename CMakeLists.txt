@@ -61,9 +61,7 @@ endif()
 
 include(GNUInstallDirs)
 
-option(USES_YARP "Compile software that depends on the YARP library" ON)
 option(COMPILE_SCRIPTBUILDER "Compile the UI for creating the test" ON)
-option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
 
 set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS OFF)
@@ -129,7 +127,7 @@ else()
 endif()
 
 # BlockTestCore
-add_library(BlockTestCore ${BlockTestCoreHdr} ${BlockTestCoreSrc})
+add_library(BlockTestCore SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})
 target_include_directories(BlockTestCore PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(BlockTestCore ${Boost_LIBRARIES}
                                     ${Common_LIBRARIES}
