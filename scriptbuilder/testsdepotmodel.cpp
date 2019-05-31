@@ -12,12 +12,12 @@
 
 #include "pugixml.hpp"
 #include "testsdepotmodel.h"
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <QKeyEvent>
 #include <qdebug.h>
 #include <qmimedata.h>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 TestsDepotModel::TestsDepotModel()
 {

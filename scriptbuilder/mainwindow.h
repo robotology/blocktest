@@ -25,10 +25,8 @@
 #include "loggermodel.h"
 #include <qstringlistmodel.h>
 #include <boost/process.hpp>
+#include <boost/filesystem.hpp>
 
-#include <experimental/filesystem>
-
-namespace fs = std::experimental::filesystem;
 
 namespace Ui {
 class MainWindow;

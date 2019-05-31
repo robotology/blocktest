@@ -106,7 +106,7 @@ endif()
 if(WIN32)
     set(Common_LIBRARIES)
 else()
-    set(Common_LIBRARIES dl pthread stdc++fs)
+    set(Common_LIBRARIES dl pthread)
 endif()
 
 add_library(BlockTestCore ${BlockTestCoreHdr} ${BlockTestCoreSrc})
