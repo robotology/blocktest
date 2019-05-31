@@ -23,7 +23,7 @@
 #include <qfiledialog.h>
 #include <qmessagebox.h>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

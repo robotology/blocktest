@@ -123,7 +123,7 @@ add_subdirectory(genericactiondepotlib)
 if(WIN32)
     set(Common_LIBRARIES)
 else()
-    set(Common_LIBRARIES dl pthread stdc++fs)
+    set(Common_LIBRARIES dl pthread)
 endif()
 
 # BlockTestCore

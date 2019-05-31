@@ -5,7 +5,7 @@ namespace BlockTestCore
 
 Logger::Logger() 
 {
-    std::experimental::filesystem::create_directories(logfileName_);
+    boost::filesystem::create_directories(logfileName_);
 
     std::fstream curentfilenumber(txlogfilenumber_, std::fstream::in | std::fstream::out | std::fstream::trunc);
     if (curentfilenumber.is_open())
@@ -94,7 +94,7 @@ void Logger::Writing()
             }
         }
 
-        if(!std::experimental::filesystem::exists(txlogfilename_))
+        if(!boost::filesystem::exists(txlogfilename_))
         {
             outStreamFile_.close();
             outStreamFile_.open(txlogfilename_, std::ios::out | std::ios::app); 

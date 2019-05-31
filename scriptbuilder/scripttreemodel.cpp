@@ -17,13 +17,13 @@
 #include <QKeyEvent>
 #include <qmessagebox.h>
 
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <string>
 #include <fstream>
 #include <streambuf>
 #include <sstream>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 ScriptTreeModel::ScriptTreeModel()
 {
