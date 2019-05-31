@@ -4,7 +4,7 @@ services: docker
 
 stages:
   - test # Default stage with job matrix
-  - osx
+  # - osx Coming soon
 
 compiler:
   - gcc
@@ -51,51 +51,51 @@ script:
 # ==========
 # STAGE: osx
 # ==========
-
-stage_osx:
-  install: &osx_install
-    # Setup ccache
-    - brew update
-    - brew install ccache
-    - export PATH="/usr/local/opt/ccache/libexec:$PATH"
-    # Install dependencies available from Homebrew/core
-    - brew install --HEAD boost
-    - brew tap robotology/cask
-    - brew install --only-dependencies yarp
-    - export Qt5_DIR=/usr/local/opt/qt5/lib/cmake/Qt5
-    # Install beautifier for Xcode output
-    - gem install xcpretty-travis-formatter
-  script: &osx_script
-    - cd $TRAVIS_BUILD_DIR/.ci
-    - sh -c 'sh ./script.sh'
-  script: &osx_script_xcode
-    - cd $TRAVIS_BUILD_DIR/.ci
-    - sh -c 'sh ./script.sh | xcpretty -f `xcpretty-travis-formatter`'
-
+#
+#stage_osx:
+#  install: &osx_install
+#    # Setup ccache
+#    - brew update
+#    - brew install ccache
+#    - export PATH="/usr/local/opt/ccache/libexec:$PATH"
+#    # Install dependencies available from Homebrew/core
+#    - brew install boost
+#    - brew tap robotology/cask
+#    - brew install --only-dependencies yarp
+#    - export Qt5_DIR=/usr/local/opt/qt5/lib/cmake/Qt5
+#    # Install beautifier for Xcode output
+#    - gem install xcpretty-travis-formatter
+#  script: &osx_script
+#    - cd $TRAVIS_BUILD_DIR/.ci
+#    - sh -c 'sh ./script.sh'
+#  script: &osx_script_xcode
+#    - cd $TRAVIS_BUILD_DIR/.ci
+#    - sh -c 'sh ./script.sh | xcpretty -f `xcpretty-travis-formatter`'
+#
 ## ======================
 ## BUILD JOBS FROM STAGES
 ## ======================
-
-jobs:
-  include:
-    # ---------
-    # STAGE OSX
-    # ---------
-    - &osx_template
-      stage: osx
-      os: osx
-      services:
-      osx_image: xcode9.4
-      before_install: skip
-      install: *osx_install
-      before_script: skip
-      script: *osx_script_xcode
-      after_failure: skip
-      after_success: skip
-      after_script: skip
-      env:
-        TRAVIS_CMAKE_GENERATOR="Xcode"
-        TRAVIS_BUILD_TYPE="Debug"
+#
+#jobs:
+#  include:
+#    # ---------
+#    # STAGE OSX
+#    # ---------
+#    - &osx_template
+#      stage: osx
+#      os: osx
+#      services:
+#      osx_image: xcode9.4
+#      before_install: skip
+#      install: *osx_install
+#      before_script: skip
+#      script: *osx_script_xcode
+#      after_failure: skip
+#      after_success: skip
+#      after_script: skip
+#      env:
+#        TRAVIS_CMAKE_GENERATOR="Xcode"
+#        TRAVIS_BUILD_TYPE="Debug"
 
 
 
