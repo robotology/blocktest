@@ -54,7 +54,7 @@ blocks can be used to build different tests (See Figure below).
 ## 3.1. Prerequisite
 
 ```bash
-sudo apt-get install build-essential qtcreator qt5-default libboost-all-dev
+sudo apt-get install build-essential qtcreator qt5-default libboost-all-dev libpugixml-dev
 ```
 At the moment the application is only for Linux type OS.
 
@@ -63,7 +63,6 @@ Boost library version must be >1.64.
 ## 3.2. Dependancy
 The application uses the following third part libraries (although you don't need to install by yourself)
 - Tiny process library: https://github.com/eidheim/tiny-process-library
-- Pugixml: https://github.com/zeux/pugixml
 
 ## 3.3. Installation and compilation
 
