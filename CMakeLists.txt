@@ -20,7 +20,6 @@ set(BlockTestSrc        src/main.cpp
                         src/fixture.cpp
                         src/test.cpp
                         src/command.cpp
-						src/pugixml.cpp
                         )
 set(BlockTestHdr        src/blockTest.h
                         src/libraryLoader.h
@@ -28,18 +27,15 @@ set(BlockTestHdr        src/blockTest.h
                         src/fixture.h
                         src/command.h
                         src/test.h
-						src/pugiconfig.hpp
-						src/pugixml.hpp
-						)
+                        )
 
-set(BlockTestCoreSrc    src/action.cpp        
+set(BlockTestCoreSrc    src/action.cpp
                         src/clockFacility.cpp
                         src/dataLogger.cpp
-                        src/infoLogger.cpp                   
+                        src/infoLogger.cpp
                         src/logger.cpp
                         src/report.cpp
                         src/tables.cpp
-						src/pugixml.cpp
                         )
 
 set(BlockTestCoreHdr    src/api.h
@@ -47,16 +43,14 @@ set(BlockTestCoreHdr    src/api.h
                         src/actionDepotStart.h
                         src/actionRegister.h
                         src/clockFacility.h
-						src/pugiconfig.hpp
-						src/pugixml.hpp
                         src/dataLogger.h
                         src/general.h
-                        src/infoLogger.h    
+                        src/infoLogger.h
                         src/logconst.h
                         src/logger.h
                         src/loggerRegister.h
                         src/report.h
-                        src/tables.h              
+                        src/tables.h
                         src/type.h
                         )
 set(CMAKE_AUTOMOC ON)
@@ -69,12 +63,16 @@ include(GNUInstallDirs)
 
 option(USES_YARP "Compile software that depends on the YARP library" ON)
 option(COMPILE_SCRIPTBUILDER "Compile the UI for creating the test" ON)
+option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
 
 set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREAD ON)
 set(BOOST_MIN_VERSION "1.64.0")
+
 find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
+find_package(pugixml REQUIRED)
+
 if (NOT Boost_FOUND)
       message(FATAL_ERROR "Fatal error: Boost (version >= ${BOOST_MIN_VERSION}) required.\n")
 endif (NOT Boost_FOUND)
@@ -99,6 +97,23 @@ endif()
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Build position independent code.
+# Position Independent Code (PIC) is commonly used for shared libraries so that
+# the same shared library code can be loaded in each program address space in a
+# location where it will not overlap with any other uses of such memory.
+# In particular, this option avoids problems occurring when a process wants to
+# load more than one shared library at the same virtual address.
+# Since shared libraries cannot predict where other shared libraries could be
+# loaded, this is an unavoidable problem with the traditional shared library
+# concept.
+# Generating position-independent code is often the default behavior for most
+# modern compilers.
+# Moreover linking a static library that is not built with PIC from a shared
+# library will fail on some compiler/architecture combinations.
+# Further details on PIC can be found here:
+# https://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 
 #-------Important
 #Let the singleton to be unique
@@ -113,16 +128,17 @@ else()
     set(Common_LIBRARIES dl pthread stdc++fs)
 endif()
 
+# BlockTestCore
 add_library(BlockTestCore ${BlockTestCoreHdr} ${BlockTestCoreSrc})
 target_include_directories(BlockTestCore PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(BlockTestCore ${Boost_LIBRARIES} ${Common_LIBRARIES})
-
+target_link_libraries(BlockTestCore ${Boost_LIBRARIES}
+                                    ${Common_LIBRARIES}
+                                    pugixml)
+# BlockTest
 include_directories(${Boost_INCLUDE_DIRS})
 add_executable(${PROJECT_NAME} ${BlockTestSrc} ${BlockTestHdr} )
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
-
-
-target_link_libraries(${PROJECT_NAME} BlockTestCore)
+target_link_libraries(${PROJECT_NAME} BlockTestCore pugixml)
 
 if(WIN32)
     add_custom_command(TARGET ${PROJECT_NAME}
