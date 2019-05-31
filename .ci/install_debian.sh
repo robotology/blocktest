@@ -10,4 +10,4 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get install -y gcc git clang valgrind ccache
 
 # Core dependencies
-apt-get install -y cmake libboost-all-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
+apt-get install -y cmake libboost-all-dev libpugixml-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
