@@ -39,6 +39,7 @@ public:
     ~TestsDepot();
     bool load(const std::string& path);
     bool execute() const;
+    bool waitTermination() const;
 
     bool valid() const;
 

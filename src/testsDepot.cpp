@@ -116,4 +116,13 @@ bool TestsDepot::execute() const
     return out;
 }
 
+bool TestsDepot::waitTermination() const
+{
+    for(Test_sptr current:data_)
+    {
+        if(current->repetitions_)
+            current->waitTermination();
+    }
+}
+
 }

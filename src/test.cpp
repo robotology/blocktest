@@ -29,6 +29,7 @@ bool Test::load()
 {
     file_ = nodeTest_.attribute("file").value();
     code_ = nodeTest_.attribute("code").value();
+    parallel_ = nodeTest_.attribute("parallel").as_bool();
     repetitions_ =nodeTest_.attribute("repetitions").as_int();
     
     if(!repetitions_)
@@ -104,7 +105,23 @@ bool Test::isLogActive(loggingType type) const
     return false;
 }
 
-bool Test::execute(bool isRealRobot) const
+bool Test::execute(bool isRealRobot)
+{
+    if(!repetitions_)
+        return true;
+
+    bool out;
+    testThread_=std::make_unique<std::thread>([&]()
+    {
+        out&=work(isRealRobot);
+    });
+
+    if(!parallel_)
+        waitTermination(); 
+    return out;
+}
+
+bool Test::work(bool isRealRobot) const
 {
     bool out=true;
     for(unsigned int index=0;index<repetitions_;++index)
@@ -133,6 +150,18 @@ bool Test::execute(bool isRealRobot) const
     }
 
     return out;
+}
+
+bool Test::waitTermination() const
+{
+    TXLOG(Severity::debug)<<"Wait termination for test code:"<<code_<<std::endl;
+    testThread_->join();
+    TXLOG(Severity::debug)<<"Exit termination for test code:"<<code_<<std::endl;
+    return true;
+}
+
+Test::~Test()
+{
 }
 
 }

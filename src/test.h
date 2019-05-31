@@ -26,17 +26,23 @@ class Test: public std::enable_shared_from_this<Test>
 {
 public:
     explicit Test(const pugi::xml_node& nodeTest,const TestsDepot_sptr& testDepot);
+    ~Test();
 
     bool valid() const;
     bool isLogActive(loggingType type) const;
     bool load();
-    bool execute(bool isRealRobot) const;
+    bool execute(bool isRealRobot);
+    bool waitTermination() const;
 
     unsigned int repetitions_{0};
     std::string code_;
+    bool parallel_{false};
     TestsDepot_sptr testDepot_;
 
 private:
+    bool work(bool isRealRobot) const;
+    std::unique_ptr<std::thread> testThread_;
+
     std::vector<Command_sptr> data_;
     const pugi::xml_node& nodeTest_;
 

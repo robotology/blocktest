@@ -214,11 +214,11 @@ The test list includes all the tests written. The test list, basically,
 list the tests together with the **file** in which the test has been written.
 
 ```xml
-<test file="test//0001.xml" repetitions="2" name="ICub right ankle  roll move"  code="0001"  />
+<test file="test//0001.xml" repetitions="2" name="ICub right ankle  roll move"  code="0001"  parallel="false"/>
 
-<test file="test//0100.xml" repetitions="2" name="ICub right ankle roll pwm injection"  code="0100"  />
+<test file="test//0100.xml" repetitions="2" name="ICub right ankle roll pwm injection"  code="0100"  parallel="false"/>
 
-<test file="test//0110.xml" repetitions="0" name="ICub right ankle roll pwmtrain injection"  code="0110" />
+<test file="test//0110.xml" repetitions="0" name="ICub right ankle roll pwmtrain injection"  code="0110" parallel="false"/>
 
 ```
 
@@ -228,6 +228,7 @@ list the tests together with the **file** in which the test has been written.
 | repetitions        | 1             | How many times the test is repeated.                                                             |
 | name               | ---           | Test name.                                                                                       |
 | code               | ---           | Numeric code for identifying the test, could be related to test case.                            |
+| parallel           | false         | Should the test be executed in paralell.                                                         |
 
 
 ## 5.5. Finally the test
@@ -259,6 +260,7 @@ The **common parameters** are shown in the following table.
 | reporterror | true    | If the command should report error if necessary.          |
 
 The **info node** contains the following parameters:
+
 | Param name | Default | Comment                 |
 | ---------- | ------- | ----------------------- |
 | note       | ---     | Test description.       |
@@ -266,6 +268,7 @@ The **info node** contains the following parameters:
 | version    | ---     | Test version.           |
 
 The **logging node** contains the following parameters:
+
 | Param name | Default | Comment                 |
 | ---------- | ------- | ----------------------- |
 | loggingtype        | ---           | Indicates what kind of logging you need. For now it can be "position", "com" or both.            |
