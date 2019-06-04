@@ -106,11 +106,14 @@ bool TestsDepot::execute() const
     for(int index=0;index<repetitions_;++index)
     {
         TXLOG(Severity::info)<<"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"<<std::endl;
-        TXLOG(Severity::info)<<"+++SubtestList -Total repetitions:"<<repetitions_<<" -Actual repetition:"<<index+1<< " -Real robot:"<<realRobot_<<std::endl;
+        TXLOG(Severity::info)<<"+++TestList -Total repetitions:"<<repetitions_<<" -Actual repetition:"<<index+1<< " -Real robot:"<<realRobot_<<std::endl;
         
         for(const Test_sptr& current:data_)
         {
+            if(!current->repetitions_)
+                continue;
             out&=current->execute(realRobot_);
+            std::cout<<"------"<<std::endl;
         }
     }
     return out;

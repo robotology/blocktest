@@ -110,6 +110,9 @@ bool Test::execute(bool isRealRobot)
     if(!repetitions_)
         return true;
 
+    if(!parallel_)
+        testDepot_->waitTermination();    
+
     bool out;
     testThread_=std::make_unique<std::thread>([&]()
     {
@@ -142,18 +145,23 @@ bool Test::work(bool isRealRobot) const
         }
         //**end logger
       
-        TXLOG(Severity::info)<<"+++++Subtest code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;;
+        TXLOG(Severity::info)<<"+++++Test code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;;
         for(const Command_sptr& current:data_)
         {
             out&=current->execute(isRealRobot,index);
         }     
     }
-
     return out;
 }
 
 bool Test::waitTermination() const
 {
+    if(!testThread_)
+        return true;
+
+    if(!testThread_->joinable())
+        return true;        
+
     TXLOG(Severity::debug)<<"Wait termination for test code:"<<code_<<std::endl;
     testThread_->join();
     TXLOG(Severity::debug)<<"Exit termination for test code:"<<code_<<std::endl;
