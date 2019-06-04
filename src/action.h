@@ -59,7 +59,15 @@ class BLOCKTEST_EXPORT Action
         template <typename T> static void tokenize(const std::string& toTokenize,std::vector<T>& out){
             std::istringstream ss{toTokenize};
             out=std::vector<T>{std::istream_iterator<T>{ss},std::istream_iterator<T>()};
-        }  
+        }
+
+        template <typename T> static std::vector<T> tokenize(const std::string& toTokenize) {
+            std::vector<T> out;
+            std::istringstream ss{ toTokenize };
+            out = std::vector<T>{ std::istream_iterator<T>{ss},std::istream_iterator<T>() };
+            return out;
+        }
+
 };
 
 }
