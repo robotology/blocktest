@@ -48,7 +48,7 @@ unsigned int BlockTest::run()
     tests_->load(path_);
     if(!tests_->valid())
     {
-        TXLOG(Severity::critical)<<"Subtest not found or empty"<<std::endl;
+        TXLOG(Severity::critical)<<"Test not found or empty"<<std::endl;
     }
 
     tests_->execute();

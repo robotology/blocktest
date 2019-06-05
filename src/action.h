@@ -33,7 +33,7 @@ class BLOCKTEST_EXPORT Action
 {
     public:      
         Action(const CommandAttributes& commandAttributes,const std::string& testCode);
-        virtual bool execute(unsigned int testrepetition)=0;
+        virtual execution execute(unsigned int testrepetition)=0;
         virtual double getDouble() {return 0;};
         virtual ~Action();
 

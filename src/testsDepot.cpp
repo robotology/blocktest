@@ -100,9 +100,9 @@ void TestsDepot::loadSimulationCommand()
     //Tables::instance().dump();
 }
 
-bool TestsDepot::execute() const
+execution TestsDepot::execute() const
 {     
-    bool out=true;
+    execution out{execution::continueexecution};
     for(int index=0;index<repetitions_;++index)
     {
         TXLOG(Severity::info)<<"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"<<std::endl;
@@ -112,7 +112,7 @@ bool TestsDepot::execute() const
         {
             if(!current->repetitions_)
                 continue;
-            out&=current->execute(realRobot_);
+            out=current->execute(realRobot_);
             std::cout<<"------"<<std::endl;
         }
     }

@@ -24,10 +24,10 @@ ActionWait::ActionWait(const CommandAttributes& commandAttributes,const std::str
     getCommandAttribute(commandAttributes,"seconds",seconds_);      
 }     
 
-bool ActionWait::execute(unsigned int testrepetition)
+execution ActionWait::execute(unsigned int testrepetition)
 {
     std::this_thread::sleep_for(std::chrono::milliseconds((int) seconds_*1000));
-    return true;
+    return execution::continueexecution;
 }
 
 }

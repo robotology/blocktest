@@ -30,21 +30,21 @@ ActionExecute::ActionExecute(const CommandAttributes& commandAttributes,const st
     getCommandAttribute(commandAttributes,"kill",kill_); 
 }     
 
-bool ActionExecute::execute(unsigned int testrepetition)
+execution ActionExecute::execute(unsigned int testrepetition)
 {
     if(kill_)
     {
         if(processes_.find(tag_)==processes_.end())
         {
             TXLOG(Severity::critical)<<"Tag for kill not found:"<<tag_<<std::endl;
-            return false;
+            return execution::stopexecution;
         }
 
         auto process=processes_[tag_];
         process->terminate();
         processes_.erase(tag_);
         std::this_thread::sleep_for(std::chrono::seconds(waitafter_));
-        return true;
+        return execution::continueexecution;
     }
     std::stringstream ss;
     ss<<prefix_<<" "<<commandName_<<" "<<normalize(commandParam_,false)<<" &";
@@ -52,14 +52,14 @@ bool ActionExecute::execute(unsigned int testrepetition)
     if(processes_.find(tag_)!=processes_.end())
     {
         TXLOG(Severity::critical)<<"Duplicate execute command tag:"<<tag_<<std::endl;
-        return false;
+        return execution::stopexecution;
     }
 
     auto process=std::make_shared<boost::process::child>(ss.str());
     processes_[tag_]=process;
 
     std::this_thread::sleep_for(std::chrono::seconds(waitafter_));
-    return true;
+    return execution::continueexecution;
 }
 
 }

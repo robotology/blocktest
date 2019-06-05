@@ -17,6 +17,7 @@
   - [5.2. Library Settings](#52-library-settings)
   - [5.3. Prerequisites](#53-prerequisites)
   - [5.4. Test list](#54-test-list)
+    - [5.4.1. Parallel or serie execution](#541-parallel-or-serie-execution)
   - [5.5. Finally the test](#55-finally-the-test)
     - [5.5.1. Generic commands](#551-generic-commands)
   - [5.6. Test writing with Scriptbuilder](#56-test-writing-with-scriptbuilder)
@@ -35,7 +36,7 @@
   - [9.2. Create new repository for plugin](#92-create-new-repository-for-plugin)
   - [9.3. Create plugin initialization](#93-create-plugin-initialization)
   - [9.4. Blocks writing](#94-blocks-writing)
-  - [9.4. XML files](#94-xml-files)
+  - [9.5. XML files](#95-xml-files)
 - [10. Authors](#10-authors)
 
 # 3. Introduction
@@ -229,6 +230,26 @@ list the tests together with the **file** in which the test has been written.
 | name               | ---           | Test name.                                                                                       |
 | code               | ---           | Numeric code for identifying the test, could be related to test case.                            |
 | parallel           | false         | Should the test be executed in paralell.                                                         |
+### 5.4.1. Parallel or serie execution
+It is possibile to specify if some tests are executed in series or parallel.
+
+```xml
+<test file="test//0001.xml" repetitions="1" name="xxx"  code="0001"  parallel="false"/>
+<test file="test//0002.xml" repetitions="1" name="xxx"  code="0002"  parallel="true"/>
+<test file="test//0003.xml" repetitions="1" name="xxx"  code="0003"  parallel="true"/>
+<test file="test//0004.xml" repetitions="1" name="xxx"  code="0004"  parallel="true"/>
+<test file="test//0005.xml" repetitions="1" name="xxx"  code="0005"  parallel="false"/>
+```
+In the above example the tests will be executed in the following way:
+
+**0001** start in serie
+
+**0002-0003-0004** start in parallel when 0001 is finished
+
+**0005** start when all 0002-0003-0004 are finished
+
+In the case it is possibile to insert a dummy test in serie to  align the following tests executions.
+
 
 
 ## 5.5. Finally the test
@@ -502,7 +523,7 @@ TODO
 ## 9.4. Blocks writing
 TODO
 
-## 9.4. XML files
+## 9.5. XML files
 TODO
 
 

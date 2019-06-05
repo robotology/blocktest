@@ -22,9 +22,9 @@ ActionNow::ActionNow(const CommandAttributes& commandAttributes,const std::strin
 {
 }     
 
-bool ActionNow::execute(unsigned int testrepetition)
+execution ActionNow::execute(unsigned int testrepetition)
 {
-    return true;
+    return execution::continueexecution;
 }
 
 double ActionNow::getDouble()

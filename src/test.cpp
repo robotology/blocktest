@@ -105,18 +105,18 @@ bool Test::isLogActive(loggingType type) const
     return false;
 }
 
-bool Test::execute(bool isRealRobot)
+execution Test::execute(bool isRealRobot)
 {
     if(!repetitions_)
-        return true;
+        return execution::continueexecution;
 
     if(!parallel_)
         testDepot_->waitTermination();    
 
-    bool out;
+    execution out;
     testThread_=std::make_unique<std::thread>([&]()
     {
-        out&=work(isRealRobot);
+        out=work(isRealRobot);
     });
 
     if(!parallel_)
@@ -124,9 +124,9 @@ bool Test::execute(bool isRealRobot)
     return out;
 }
 
-bool Test::work(bool isRealRobot) const
+execution Test::work(bool isRealRobot) const
 {
-    bool out=true;
+    execution out{execution::continueexecution};
     for(unsigned int index=0;index<repetitions_;++index)
     {
         //**logging
@@ -148,7 +148,12 @@ bool Test::work(bool isRealRobot) const
         TXLOG(Severity::info)<<"+++++Test code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;;
         for(const Command_sptr& current:data_)
         {
-            out&=current->execute(isRealRobot,index);
+            out=current->execute(isRealRobot,index);
+            if(out==execution::stopexecution)
+            {
+                TXLOG(Severity::error)<<"Stop execution:"<<current->dumpCommand()<<std::endl;
+                continue;
+            }
         }     
     }
     return out;

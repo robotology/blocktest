@@ -26,19 +26,19 @@ ActionUpdateFile::ActionUpdateFile(const CommandAttributes& commandAttributes,co
     getCommandAttribute(commandAttributes,"destinationfile",destinationFile_);    
 }     
 
-bool ActionUpdateFile::execute(unsigned int testrepetition)
+execution ActionUpdateFile::execute(unsigned int testrepetition)
 {
     std::ifstream ifs(sourceFile_);
     if(!ifs.is_open())
     {
         TXLOG(Severity::error)<<"source file not found:"<<sourceFile_<<std::endl;
-        return false;
+        return execution::stopexecution;
     }
     std::ofstream ofs(destinationFile_,std::fstream::in | std::fstream::trunc);
     if(!ofs.is_open())
     {
         TXLOG(Severity::error)<<"destination file not ready:"<<destinationFile_<<std::endl;
-        return false;
+        return execution::stopexecution;
     }    
 
     std::string str((std::istreambuf_iterator<char>(ifs)),std::istreambuf_iterator<char>());
@@ -46,7 +46,7 @@ bool ActionUpdateFile::execute(unsigned int testrepetition)
 
     ofs<<str;
 
-    return true;
+    return execution::continueexecution;
 }
 
 }

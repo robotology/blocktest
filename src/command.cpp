@@ -56,15 +56,15 @@ const std::string Command::dumpCommand() const
     return ss.str();
 }
 
-bool Command::execute(bool isRealRobot,unsigned int testrepetition)
+execution Command::execute(bool isRealRobot,unsigned int testrepetition)
 {
 	if (!action_)
 	{
 		TXLOG(Severity::critical) << " action not found:" << command_ << std::endl;
-		return false;
+		return execution::continueexecution;
 	}
 
-    bool ret{true};
+    execution ret{execution::continueexecution};
     if(isRealRobot)
     {
         if(isCommandOnlyForSimulation(command_))
@@ -77,8 +77,13 @@ bool Command::execute(bool isRealRobot,unsigned int testrepetition)
     for(size_t index=0;index<repetitions_;++index)
     {
         TXLOG(Severity::info)<<"+++++++++++++++++++Start exec command name:"<<command_<<" -Total repetitions:"<<repetitions_<<" -Actual repetition:"<<index+1<<std::endl;
-        ret=ret && action_->execute(testrepetition);
-        ret=ret && ClockFacility::Instance().wait(wait_);
+        ret=action_->execute(testrepetition);
+        if(ret==execution::stopexecution)
+        {
+            TXLOG(Severity::error)<<"Stop execution:"<<command_<<" -Total repetitions:"<<repetitions_<<" -Actual repetition:"<<index+1<<std::endl;
+            break;
+        }
+        ClockFacility::Instance().wait(wait_);
     }
     return ret;
 }

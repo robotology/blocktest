@@ -31,7 +31,7 @@ public:
     bool valid() const;
     bool isLogActive(loggingType type) const;
     bool load();
-    bool execute(bool isRealRobot);
+    execution execute(bool isRealRobot);
     bool waitTermination() const;
 
     unsigned int repetitions_{0};
@@ -40,7 +40,7 @@ public:
     TestsDepot_sptr testDepot_;
 
 private:
-    bool work(bool isRealRobot) const;
+    execution work(bool isRealRobot) const;
     std::unique_ptr<std::thread> testThread_;
 
     std::vector<Command_sptr> data_;
@@ -51,5 +51,6 @@ private:
     std::string loggingJoints_;
     std::string loggingwrapperName_;
     std::vector<loggingType> loggingType_;
+
 };
 }

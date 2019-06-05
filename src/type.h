@@ -60,4 +60,10 @@ inline loggingType stringToLoggingType(const std::string& name)
     return stringToLoggingType_.at(name);
 };
 
+enum class execution
+{
+    continueexecution,
+    stopexecution
+};
+
 }

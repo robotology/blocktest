@@ -29,10 +29,10 @@ ActionNop::ActionNop(const CommandAttributes& commandAttributes,const std::strin
     getCommandAttribute(commandAttributes,"printtestinfo",printtestinfo_); 
 }     
 
-bool ActionNop::execute(unsigned int testrepetition)
+execution ActionNop::execute(unsigned int testrepetition)
 {
     if(justOneTime_ && testrepetition!=0)
-        return true;
+        return execution::continueexecution;
 
     std::vector<std::string> tablesDepot;
     tokenize<std::string>(tables_,tablesDepot);
@@ -55,7 +55,7 @@ bool ActionNop::execute(unsigned int testrepetition)
     }
         
     TXLOG(Severity::plot)<<ss.str()<<std::endl;
-    return true;
+    return execution::continueexecution;
 }
 
 }
