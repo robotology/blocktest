@@ -47,6 +47,41 @@ bool ClockFacility::wait(double value) const
     return true;
 }
 
+double ClockFacility::nowDbl() const
+{
+  if(useNetClock_)
+    {   
+        auto mymap=ActionRegister::getMap();
+        if(mymap.find(nowcommand_)==mymap.end())
+        {
+            //TXLOG(Severity::criticalminimal)<<"Unknown now command:"<<nowcommand_<<std::endl;      
+            //No log available here due to logger ricorsion and mutex lock
+            return 0;
+        }
+        auto call=ActionRegister::getCreatorFunction(nowcommand_);
+
+        CommandAttributes commandAttributes{{"command","wait"},{"reporterror","false"}};
+
+        auto action=(call)(commandAttributes,"");
+        return action->getDouble();
+    }
+    else
+    {
+        if(relativetime_)
+        {
+            std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
+            double value=(double)(now.count()-begin_.count())/1000;
+            return value;
+        }
+        else
+        {
+            std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
+            return (double)(now.count())/1000;
+        }
+    }
+    return 0;
+}
+
 std::string ClockFacility::now() const
 {
     if(useNetClock_)

@@ -53,6 +53,7 @@ private:
     std::vector<loggingType> loggingType_;
 
     double wait_{0};
+    double repetitionsForTime_{0};
 
 };
 }

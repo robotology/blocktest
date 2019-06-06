@@ -31,7 +31,13 @@ bool Test::load()
     code_ = nodeTest_.attribute("code").value();
     parallel_ = nodeTest_.attribute("parallel").as_bool();
     repetitions_ =nodeTest_.attribute("repetitions").as_int();
-    
+    repetitionsForTime_ =nodeTest_.attribute("repetitionsfortime").as_double();
+
+    if(repetitionsForTime_)
+    {
+        repetitions_=100000;//Set to maximum
+    }
+        
     if(!repetitions_)
         return false;
 
@@ -133,6 +139,7 @@ execution Test::execute(bool isRealRobot)
 execution Test::work(bool isRealRobot) const
 {
     execution out{execution::continueexecution};
+    double start=ClockFacility::Instance().nowDbl();
     for(unsigned int index=0;index<repetitions_;++index)
     {
         //**logging
@@ -151,7 +158,7 @@ execution Test::work(bool isRealRobot) const
         }
         //**end logger
       
-        TXLOG(Severity::info)<<"+++++Test code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;;
+        TXLOG(Severity::info)<<"+++++Test code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;
         for(const Command_sptr& current:data_)
         {
             out=current->execute(isRealRobot,index);
@@ -162,6 +169,11 @@ execution Test::work(bool isRealRobot) const
             }
         }     
         ClockFacility::Instance().wait(wait_);
+        if(repetitionsForTime_ && ClockFacility::Instance().nowDbl()-start>repetitionsForTime_)
+        {
+            TXLOG(Severity::debug)<<"Exit test for repetition timeout:"<<repetitionsForTime_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;
+            break;
+        }
     }
     return out;
 }

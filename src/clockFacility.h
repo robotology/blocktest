@@ -23,6 +23,7 @@ class BLOCKTEST_EXPORT ClockFacility
     public:
         bool wait(double value) const;
         std::string now() const;
+        double nowDbl() const;
         bool useNetClock_{false};
 
         static ClockFacility& Instance()
