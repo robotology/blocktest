@@ -52,5 +52,7 @@ private:
     std::string loggingwrapperName_;
     std::vector<loggingType> loggingType_;
 
+    double wait_{0};
+
 };
 }

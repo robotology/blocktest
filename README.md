@@ -270,7 +270,6 @@ simple test. Also take a look at the following section for graphical test creati
 
 The test is composed by **commands** and each command has a parameters list.
 
-
 The **common parameters** are shown in the following table.
 
 | Param name  | Default | Comment                                                   |
@@ -296,6 +295,11 @@ The **logging node** contains the following parameters:
 | loggingpart        | ---           | Joints name to be logged.                                                                        |
 | loggingwrappername | ---           | The wrapper that controls the joints. Note that for now is possible to specify just one wrapper. |
 
+The **settings node** contains the following parameters:
+
+| Param name | Default | Comment                 |
+| ---------- | ------- | ----------------------- |
+| wait       | 0       | Wait after test completition.       |
 
 ### 5.5.1. Generic commands
 These commands are contained in the generic command library plugin.

@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <testbody>
+	<info note="Execution test." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="10" />	
+
 	<command library="general" name="execute" command="gedit" param="" prefix="" tag="gedittag" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />
 	<command library="general" name="wait" seconds="5" repetitions="1" wait="0" reporterror="true" />
 	<command library="general" name="execute" command="" param="" prefix="" tag="gedittag" waitafter="2" kill="true" repetitions="1" wait="0" reporterror="true" />

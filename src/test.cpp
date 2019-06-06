@@ -82,6 +82,12 @@ bool Test::load()
         loggingwrapperName_ = loggingNode.node().attribute("loggingwrappername").value();
     }
 
+    pugi::xpath_node settingsNode = doc.select_node("//settings");
+    if(settingsNode.node()!=nullptr)
+    {
+        wait_ = settingsNode.node().attribute("wait").as_double();
+    }
+
     if(repetitions_)
         Report::instance().addTest(code_,repetitions_);
 
@@ -155,6 +161,7 @@ execution Test::work(bool isRealRobot) const
                 continue;
             }
         }     
+        ClockFacility::Instance().wait(wait_);
     }
     return out;
 }
