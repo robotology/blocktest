@@ -22,7 +22,9 @@ enum UsrRoleTests
 {
     URFfile=0,
     URFcode=1,
-    URFrepetition=2
+    URFrepetition=2,
+    URFparallel=3,
+    URFrepetitionsfortime=4
 };
 
 class TestsDepotModel : public QStandardItemModel
@@ -39,6 +41,7 @@ public:
     void deleteTest(const QModelIndex& index);
     void newTest(const QModelIndex& index);
     void redraw();
+    bool empty() const;
 
     std::string testPath_;
 
@@ -52,7 +55,7 @@ public slots:
     void onChanged(QStandardItem * item);
 
 private:
-    pugi::xml_document doc_;
+    pugi::xml_document docTestList_;
 
 
 };

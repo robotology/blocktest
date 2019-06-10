@@ -27,9 +27,17 @@ void ParametersListModel::updateData(const QStringList& data)
     QStandardItem *item = invisibleRootItem();
     item->removeRows(0,rowCount());
 
-    stringToXmlNodesToItems(data[2].toStdString());
-    setHeaderData(0, Qt::Horizontal, "Name");
-    setHeaderData(1, Qt::Horizontal, "Value");
+    stringToXmlNodesToItems(data[2].toStdString());  
+
+    QStandardItem* header= new QStandardItem("Name");
+    header->setIcon(QIcon(":/icons/star.png"));
+    header->setTextAlignment(Qt::AlignLeft);
+    setHorizontalHeaderItem(0,header);
+
+    header= new QStandardItem("Value");
+    header->setIcon(QIcon(":/icons/star.png"));
+    header->setTextAlignment(Qt::AlignLeft);
+    setHorizontalHeaderItem(1,header);
 }
 
 void ParametersListModel::updateData(const QModelIndex &index)

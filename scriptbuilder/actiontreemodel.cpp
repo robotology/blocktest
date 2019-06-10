@@ -28,7 +28,8 @@ ActionTreeModel::ActionTreeModel()
 void ActionTreeModel::LoadXml()
 {
     QStandardItem *item = invisibleRootItem();
-    std::string path = "./xmltemplate";
+    //std::string path = ;
+    fs::path path("./xmltemplate");
 
     if(!fs::exists(path))
     {
@@ -71,7 +72,7 @@ void ActionTreeModel::LoadXml()
 Qt::ItemFlags ActionTreeModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | QAbstractItemModel::flags(index);
 }

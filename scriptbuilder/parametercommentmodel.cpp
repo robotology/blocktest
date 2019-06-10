@@ -71,6 +71,16 @@ void ParameterCommentModel::updateData(const QModelIndex &index)
         item->appendRow(toInsert);
     }
 
+    QStandardItem* header= new QStandardItem("Name");
+    header->setIcon(QIcon(":/icons/star.png"));
+    header->setTextAlignment(Qt::AlignLeft);
+    setHorizontalHeaderItem(0,header);
+
+    header= new QStandardItem("Meaning");
+    header->setIcon(QIcon(":/icons/star.png"));
+    header->setTextAlignment(Qt::AlignLeft);
+    setHorizontalHeaderItem(1,header);
+
 }
 
 void ParameterCommentModel::updateData(const QStringList& data)

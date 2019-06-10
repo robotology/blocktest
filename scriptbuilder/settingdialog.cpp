@@ -19,10 +19,10 @@
 SettingDialog::SettingDialog(pugi::xml_document& doc,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SettingDialog),
-    doc_(doc)
+    docSettings_(doc)
 {
     ui->setupUi(this);
-    pugi::xpath_node xnode= doc_.select_node("/settings/path");
+    pugi::xpath_node xnode= docSettings_.select_node("/settings/path");
     pugi::xml_node node=xnode.node();
     if(node!=nullptr)
     {
@@ -45,7 +45,7 @@ void SettingDialog::on_buttonBox_accepted()
 {
     QString testFolder= ui->testFolderEdit->text();
 
-    pugi::xpath_node xnode= doc_.select_node("/settings/path");
+    pugi::xpath_node xnode= docSettings_.select_node("/settings/path");
     pugi::xml_node node=xnode.node();
     if(node!=nullptr)
     {
@@ -53,6 +53,7 @@ void SettingDialog::on_buttonBox_accepted()
         attribute.set_value(testFolder.toStdString().c_str());
     }
 
+    docSettings_.save_file("./config.xml");
 }
 
 void SettingDialog::on_buttonBox_rejected()

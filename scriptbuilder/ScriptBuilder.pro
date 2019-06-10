@@ -45,7 +45,7 @@ HEADERS  += mainwindow.h \
     settingdialog.h \
     loggermodel.h
 
-LIBS += -lstdc++fs
+LIBS += -lstdc++fs -lboost_system -lboost_filesystem
 
 FORMS    += mainwindow.ui \
     settingdialog.ui

@@ -79,12 +79,12 @@
          <x>10</x>
          <y>50</y>
          <width>501</width>
-         <height>501</height>
+         <height>481</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Ubuntu</family>
+         <family>Sans Serif</family>
          <pointsize>10</pointsize>
          <weight>50</weight>
          <bold>false</bold>
@@ -121,7 +121,7 @@
         <enum>Qt::SolidLine</enum>
        </property>
        <attribute name="horizontalHeaderVisible">
-        <bool>false</bool>
+        <bool>true</bool>
        </attribute>
        <attribute name="horizontalHeaderCascadingSectionResizes">
         <bool>false</bool>
@@ -165,7 +165,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Load</string>
+        <string>Load list</string>
        </property>
       </widget>
       <widget class="QPushButton" name="saveTests">
@@ -185,16 +185,16 @@
         </font>
        </property>
        <property name="text">
-        <string>Save</string>
+        <string>Save list</string>
        </property>
       </widget>
       <widget class="QTableView" name="prerequisites">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>580</y>
+         <y>560</y>
          <width>501</width>
-         <height>141</height>
+         <height>161</height>
         </rect>
        </property>
        <property name="font">
@@ -217,7 +217,7 @@
         <bool>true</bool>
        </property>
        <property name="dragDropMode">
-        <enum>QAbstractItemView::InternalMove</enum>
+        <enum>QAbstractItemView::NoDragDrop</enum>
        </property>
        <property name="defaultDropAction">
         <enum>Qt::MoveAction</enum>
@@ -235,7 +235,7 @@
         <enum>Qt::SolidLine</enum>
        </property>
        <attribute name="horizontalHeaderVisible">
-        <bool>false</bool>
+        <bool>true</bool>
        </attribute>
        <attribute name="horizontalHeaderCascadingSectionResizes">
         <bool>false</bool>
@@ -269,7 +269,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>560</y>
+         <y>540</y>
          <width>201</width>
          <height>21</height>
         </rect>
@@ -494,7 +494,7 @@ background-color: rgba(0, 0, 0, 0);</string>
         <enum>Qt::SolidLine</enum>
        </property>
        <attribute name="horizontalHeaderVisible">
-        <bool>false</bool>
+        <bool>true</bool>
        </attribute>
        <attribute name="horizontalHeaderCascadingSectionResizes">
         <bool>false</bool>
@@ -556,7 +556,7 @@ background-color: rgba(0, 0, 0, 0);</string>
         <enum>Qt::SolidLine</enum>
        </property>
        <attribute name="horizontalHeaderVisible">
-        <bool>false</bool>
+        <bool>true</bool>
        </attribute>
        <attribute name="horizontalHeaderCascadingSectionResizes">
         <bool>false</bool>
@@ -1043,7 +1043,7 @@ background-color: rgba(0, 0, 0, 0);</string>
      <x>0</x>
      <y>0</y>
      <width>1553</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSettings">

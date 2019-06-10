@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {    
-    pugi::xml_parse_result result = doc_.load_file("./config.xml");
+    pugi::xml_parse_result result = docSettings_.load_file("./config.xml");
 
     commandsModel_ = new ActionTreeModel;
     scriptModel_ = new ScriptTreeModel;
@@ -70,13 +70,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->testsDepot->setModel(testsDepotModel_);
     ui->testsDepot->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->testsDepot->installEventFilter(this);
-    SpinBoxDelegate* numDelegate = new SpinBoxDelegate(ui->testsDepot,1000,0);
-    ui->testsDepot->setItemDelegateForColumn(1,numDelegate);
     ui->testsDepot->setDragDropMode(QAbstractItemView::DragDrop);
     ui->testsDepot->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->testsDepot->setDragEnabled(true);
     ui->testsDepot->setAcceptDrops(true);
     ui->testsDepot->setDropIndicatorShown(true);
+    SpinBoxDelegate* numDelegate = new SpinBoxDelegate(ui->testsDepot,1000,0);
+    ui->testsDepot->setItemDelegateForColumn(1,numDelegate);
+    ComboBoxItemDelegate* cParallel = new ComboBoxItemDelegate(ui->testsDepot);
+    ui->testsDepot->setItemDelegateForColumn(3, cParallel);
+    SpinBoxDelegate* numDelegateTimer = new SpinBoxDelegate(ui->testsDepot,1000,0);
+    ui->testsDepot->setItemDelegateForColumn(4,numDelegateTimer);
+
 
     ui->logView->setModel(loggerModel_);
 
@@ -87,6 +92,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ComboBoxItemDelegate* cbid = new ComboBoxItemDelegate(ui->prerequisites);
     ui->prerequisites->setItemDelegateForColumn(1, cbid);
     ui->prerequisites->setItemDelegateForColumn(3, cbid);
+    ui->prerequisites->setContextMenuPolicy(Qt::CustomContextMenu);
 
     ui->prerequisiteLog->setModel(prerequisiteLoggerModel_);
 
@@ -175,8 +181,9 @@ void MainWindow::on_loadTests_clicked()
     QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), total.c_str(),"*.xml");
     testsDepotModel_->load(fileName.toStdString());
     prerequisiteModel_->load(fileName.toStdString());
+
     ui->prerequisiteCombo->clear();
-    std::list<std::string> prerequisites=prerequisiteModel_->getPrerequisite();
+    std::list<std::string> prerequisites=prerequisiteModel_->getPrerequisiteListEnabled();
 
     QStringList list = prerequisiteComboModel_->stringList();
     list.clear();
@@ -275,11 +282,22 @@ void MainWindow::populateInfo()
 
 void MainWindow::on_testsDepot_customContextMenuRequested(const QPoint &pos)
 {
+    if(testsDepotModel_->empty())
+    {
+        QAction *openTestList = new QAction(tr("&Load test list"), this);
+        //deleteTest->setShortcut(Qt::Key_Delete);
+        connect(openTestList, &QAction::triggered, this, &MainWindow::on_loadTests_clicked);
+        QMenu menu(this);
+        menu.addAction(openTestList);
+        menu.exec(ui->testsDepot->viewport()->mapToGlobal(pos));
+        return;
+    }
+
     QAction *deleteTest = new QAction(tr("&Delete"), this);
     deleteTest->setShortcut(Qt::Key_Delete);
+    connect(deleteTest, &QAction::triggered, this, &MainWindow::deleteTest);
     QAction *newTest = new QAction(tr("&New"), this);
     newTest->setShortcut(Qt::CTRL + Qt::Key_C);
-    connect(deleteTest, &QAction::triggered, this, &MainWindow::deleteTest);
     connect(newTest, &QAction::triggered, this, &MainWindow::newTest);
 
     QMenu menu(this);
@@ -322,7 +340,7 @@ void MainWindow::on_scriptTree_pressed(const QModelIndex &index)
 
 void MainWindow::actionSettings()
 {
-    SettingDialog* settings = new SettingDialog(doc_);
+    SettingDialog* settings = new SettingDialog(docSettings_);
     settings->setModal(true);
     settings->exec();
 }
@@ -380,7 +398,7 @@ void MainWindow::on_prerequisiteCombo_currentIndexChanged(const QString &arg1)
 
 std::string  MainWindow::getTestPath() const
 {
-    pugi::xpath_node xnode= doc_.select_node("/settings/path");
+    pugi::xpath_node xnode= docSettings_.select_node("/settings/path");
     pugi::xml_node node=xnode.node();
     if(node!=nullptr)
     {
@@ -388,4 +406,31 @@ std::string  MainWindow::getTestPath() const
        return attribute.value();
     }
     return "";
+}
+
+void MainWindow::on_prerequisites_customContextMenuRequested(const QPoint &pos)
+{
+    QAction *deletePrerequisite = new QAction(tr("&Delete"), this);
+    deletePrerequisite->setShortcut(Qt::Key_Delete);
+    connect(deletePrerequisite, &QAction::triggered, this, &MainWindow::deletePrerequisite);
+    QAction *newPrerequisite = new QAction(tr("&New"), this);
+    newPrerequisite->setShortcut(Qt::CTRL + Qt::Key_C);
+    connect(newPrerequisite, &QAction::triggered, this, &MainWindow::newPrerequisite);
+
+    QMenu menu(this);
+    menu.addAction(deletePrerequisite);
+    menu.addAction(newPrerequisite);
+    menu.exec(ui->prerequisites->viewport()->mapToGlobal(pos));
+}
+
+void MainWindow::newPrerequisite()
+{
+    QModelIndex index=ui->prerequisites->currentIndex();
+    prerequisiteModel_->newPrerequisite(index);
+}
+
+void MainWindow::deletePrerequisite()
+{
+    QModelIndex index=ui->prerequisites->currentIndex();
+    prerequisiteModel_->deletePrerequisite(index);
 }

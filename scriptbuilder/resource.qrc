@@ -6,5 +6,6 @@
         <file>icons/parameter.png</file>
         <file>icons/info.png</file>
         <file>icons/main003.png</file>
+        <file>icons/star.png</file>
     </qresource>
 </RCC>

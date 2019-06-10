@@ -44,7 +44,7 @@ private slots:
 private:
     Ui::SettingDialog *ui;
 
-    pugi::xml_document& doc_;
+    pugi::xml_document& docSettings_;
 };
 
 #endif // SETTINGDIALOG_H
