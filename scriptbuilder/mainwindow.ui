@@ -9,20 +9,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1553</width>
-    <height>850</height>
+    <width>1600</width>
+    <height>960</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1553</width>
-    <height>800</height>
+    <width>1600</width>
+    <height>960</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1553</width>
-    <height>850</height>
+    <width>1600</width>
+    <height>1000</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -35,10 +35,10 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>10</y>
-      <width>1531</width>
-      <height>801</height>
+      <width>1541</width>
+      <height>921</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -51,10 +51,10 @@
      <widget class="QGroupBox" name="testListBox">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>10</x>
         <y>10</y>
-        <width>521</width>
-        <height>761</height>
+        <width>541</width>
+        <height>871</height>
        </rect>
       </property>
       <property name="font">
@@ -79,7 +79,7 @@
          <x>10</x>
          <y>50</y>
          <width>501</width>
-         <height>481</height>
+         <height>391</height>
         </rect>
        </property>
        <property name="font">
@@ -152,7 +152,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>730</y>
+         <y>840</y>
          <width>80</width>
          <height>22</height>
         </rect>
@@ -172,7 +172,7 @@
        <property name="geometry">
         <rect>
          <x>100</x>
-         <y>730</y>
+         <y>840</y>
          <width>80</width>
          <height>22</height>
         </rect>
@@ -192,7 +192,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>560</y>
+         <y>670</y>
          <width>501</width>
          <height>161</height>
         </rect>
@@ -269,7 +269,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>540</y>
+         <y>650</y>
          <width>201</width>
          <height>21</height>
         </rect>
@@ -332,6 +332,115 @@ background-color: rgba(0, 0, 0, 0);</string>
         <bool>false</bool>
        </property>
       </widget>
+      <widget class="QLineEdit" name="lineEdit_12">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>450</y>
+         <width>201</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Sans Serif</family>
+         <pointsize>12</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 12pt &quot;Sans Serif&quot;;
+background-color: rgba(0, 0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Libraries</string>
+       </property>
+       <property name="frame">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QTableView" name="libraries">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>470</y>
+         <width>501</width>
+         <height>171</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::DefaultContextMenu</enum>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+       </property>
+       <property name="dragEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::NoDragDrop</enum>
+       </property>
+       <property name="defaultDropAction">
+        <enum>Qt::MoveAction</enum>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>false</bool>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="showGrid">
+        <bool>true</bool>
+       </property>
+       <property name="gridStyle">
+        <enum>Qt::SolidLine</enum>
+       </property>
+       <attribute name="horizontalHeaderVisible">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="horizontalHeaderCascadingSectionResizes">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="horizontalHeaderHighlightSections">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="horizontalHeaderMinimumSectionSize">
+        <number>26</number>
+       </attribute>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderDefaultSectionSize">
+        <number>20</number>
+       </attribute>
+       <attribute name="verticalHeaderHighlightSections">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderMinimumSectionSize">
+        <number>18</number>
+       </attribute>
+      </widget>
      </widget>
      <widget class="QGroupBox" name="scriptBox">
       <property name="geometry">
@@ -339,7 +448,7 @@ background-color: rgba(0, 0, 0, 0);</string>
         <x>870</x>
         <y>10</y>
         <width>651</width>
-        <height>761</height>
+        <height>871</height>
        </rect>
       </property>
       <property name="font">
@@ -356,7 +465,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <property name="geometry">
         <rect>
          <x>100</x>
-         <y>730</y>
+         <y>840</y>
          <width>80</width>
          <height>22</height>
         </rect>
@@ -376,7 +485,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <property name="geometry">
         <rect>
          <x>190</x>
-         <y>730</y>
+         <y>840</y>
          <width>80</width>
          <height>22</height>
         </rect>
@@ -419,7 +528,7 @@ background-color: rgba(0, 0, 0, 0);</string>
          <x>10</x>
          <y>50</y>
          <width>261</width>
-         <height>551</height>
+         <height>661</height>
         </rect>
        </property>
        <property name="font">
@@ -446,7 +555,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>730</y>
+         <y>840</y>
          <width>80</width>
          <height>22</height>
         </rect>
@@ -527,7 +636,7 @@ background-color: rgba(0, 0, 0, 0);</string>
          <x>280</x>
          <y>480</y>
          <width>361</width>
-         <height>271</height>
+         <height>381</height>
         </rect>
        </property>
        <property name="font">
@@ -695,7 +804,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>610</y>
+         <y>720</y>
          <width>201</width>
          <height>21</height>
         </rect>
@@ -727,7 +836,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>630</y>
+         <y>740</y>
          <width>261</width>
          <height>61</height>
         </rect>
@@ -750,7 +859,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>700</y>
+         <y>810</y>
          <width>71</width>
          <height>21</height>
         </rect>
@@ -782,7 +891,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <property name="geometry">
         <rect>
          <x>80</x>
-         <y>700</y>
+         <y>810</y>
          <width>41</width>
          <height>21</height>
         </rect>
@@ -808,7 +917,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <property name="geometry">
         <rect>
          <x>130</x>
-         <y>700</y>
+         <y>810</y>
          <width>51</width>
          <height>21</height>
         </rect>
@@ -840,7 +949,7 @@ background-color: rgba(0, 0, 0, 0);</string>
        <property name="geometry">
         <rect>
          <x>180</x>
-         <y>700</y>
+         <y>810</y>
          <width>91</width>
          <height>21</height>
         </rect>
@@ -863,7 +972,7 @@ background-color: rgba(0, 0, 0, 0);</string>
         <x>570</x>
         <y>10</y>
         <width>281</width>
-        <height>761</height>
+        <height>871</height>
        </rect>
       </property>
       <property name="font">
@@ -882,7 +991,7 @@ background-color: rgba(0, 0, 0, 0);</string>
          <x>10</x>
          <y>40</y>
          <width>261</width>
-         <height>711</height>
+         <height>821</height>
         </rect>
        </property>
        <property name="font">
@@ -1042,7 +1151,7 @@ background-color: rgba(0, 0, 0, 0);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1553</width>
+     <width>1600</width>
      <height>19</height>
     </rect>
    </property>

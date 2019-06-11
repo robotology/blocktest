@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     loggerModel_ = new LoggerModel("log/log.log");
     prerequisiteLoggerModel_=new LoggerModel("");
     prerequisiteComboModel_=new QStringListModel();
+    libraryModel_= new LibraryModel;
 
     ui->setupUi(this);
 
@@ -93,6 +94,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->prerequisites->setItemDelegateForColumn(1, cbid);
     ui->prerequisites->setItemDelegateForColumn(3, cbid);
     ui->prerequisites->setContextMenuPolicy(Qt::CustomContextMenu);
+
+
+    ui->libraries->setModel(libraryModel_);
+    ComboBoxItemDelegate* clibrary = new ComboBoxItemDelegate(ui->libraries);
+    ui->libraries->setItemDelegateForColumn(1, clibrary);
+    ui->libraries->setContextMenuPolicy(Qt::CustomContextMenu);
 
     ui->prerequisiteLog->setModel(prerequisiteLoggerModel_);
 
@@ -181,6 +188,7 @@ void MainWindow::on_loadTests_clicked()
     QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), total.c_str(),"*.xml");
     testsDepotModel_->load(fileName.toStdString());
     prerequisiteModel_->load(fileName.toStdString());
+    libraryModel_->load(fileName.toStdString());
 
     ui->prerequisiteCombo->clear();
     std::list<std::string> prerequisites=prerequisiteModel_->getPrerequisiteListEnabled();
@@ -330,7 +338,8 @@ void MainWindow::on_saveTests_clicked()
     QString fileName = QFileDialog::getSaveFileName(this,tr("Save tests list"), "test.xml","*.xml");
 
     const pugi::xml_document& prerequisiteDocument=prerequisiteModel_->getDocument();
-    testsDepotModel_->save(fileName.toStdString(),prerequisiteDocument);
+    const pugi::xml_document& libraryDocument=libraryModel_->getDocument();
+    testsDepotModel_->save(fileName.toStdString(),prerequisiteDocument,libraryDocument);
 }
 
 void MainWindow::on_scriptTree_pressed(const QModelIndex &index)
@@ -433,4 +442,31 @@ void MainWindow::deletePrerequisite()
 {
     QModelIndex index=ui->prerequisites->currentIndex();
     prerequisiteModel_->deletePrerequisite(index);
+}
+
+void MainWindow::on_libraries_customContextMenuRequested(const QPoint &pos)
+{
+    QAction *deleteLibrary = new QAction(tr("&Delete"), this);
+    deleteLibrary->setShortcut(Qt::Key_Delete);
+    connect(deleteLibrary, &QAction::triggered, this, &MainWindow::deleteLibrary);
+    QAction *newLibrary = new QAction(tr("&New"), this);
+    newLibrary->setShortcut(Qt::CTRL + Qt::Key_C);
+    connect(newLibrary, &QAction::triggered, this, &MainWindow::newLibrary);
+
+    QMenu menu(this);
+    menu.addAction(deleteLibrary);
+    menu.addAction(newLibrary);
+    menu.exec(ui->libraries->viewport()->mapToGlobal(pos));
+}
+
+void MainWindow::newLibrary()
+{
+    QModelIndex index=ui->libraries->currentIndex();
+    libraryModel_->newLibrary(index);
+}
+
+void MainWindow::deleteLibrary()
+{
+    QModelIndex index=ui->libraries->currentIndex();
+    libraryModel_->deleteLibrary(index);
 }

@@ -25,7 +25,6 @@ PrerequisiteModel::~PrerequisiteModel()
 void PrerequisiteModel::load(const std::string& fileName)
 {
     size_t pos = fileName.find_last_of("/");
-    testPath_=fileName.substr(0,pos);
     pugi::xml_parse_result result = doc_.load_file(fileName.c_str());
     redraw();
 }
@@ -63,7 +62,7 @@ void PrerequisiteModel::redraw()
         itemList<<waitafterItem;
         itemList<<prefixItem;
 
-        QStringList list{"","",""};
+        QStringList list{"","","","","",""};
         commandItem->setData(list,Qt::UserRole);
         enabledItem->setData(list,Qt::UserRole);
         paramItem->setData(list,Qt::UserRole);

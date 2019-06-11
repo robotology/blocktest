@@ -6,40 +6,40 @@
  ******************************************************************************/
 
 /**
- * @file prerequisiteModel.h
+ * @file libraryModel.h
  * @author Luca Tricerri <luca.tricerri@iit.it>
  */
 
 
-#ifndef PREREQUISITEMODEL_H
-#define PREREQUISITEMODEL_H
+#ifndef LIBRARYMODEL_H
+#define LIBRARYMODEL_H
 
 #include "pugixml.hpp"
 
 #include <qstandarditemmodel.h>
 
 
-class PrerequisiteModel : public QStandardItemModel
+class LibraryModel : public QStandardItemModel
 {
     Q_OBJECT
 public:
-    PrerequisiteModel();
-    virtual ~PrerequisiteModel();
+    LibraryModel();
+    virtual ~LibraryModel();
     void load(const std::string& fileName);
     const pugi::xml_document& getDocument() const;
-    std::list<std::string> getPrerequisiteListEnabled() const;
+    std::list<std::string> getLibraryListEnabled() const;
 
-    void deletePrerequisite(const QModelIndex& index);
-    void newPrerequisite(const QModelIndex& index);
+    void deleteLibrary(const QModelIndex& index);
+    void newLibrary(const QModelIndex& index);
 
 public slots:
     void onChanged(QStandardItem * item);
 
 private:
     pugi::xml_document doc_;
-    std::list<std::string> prerequisiteListEnabled_;
+    std::list<std::string> libraryListEnabled_;
 
     void redraw();
 };
 
-#endif // PREREQUISITEMODEL_H
+#endif // LIBRARYMODEL_H

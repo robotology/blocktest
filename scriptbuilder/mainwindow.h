@@ -20,6 +20,7 @@
 #include "parametercommentmodel.h"
 #include "parameterslistmodel.h"
 #include "prerequisitemodel.h"
+#include "librarymodel.h"
 #include "scripttreemodel.h"
 #include "testsdepotmodel.h"
 #include "loggermodel.h"
@@ -53,6 +54,8 @@ private slots:
     void newTest();
     void newPrerequisite();
     void deletePrerequisite();
+    void newLibrary();
+    void deleteLibrary();
 
     void on_loadTests_clicked();
     void on_testsDepot_clicked(const QModelIndex &index);
@@ -74,6 +77,8 @@ private slots:
 
     void on_prerequisites_customContextMenuRequested(const QPoint &pos);
 
+    void on_libraries_customContextMenuRequested(const QPoint &pos);
+
 private:
     Ui::MainWindow *ui;
 
@@ -88,6 +93,7 @@ private:
     LoggerModel *loggerModel_{nullptr};
     LoggerModel *prerequisiteLoggerModel_{nullptr};
     QStringListModel *prerequisiteComboModel_{nullptr};
+    LibraryModel *libraryModel_{nullptr};
     void populateInfo();
 
     std::shared_ptr<boost::process::child> process_;

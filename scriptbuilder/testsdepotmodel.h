@@ -33,7 +33,7 @@ class TestsDepotModel : public QStandardItemModel
 public:
     TestsDepotModel();
     void load(const std::string& fileName);
-    void save(const std::string& fileName,const pugi::xml_document& prerequisiteDoc);
+    void save(const std::string& fileName,const pugi::xml_document& prerequisiteDoc,const pugi::xml_document& libraryDoc);
 
     void keypressed(QEvent* e,const QModelIndex &index);
     void keypressed(const QString& pressedK,const QModelIndex& index);

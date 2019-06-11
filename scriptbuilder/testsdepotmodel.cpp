@@ -111,7 +111,7 @@ void TestsDepotModel::redraw()
 
 }
 
-void TestsDepotModel::save(const std::string& fileName,const pugi::xml_document& prerequisiteDoc)
+void TestsDepotModel::save(const std::string& fileName,const pugi::xml_document& prerequisiteDoc,const pugi::xml_document& libraryDoc)
 {
     //Delete old prerequisite
     pugi::xpath_node_set prerequisiteOldNodes = docTestList_.select_nodes("/testlist/prerequisite");
@@ -124,6 +124,21 @@ void TestsDepotModel::save(const std::string& fileName,const pugi::xml_document&
     pugi::xpath_node testListRoot = docTestList_.select_node("/testlist");
     pugi::xpath_node_set prerequisiteNewNodes = prerequisiteDoc.select_nodes("/testlist/prerequisite");
     for(const pugi::xpath_node& current:prerequisiteNewNodes)
+    {
+        testListRoot.node().append_copy(current.node());
+    }
+
+    //Delete old library
+    pugi::xpath_node_set libraryOldNodes = docTestList_.select_nodes("/testlist/library");
+    for(const pugi::xpath_node& current:libraryOldNodes)
+    {
+        current.parent().remove_child(current.node());
+    }
+
+    //Add new library
+    testListRoot = docTestList_.select_node("/testlist");
+    pugi::xpath_node_set libraryNewNodes = libraryDoc.select_nodes("/testlist/library");
+    for(const pugi::xpath_node& current:libraryNewNodes)
     {
         testListRoot.node().append_copy(current.node());
     }
