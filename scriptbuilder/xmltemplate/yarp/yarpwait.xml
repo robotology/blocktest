@@ -1,1 +1,0 @@
-<command library="yarp" name="yarpwait" seconds="1" repetitions="1" wait="0" reporterror="true"></command>
