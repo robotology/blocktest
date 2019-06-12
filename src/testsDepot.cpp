@@ -103,7 +103,7 @@ void TestsDepot::loadSimulationCommand()
 execution TestsDepot::execute() const
 {     
     execution out{execution::continueexecution};
-    for(int index=0;index<repetitions_;++index)
+    for(size_t index=0;index<repetitions_;++index)
     {
         TXLOG(Severity::info)<<"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"<<std::endl;
         TXLOG(Severity::info)<<"+++TestList -Total repetitions:"<<repetitions_<<" -Actual repetition:"<<index+1<< " -Real robot:"<<realRobot_<<std::endl;
@@ -126,6 +126,7 @@ bool TestsDepot::waitTermination() const
         if(current->repetitions_)
             current->waitTermination();
     }
+	return true;
 }
 
 }
