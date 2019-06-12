@@ -72,6 +72,5 @@ if(COMPILE_SCRIPTBUILDER)
 
   #install
   install(TARGETS Scriptbuilder RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-
-    
+  install(DIRECTORY xmltemplate DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
