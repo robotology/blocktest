@@ -19,5 +19,4 @@
 #include <algorithm>
 #include <fstream>
 #include <mutex>
-#include <boost/filesystem.hpp>
 #include <iterator>

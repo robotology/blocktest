@@ -1,4 +1,5 @@
 #include "logger.h"
+#include <boost/filesystem.hpp>
 
 namespace BlockTestCore
 {
