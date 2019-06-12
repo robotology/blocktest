@@ -46,9 +46,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->parameterComment->setModel(parameterCommentModel_);
     ui->parameterComment->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+	ui->parameterComment->setWordWrap(false);
 
     ui->parametersList->setModel(parametersModel_);
     ui->parametersList->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+	ui->parametersList->setWordWrap(false);
 
     ui->commandTree->setModel(commandsModel_);
     ui->commandTree->expandAll();
@@ -94,12 +96,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->prerequisites->setItemDelegateForColumn(1, cbid);
     ui->prerequisites->setItemDelegateForColumn(3, cbid);
     ui->prerequisites->setContextMenuPolicy(Qt::CustomContextMenu);
+	ui->prerequisites->setWordWrap(false);
 
 
     ui->libraries->setModel(libraryModel_);
     ComboBoxItemDelegate* clibrary = new ComboBoxItemDelegate(ui->libraries);
     ui->libraries->setItemDelegateForColumn(1, clibrary);
     ui->libraries->setContextMenuPolicy(Qt::CustomContextMenu);
+	ui->libraries->setWordWrap(false);
 
     ui->prerequisiteLog->setModel(prerequisiteLoggerModel_);
 
