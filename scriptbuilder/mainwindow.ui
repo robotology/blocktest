@@ -913,61 +913,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_9">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>810</y>
-         <width>51</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Sans Serif</family>
-         <pointsize>12</pointsize>
-         <weight>50</weight>
-         <italic>false</italic>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;Sans Serif&quot;;
-background-color: rgba(0, 0, 0, 0);</string>
-       </property>
-       <property name="text">
-        <string>Code</string>
-       </property>
-       <property name="frame">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QTextBrowser" name="testCode">
-       <property name="geometry">
-        <rect>
-         <x>180</x>
-         <y>810</y>
-         <width>91</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-      </widget>
      </widget>
      <widget class="QGroupBox" name="actionsBox">
       <property name="geometry">

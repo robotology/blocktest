@@ -214,7 +214,7 @@ void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
     if(paramToShow.empty())
         return;
     QString fileName=paramToShow[URFfile];
-    QString code=paramToShow[URFcode];
+    //QString code=paramToShow[URFcode];
 
     size_t pos=testsDepotModel_->testPath_.find_last_of("/");
     std::string smallpath=testsDepotModel_->testPath_.substr(0,pos);
@@ -224,7 +224,7 @@ void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
     std::string strInLable=tmp.path().stem().string()+".xml";
 
     ui->testname->setText(strInLable.c_str());
-    ui->testCode->setText(code);
+    //ui->testCode->setText(code);
     ui->scriptTree->expandAll();
 
     populateInfo();
@@ -321,7 +321,7 @@ void MainWindow::on_testsDepot_customContextMenuRequested(const QPoint &pos)
     parameterCommentModel_->clear();
     parametersModel_->clearall();
     ui->testNote->clear();
-    ui->testCode->clear();
+    //ui->testCode->clear();
     ui->testVersion->clear();
 }
 
