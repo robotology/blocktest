@@ -1,3 +1,14 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @file action.cpp
+ * @author Luca Tricerri <luca.tricerri@iit.it>
+ */
 
 #include "action.h"
 #include "logger.h"

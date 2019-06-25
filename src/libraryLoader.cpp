@@ -12,6 +12,7 @@
 
 #include "libraryLoader.h"
 #include "logger.h"
+#include "actionDepotStart.h"
 
 #ifndef _WIN32
 #include <dlfcn.h>
@@ -22,8 +23,6 @@
 #include <boost/dll/shared_library.hpp>
 #include <boost/exception/diagnostic_information.hpp>
 #include <boost/filesystem.hpp>
-
-#include "pugixml.hpp"
 
 namespace BlockTestCore
 {
@@ -65,27 +64,38 @@ bool LibraryLoader::load(const std::string& path)
 
         try
         {
-            boost::function<funcptr> startFunction =  boost::dll::import<funcptr>(
-                currentPath+extension,
-                "Start",
-                boost::dll::load_mode::rtld_lazy
-                );
-
             boost::function<funcptr> stopFunction = boost::dll::import<funcptr>(
                 currentPath+extension,
                 "Stop",
                 boost::dll::load_mode::rtld_lazy
                 );
 
+            boost::function<funcptr1> configureFunction =  boost::dll::import<funcptr1>(
+                currentPath+extension,
+                "Configure",
+                boost::dll::load_mode::rtld_lazy
+                );                
+
             stopFunction_.emplace_back(stopFunction);                
 
-            if(startFunction)
-                startFunction((char*)completePath.c_str(),(char*)libraryName.c_str());    
+            std::map<std::string,std::string> settings=xmlLibrarySettingsToMap(doc,libraryName);
+            if(configureFunction)
+                configureFunction(settings);                   
         }
         catch(boost::exception const& e) {
             std::cout<<"------------------"<<boost::diagnostic_information(e, true)<<std::endl;
             TXLOG(Severity::criticalminimal)<<"Custom lib:"<<currentPath<<extension<<" error missing Start/Stop function in lib----"<<boost::diagnostic_information(e, true)<<std::endl;
             return false;
+        }
+        catch(std::exception& e)
+        {
+            std::string error;
+            error=e.what();
+            error=e.what();        
+        }
+        catch(...)
+        {
+            std::string error;
         }
         TXLOG(Severity::info)<<"Load lib ok:"<<currentPath<<extension<<std::endl;
     }
@@ -100,6 +110,28 @@ LibraryLoader::~LibraryLoader()
         if(current)
             current(nullptr,nullptr); 
     }
+}
+
+std::map<std::string,std::string> LibraryLoader::xmlLibrarySettingsToMap(const pugi::xml_document& doc,const std::string& libraryName)
+{
+    std::map<std::string,std::string> out;
+
+    pugi::xpath_node_set libraryNodes = doc.select_nodes("//librarysettings");
+    for(auto& current:libraryNodes)
+    {
+        if(current.node().attribute("name").as_string()!=libraryName)
+            continue;
+        
+        auto attributes=current.node().attributes();   
+        for(const pugi::xml_attribute& current:attributes)
+        {
+            std::pair<std::string,std::string> toAdd;
+            toAdd.first=current.name();
+            toAdd.second=current.value();
+            out.insert(toAdd);
+        }
+    }
+    return out;
 }
 
 }

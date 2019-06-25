@@ -36,6 +36,7 @@ set(BlockTestCoreSrc    src/action.cpp
                         src/logger.cpp
                         src/report.cpp
                         src/tables.cpp
+                        src/actionDepotStart.cpp
                         )
 
 set(BlockTestCoreHdr    src/api.h
@@ -116,6 +117,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 #-------Important
 #Let the singleton to be unique
 #-------Important
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set(CMAKE_EXE_LINKER_FLAGS  "-rdynamic")
 
 #add the action libraries

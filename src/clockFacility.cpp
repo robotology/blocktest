@@ -20,7 +20,6 @@ ClockFacility::ClockFacility()
     pugi::xpath_node settings = doc.select_node("//settings");
     waitcommand_=settings.node().attribute("waitcommand").value();
     nowcommand_=settings.node().attribute("nowcommand").value();
-    useNetClock_=settings.node().attribute("netclock").as_bool();
 }
 
 bool ClockFacility::wait(double value) const

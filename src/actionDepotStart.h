@@ -12,8 +12,10 @@
 
 #pragma once
 
-#include <api.h>
+#include "api.h"
 #include "general.h"
+
+using LibraryAttributes=std::map<std::string,std::string>;
 
 namespace BlockTestCore
 {
@@ -25,8 +27,15 @@ namespace BlockTestCore
 class BLOCKTEST_EXPORT ActionDepotStart
 {
     public:
-        virtual void configure(const std::string& path,const std::string& name) =0;
+        virtual void configure(const std::map<std::string,std::string>&) =0;
         virtual ~ActionDepotStart() = default;
+
+        //helper funcion
+        void getLibraryAttribute(const LibraryAttributes& libraryAttributes,const std::string& name,std::string& out) const;
+        void getLibraryAttribute(const LibraryAttributes& libraryAttributes,const std::string& name,unsigned int& out) const;
+        void getLibraryAttribute(const LibraryAttributes& libraryAttributes,const std::string& name,int& out) const;
+        void getLibraryAttribute(const LibraryAttributes& libraryAttributes,const std::string& name,double& out) const;
+        void getLibraryAttribute(const LibraryAttributes& libraryAttributes,const std::string& name,bool& out) const;        
 };
 
 }

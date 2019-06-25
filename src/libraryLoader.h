@@ -22,6 +22,8 @@
 #include <boost/exception/diagnostic_information.hpp>
 #include <boost/filesystem.hpp>
 
+#include "pugixml.hpp"
+
 namespace BlockTestCore
 {
 
@@ -35,8 +37,11 @@ class LibraryLoader
     private:
         const std::string testName_{"./test/test.xml"};
         typedef void (funcptr)( char*,char* );
+        typedef void (funcptr1)(const std::map<std::string,std::string>); 
 
         std::list<boost::function<funcptr>> stopFunction_;
+
+        std::map<std::string,std::string> xmlLibrarySettingsToMap(const pugi::xml_document& doc,const std::string& libraryName);
 };
 
 }
