@@ -49,7 +49,6 @@ public:
     std::set<std::string> commandOnlySim_;   
 
 private:
-    static  std::string robotStr_;
     static  std::string waitcommand_;
     const std::string testName_{"./test/test.xml"};    
 

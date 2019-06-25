@@ -19,7 +19,6 @@
 namespace BlockTestCore
 {
 
-std::string TestsDepot::robotStr_="";
 std::string TestsDepot::waitcommand_="";
 
 TestsDepot::TestsDepot()
@@ -65,11 +64,6 @@ bool TestsDepot::valid() const
     return data_.size();
 }
 
-std::string TestsDepot::getRobotStr()
-{
-    return robotStr_;
-}
-
 std::string TestsDepot::getWaitCommand()
 {
     return waitcommand_;
@@ -88,7 +82,6 @@ void TestsDepot::loadSimulationCommand()
         return current;
     });
 
-    robotStr_ =settings.node().attribute("robotname").value();
     realRobot_ =settings.node().attribute("realrobot").as_bool();
     std::string logseverity=settings.node().attribute("logseverity").value();
     loggingTime_=settings.node().attribute("loggingtime").as_double();
