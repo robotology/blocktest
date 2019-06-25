@@ -95,6 +95,9 @@ ccmake ..
 ```
 ![alt text](img/img003.png "Tarp and Scriptbuilder options.")
 
+Select your preferred installation folder using:
+CMAKE_INSTALL_PREFIX
+
 
 # 5. Test writing
 
@@ -104,7 +107,7 @@ Else the starting point for writing a test is the file ./test/test.xml
 ```xml
     <testlist repetitions="1">
 
-   <settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" 
+   <settings  realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce"  
             neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab" 
             waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp"/> <!--loggingtime in sec-->
 
@@ -116,11 +119,11 @@ Else the starting point for writing a test is the file ./test/test.xml
 
     <!--Libraries-->
     <library enabled="true" path="genericactiondepotlib/libgenericactiondepot.so" name="genericactiondepot" note="System generic action library"/>
-    <library enabled="true" path="yarpactiondepotlib/libyarpactiondepot.so" name="yarpactiondepot" note="Yarp action library"/>
+    <library enabled="true" path="yarpactiondepotlib/libyarpactiondepot.so" name="yarpactiondepot" note="Yarp action library" />
 
     <!--Libraries settings-->
     <librarysettings enabled="true" name="genericactiondepot"/>
-    <librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm"/>
+    <librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="true"/>
    
     
     <!--**************************-->
@@ -149,10 +152,8 @@ This file contains:
 
 | Param name           | Default value        | Comment                                                                                        |
 | -------------------- | -------------------- | ---------------------------------------------------------------------------------------------- |
-| robotname            | icubSim              | Robot name to be used                                                                          |
 | realrobot            | false                | Indicates if it is a real robot in test, or it is a Gazebo simulation                          |
 | onlysimcommands      | yarpreset applyForce | Indicates which are the commands to be executed only in simulation                             |
-| simclock             | true                 | Indicates if the network clock should be used. In the case it is used the one on "/clock" port |
 | neverexecutecommands | ---                  | Indicates which are the commands not to be executed.                                           |
 | logseverity          | info                 | Indicates the severity to be logged in log.log                                                 |
 | loggingtime          | 0.01                 | Indicates the time in seconds for logging joint info if are requested in test.                 |
@@ -166,7 +167,20 @@ In this section it is possible to specify the plugin library to be used.
 
 ```xml
 <library enabled="true" path="genericactiondepotlib/libgenericactiondepot.so" name="genericactiondepot" note="System generic action library"/>
-<library enabled="true" path="yarpactiondepotlib/libyarpactiondepot.so" name="yarpactiondepot" note="Yarp action library"/>
+<library enabled="true" path="yarpactiondepotlib/libyarpactiondepot.so" name="yarpactiondepot" note="Yarp action library" />
+```
+
+| Param name | Default value | Comment                          |
+| ---------- | ------------- | -------------------------------- |
+| enabled    | true          | If these settings will be loaded |
+| name       | ---           | library tag name                 |
+| ...        | ...           | ...                              |
+
+```xml
+<!--Libraries settings-->
+<librarysettings enabled="true" name="genericactiondepot"/>
+
+<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="true"/>
 ```
 
 | Param name | Default value | Comment                       |
@@ -175,21 +189,10 @@ In this section it is possible to specify the plugin library to be used.
 | path       | ---           | Librari .so file path         |
 | name       | ---           | library tag name              |
 | note       | ---           | Explanation notes             |
-
+| robotname            | icubSim              | Robot name to be used
+| simclock             | true                 | Indicates if the network clock should be used. In the case it is used the one on "/clock" port |
 In this section it is also possible to specify the plugin library settings.
 
-```xml
-<!--Libraries settings-->
-<librarysettings enabled="true" name="genericactiondepot"/>
-
-<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm"/>
-```
-
-| Param name | Default value | Comment                          |
-| ---------- | ------------- | -------------------------------- |
-| enabled    | true          | If these settings will be loaded |
-| name       | ---           | library tag name                 |
-| ...        | ...           | ...                              |
 
 
 ## 5.3. Prerequisites
