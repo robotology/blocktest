@@ -39,6 +39,7 @@ class BLOCKTEST_EXPORT Action
 
     protected:
         std::string normalize(const std::string& str,bool justFetch) const;
+        std::string normalizeSingle(const std::string& str,bool justFetch) const;
         double normalizeDouble(const std::string& str,bool justFetch) const;
         Test& getMyTest();
 
