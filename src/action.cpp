@@ -26,6 +26,32 @@ Action::Action(const CommandAttributes& commandAttributes,const std::string& tes
 std::string Action::normalize(const std::string& str,bool justFetch) const
 {
     std::string out=str;
+
+    std::vector<std::string> tokens;
+    tokenize(str,tokens);
+    if(tokens.empty())
+        return out;
+
+    std::vector<std::string> outToken(tokens.size());
+    
+    for(unsigned int index=0;index<tokens.size();++index)
+    {
+        outToken[index]=normalizeSingle(tokens[index],justFetch);
+    }
+
+    std::stringstream ss;
+    for(const auto& current:outToken)
+    {
+        ss<<current<<" ";
+    }
+    out=ss.str().substr(0,ss.str().size()-1);
+
+    return out;
+}
+
+std::string Action::normalizeSingle(const std::string& str,bool justFetch) const
+{
+    std::string out=str;
     size_t currentListPos=0;
     while(currentListPos<out.size())
     {
@@ -78,7 +104,9 @@ void Action::getCommandAttribute(const CommandAttributes& commandAttributes,cons
         TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
         return;
     }
-    out=found->second;
+    out=normalize(found->second,false);
+
+
 }
 
 void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,int& out) const
