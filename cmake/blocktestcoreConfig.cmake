@@ -66,10 +66,7 @@ set(blocktestcore_INCLUDE_DIRS ${blocktestcore_INCLUDE_DIR})
 find_package_handle_standard_args(blocktestcore
                                   FOUND_VAR blocktestcore_FOUND
                                   REQUIRED_VARS blocktestcore_LIBRARIES blocktestcore_INCLUDE_DIRS)
-message(STATUS "-----------")
-message(STATUS "${blocktestcore_FOUND}")
-message(STATUS "${blocktestcore_FOUND}")
-message(STATUS "-----------")
+
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)
     set_package_properties(blocktestcore PROPERTIES DESCRIPTION "The application provides functionalities for developing and running not regression tests in a likely natural language as close as possible to test case writing"
