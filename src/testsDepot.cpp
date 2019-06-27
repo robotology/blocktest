@@ -38,7 +38,7 @@ bool TestsDepot::load(const std::string& path)
     else
         completePath=testName_;
         
-    pugi::xml_parse_result result=doc_.load_file(completePath.c_str());
+    doc_.load_file(completePath.c_str());
 
     pugi::xpath_node root = doc_.select_node("//testlist");
     pugi::xpath_node nodeRoot = root;

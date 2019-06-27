@@ -32,31 +32,32 @@ ActionExecute::ActionExecute(const CommandAttributes& commandAttributes,const st
 
 execution ActionExecute::execute(unsigned int testrepetition)
 {
+    std::string tagTmp=normalizeSingle(tag_,false);
     if(kill_)
     {
-        if(processes_.find(tag_)==processes_.end())
+        if(processes_.find(tagTmp)==processes_.end())
         {
-            TXLOG(Severity::critical)<<"Tag for kill not found:"<<tag_<<std::endl;
+            TXLOG(Severity::critical)<<"Tag for kill not found:"<<tagTmp<<std::endl;
             return execution::stopexecution;
         }
 
-        auto process=processes_[tag_];
+        auto process=processes_[tagTmp];
         process->terminate();
-        processes_.erase(tag_);
+        processes_.erase(tagTmp);
         std::this_thread::sleep_for(std::chrono::seconds(waitafter_));
         return execution::continueexecution;
     }
     std::stringstream ss;
     ss<<prefix_<<" "<<commandName_<<" "<<normalize(commandParam_,false)<<" &";
 
-    if(processes_.find(tag_)!=processes_.end())
+    if(processes_.find(tagTmp)!=processes_.end())
     {
-        TXLOG(Severity::critical)<<"Duplicate execute command tag:"<<tag_<<std::endl;
+        TXLOG(Severity::critical)<<"Duplicate execute command tag:"<<tagTmp<<std::endl;
         return execution::stopexecution;
     }
 
     auto process=std::make_shared<boost::process::child>(ss.str());
-    processes_[tag_]=process;
+    processes_[tagTmp]=process;
 
     std::this_thread::sleep_for(std::chrono::seconds(waitafter_));
     return execution::continueexecution;

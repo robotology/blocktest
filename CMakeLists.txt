@@ -36,6 +36,10 @@ set(BlockTestCoreSrc    src/action.cpp
                         src/logger.cpp
                         src/report.cpp
                         src/tables.cpp
+                        src/table.cpp
+                        src/tableIncrement.cpp
+                        src/tableNormal.cpp
+                        src/tableWave.cpp
                         src/actionDepotStart.cpp
                         )
 
@@ -52,6 +56,10 @@ set(BlockTestCoreHdr    src/api.h
                         src/loggerRegister.h
                         src/report.h
                         src/tables.h
+                        src/table.h
+                        src/tableIncrement.h
+                        src/tableNormal.h
+                        src/tableWave.h
                         src/type.h
                         )
 set(CMAKE_AUTOMOC ON)

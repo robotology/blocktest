@@ -6,7 +6,7 @@
  ******************************************************************************/
 
 /**
- * @file tables.h
+ * @file tableincrement.h
  * @authors: Luca Tricerri <luca.tricerri@iit.it>
  */
 
@@ -19,25 +19,19 @@
 namespace BlockTestCore
 {
 
-class BLOCKTEST_EXPORT Tables
-{
+class TableIncrement: public Table
+{ 
     public:
-        static Tables& instance();
-        
-        void dump();
+        bool Init(std::vector<std::string> tableValue) override;
 
-        std::string get(const std::string &tableName);
-        std::string fetch(const std::string &tableName);
-        std::string get(const std::string &tableName,unsigned int position);
-        bool load(const std::string& fileName);
-
-        Tables(const Tables& copy) = delete;
-        void operator=(const Tables& copy) = delete;
+        std::string get() override;
+        std::string fetch() override;
+        std::string get(unsigned int position) const override;
 
     private:
-        Tables();
-        void commentRemove(std::string& str);
-        std::map<std::string,Table_sptr> tables_;
+        double incrementValue_{0};
+        double start_{0};
+        double stop_{0};
+   
 };
-
 }

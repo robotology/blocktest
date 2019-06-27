@@ -6,7 +6,7 @@
  ******************************************************************************/
 
 /**
- * @file tables.h
+ * @file tablenormal.h
  * @authors: Luca Tricerri <luca.tricerri@iit.it>
  */
 
@@ -19,25 +19,13 @@
 namespace BlockTestCore
 {
 
-class BLOCKTEST_EXPORT Tables
-{
+class TableNormal: public Table
+{ 
     public:
-        static Tables& instance();
-        
-        void dump();
+        bool Init(std::vector<std::string> tableValue) override;
 
-        std::string get(const std::string &tableName);
-        std::string fetch(const std::string &tableName);
-        std::string get(const std::string &tableName,unsigned int position);
-        bool load(const std::string& fileName);
-
-        Tables(const Tables& copy) = delete;
-        void operator=(const Tables& copy) = delete;
-
-    private:
-        Tables();
-        void commentRemove(std::string& str);
-        std::map<std::string,Table_sptr> tables_;
+        std::string get() override;
+        std::string fetch() override;
+        std::string get(unsigned int position) const override;
 };
-
 }

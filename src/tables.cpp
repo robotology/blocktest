@@ -13,6 +13,10 @@
 #include "tables.h"
 #include "logger.h"
 
+#include "tableIncrement.h"
+#include "tableNormal.h"
+#include "tableWave.h"
+
 namespace BlockTestCore
 {
 
@@ -64,13 +68,25 @@ bool Tables::load(const std::string& fileName)
         }
         std::string name=out[0];
         std::string type=out[1];
-        std::string incrementBy=out[2];
-        out.erase(out.begin());//table name
-        out.erase(out.begin());//table type
-        out.erase(out.begin());//increment by
         //TXLOG(Severity::debug)<<"Name:"<<name<<" start:"<<startName<<" end:"<<endName<<std::endl;
         currentListPos=endName;
-        tables_[name]=Table(out,0,name,type,incrementBy);
+        
+        if(type=="increment")
+            tables_[name]=std::make_shared<TableIncrement>();
+        else if(type=="normal")
+            tables_[name]=std::make_shared<TableNormal>();
+        else if(type=="wave")
+            tables_[name]=std::make_shared<TableWave>();
+        else        
+        {
+            TXLOG(Severity::critical)<<"Wrong table type"<<std::endl;
+            return false;
+        }
+        if(!tables_[name]->Init(out))
+        {
+            TXLOG(Severity::critical)<<"Table creation:"<<name<<std::endl;
+            return false;
+        }
     }
 
     //dump();
@@ -106,7 +122,7 @@ void Tables::dump()
     ss<<"Tables dump size:"<<tables_.size()<<std::endl;
     for(auto current:tables_)
     {
-        ss<<current.second.dump();
+        ss<<current.second->dump();
     }
     TXLOG(Severity::debug)<<ss.str()<<std::endl;
 }
@@ -119,7 +135,7 @@ std::string Tables::get(const std::string &tableName)
         return "";
     }
 
-    return tables_[tableName].get();
+    return tables_[tableName]->get();
 }
 
 std::string Tables::fetch(const std::string &tableName)
@@ -130,167 +146,12 @@ std::string Tables::fetch(const std::string &tableName)
         return "";
     }
 
-    return tables_[tableName].fetch();    
+    return tables_[tableName]->fetch();    
 }
 
 std::string Tables::get(const std::string &tableName,unsigned int position)
 {
-    return tables_[tableName].get(position);
-}
-
-std::string Tables::Table::get()
-{
-    if(type_=="normal")
-    {
-        if(currentPosition_>table_.size()-1)
-        {
-            TXLOG(Severity::debug)<<"Reset table:"<<std::endl;
-            currentPosition_=0;
-        }
-
-        auto out=table_[currentPosition_];        
-        if(needChange())
-            ++currentPosition_;
-        return out;
-    }
-    else if(type_=="increment")
-    {
-        if(table_.size()!=3)
-        {
-            TXLOG(Severity::error)<<"Wrong param number for increment table:"<<name_<<std::endl;
-            return "";
-        }
-        double increment=std::atof(table_[0].c_str());
-        double start=std::atof(table_[1].c_str());
-        double max=std::atof(table_[2].c_str());
-
-        if(std::signbit(max - start) != std::signbit(increment))
-        {
-            TXLOG(Severity::critical)<<"increment has a different sign respet to the target value:"<<name_<<std::endl;
-            exit(1); //TODO move these lines in another place
-        }
-        bool needInc=needIncrement(); 
-        if(!needInc)
-            increment=0;
-
-
-        std::stringstream ss;
-        ss<<currentValue_;
-        if(increment > 0)
-        {
-            if(currentValue_ >= max && needInc)
-                currentValue_=start;
-            else
-                currentValue_ += increment;
-        }
-        else
-        {
-            if(currentValue_ <= max && needInc)
-                currentValue_=start;
-            else
-                currentValue_ += increment;
-        }
-
-        return ss.str();
-    }
-    else
-    {
-        TXLOG(Severity::error)<<"Wrong table type:"<<name_<<std::endl;
-    }
-
-    return "";
-};
-
-std::string Tables::Table::fetch()
-{
-    if(type_=="normal")
-    {
-        auto out=table_[currentPosition_];        
-        return out;
-    }
-    else if(type_=="increment")
-    {
-        /*double increment=std::atof(table_[0].c_str());
-        double start=std::atof(table_[1].c_str());
-        double max=std::atof(table_[2].c_str());
-        */
-        std::stringstream ss;
-        ss<<currentValue_;
-        return ss.str();
-    }
-    else
-    {
-        TXLOG(Severity::error)<<"Wrong table type:"<<name_<<std::endl;
-    }
-
-    return "";
-};
-
-std::string Tables::Table::get(unsigned int position) const
-{
-   if(type_=="normal")
-   {
-        if(position>table_.size()-1)
-        {
-            TXLOG(Severity::error)<<"Wrong position for table"<<std::endl;
-            return "";
-        }
-        return table_[currentPosition_];
-    }
-    else
-    {
-        TXLOG(Severity::error)<<"Wrong table type 1:"<<name_<<std::endl;
-    }
-    
-    return "";
-}
-
-std::string Tables::Table::dump() const
-{
-    std::stringstream ss;
-    ss<<"Name:"<<name_<<" Type:"<<type_<<" IncrementBy:"<<incrementBy_<<std::endl;
-    for(auto current:table_)
-    {
-        ss<<current<<std::endl;
-    }
-    return ss.str();
-}
-
- Tables::Table::Table(std::vector<std::string> table,unsigned int position,const std::string& name,const std::string& type,const std::string& incrementBy):
-                                                                                                        table_{table},
-                                                                                                        currentPosition_{position},
-                                                                                                        type_{type},
-                                                                                                        name_(name)                                                                                                      
-{
-    incrementBy_=std::atoi(incrementBy.c_str());
-    if(type_=="increment")
-    {
-        currentValue_=std::atof(table_[1].c_str());
-    }
-}
-
-bool Tables::Table::needChange()
-{
-    ++currentIncrementByCounter_;
-    
-    if(incrementBy_==currentIncrementByCounter_)
-    {
-        currentIncrementByCounter_=0;
-        return true;
-    }
-    return false;
-}
-
-bool Tables::Table::needIncrement()
-{   
-    if(incrementBy_==currentIncrementByCounter_)
-    {
-        currentIncrementByCounter_=1;
-        return true;
-    }
-
-    ++currentIncrementByCounter_;
-    return false;
+    return tables_[tableName]->get(position);
 }
 
 }
