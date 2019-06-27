@@ -51,14 +51,14 @@ std::string TableWave::get()
 
     if(incrementValue_ > 0)
     {
-        if(currentValue_ >= stop_)
+        if(std::fabs(currentValue_-stop_) < tollerance || currentValue_ > stop_)
             incrementValue_=-incrementValue_;
         else
             currentValue_ += incrementValue_;
     }
     else
     {
-        if(currentValue_ <= start_)
+        if(std::fabs(currentValue_-start_) < tollerance || currentValue_ < start_)
             incrementValue_=-incrementValue_;
         else
             currentValue_ += incrementValue_;

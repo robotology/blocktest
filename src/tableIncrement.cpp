@@ -51,14 +51,14 @@ std::string TableIncrement::get()
 
     if(incrementValue_ > 0)
     {
-        if(currentValue_ >= stop_)
+        if(std::fabs(currentValue_-stop_) < tollerance || currentValue_ > stop_)
             currentValue_=start_;
         else
             currentValue_ += incrementValue_;
     }
     else
     {
-        if(currentValue_ <= stop_ )
+        if(std::fabs(currentValue_-stop_) < tollerance || currentValue_ < stop_)
             currentValue_=start_;
         else
             currentValue_ += incrementValue_;

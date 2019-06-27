@@ -18,6 +18,8 @@
 namespace BlockTestCore
 {
 
+constexpr float tollerance = 0.000001;
+
 class Table
 { 
     public:
