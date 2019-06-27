@@ -81,9 +81,10 @@ std::string Action::normalizeSingle(const std::string& str,bool justFetch) const
 
 double Action::normalizeDouble(const std::string& str,bool justFetch) const
 {
-    if(normalize(str,justFetch).empty())
+    std::string tmp=normalize(str,justFetch);
+    if(tmp.empty())
         return NAN;
-    double out=std::atof(normalize(str,justFetch).c_str());
+    double out=std::atof(tmp.c_str());
     return out;
 }
 

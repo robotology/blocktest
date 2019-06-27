@@ -110,9 +110,9 @@ test3          (table name)
 wave   (table type)
 1           (increment by time)
 
-0.1        (increment unit)
+1       (increment unit)
 0          (min)
-25          (max)
+24          (max)
 ]
 
 [
