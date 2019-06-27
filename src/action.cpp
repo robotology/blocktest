@@ -104,9 +104,7 @@ void Action::getCommandAttribute(const CommandAttributes& commandAttributes,cons
         TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
         return;
     }
-    out=normalize(found->second,false);
-
-
+    out=found->second;
 }
 
 void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,int& out) const

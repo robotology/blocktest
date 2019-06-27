@@ -164,15 +164,33 @@ std::string Tables::Table::get()
         double start=std::atof(table_[1].c_str());
         double max=std::atof(table_[2].c_str());
 
+        if(std::signbit(max - start) != std::signbit(increment))
+        {
+            TXLOG(Severity::critical)<<"increment has a different sign respet to the target value:"<<name_<<std::endl;
+            exit(1); //TODO move these lines in another place
+        }
         bool needInc=needIncrement(); 
         if(!needInc)
             increment=0;
 
-        currentValue_=increment+currentValue_;
+
         std::stringstream ss;
         ss<<currentValue_;
-        if(currentValue_>max && needInc)
-            currentValue_=start;
+        if(increment > 0)
+        {
+            if(currentValue_ >= max && needInc)
+                currentValue_=start;
+            else
+                currentValue_ += increment;
+        }
+        else
+        {
+            if(currentValue_ <= max && needInc)
+                currentValue_=start;
+            else
+                currentValue_ += increment;
+        }
+
         return ss.str();
     }
     else
