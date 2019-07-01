@@ -97,8 +97,11 @@ std::string ClockFacility::now() const
         CommandAttributes commandAttributes{{"command","wait"},{"reporterror","false"}};
 
         auto action=(call)(commandAttributes,"");
+        double test=action->getDouble();
         std::stringstream ss;
-        ss<<std::setfill('0')<<std::setw(8)<<std::setprecision(4)<<action->getDouble();
+        ss.setf(std::ios::fixed);
+        ss<<std::setfill('0')<<std::setw(9)<<std::setprecision(3)<<action->getDouble();
+        std::string test1=ss.str();
         return ss.str();
     }
     else
@@ -108,7 +111,8 @@ std::string ClockFacility::now() const
             std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
             double value=(double)(now.count()-begin_.count())/1000;
             std::stringstream ss;
-            ss<<std::setfill('0')<<std::setw(8)<<std::setprecision(4)<<value;
+            ss.setf(std::ios::fixed);
+            ss<<std::setfill('0')<<std::setw(9)<<std::setprecision(3)<<value;
             return ss.str();
         }
         else
