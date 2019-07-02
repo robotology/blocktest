@@ -33,6 +33,7 @@ class BLOCKTEST_EXPORT Action
 {
     public:      
         Action(const CommandAttributes& commandAttributes,const std::string& testCode);
+        virtual void beforeExecute() =0;
         virtual execution execute(unsigned int testrepetition)=0;
         virtual double getDouble() {return 0;};
         virtual ~Action();
@@ -49,11 +50,14 @@ class BLOCKTEST_EXPORT Action
         bool reporterror_{true};
 
         //helper funcion
-        void getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,std::string& out) const;
-        void getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,unsigned int& out) const;
-        void getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,int& out) const;
-        void getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,double& out) const;
-        void getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,bool& out) const;
+        void getCommandAttribute(const std::string& name,std::string& out) const;
+        void getCommandAttribute(const std::string& name,unsigned int& out) const;
+        void getCommandAttribute(const std::string& name,int& out) const;
+        void getCommandAttribute(const std::string& name,double& out) const;
+        void getCommandAttribute(const std::string& name,bool& out) const;
+
+    private:
+        const CommandAttributes commandAttributes_;
 
     public:  
         //helper funcion      

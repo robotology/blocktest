@@ -18,9 +18,9 @@
 namespace BlockTestCore
 {
 
-Action::Action(const CommandAttributes& commandAttributes,const std::string& testCode):testCode_(testCode)
+Action::Action(const CommandAttributes& commandAttributes,const std::string& testCode):testCode_(testCode),commandAttributes_(commandAttributes)
 {
-    getCommandAttribute(commandAttributes,"reporterror",reporterror_);
+    getCommandAttribute("reporterror",reporterror_);
 }
 
 std::string Action::normalize(const std::string& str,bool justFetch) const
@@ -98,23 +98,25 @@ Action::~Action()
 {
 }
 
-void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,std::string& out) const
+void Action::getCommandAttribute(const std::string& name,std::string& out) const
 {
     std::map<std::string,std::string>::const_iterator found;
-    found=commandAttributes.find(name);
-    if(found==commandAttributes.end())
+    found=commandAttributes_.find(name);
+    if(found==commandAttributes_.end())
     {
         TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
+        out="";
         return;
     }
     out=found->second;
+    out=normalize(out,false);
 }
 
-void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,int& out) const
+void Action::getCommandAttribute(const std::string& name,int& out) const
 {
     std::map<std::string,std::string>::const_iterator found;
-    found=commandAttributes.find(name);
-    if(found==commandAttributes.end())
+    found=commandAttributes_.find(name);
+    if(found==commandAttributes_.end())
     {
         TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
         return;
@@ -130,11 +132,11 @@ void Action::getCommandAttribute(const CommandAttributes& commandAttributes,cons
     }
 }
 
-void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,unsigned int& out) const
+void Action::getCommandAttribute(const std::string& name,unsigned int& out) const
 {
     std::map<std::string,std::string>::const_iterator found;
-    found=commandAttributes.find(name);
-    if(found==commandAttributes.end())
+    found=commandAttributes_.find(name);
+    if(found==commandAttributes_.end())
     {
         TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
         return;
@@ -150,11 +152,11 @@ void Action::getCommandAttribute(const CommandAttributes& commandAttributes,cons
     }
 }
 
-void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,double& out) const
+void Action::getCommandAttribute(const std::string& name,double& out) const
 {
     std::map<std::string,std::string>::const_iterator found;
-    found=commandAttributes.find(name);
-    if(found==commandAttributes.end())
+    found=commandAttributes_.find(name);
+    if(found==commandAttributes_.end())
     {
         TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
         return;
@@ -170,11 +172,11 @@ void Action::getCommandAttribute(const CommandAttributes& commandAttributes,cons
     }
 }
 
-void Action::getCommandAttribute(const CommandAttributes& commandAttributes,const std::string& name,bool& out) const
+void Action::getCommandAttribute(const std::string& name,bool& out) const
 {
     std::map<std::string,std::string>::const_iterator found;
-    found=commandAttributes.find(name);
-    if(found==commandAttributes.end())
+    found=commandAttributes_.find(name);
+    if(found==commandAttributes_.end())
     {
         TXLOG(Severity::error)<<"Command attribute not found name:"<<name<<std::endl;
         return;
