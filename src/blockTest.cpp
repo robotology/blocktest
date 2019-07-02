@@ -22,14 +22,19 @@ BlockTest::BlockTest(const std::string &path):path_(path)
     tests_=std::make_shared<BlockTestCore::TestsDepot>();
     BlockTestCore::Logger::instance();
     
-    TXLOG(Severity::info)<<"*******************"<<std::endl;
-    TXLOG(Severity::info)<<"**Start simulator**"<<std::endl;
-    TXLOG(Severity::info)<<"*******************"<<std::endl;
+    TXLOG(Severity::info)<<"*********************"<<std::endl;
+    TXLOG(Severity::info)<<"**Start Test system**"<<std::endl;
+    TXLOG(Severity::info)<<"*********************"<<std::endl;
 }
 
  BlockTest::~BlockTest()
  {
      TXLOG(Severity::debug)<<"BlockTest destroyed"<<std::endl;
+
+    TXLOG(Severity::info)<<"********************"<<std::endl;
+    TXLOG(Severity::info)<<"**Stop Test system**"<<std::endl;
+    TXLOG(Severity::info)<<"********************"<<std::endl;
+
  }
 
 unsigned int BlockTest::run()
