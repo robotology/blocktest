@@ -32,9 +32,8 @@ Fixture::Fixture(const std::string& path)
 
     pugi::xpath_node_set fixturesNode = doc.select_nodes("//prerequisite");
 
-    for (pugi::xpath_node_set::const_iterator it = fixturesNode.begin(); it != fixturesNode.end(); ++it)
+    for (const auto& nodeFixture : fixturesNode)
     {
-        pugi::xpath_node nodeFixture = *it;
         std::string command=nodeFixture.node().attribute("command").value();
         bool enabled=nodeFixture.node().attribute("enabled").as_bool();
         std::string param=nodeFixture.node().attribute("param").value();
