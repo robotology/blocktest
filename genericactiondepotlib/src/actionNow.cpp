@@ -22,10 +22,13 @@ ActionNow::ActionNow(const CommandAttributes& commandAttributes,const std::strin
 {
 }     
 
-execution ActionNow::execute(unsigned int testrepetition)
+execution ActionNow::execute(unsigned int)
 {
     return execution::continueexecution;
 }
+
+void ActionNow::beforeExecute()
+{}
 
 double ActionNow::getDouble()
 {

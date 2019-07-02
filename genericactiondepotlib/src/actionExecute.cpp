@@ -22,15 +22,19 @@ std::map<std::string,std::shared_ptr<boost::process::child>> ActionExecute::proc
 
 ActionExecute::ActionExecute(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
-    getCommandAttribute(commandAttributes,"tag",tag_);
-    getCommandAttribute(commandAttributes,"command",commandName_);
-    getCommandAttribute(commandAttributes,"param",commandParam_);
-    getCommandAttribute(commandAttributes,"prefix",prefix_);
-    getCommandAttribute(commandAttributes,"waitafter",waitafter_);
-    getCommandAttribute(commandAttributes,"kill",kill_); 
-}     
+}   
 
-execution ActionExecute::execute(unsigned int testrepetition)
+void ActionExecute::beforeExecute()
+{
+    getCommandAttribute("tag",tag_);
+    getCommandAttribute("command",commandName_);
+    getCommandAttribute("param",commandParam_);
+    getCommandAttribute("prefix",prefix_);
+    getCommandAttribute("waitafter",waitafter_);
+    getCommandAttribute("kill",kill_); 
+}
+
+execution ActionExecute::execute(unsigned int)
 {
     std::string tagTmp=normalizeSingle(tag_,false);
     if(kill_)

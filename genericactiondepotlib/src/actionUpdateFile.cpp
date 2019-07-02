@@ -22,11 +22,15 @@ namespace GenericActions
 
 ActionUpdateFile::ActionUpdateFile(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
-    getCommandAttribute(commandAttributes,"sourcefile",sourceFile_);
-    getCommandAttribute(commandAttributes,"destinationfile",destinationFile_);    
 }     
 
-execution ActionUpdateFile::execute(unsigned int testrepetition)
+void ActionUpdateFile::beforeExecute()
+{
+    getCommandAttribute("sourcefile",sourceFile_);
+    getCommandAttribute("destinationfile",destinationFile_);        
+}
+
+execution ActionUpdateFile::execute(unsigned int)
 {
     std::ifstream ifs(sourceFile_);
     if(!ifs.is_open())

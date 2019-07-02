@@ -22,12 +22,16 @@ namespace GenericActions
 
 ActionNop::ActionNop(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 {
-    getCommandAttribute(commandAttributes,"fixvalue",fixvalue_);
-    getCommandAttribute(commandAttributes,"tables",tables_);
-    getCommandAttribute(commandAttributes,"printerror",printerror_);
-    getCommandAttribute(commandAttributes,"justonetime",justOneTime_);
-    getCommandAttribute(commandAttributes,"printtestinfo",printtestinfo_); 
-}     
+}  
+
+void ActionNop::beforeExecute()
+{
+    getCommandAttribute("fixvalue",fixvalue_);
+    getCommandAttribute("tables",tables_);
+    getCommandAttribute("printerror",printerror_);
+    getCommandAttribute("justonetime",justOneTime_);
+    getCommandAttribute("printtestinfo",printtestinfo_); 
+}
 
 execution ActionNop::execute(unsigned int testrepetition)
 {
