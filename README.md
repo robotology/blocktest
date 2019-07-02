@@ -5,40 +5,40 @@
 
 # 2. Block Test
 
-- [1. CI Status](#1-ci-status)
-- [2. Block Test](#2-block-test)
-- [3. Introduction](#3-introduction)
-- [4. Installation](#4-installation)
-  - [4.1. Prerequisite Linux](#41-prerequisite-linux)
-  - [4.2. Prerequisite Windows](#42-prerequisite-windows)
-  - [4.3. Installation and compilation](#43-installation-and-compilation)
-- [5. Test writing](#5-test-writing)
-  - [5.1. General Settings](#51-general-settings)
-  - [5.2. Library Settings](#52-library-settings)
-  - [5.3. Prerequisites](#53-prerequisites)
-  - [5.4. Test list](#54-test-list)
-    - [5.4.1. Parallel or serie execution](#541-parallel-or-serie-execution)
-    - [5.4.1. Repetitions](#541-repetitions)
-  - [5.5. Finally the test](#55-finally-the-test)
-    - [5.5.1. Generic commands](#551-generic-commands)
-  - [5.6. Test writing with Scriptbuilder](#56-test-writing-with-scriptbuilder)
-- [6. Parametric test](#6-parametric-test)
-  - [6.1. Table](#61-table)
-  - [6.2. Using the parameter](#62-using-the-parameter)
-  - [6.3. Examples](#63-examples)
-- [7. Test execution](#7-test-execution)
-- [8. Logging](#8-logging)
-  - [8.1. Application logging](#81-application-logging)
-  - [8.2. Sensors logging](#82-sensors-logging)
-  - [8.3. Plot logging](#83-plot-logging)
-  - [8.4. Report](#84-report)
-- [9. Specific plugin writing](#9-specific-plugin-writing)
-  - [9.1. Yarp BlockTest plugin](#91-yarp-blocktest-plugin)
-  - [9.2. Create new repository for plugin](#92-create-new-repository-for-plugin)
-  - [9.3. Create plugin initialization](#93-create-plugin-initialization)
-  - [9.4. Blocks writing](#94-blocks-writing)
-  - [9.5. XML files](#95-xml-files)
-- [10. Authors](#10-authors)
+- [1. CI Status](#1-CI-Status)
+- [2. Block Test](#2-Block-Test)
+- [3. Introduction](#3-Introduction)
+- [4. Installation](#4-Installation)
+  - [4.1. Prerequisite Linux](#41-Prerequisite-Linux)
+  - [4.2. Prerequisite Windows](#42-Prerequisite-Windows)
+  - [4.3. Installation and compilation](#43-Installation-and-compilation)
+- [5. Test writing](#5-Test-writing)
+  - [5.1. General Settings](#51-General-Settings)
+  - [5.2. Library Settings](#52-Library-Settings)
+  - [5.3. Prerequisites](#53-Prerequisites)
+  - [5.4. Test list](#54-Test-list)
+    - [5.4.1. Parallel or serie execution](#541-Parallel-or-serie-execution)
+    - [5.4.2. Repetitions](#542-Repetitions)
+  - [5.5. Finally the test](#55-Finally-the-test)
+    - [5.5.1. Generic commands](#551-Generic-commands)
+  - [5.6. Test writing with Scriptbuilder](#56-Test-writing-with-Scriptbuilder)
+- [6. Parametric test](#6-Parametric-test)
+  - [6.1. Table](#61-Table)
+  - [6.2. Using the parameter](#62-Using-the-parameter)
+  - [6.3. Examples](#63-Examples)
+- [7. Test execution](#7-Test-execution)
+- [8. Logging](#8-Logging)
+  - [8.1. Application logging](#81-Application-logging)
+  - [8.2. Sensors logging](#82-Sensors-logging)
+  - [8.3. Plot logging](#83-Plot-logging)
+  - [8.4. Report](#84-Report)
+- [9. Specific plugin writing](#9-Specific-plugin-writing)
+  - [9.1. Create new repository for plugin](#91-Create-new-repository-for-plugin)
+  - [9.2. Create plugin initialization](#92-Create-plugin-initialization)
+  - [9.3. Blocks writing](#93-Blocks-writing)
+  - [9.4. XML files](#94-XML-files)
+  - [9.5. Yarp BlockTest plugin](#95-Yarp-BlockTest-plugin)
+- [10. Authors](#10-Authors)
 
 # 3. Introduction
 
@@ -256,7 +256,7 @@ In the above example the tests will be executed in the following way:
 
 In the case it is possibile to insert a dummy test in serie to  align the following tests executions.
 
-### 5.4.1. Repetitions
+### 5.4.2. Repetitions
 Repetitions can be at action or test or test list level trought **"repetitions"** key (in action,test,test list).
 At test level repetitions can be also used throught the key **"repetitionsfortime"**. In this case will be executed as many repetitions as the timer in seconds will allow. Inside of test is available 
 the key **"wait"** that indicates the time between two tests executions.
@@ -420,8 +420,10 @@ It is possible to specify how the parameters will change during the execution. T
     the first to the last execution 40 50 60 70 80 90
 
 -   increment
-    in this case the parameter value will start from the min value to the max value using the
-    given increment.
+    in this case the parameter value will start from the min value to the max value using the given increment and then start again from the start min.
+
+-   wave
+    in this case the parameter value will start from the min value to the max value using the given increment and then invert the increment and continue.    
 
 ## 6.2. Using the parameter
 
@@ -471,7 +473,7 @@ Application logging is log/log.log You can read it by:\
 It is possible to set the logs line to be shown using the attribute  logseverity="debug" inside of the
 
 ```xml
-    <settings robotname="icubSim" realrobot="false"  onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" simclock="false" positionfor="" neverexecutecommands="" logseverity="debug"/>
+    <settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="test/tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="infologger" />
 ```
 
 The awailable levels are:
@@ -521,23 +523,24 @@ At the end of the test a report summary is been written:
 
 # 9. Specific plugin writing
 
-It is possibile to write your own plugin for blockTest.
+It is possibile to write your own plugin for blockTest. One plugin is already available
+see section [Yarp BlockTest plugin](#yarp-blocktest-plugin). 
 
-## 9.1. Yarp BlockTest plugin
-It is available the yarp plugin fot BlockTest https://github.com/robotology/blocktest-yarp-plugins
 
-## 9.2. Create new repository for plugin
-TODO
+## 9.1. Create new repository for plugin
+Create a new repository in github.
 
-## 9.3. Create plugin initialization
-TODO
+## 9.2. Create plugin initialization
+Derive the class ActionDepotStart. The class will contains plugin initialization.
 
-## 9.4. Blocks writing
-TODO
+## 9.3. Blocks writing
+Write your own blocks, each block is derived from CAction.
 
-## 9.5. XML files
-TODO
+## 9.4. XML files
+Write an xmk file for each blocks.
 
+## 9.5. Yarp BlockTest plugin
+An example is this plugin. It is available in https://github.com/robotology/blocktest-yarp-plugins.
 
 # 10. Authors
 * Luca Tricerri ([*personal page*](http://www.iit.it/en/people/Luca-tricerri.html))
