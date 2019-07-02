@@ -28,6 +28,7 @@ Fixture::Fixture(const std::string& path)
 
     pugi::xml_document doc;    
     pugi::xml_parse_result result=doc.load_file(completePath.c_str());
+    assert(result.status == pugi::xml_parse_status::status_ok);
 
     pugi::xpath_node_set fixturesNode = doc.select_nodes("//prerequisite");
 

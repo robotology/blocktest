@@ -14,8 +14,10 @@ ClockFacility::ClockFacility()
 {  
     begin_ = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
 
-    pugi::xml_document doc;    
+    pugi::xml_document doc;
     pugi::xml_parse_result result=doc.load_file(testPath_.c_str());
+
+    assert(result.status == pugi::xml_parse_status::status_ok);
 
     pugi::xpath_node settings = doc.select_node("//settings");
     waitcommand_=settings.node().attribute("waitcommand").value();

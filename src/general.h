@@ -21,3 +21,4 @@
 #include <mutex>
 #include <iterator>
 #include <cmath>
+#include <cassert>

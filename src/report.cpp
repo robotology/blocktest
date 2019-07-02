@@ -37,18 +37,24 @@ void Report::addProblem(const std::string& code,unsigned int repetition,Severity
 void Report::addCritical(const std::string& code,unsigned int repetition,const std::string& errorMessage)
 {      
     report_[std::make_pair(code,repetition)].criticals_++;
+    report_[std::make_pair(code,repetition)].errorMessages_.emplace_back(ErrorMessage(ClockFacility::instance().now(),
+                                                                         errorMessage,Severity::critical));
     totalErrors_++;
 }
 
 void Report::addError(const std::string& code,unsigned int repetition,const std::string& errorMessage)
 {
     report_[std::make_pair(code,repetition)].errors_++;
+    report_[std::make_pair(code,repetition)].errorMessages_.emplace_back(ErrorMessage(ClockFacility::instance().now(),
+                                                                                      errorMessage,Severity::error));
     totalErrors_++;
 }
 
 void Report::addWarning(const std::string& code,unsigned int repetition,const std::string& errorMessage)
 {
     report_[std::make_pair(code,repetition)].warnings_++;
+    report_[std::make_pair(code,repetition)].errorMessages_.emplace_back(ErrorMessage(ClockFacility::instance().now(),
+                                                                                      errorMessage,Severity::warning));
 }
 
 
