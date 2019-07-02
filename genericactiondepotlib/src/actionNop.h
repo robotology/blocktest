@@ -30,6 +30,7 @@ class ActionNop : public Action
     public:
         ActionNop(const CommandAttributes& commandAttributes,const std::string& testCode);
         execution execute(unsigned int testrepetition) override;
+        void beforeExecute() override;
     
     private:
         std::string fixvalue_;
