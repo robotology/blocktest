@@ -88,6 +88,24 @@ double Action::normalizeDouble(const std::string& str,bool justFetch) const
     return out;
 }
 
+int Action::normalizeInt(const std::string& str,bool justFetch) const
+{
+    std::string tmp=normalize(str,justFetch);
+    if(tmp.empty())
+        return NAN;
+    int out=std::atoi(tmp.c_str());
+    return out;
+}
+
+unsigned int Action::normalizeUInt(const std::string& str,bool justFetch) const
+{
+    std::string tmp=normalize(str,justFetch);
+    if(tmp.empty())
+        return NAN;
+    unsigned int out=std::stoul(tmp.c_str());
+    return out;
+}
+
 void Action::addProblem(unsigned int repetition,Severity severity,const std::string& errorMessage) const
 {
     if(reporterror_)
@@ -124,7 +142,7 @@ void Action::getCommandAttribute(const std::string& name,int& out) const
 
     try
     {
-        out=std::stoi(found->second);
+        out=normalizeInt(found->second,false);
     }
     catch(const std::exception& e)
     {
@@ -144,7 +162,7 @@ void Action::getCommandAttribute(const std::string& name,unsigned int& out) cons
 
     try
     {
-        out=std::stoul(found->second);
+        out=normalizeUInt(found->second,false);
     }
     catch(const std::exception& e)
     {
@@ -164,7 +182,7 @@ void Action::getCommandAttribute(const std::string& name,double& out) const
 
     try
     {
-        out=std::stod(found->second);
+        out=normalizeDouble(found->second,false);
     }
     catch(const std::exception& e)
     {
