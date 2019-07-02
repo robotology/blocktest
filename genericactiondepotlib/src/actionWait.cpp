@@ -31,7 +31,6 @@ void ActionWait::beforeExecute()
 
 execution ActionWait::execute(unsigned int)
 {
-    BLOCKTEST_UNUSED(testrepetition);
     std::this_thread::sleep_for(std::chrono::milliseconds((int) seconds_*1000));
     return execution::continueexecution;
 }
