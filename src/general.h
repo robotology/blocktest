@@ -22,3 +22,5 @@
 #include <iterator>
 #include <cmath>
 #include <cassert>
+
+#define BLOCKTEST_UNUSED(x) (void)x;

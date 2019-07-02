@@ -30,6 +30,7 @@ void TestsDepotModel::load(const std::string& fileName)
     size_t pos = fileName.find_last_of("/");
     testPath_=fileName.substr(0,pos);
     pugi::xml_parse_result result = docTestList_.load_file(fileName.c_str());
+    assert(result.status == pugi::xml_parse_status::status_ok);
     redraw();
 }
 

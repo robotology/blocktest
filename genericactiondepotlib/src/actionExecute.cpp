@@ -37,7 +37,7 @@ execution ActionExecute::execute(unsigned int testrepetition)
     {
         if(processes_.find(tagTmp)==processes_.end())
         {
-            TXLOG(Severity::critical)<<"Tag for kill not found:"<<tagTmp<<std::endl;
+            TXLOG(Severity::critical)<<"Repetition "<<testrepetition<<": tag "<<tagTmp <<" for kill not found"<<std::endl;
             return execution::stopexecution;
         }
 
@@ -52,7 +52,7 @@ execution ActionExecute::execute(unsigned int testrepetition)
 
     if(processes_.find(tagTmp)!=processes_.end())
     {
-        TXLOG(Severity::critical)<<"Duplicate execute command tag:"<<tagTmp<<std::endl;
+        TXLOG(Severity::critical)<<"Repetition "<<testrepetition<<": duplicate execute command tag "<<tagTmp<<std::endl;
         return execution::stopexecution;
     }
 

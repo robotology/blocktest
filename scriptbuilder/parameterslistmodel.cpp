@@ -67,6 +67,8 @@ void ParametersListModel::stringToXmlNodesToItems(const std::string& xmlString)
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_string(xmlString.c_str());
 
+    assert(result.status == pugi::xml_parse_status::status_ok);
+
     std::string library;
     pugi::xml_node rootNode=doc.child("command");
     for (pugi::xml_attribute_iterator ait = rootNode.attributes_begin(); ait != rootNode.attributes_end(); ++ait)

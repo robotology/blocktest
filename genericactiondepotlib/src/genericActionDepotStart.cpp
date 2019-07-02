@@ -42,7 +42,7 @@ GenericActionDepotStart::~GenericActionDepotStart()
 extern "C"
 {
 
-void Stop(char* data,char* name)
+void Stop(char*, char*)
 {
     //TXLOG(Severity::info)<<"Library stop called:"<<std::endl;
 }

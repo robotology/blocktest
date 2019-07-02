@@ -26,6 +26,7 @@ ActionWait::ActionWait(const CommandAttributes& commandAttributes,const std::str
 
 execution ActionWait::execute(unsigned int testrepetition)
 {
+    BLOCKTEST_UNUSED(testrepetition);
     std::this_thread::sleep_for(std::chrono::milliseconds((int) seconds_*1000));
     return execution::continueexecution;
 }

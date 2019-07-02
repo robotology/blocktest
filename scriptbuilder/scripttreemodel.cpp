@@ -175,6 +175,7 @@ void ScriptTreeModel::load(const std::string& fileName)
     item->appendRow(script_);
 
     pugi::xml_parse_result result = doc_.load_file(fileName.c_str());
+    assert(result.status == pugi::xml_parse_status::status_ok);
 
     /*
     if(!result)
@@ -226,6 +227,7 @@ void ScriptTreeModel::save(const std::string& fileName)
 
         pugi::xml_document commanddoc;
         pugi::xml_parse_result result = commanddoc.load_string(commandStr.c_str());
+        assert(result.status == pugi::xml_parse_status::status_ok);
         pugi::xpath_node commandNode = commanddoc.select_node("/command");
         body.append_copy(commandNode.node());
     }
