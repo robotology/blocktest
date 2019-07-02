@@ -24,6 +24,7 @@ ActionNow::ActionNow(const CommandAttributes& commandAttributes,const std::strin
 
 execution ActionNow::execute(unsigned int)
 {
+    BLOCKTEST_UNUSED(testrepetition);
     return execution::continueexecution;
 }
 

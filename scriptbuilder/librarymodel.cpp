@@ -24,8 +24,9 @@ LibraryModel::~LibraryModel()
 
 void LibraryModel::load(const std::string& fileName)
 {
-    size_t pos = fileName.find_last_of("/");
+    size_t pos = fileName.find_last_of('/');
     pugi::xml_parse_result result = doc_.load_file(fileName.c_str());
+    assert(result.status == pugi::xml_parse_status::status_ok);
     redraw();
 }
 

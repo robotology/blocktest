@@ -43,6 +43,11 @@ bool LibraryLoader::load(const std::string& path)
     pugi::xml_document doc;
     pugi::xml_parse_result result=doc.load_file(completePath.c_str());
 
+    if(result.status != pugi::xml_parse_status::status_ok) {
+        TXLOG(Severity::error)<<"Unable to load file: "<<completePath<<std::endl;
+        return false;
+    }
+
     pugi::xpath_node_set libraryNodes = doc.select_nodes("//library");
     
     for (auto it = libraryNodes.begin(); it != libraryNodes.end(); ++it)

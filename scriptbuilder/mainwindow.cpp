@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {    
     pugi::xml_parse_result result = docSettings_.load_file("./config.xml");
-
+    assert(result.status == pugi::xml_parse_status::status_ok);
     commandsModel_ = new ActionTreeModel;
     scriptModel_ = new ScriptTreeModel;
     parametersModel_ = new ParametersListModel;

@@ -28,12 +28,12 @@ Fixture::Fixture(const std::string& path)
 
     pugi::xml_document doc;    
     pugi::xml_parse_result result=doc.load_file(completePath.c_str());
+    assert(result.status == pugi::xml_parse_status::status_ok);
 
     pugi::xpath_node_set fixturesNode = doc.select_nodes("//prerequisite");
 
-    for (pugi::xpath_node_set::const_iterator it = fixturesNode.begin(); it != fixturesNode.end(); ++it)
+    for (const auto& nodeFixture : fixturesNode)
     {
-        pugi::xpath_node nodeFixture = *it;
         std::string command=nodeFixture.node().attribute("command").value();
         bool enabled=nodeFixture.node().attribute("enabled").as_bool();
         std::string param=nodeFixture.node().attribute("param").value();
@@ -156,9 +156,9 @@ void Fixture::fixtureCheker()
 Fixture::FixtureParam::FixtureParam(const std::string& commandName,const std::string& commandParam,const std::string& prefix,bool kill,bool enabled,unsigned int waitafter):
                                                                                                                                                 commandName_(commandName),
                                                                                                                                                 commandParam_(commandParam),
-                                                                                                                                                prefix_(prefix),
                                                                                                                                                 kill_(kill),
                                                                                                                                                 enabled_(enabled),
+                                                                                                                                                prefix_(prefix),
                                                                                                                                                 waitafter_(waitafter)
 {
     output_=std::make_shared<boost::process::ipstream>();
