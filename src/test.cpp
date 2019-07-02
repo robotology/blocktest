@@ -21,7 +21,7 @@
 namespace BlockTestCore
 {
 
-Test::Test(const pugi::xml_node& nodeTest,const TestsDepot_sptr& testDepot):nodeTest_(nodeTest),testDepot_(testDepot)
+Test::Test(const pugi::xml_node& nodeTest,const TestsDepot_sptr& testDepot): testDepot_(testDepot), nodeTest_(nodeTest)
 {
 }
 

@@ -156,9 +156,9 @@ void Fixture::fixtureCheker()
 Fixture::FixtureParam::FixtureParam(const std::string& commandName,const std::string& commandParam,const std::string& prefix,bool kill,bool enabled,unsigned int waitafter):
                                                                                                                                                 commandName_(commandName),
                                                                                                                                                 commandParam_(commandParam),
-                                                                                                                                                prefix_(prefix),
                                                                                                                                                 kill_(kill),
                                                                                                                                                 enabled_(enabled),
+                                                                                                                                                prefix_(prefix),
                                                                                                                                                 waitafter_(waitafter)
 {
     output_=std::make_shared<boost::process::ipstream>();
