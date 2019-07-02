@@ -34,7 +34,7 @@ void ActionExecute::beforeExecute()
     getCommandAttribute("kill",kill_); 
 }
 
-execution ActionExecute::execute(unsigned int)
+execution ActionExecute::execute(unsigned int testrepetition)
 {
     std::string tagTmp=normalizeSingle(tag_,false);
     if(kill_)
