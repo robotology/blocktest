@@ -30,7 +30,7 @@ void ActionUpdateFile::beforeExecute()
     getCommandAttribute("destinationfile",destinationFile_);        
 }
 
-execution ActionUpdateFile::execute(unsigned int)
+execution ActionUpdateFile::execute(unsigned int testrepetition)
 {
     std::ifstream ifs(sourceFile_);
     if(!ifs.is_open())
