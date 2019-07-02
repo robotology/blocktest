@@ -20,7 +20,7 @@
 BlockTest::BlockTest(const std::string &path):path_(path)  
 {   
     tests_=std::make_shared<BlockTestCore::TestsDepot>();
-    BlockTestCore::Logger::Instance();
+    BlockTestCore::Logger::instance();
     
     TXLOG(Severity::info)<<"*******************"<<std::endl;
     TXLOG(Severity::info)<<"**Start simulator**"<<std::endl;

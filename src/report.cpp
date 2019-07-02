@@ -24,7 +24,7 @@ Report& Report::instance()
 
 void Report::addProblem(const std::string& code,unsigned int repetition,Severity severity,const std::string& errorMessage)
 {
-    report_[std::make_pair(code,repetition)].errorMessages_.emplace_back(ErrorMessage(ClockFacility::Instance().now(),errorMessage,severity));
+    report_[std::make_pair(code,repetition)].errorMessages_.emplace_back(ErrorMessage(ClockFacility::instance().now(),errorMessage,severity));
 
     if(severity==Severity::critical)
         addCritical(code,repetition,errorMessage);

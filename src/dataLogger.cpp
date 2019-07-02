@@ -52,14 +52,21 @@ void DataLogger::work()
         if(dataToBeWritten_.empty())
             continue;
 
+        std::stringstream ss;
         Data out;
         {
             std::lock_guard<std::mutex> lock(queueMutex_);
-            out=dataToBeWritten_.front();
-            dataToBeWritten_.pop();
+            for(unsigned int index=0;index<readInALoop_;++index)
+            {
+                out=dataToBeWritten_.front();
+                dataToBeWritten_.pop();
+                ss<<out.dump()<<std::endl;
+                if(dataToBeWritten_.empty())
+                    break;
+            }
         }
 
-        ofs_<< out.dump()<<std::endl;
+        ofs_<< ss.str();
         ofs_.flush();
     }
 }

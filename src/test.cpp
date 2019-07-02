@@ -139,7 +139,7 @@ execution Test::execute(bool isRealRobot)
 execution Test::work(bool isRealRobot) const
 {
     execution out{execution::continueexecution};
-    double start=ClockFacility::Instance().nowDbl();
+    double start=ClockFacility::instance().nowDbl();
     for(unsigned int index=0;index<repetitions_;++index)
     {
         //**logging
@@ -168,8 +168,8 @@ execution Test::work(bool isRealRobot) const
                 continue;
             }
         }     
-        ClockFacility::Instance().wait(wait_);
-        if(repetitionsForTime_ && ClockFacility::Instance().nowDbl()-start>repetitionsForTime_)
+        ClockFacility::instance().wait(wait_);
+        if(repetitionsForTime_ && ClockFacility::instance().nowDbl()-start>repetitionsForTime_)
         {
             TXLOG(Severity::debug)<<"Exit test for repetition timeout:"<<repetitionsForTime_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;
             break;

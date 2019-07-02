@@ -72,7 +72,7 @@ private:
     
     void SetSeverity(const std::string& severity);
 
-    static Logger& Instance()
+    static Logger& instance()
     {
         static Logger log;
         return log;
@@ -117,7 +117,7 @@ private:
             if(severity_==Severity::criticalminimal)
                 timeheader = "(0)";
             else
-                timeheader = "(" + ClockFacility::Instance().now() + ")";
+                timeheader = "(" + ClockFacility::instance().now() + ")";
             std::stringstream ss;
             ss << "(" << SeverityToString(severity_) << ")";
             std::string severityheader = ss.str();
@@ -142,11 +142,11 @@ private:
     }
 };
 
-#define TXLOG(x) if(true)BlockTestCore::Logger::Instance().SetError(x,__FILE__,__LINE__)
-#define TXLOGDISABLE(x) BlockTestCore::Logger::Instance().DisableFileLogging(x)
-#define TXLOGOVERSEVERITY(x) BlockTestCore::Logger::Instance().LogoOverSeverity(x)
-#define TXLOGMAXFILELINE(x) BlockTestCore::Logger::Instance().MaxFileLine(x)
-#define TXLOGMAXFILE(x) BlockTestCore::Logger::Instance().MaxFile(x)
-#define TXLOGGETSTAT(x) BlockTestCore::Logger::Instance().GetStatistics(x)
+#define TXLOG(x) if(true)BlockTestCore::Logger::instance().SetError(x,__FILE__,__LINE__)
+#define TXLOGDISABLE(x) BlockTestCore::Logger::instance().DisableFileLogging(x)
+#define TXLOGOVERSEVERITY(x) BlockTestCore::Logger::instance().LogoOverSeverity(x)
+#define TXLOGMAXFILELINE(x) BlockTestCore::Logger::instance().MaxFileLine(x)
+#define TXLOGMAXFILE(x) BlockTestCore::Logger::instance().MaxFile(x)
+#define TXLOGGETSTAT(x) BlockTestCore::Logger::instance().GetStatistics(x)
 
 }

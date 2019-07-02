@@ -85,7 +85,7 @@ void TestsDepot::loadSimulationCommand()
     realRobot_ =settings.node().attribute("realrobot").as_bool();
     std::string logseverity=settings.node().attribute("logseverity").value();
     loggingTime_=settings.node().attribute("loggingtime").as_double();
-    Logger::Instance().SetSeverity(logseverity);
+    Logger::instance().SetSeverity(logseverity);
     std::string tableName=settings.node().attribute("tablename").value();
     waitcommand_=settings.node().attribute("waitcommand").value();
     loggingcommand_=settings.node().attribute("loggingcommand").value();    

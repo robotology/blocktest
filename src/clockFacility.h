@@ -24,9 +24,8 @@ class BLOCKTEST_EXPORT ClockFacility
         bool wait(double value) const;
         std::string now() const;
         double nowDbl() const;
-        bool useNetClock_{false};
 
-        static ClockFacility& Instance()
+        static ClockFacility& instance()
         {
             static ClockFacility clock;
             return clock;

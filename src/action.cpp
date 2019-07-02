@@ -73,7 +73,7 @@ std::string Action::normalizeSingle(const std::string& str,bool justFetch) const
             fromTable=Tables::instance().get(lookup);
         out.replace(startName,endName-startName+1,fromTable);
 
-        TXLOG(Severity::debug)<<"Name:"<<lookup<<" from table:"<<fromTable<< " start:"<<startName<<" end:"<<endName<<std::endl;
+        //TXLOG(Severity::debug)<<"Name:"<<lookup<<" from table:"<<fromTable<< " start:"<<startName<<" end:"<<endName<<std::endl;
         currentListPos=endName+1;
     }
     return out;

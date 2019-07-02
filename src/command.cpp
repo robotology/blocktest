@@ -83,7 +83,7 @@ execution Command::execute(bool isRealRobot,unsigned int testrepetition)
             TXLOG(Severity::error)<<"Stop execution:"<<command_<<" -Total repetitions:"<<repetitions_<<" -Actual repetition:"<<index+1<<std::endl;
             break;
         }
-        ClockFacility::Instance().wait(wait_);
+        ClockFacility::instance().wait(wait_);
     }
     return ret;
 }

@@ -24,32 +24,25 @@ ClockFacility::ClockFacility()
 
 bool ClockFacility::wait(double value) const
 {
-    if(useNetClock_)
+    auto mymap=ActionRegister::getMap();
+    if(mymap.find(waitcommand_)==mymap.end())
     {
-        auto mymap=ActionRegister::getMap();
-        if(mymap.find(waitcommand_)==mymap.end())
-        {
-            TXLOG(Severity::error)<<"Unknown wait command:"<<waitcommand_<<std::endl;      
-            return false;
-        }
-        auto call=ActionRegister::getCreatorFunction(waitcommand_);
-
-        CommandAttributes commandAttributes{{"command","wait"},{"seconds",std::to_string(value)},{"reporterror","false"}};
-
-        auto action=(call)(commandAttributes,"");
-        action->execute(0);
+        TXLOG(Severity::error)<<"Unknown wait command:"<<waitcommand_<<std::endl;      
+        return false;
     }
-    else
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds((int)(value*1000)));
-    }
+    auto call=ActionRegister::getCreatorFunction(waitcommand_);
+
+    CommandAttributes commandAttributes{{"command","wait"},{"seconds",std::to_string(value)},{"reporterror","false"}};
+
+    auto action=(call)(commandAttributes,"");
+    action->execute(0);
     return true;
 }
 
 double ClockFacility::nowDbl() const
 {
-  if(useNetClock_)
-    {   
+    if(relativetime_)
+    {
         auto mymap=ActionRegister::getMap();
         if(mymap.find(nowcommand_)==mymap.end())
         {
@@ -66,25 +59,17 @@ double ClockFacility::nowDbl() const
     }
     else
     {
-        if(relativetime_)
-        {
-            std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
-            double value=(double)(now.count()-begin_.count())/1000;
-            return value;
-        }
-        else
-        {
-            std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
-            return (double)(now.count())/1000;
-        }
+        std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
+        return (double)(now.count())/1000;
     }
+
     return 0;
 }
 
 std::string ClockFacility::now() const
 {
-    if(useNetClock_)
-    {   
+    if(relativetime_)
+    {
         auto mymap=ActionRegister::getMap();
         if(mymap.find(nowcommand_)==mymap.end())
         {
@@ -94,37 +79,27 @@ std::string ClockFacility::now() const
         }
         auto call=ActionRegister::getCreatorFunction(nowcommand_);
 
-        CommandAttributes commandAttributes{{"command","wait"},{"reporterror","false"}};
+        CommandAttributes commandAttributes{{"command","now"},{"reporterror","false"}};
 
         auto action=(call)(commandAttributes,"");
-        double test=action->getDouble();
+        double value=action->getDouble();
+
+        //std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
+        //double value=(double)(now.count()-begin_.count())/1000;
         std::stringstream ss;
         ss.setf(std::ios::fixed);
-        ss<<std::setfill('0')<<std::setw(9)<<std::setprecision(3)<<action->getDouble();
-        std::string test1=ss.str();
+        ss<<std::setfill('0')<<std::setw(9)<<std::setprecision(3)<<value;
         return ss.str();
     }
     else
     {
-        if(relativetime_)
-        {
-            std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
-            double value=(double)(now.count()-begin_.count())/1000;
-            std::stringstream ss;
-            ss.setf(std::ios::fixed);
-            ss<<std::setfill('0')<<std::setw(9)<<std::setprecision(3)<<value;
-            return ss.str();
-        }
-        else
-        {
-            std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-            std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+        std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+        std::time_t now_c = std::chrono::system_clock::to_time_t(now);
 
-            std::stringstream out;
-            out << std::put_time(std::localtime(&now_c), "%F %T");
+        std::stringstream out;
+        out << std::put_time(std::localtime(&now_c), "%F %T");
 
-            return out.str();
-        }
+        return out.str();
     }
 }
 
