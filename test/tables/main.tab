@@ -1,7 +1,7 @@
 [
-kppos       (table name)
-normal      (table type)
-1           (increment by time)
+kppos       <table name>
+normal      <table type>
+1           <increment by time>
 40 
 50
 60
@@ -10,93 +10,93 @@ normal      (table type)
 90
 ]
 [
-kp          (table name)
-increment   (table type)
-12          (increment by time)
+kp          <table name>
+increment   <table type>
+12          <increment by time>
 
-0.1       (increment unit)
-0.30       (min)
-0.40       (max)
+0.1       <increment unit>
+0.30       <min>
+0.40       <max>
 ]
 [
-xvelocity   (table name)
-increment   (table type)
-1           (increment by time)
+xvelocity   <table name>
+increment   <table type>
+1           <increment by time>
 
-0.01        (increment unit)
-0.1         (min)   
-0.5         (max) 
+0.01        <increment unit>
+0.1         <min>   
+0.5         <max> 
 ]
 [
-yvelocity   (table name)
-increment   (table type)
-1           (increment by time)
+yvelocity   <table name>
+increment   <table type>
+1           <increment by time>
 
-0.01        (increment unit)
-0.1         (min)
-0.5         (max) 
-]
-
-[
-xvelocity1  (table name)
-increment   (table type)
-1           (increment by time)
-
-0.2        (increment unit)
-0.0         (min)
-1         (max) 
-]
-[
-yvelocity1  (table name)
-increment   (table type)
-5           (increment by time)
-
-0.2        (increment unit)
-0.0        (min)
-1          (max) 
-]
-[
-switchoverswingratio    (table name)
-increment               (table type)
-25                      (increment by time)
-
-0.2                   (increment unit)
-0.1                   (min)
-1.1                     (max) 
-]
-[
-mu          (table name)
-increment   (table type)
-4           (increment by time)
-
-0.001        (increment unit)
-0.001        (min)
-1           (max)
-]
-[
-test          (table name)
-increment   (table type)
-1           (increment by time)
-
-0.1        (increment unit)
-3        (min)
-6           (max)
+0.01        <increment unit>
+0.1         <min>
+0.5         <max> 
 ]
 
 [
-test1          (table name)
-increment   (table type)
-1           (increment by time)
+xvelocity1  <table name>
+increment   <table type>
+1           <increment by time>
 
-0.1        (increment unit)
-0          (min)
-20          (max)
+0.2        <increment unit>
+0.0         <min>
+1         <max> 
+]
+[
+yvelocity1  <table name>
+increment   <table type>
+5           <increment by time>
+
+0.2        <increment unit>
+0.0        <min>
+1          <max> 
+]
+[
+switchoverswingratio    <table name>
+increment               <table type>
+25                      <increment by time>
+
+0.2                   <increment unit>
+0.1                   <min>
+1.1                     <max> 
+]
+[
+mu          <table name>
+increment   <table type>
+4           <increment by time>
+
+0.001        <increment unit>
+0.001        <min>
+1           <max>
+]
+[
+test          <table name>
+increment   <table type>
+1           <increment by time>
+
+0.1        <increment unit>
+3        <min>
+6           <max>
 ]
 
 [
-test2       (table name)
-normal      (table type)
-2           (increment by time)
+test1          <table name>
+increment   <table type>
+1           <increment by time>
+
+0.1        <increment unit>
+0          <min>
+20          <max>
+]
+
+[
+test2       <table name>
+normal      <table type>
+2           <increment by time>
 40 
 50
 60
@@ -106,22 +106,42 @@ normal      (table type)
 ]
 
 [
-test3          (table name)
-wave   (table type)
-1           (increment by time)
+test3          <table name>
+wave   <table type>
+1           <increment by time>
 
-1       (increment unit)
-0          (min)
-24          (max)
+0.1       <increment unit>
+0          <min>
+1          <max>
 ]
 
 [
-test4          (table name)
-increment   (table type)
-1           (increment by time)
+test4          <table name>
+increment   <table type>
+1           <increment by time>
 
--0.1        (increment unit)
-20          (min)
-0          (max)
+-0.1        <increment unit>
+1          <min>
+0          <max>
 ]
-   
+
+[
+test6           <table name>
+increment       <table type>
+1               <increment by time>
+
+1               <increment unit>
+1               <min>
+11              <max>
+]
+
+[
+test7           <table name>
+expression      <table type>
+1               <increment by time>
+
+0.01            <increment unit>
+1               <min>
+40              <max>
+(1-x)*((1-x)*((1-x)*8.51+x*5.8)+x*((1-x)*5.8+x*3.62))+x*((1-x)*((1-x)*5.8+x*3.62)+x*((1-x)*3.62+x*0.03))      <expression>
+]  

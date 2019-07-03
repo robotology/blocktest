@@ -16,6 +16,7 @@
 #include "tableIncrement.h"
 #include "tableNormal.h"
 #include "tableWave.h"
+#include "tableExpression.h"
 
 namespace BlockTestCore
 {
@@ -77,6 +78,8 @@ bool Tables::load(const std::string& fileName)
             tables_[name]=std::make_shared<TableNormal>();
         else if(type=="wave")
             tables_[name]=std::make_shared<TableWave>();
+        else if(type=="expression")
+            tables_[name]=std::make_shared<TableExpression>();            
         else        
         {
             TXLOG(Severity::critical)<<"Wrong table type"<<std::endl;
@@ -98,10 +101,10 @@ void Tables::commentRemove(std::string& str)
     size_t currentListPos=0;
     while(currentListPos<str.size())
     {
-        size_t startName=str.find('(',currentListPos);
+        size_t startName=str.find('<',currentListPos);
         if(startName==std::string::npos)
             break;
-        size_t endName=str.find(')',startName);
+        size_t endName=str.find('>',startName);
         if(endName==std::string::npos)
         {
             TXLOG(Severity::error)<<"Missing close ) in table"<<std::endl;

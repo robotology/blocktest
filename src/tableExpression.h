@@ -6,7 +6,7 @@
  ******************************************************************************/
 
 /**
- * @file tableincrement.h
+ * @file tableexpression.h
  * @authors: Luca Tricerri <luca.tricerri@iit.it>
  */
 
@@ -16,10 +16,12 @@
 #include "general.h"
 #include "table.h"
 
+#include "exprtk.hpp"
+
 namespace BlockTestCore
 {
 
-class TableIncrement: public Table
+class TableExpression: public Table
 { 
     public:
         bool Init(std::vector<std::string> tableValue) override;
@@ -29,8 +31,13 @@ class TableIncrement: public Table
         std::string get(unsigned int position) const override;
 
     private:
+        double x_{0};
+        exprtk::expression<double> expression_;
+        exprtk::symbol_table<double> symbolTable_;
+        exprtk::parser<double> parser_;
+
         double incrementValue_{0};
         double start_{0};
-        double stop_{0}; 
+        double stop_{0};        
 };
 }

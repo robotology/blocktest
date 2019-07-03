@@ -412,18 +412,51 @@ increment   (table type)
 ```
 
 Here we have two parameters, kppos and kp in two tables.
-It is possible to specify how the parameters will change during the execution. There are two ways to do so, through the **table type** parameter.
+It is possible to specify how the parameters will change during the execution. There are four ways to do so, through the **table type** parameters. Four types of tables are available. All the tables have the following general parameters.
 
--   normal:
+| Param position | Name | Default | Comment                 |
+| ---------- | ------- | ------- | ----------------------- |
+| row 1       | table name       | N/A       | The name for this table       |
+| row 2       | table type       | N/A       | The type for this table       |
+| row 3       | increment by type| N/A       | Every how many iterations a new value is taken        |
+
+
+-   **normal:**
     in this case the parameter will have the value in the order the values are specified.
     In the above example the kppos parameter will have the value, in order, from
     the first to the last execution 40 50 60 70 80 90
 
--   increment
+| Param position | Name | Default | Comment                 |
+| ---------- | ------- | ------- | ----------------------- |
+| row 4...n       | value       | N/A       | Values to be taken       |
+
+-   **increment:**
     in this case the parameter value will start from the min value to the max value using the given increment and then start again from the start min.
 
--   wave
-    in this case the parameter value will start from the min value to the max value using the given increment and then invert the increment and continue.    
+| Param position | Name | Default | Comment                 |
+| ---------- | ------- | ------- | ----------------------- |
+| row 4      | increment unit       | N/A       | Increment value every iteration       |
+| row 5      | start value       | N/A       | Start value value every iteration       |
+| row 6      | stop value       | N/A       | Stop value every iteration       |
+
+-   **wave:**
+    in this case the parameter value will start from the min value to the max value using the given increment and then invert the increment and continue.
+
+| Param position | Name | Default | Comment                 |
+| ---------- | ------- | ------- | ----------------------- |
+| row 4      | increment unit       | N/A       | Increment value every iteration       |
+| row 5      | start value       | N/A       | Start value value every iteration       |
+| row 6      | stop value       | N/A       | Stop value every iteration       |
+
+-   **expression:**
+    in this case the parameter value will start from the min value to the max value using the given increment to calculate the expression.
+
+| Param position | Name | Default | Comment                 |
+| ---------- | ------- | ------- | ----------------------- |
+| row 4      | increment unit       | N/A       | Increment value every iteration       |
+| row 5      | start value       | N/A       | Start value value every iteration       |
+| row 6      | stop value       | N/A       | Stop value every iteration       |
+| row 7      | math expression       | N/A       | For full sintax look at https://github.com/ArashPartow/exprtk/blob/master/readme.txt       |
 
 ## 6.2. Using the parameter
 

@@ -39,6 +39,7 @@ set(BlockTestCoreSrc    src/action.cpp
                         src/table.cpp
                         src/tableIncrement.cpp
                         src/tableNormal.cpp
+                        src/tableExpression.cpp
                         src/tableWave.cpp
                         src/actionDepotStart.cpp
                         )
@@ -59,8 +60,10 @@ set(BlockTestCoreHdr    src/api.h
                         src/table.h
                         src/tableIncrement.h
                         src/tableNormal.h
+                        src/tableExpression.h
                         src/tableWave.h
                         src/type.h
+                        src/exprtk.hpp
                         )
 set(CMAKE_AUTOMOC ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
