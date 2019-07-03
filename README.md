@@ -11,7 +11,8 @@
 - [4. Installation](#4-Installation)
   - [4.1. Prerequisite Linux](#41-Prerequisite-Linux)
   - [4.2. Prerequisite Windows](#42-Prerequisite-Windows)
-  - [4.3. Installation and compilation](#43-Installation-and-compilation)
+  - [4.3. External library](#43-External-library)
+  - [4.4. Installation and compilation](#44-Installation-and-compilation)
 - [5. Test writing](#5-Test-writing)
   - [5.1. General Settings](#51-General-Settings)
   - [5.2. Library Settings](#52-Library-Settings)
@@ -70,7 +71,15 @@ vcpkg install pugixml
 ```
 Qt5 from binary https://doc.qt.io/qt-5/windows.html
 
-## 4.3. Installation and compilation
+## 4.3. External library
+
+The following library are used in blocktest:  
+  
+**pugixml** https://github.com/zeux/pugixml  
+**exprtk** https://github.com/ArashPartow/exprtk  
+**boost** https://www.boost.org/  
+
+## 4.4. Installation and compilation
 
 In order to compile just execute the following commands in a bash
 terminal.
