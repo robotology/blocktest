@@ -23,6 +23,8 @@
 #include <qfiledialog.h>
 #include <qmessagebox.h>
 
+#include <sstream>
+
 namespace fs = boost::filesystem;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -114,11 +116,38 @@ MainWindow::MainWindow(QWidget *parent) :
     auto resp3=connect(ui->actionExit, &QAction::triggered, this, &MainWindow::actionExit);
 
     setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
+
+    tryLoadTestsFile();
 }
 
 MainWindow::~MainWindow()
 {
 }
+
+void MainWindow::tryLoadTestsFile()
+{
+    std::stringstream ss;
+    ss<<getTestPath()<<"/test.xml";
+
+    std::string str=ss.str();
+    if(fs::exists(ss.str()))
+    {
+        loadTests(str.c_str());
+        return;
+    }
+
+    ss.str("");
+    ss.clear();
+    ss<<"./test/test.xml";
+    str=ss.str();
+    if(fs::exists(ss.str()))
+    {
+        loadTests(str.c_str());
+        return;
+    }
+
+}
+
 
 void MainWindow::on_loadButton_clicked()
 {
@@ -193,6 +222,11 @@ void MainWindow::on_loadTests_clicked()
     QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), total.c_str(),"*.xml");
     if(fileName.isEmpty())
         return;
+    loadTests(fileName);
+}
+
+void MainWindow::loadTests(const QString& fileName)
+{
     testsDepotModel_->load(fileName.toStdString());
     prerequisiteModel_->load(fileName.toStdString());
     libraryModel_->load(fileName.toStdString());

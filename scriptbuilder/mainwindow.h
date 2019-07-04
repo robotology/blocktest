@@ -102,6 +102,9 @@ private:
     void checkrunning();
 
     std::string  getTestPath() const;
+
+    void tryLoadTestsFile();
+    void loadTests(const QString& fileName);
 };
 
 #endif // MAINWINDOW_H
