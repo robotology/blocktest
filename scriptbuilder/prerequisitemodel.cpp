@@ -75,12 +75,12 @@ void PrerequisiteModel::redraw()
     }
 
     QStandardItem* header= new QStandardItem("Command");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/command.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(0,header);
 
     header= new QStandardItem("Enabled");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/enable.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(1,header);
 
@@ -90,12 +90,12 @@ void PrerequisiteModel::redraw()
     setHorizontalHeaderItem(2,header);
 
     header= new QStandardItem("Kill");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/kill.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(3,header);
 
     header= new QStandardItem("Wait");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/time.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(4,header);
 

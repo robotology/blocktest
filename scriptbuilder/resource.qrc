@@ -7,5 +7,16 @@
         <file>icons/info.png</file>
         <file>icons/main003.png</file>
         <file>icons/star.png</file>
+        <file>icons/pencil.png</file>
+        <file>icons/note.png</file>
+        <file>icons/code.png</file>
+        <file>icons/name.png</file>
+        <file>icons/repetition.png</file>
+        <file>icons/enable.png</file>
+        <file>icons/file.png</file>
+        <file>icons/time.png</file>
+        <file>icons/kill.png</file>        
+        <file>icons/command.png</file>           
+        <file>icons/parallel.png</file>          
     </qresource>
 </RCC>

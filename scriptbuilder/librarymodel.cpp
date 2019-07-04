@@ -62,22 +62,22 @@ void LibraryModel::redraw()
     }
 
     QStandardItem* header= new QStandardItem("Path");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/file.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(0,header);
 
     header= new QStandardItem("Enabled");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/enable.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(1,header);
 
     header= new QStandardItem("Name");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/name.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(2,header);
 
     header= new QStandardItem("Note");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/note.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(3,header);
 }

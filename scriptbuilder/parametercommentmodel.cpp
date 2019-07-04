@@ -24,7 +24,7 @@ void ParameterCommentModel::updateData(const QModelIndex &index)
     item->removeRows(0,rowCount());
 
     QStandardItem* header= new QStandardItem("Name");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/name.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(0,header);
 

@@ -90,23 +90,23 @@ void TestsDepotModel::redraw()
     }
 
     QStandardItem* header= new QStandardItem("Code");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/code.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(0,header);
     header= new QStandardItem("Repetition");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/repetition.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(1,header);
     header= new QStandardItem("File");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/file.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(2,header);
     header= new QStandardItem("Parallel");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/parallel.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(3,header);
     header= new QStandardItem("Timer rep");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/time.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(4,header);
 

@@ -31,12 +31,12 @@ void ParametersListModel::updateData(const QStringList& data)
     stringToXmlNodesToItems(data[2].toStdString());  
 
     QStandardItem* header= new QStandardItem("Name");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/name.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(0,header);
 
     header= new QStandardItem("Value");
-    header->setIcon(QIcon(":/icons/star.png"));
+    header->setIcon(QIcon(":/icons/pencil.png"));
     header->setTextAlignment(Qt::AlignLeft);
     setHorizontalHeaderItem(1,header);
 }
