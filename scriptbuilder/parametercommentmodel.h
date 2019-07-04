@@ -22,10 +22,8 @@ public:
 
     void updateData(const QModelIndex &index);
 
-private:
-    void updateData(const QStringList& data);
-
-    QModelIndex index_;
+    static std::map<std::string,std::string> lookUpAllParamInfo(const std::string& library, const std::string& name);
+    static std::string lookUpSpecificParamInfo(const std::string& library, const std::string& name,const std::string& infoname);
 
 };
 

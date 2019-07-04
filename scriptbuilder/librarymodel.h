@@ -24,7 +24,6 @@ class LibraryModel : public QStandardItemModel
     Q_OBJECT
 public:
     LibraryModel();
-    virtual ~LibraryModel();
     void load(const std::string& fileName);
     const pugi::xml_document& getDocument() const;
     std::list<std::string> getLibraryListEnabled() const;

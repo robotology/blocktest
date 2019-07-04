@@ -4,6 +4,8 @@
     values=""  
     uom="" 
     type="string" 
+    editable="true"   
+    emphasize="false"     
 />
 
 <prefix 
@@ -12,6 +14,8 @@
     values=""  
     uom="" 
     type="" 
+    editable="true"  
+    emphasize="false"      
 />
 
 <param 
@@ -20,6 +24,8 @@
     values=""  
     uom="" 
     type="" 
+    editable="true"  
+    emphasize="false"      
 />
 
 <waitafter 
@@ -28,6 +34,8 @@
     values=""  
     uom="second" 
     type="integer" 
+    editable="true"  
+    emphasize="false"      
 />
 
 <kill 
@@ -36,6 +44,8 @@
     values=""  
     uom="" 
     type="boolean" 
+    editable="true"  
+    emphasize="false"      
 />
 
 <tag 
@@ -44,4 +54,6 @@
     values=""  
     uom="" 
     type="string" 
+    editable="true"  
+    emphasize="false"      
 />

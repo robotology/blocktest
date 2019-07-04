@@ -22,7 +22,7 @@
   <property name="maximumSize">
    <size>
     <width>1600</width>
-    <height>1000</height>
+    <height>960</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -1100,7 +1100,7 @@ background-color: rgba(0, 0, 0, 0);</string>
      <x>0</x>
      <y>0</y>
      <width>1600</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSettings">
@@ -1121,7 +1121,7 @@ background-color: rgba(0, 0, 0, 0);</string>
   </widget>
   <action name="actionSetting">
    <property name="text">
-    <string>Setting</string>
+    <string>Settings</string>
    </property>
   </action>
   <action name="actionExit">

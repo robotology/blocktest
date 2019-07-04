@@ -23,42 +23,20 @@ void ParameterCommentModel::updateData(const QModelIndex &index)
     QStandardItem *item = invisibleRootItem();
     item->removeRows(0,rowCount());
 
-    index_=index;
+    QStandardItem* header= new QStandardItem("Name");
+    header->setIcon(QIcon(":/icons/star.png"));
+    header->setTextAlignment(Qt::AlignLeft);
+    setHorizontalHeaderItem(0,header);
 
-    QStringList paramToShow=index.sibling(index.row(),0).data(Qt::EditRole).toStringList();
+    header= new QStandardItem("Meaning");
+    header->setIcon(QIcon(":/icons/star.png"));
+    header->setTextAlignment(Qt::AlignLeft);
+    setHorizontalHeaderItem(1,header);
+
     QStringList param=index.sibling(index.row(),0).data(Qt::UserRole).toStringList();
 
-    pugi::xml_document doc;
-    std::string path="./xmltemplate/"+param[URPlibrary].toStdString()+"/parameters.xml";
-    pugi::xml_parse_result result = doc.load_file(path.c_str());
-
-    item = invisibleRootItem();
-    pugi::xml_node rootNode=doc.child(param[URPname].toStdString().c_str());
-    if(rootNode.empty())
-    {
-        path="./xmltemplate/parameters.xml";
-        result = doc.load_file(path.c_str());
-        rootNode=doc.child(param[URPname].toStdString().c_str());
-    }
-
-    for (pugi::xml_attribute_iterator ait = rootNode.attributes_begin(); ait != rootNode.attributes_end(); ++ait)
-    {
-        QStandardItem * name{nullptr};
-        QStandardItem * value{nullptr};
-        name = new QStandardItem( ait->name());
-        value = new QStandardItem( ait->value());
-
-        QList<QStandardItem*> toInsert;
-        toInsert.insert(0,name);
-        toInsert.insert(1,value);
-
-        name->setIcon(QIcon(":/icons/info.png"));
-        name->setFlags(Qt::NoItemFlags|Qt::ItemIsEnabled);
-        value->setFlags(Qt::NoItemFlags|Qt::ItemIsEnabled);
-        item->appendRow(toInsert);
-    }
-
-    if(rootNode.empty())
+    auto allParamInfos=lookUpAllParamInfo(param[URPlibrary].toStdString(),param[URPname].toStdString());
+    if(allParamInfos.empty())//2nd try however empty
     {
         QStandardItem * name{nullptr};
         name = new QStandardItem("No information.");
@@ -71,20 +49,52 @@ void ParameterCommentModel::updateData(const QModelIndex &index)
         item->appendRow(toInsert);
     }
 
-    QStandardItem* header= new QStandardItem("Name");
-    header->setIcon(QIcon(":/icons/star.png"));
-    header->setTextAlignment(Qt::AlignLeft);
-    setHorizontalHeaderItem(0,header);
+    for (const auto&  current:allParamInfos)
+    {
+        QStandardItem * name{nullptr};
+        QStandardItem * value{nullptr};
+        name = new QStandardItem(current.first.c_str());
+        value = new QStandardItem(current.second.c_str());
 
-    header= new QStandardItem("Meaning");
-    header->setIcon(QIcon(":/icons/star.png"));
-    header->setTextAlignment(Qt::AlignLeft);
-    setHorizontalHeaderItem(1,header);
+        QList<QStandardItem*> toInsert;
+        toInsert.insert(0,name);
+        toInsert.insert(1,value);
 
+        name->setIcon(QIcon(":/icons/info.png"));
+        name->setFlags(Qt::NoItemFlags|Qt::ItemIsEnabled);
+        value->setFlags(Qt::NoItemFlags|Qt::ItemIsEnabled);
+        item->appendRow(toInsert);
+    }
 }
 
-void ParameterCommentModel::updateData(const QStringList& data)
+std::map<std::string,std::string> ParameterCommentModel::lookUpAllParamInfo(const std::string& library, const std::string& name)
 {
+    pugi::xml_document doc;
+    std::string path="./xmltemplate/"+library+"/parameters.xml";
+    pugi::xml_parse_result result = doc.load_file(path.c_str());
+    pugi::xml_node rootNode=doc.child(name.c_str());
+    if(rootNode.empty())
+    {
+        path="./xmltemplate/parameters.xml";
+        result = doc.load_file(path.c_str());
+        rootNode=doc.child(name.c_str());
+    }
 
+    std::map<std::string,std::string> out;
+    for (auto it = rootNode.attributes_begin(); it != rootNode.attributes_end(); ++it)
+    {
+        out[it->name()]=it->value();
+    }
+    return out;
 }
 
+std::string ParameterCommentModel::lookUpSpecificParamInfo(const std::string& library, const std::string& name,const std::string& infoName)
+{
+    auto all=lookUpAllParamInfo(library,name);
+    auto it=all.find(infoName);
+    if((it!=all.end()))
+    {
+        return it->second;
+    }
+    return "";
+}

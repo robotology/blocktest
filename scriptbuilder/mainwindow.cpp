@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     loggerModel_ = new LoggerModel("log/log.log");
     prerequisiteLoggerModel_=new LoggerModel("");
     prerequisiteComboModel_=new QStringListModel();
-    libraryModel_= new LibraryModel;
+    libraryModel_= new LibraryModel();
 
     ui->setupUi(this);
 
@@ -190,6 +190,8 @@ void MainWindow::on_loadTests_clicked()
 {
     std::string total=getTestPath()+"/test.xml";
     QString fileName = QFileDialog::getOpenFileName(this,tr("Open test list"), total.c_str(),"*.xml");
+    if(fileName.isEmpty())
+        return;
     testsDepotModel_->load(fileName.toStdString());
     prerequisiteModel_->load(fileName.toStdString());
     libraryModel_->load(fileName.toStdString());

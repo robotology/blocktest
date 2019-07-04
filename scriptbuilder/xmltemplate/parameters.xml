@@ -4,6 +4,8 @@
     values=""  
     uom="" 
     type="integer" 
+    editable="true"  
+    emphasize="false"      
 />
 
 <wait 
@@ -12,6 +14,8 @@
     values=""  
     uom="second" 
     type="integer" 
+    editable="true"  
+    emphasize="false"      
 />
 
 <reporterror 
@@ -20,6 +24,8 @@
     values=""  
     uom="" 
     type="boolean" 
+    editable="true"  
+    emphasize="false"      
 />
 
 <name 
@@ -27,7 +33,9 @@
     full="command name" 
     values=""  
     uom="" 
-    type="string" 
+    type="string"
+    editable="false"
+    emphasize="true"    
 />
 
 <library
@@ -36,4 +44,6 @@
     values=""  
     uom="" 
     type="string" 
+    editable="false"
+    emphasize="false"    
 />

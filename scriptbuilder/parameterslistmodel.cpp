@@ -13,6 +13,7 @@
 
 
 #include "parameterslistmodel.h"
+#include "parametercommentmodel.h"
 #include "pugixml.hpp"
 #include <sstream>
 
@@ -77,16 +78,23 @@ void ParametersListModel::stringToXmlNodesToItems(const std::string& xmlString)
         QStandardItem * value{nullptr};
         name = new QStandardItem( ait->name());
         value = new QStandardItem( ait->value());
-        if(std::string(ait->name())=="name")
-        {
-            name->setFont(font);
-            value->setFont(font);
-        }
         name->setFlags(name->flags() &  ~Qt::ItemIsEditable);
 
         if(std::string(ait->name())=="library")
         {
             library=ait->value();
+        }
+
+        std::string editable=ParameterCommentModel::lookUpSpecificParamInfo(library,ait->name(),"editable");
+        if(editable=="false")
+        {
+            value->setFlags(value->flags () & ~Qt::ItemIsEditable);
+        }
+        std::string emphasize=ParameterCommentModel::lookUpSpecificParamInfo(library,ait->name(),"emphasize");
+        if(emphasize=="true")
+        {
+            name->setFont(font);
+            value->setFont(font);
         }
 
         QList<QStandardItem*> toInsert;

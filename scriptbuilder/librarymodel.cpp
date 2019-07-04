@@ -19,9 +19,6 @@ LibraryModel::LibraryModel()
     Q_ASSERT(ok);
 }
 
-LibraryModel::~LibraryModel()
-{}
-
 void LibraryModel::load(const std::string& fileName)
 {
     size_t pos = fileName.find_last_of('/');
