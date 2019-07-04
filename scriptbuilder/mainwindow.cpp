@@ -137,6 +137,7 @@ void MainWindow::on_loadButton_clicked()
 void MainWindow::on_scriptTree_clicked(const QModelIndex &index)
 {
     parametersModel_->updateData(index);
+    parameterCommentModel_->clearall();
 }
 
 void MainWindow::on_saveButton_clicked()
@@ -179,7 +180,7 @@ bool MainWindow::eventFilter(QObject* o,QEvent* e)
     return false;
 }
 
-void MainWindow::parameterChanged(QStandardItem * item)
+void MainWindow::parameterChanged(QStandardItem *)
 {
     QModelIndex index;
     std::string parameters=parametersModel_->dataRetrive(index);
@@ -221,6 +222,8 @@ void MainWindow::on_testsDepot_clicked(const QModelIndex &index)
     size_t pos=testsDepotModel_->testPath_.find_last_of("/");
     std::string smallpath=testsDepotModel_->testPath_.substr(0,pos);
     scriptModel_->load(smallpath+"/"+fileName.toStdString());
+    parametersModel_->clearall();
+    parameterCommentModel_->clearall();
 
     fs::directory_entry tmp(fileName.toStdString());
     std::string strInLable=tmp.path().stem().string()+".xml";

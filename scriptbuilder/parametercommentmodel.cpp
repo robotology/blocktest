@@ -98,3 +98,8 @@ std::string ParameterCommentModel::lookUpSpecificParamInfo(const std::string& li
     }
     return "";
 }
+
+void ParameterCommentModel::clearall()
+{
+    clear();
+}
