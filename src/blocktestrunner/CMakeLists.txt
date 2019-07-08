@@ -25,7 +25,7 @@ set(BlockTestRunnerHdr  blockTestRunner.h
 
 include_directories(${Boost_INCLUDE_DIRS})
 add_executable(blocktestrunner ${BlockTestRunnerSrc} ${BlockTestRunnerHdr} )
-target_link_libraries(blocktestrunner BlockTestCore pugixml)
+target_link_libraries(blocktestrunner blocktestcore pugixml)
 
 # install
 install(TARGETS blocktestrunner RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
