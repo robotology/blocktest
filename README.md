@@ -492,7 +492,7 @@ To execute the test you should compile the test environment:
 
 ```bash
 cd ./blocktest/build/bin
-./blocktest
+./blocktestrunner
 ```
 
 If you need to execute the test on the real robot use the appropriate settings:
