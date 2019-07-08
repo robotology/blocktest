@@ -10,7 +10,7 @@
  * @author Luca Tricerri <luca.tricerri@iit.it>
  */
 
-#include "blockTest.h"
+#include "blockTestRunner.h"
 
 
 int main(int argc,char* argv[]) noexcept

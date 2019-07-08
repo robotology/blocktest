@@ -10,7 +10,7 @@
  * @author Luca Tricerri <luca.tricerri@iit.it>
  */
 
-#include "blockTest.h"
+#include "blockTestRunner.h"
 #include "logger.h"
 #include "report.h"
 #include "libraryLoader.h"

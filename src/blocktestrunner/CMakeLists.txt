@@ -1,0 +1,31 @@
+################################################################################
+#                                                                              #
+# Copyright (C) 2019 Fondazione Istitito Italiano di Tecnologia (IIT)          #
+# All Rights Reserved.                                                         #
+#                                                                              #
+################################################################################
+
+# @author Nicolo Genesio <nicolo.genesio@iit.it> 
+
+set(BlockTestRunnerSrc  main.cpp
+                        blockTestRunner.cpp
+                        libraryLoader.cpp
+                        testsDepot.cpp
+                        fixture.cpp
+                        test.cpp
+                        command.cpp
+                        )
+set(BlockTestRunnerHdr  blockTestRunner.h
+                        libraryLoader.h
+                        testsDepot.h
+                        fixture.h
+                        command.h
+                        test.h
+                        )
+
+include_directories(${Boost_INCLUDE_DIRS})
+add_executable(blocktestrunner ${BlockTestRunnerSrc} ${BlockTestRunnerHdr} )
+target_link_libraries(blocktestrunner BlockTestCore pugixml)
+
+# install
+install(TARGETS blocktestrunner RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

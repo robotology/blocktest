@@ -406,7 +406,7 @@ void MainWindow::on_startButton_clicked()
 {
     try
     {
-        process_=std::make_shared<boost::process::child>("./blockTest");
+        process_=std::make_shared<boost::process::child>("./blocktestrunner");
         process_->detach();
     }
     catch (...)

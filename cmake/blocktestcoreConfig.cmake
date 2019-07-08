@@ -21,31 +21,33 @@ else()
   set(libname_release BlockTestCore)
 endif()
 find_path(blocktestcore_INCLUDE_DIR
-          NAMES action.h
-				actionDepotStart.h
+          NAMES actionDepotStart.h
+				action.h
 				actionRegister.h
-				blockTest.h
+				api.h
 				clockFacility.h
-				command.h
 				dataLogger.h
-				fixture.h
+				exprtk.hpp
 				general.h
 				infoLogger.h
-				libraryLoader.h
 				logconst.h
 				logger.h
 				loggerRegister.h
 				report.h
-				scheduler.cpp
-				scheduler.h
+				table.h
+                tableExpression.h
+				tableIncrement.h
+				tableNormal.h
 				tables.h
-				test.h
-				testsDepot.h
+				tableWave.h
 				type.h
-				api.h
 
-          PATHS $ENV{blocktestcore_DIR}/../src
+		PATHS   $ENV{blocktestcore_DIR}/../src/blocktestcore
+		        $ENV{blocktestcore_DIR}/include/blocktestcore
+		        /usr/include/
+		        /usr/local/include
           DOC "blocktest include directory")
+
 find_library(blocktestcore_LIBRARY_RELEASE
              NAMES ${libname_release}
              PATHS $ENV{blocktestcore_DIR}/${librarydirectory_release}
@@ -70,5 +72,5 @@ find_package_handle_standard_args(blocktestcore
 # Set package properties if FeatureSummary was included
 if(COMMAND set_package_properties)
     set_package_properties(blocktestcore PROPERTIES DESCRIPTION "The application provides functionalities for developing and running not regression tests in a likely natural language as close as possible to test case writing"
-                                          URL "http://computation.llnl.gov/projects/floating-point-compression")
+                                          URL "https://github.com/robotology/blocktest")
 endif()

@@ -13,58 +13,6 @@ project(blockTest
         LANGUAGES C CXX
         VERSION 0.1)
 
-set(BlockTestSrc        src/main.cpp
-                        src/blockTest.cpp
-                        src/libraryLoader.cpp
-                        src/testsDepot.cpp
-                        src/fixture.cpp
-                        src/test.cpp
-                        src/command.cpp
-                        )
-set(BlockTestHdr        src/blockTest.h
-                        src/libraryLoader.h
-                        src/testsDepot.h
-                        src/fixture.h
-                        src/command.h
-                        src/test.h
-                        )
-
-set(BlockTestCoreSrc    src/action.cpp
-                        src/clockFacility.cpp
-                        src/dataLogger.cpp
-                        src/infoLogger.cpp
-                        src/logger.cpp
-                        src/report.cpp
-                        src/tables.cpp
-                        src/table.cpp
-                        src/tableIncrement.cpp
-                        src/tableNormal.cpp
-                        src/tableExpression.cpp
-                        src/tableWave.cpp
-                        src/actionDepotStart.cpp
-                        )
-
-set(BlockTestCoreHdr    src/api.h
-                        src/action.h
-                        src/actionDepotStart.h
-                        src/actionRegister.h
-                        src/clockFacility.h
-                        src/dataLogger.h
-                        src/general.h
-                        src/infoLogger.h
-                        src/logconst.h
-                        src/logger.h
-                        src/loggerRegister.h
-                        src/report.h
-                        src/tables.h
-                        src/table.h
-                        src/tableIncrement.h
-                        src/tableNormal.h
-                        src/tableExpression.h
-                        src/tableWave.h
-                        src/type.h
-                        src/exprtk.hpp
-                        )
 set(CMAKE_AUTOMOC ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 if (CMAKE_VERSION VERSION_LESS 3.11)
@@ -131,26 +79,15 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set(CMAKE_EXE_LINKER_FLAGS  "-rdynamic")
 
-#add the action libraries
-add_subdirectory(genericactiondepotlib)
 if(WIN32)
     set(Common_LIBRARIES)
 else()
     set(Common_LIBRARIES dl pthread)
 endif()
 
-# BlockTestCore
-add_library(BlockTestCore SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})
-target_include_directories(BlockTestCore PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(BlockTestCore ${Boost_LIBRARIES}
-                                    ${Common_LIBRARIES}
-                                    pugixml)
-# BlockTest
-include_directories(${Boost_INCLUDE_DIRS})
-add_executable(${PROJECT_NAME} ${BlockTestSrc} ${BlockTestHdr} )
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(${PROJECT_NAME} BlockTestCore pugixml)
 
+add_subdirectory(src)
+# 
 if(WIN32)
     add_custom_command(TARGET ${PROJECT_NAME}
     POST_BUILD
@@ -166,13 +103,8 @@ else()
          DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 endif()
 
-file(COPY ${PROJECT_SOURCE_DIR}/cmake/blocktestcoreConfig.cmake DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-#install
-install(TARGETS BlockTestCore LIBRARY DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+# conf files
 install(DIRECTORY test DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES config.xml DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES ${PROJECT_SOURCE_DIR}/cmake/blocktestcoreConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/blocktestcore)
 
-add_subdirectory(scriptbuilder)
+
