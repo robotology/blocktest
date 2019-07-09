@@ -4,5 +4,5 @@
 	<logging loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
 	<settings wait="0" />
 	
-	<command library="yarp" name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="$test3$" repetitions="100000" wait="0.1" reporterror="true" />
+	<command library="yarp" name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="$test7$" repetitions="1000" wait="0.2" reporterror="true" />
 	</testbody>

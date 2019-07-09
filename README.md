@@ -243,7 +243,7 @@ list the tests together with the **file** in which the test has been written.
 | name               | ---           | Test name.                                                                                       |
 | code               | ---           | Numeric code for identifying the test, could be related to test case.                            |
 | parallel           | false         | Should the test be executed in paralell.                                                         |
-| repetitionsfortime | 0             | If specified is the time to repeat the test.                                                     |
+| repetitionsfortime | 0             | If specified is the time to repeat the test in seconds.                                                     |
 
 ### 5.4.1. Parallel or serie execution
 It is possibile to specify if some tests are executed in series or parallel.
@@ -371,7 +371,7 @@ These commands are contained in the generic command library plugin.
 
 ## 5.6. Test writing with Scriptbuilder
 Script builder is a UI for test and test list writing.
-See at https://github.com/robotology/blocktest/tree/master/scriptbuilder
+See at https://github.com/robotology/blocktest/blob/master/src/scriptbuilder/README.md
 for more informations.
 
 ![alt text](img/img002.png "Scriptbuilder.")
