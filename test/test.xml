@@ -1,24 +1,25 @@
 <?xml version="1.0"?>
 <testlist repetitions="1">
 	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="test/tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="infologgeryarp" />
-	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic action library" />
-	<library enabled="true" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp action library" />
 	<librarysettings enabled="true" name="genericactiondepot" />
-	<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="true"/>
-	<test file="test/0001.xml" repetitions="10" repetitionsfortime="" code="0001" parallel="false"/>
-	<test file="test/0100.xml" repetitions="0" repetitionsfortime="" code="0100" parallel="false"/>
-	<test file="test/0110.xml" repetitions="0" repetitionsfortime="" code="0110" parallel="false"/>
-	<test file="test/0600.xml" repetitions="0" repetitionsfortime="" code="0600" parallel="false"/>
-	<test file="test/0601.xml" repetitions="0" repetitionsfortime="" code="0601" parallel="false"/>
-	<test file="test/0602.xml" repetitions="0" repetitionsfortime="" code="0602" parallel="false"/>
-	<test file="test/0603.xml" repetitions="0" repetitionsfortime="" code="0603" parallel="false"/>	
+	<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="false" />
+	<test file="test/0001.xml" repetitions="0" repetitionsfortime="" code="0001" parallel="false" />
+	<test file="test/0100.xml" repetitions="0" repetitionsfortime="" code="0100" parallel="false" />
+	<test file="test/0110.xml" repetitions="0" repetitionsfortime="" code="0110" parallel="false" />
+	<test file="test/0600.xml" repetitions="0" repetitionsfortime="" code="0600" parallel="false" />
+	<test file="test/0601.xml" repetitions="0" repetitionsfortime="" code="0601" parallel="false" />
+	<test file="test/0602.xml" repetitions="0" repetitionsfortime="" code="0602" parallel="false" />
+	<test file="test/0603.xml" repetitions="1" repetitionsfortime="" code="0603" parallel="true" />
+	<test file="test/0604.xml" repetitions="1" repetitionsfortime="" code="0604" parallel="true" />
 	<prerequisite enabled="false" command="roscore" waitafter="5000" param="" prefix="" kill="true" />
 	<prerequisite enabled="false" command="yarpserver" waitafter="5000" param="--silent --write --ros" prefix="" kill="true" />
 	<prerequisite enabled="true" command="yarpserver" waitafter="5000" param="--silent" prefix="" kill="true" />
 	<prerequisite enabled="false" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub.world" prefix="" kill="true" />
-	<prerequisite enabled="true" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true" />
-	<prerequisite enabled="true" command="gzclient" waitafter="5000" param="" prefix="" kill="true" />
+	<prerequisite enabled="false" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true" />
+	<prerequisite enabled="false" command="gzclient" waitafter="5000" param="" prefix="" kill="true" />
 	<prerequisite enabled="false" command="yarpdev" waitafter="5000" param="--device transformServer --ROS::enable_ros_publisher 1 --ROS::enable_ros_subscriber 1 --transforms_lifetime 0.5" prefix="YARP_CLOCK=/clock" kill="true" />
 	<prerequisite enabled="false" command="yarprobotinterface" waitafter="5000" param="--config main-fbe.xml" prefix="" kill="true" />
 	<prerequisite enabled="false" command="roslaunch" waitafter="5000" param="icub robotStatePublisher.launch" prefix="" kill="true" />
+	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic action library" />
+	<library enabled="true" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp action library" />
 </testlist>

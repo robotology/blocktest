@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Base port test." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpportread" portname="/receive" value="test" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="100" repetitions="1" wait="0" reporterror="true" />
+</testbody>

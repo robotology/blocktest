@@ -76,7 +76,7 @@ execution Command::execute(bool isRealRobot,unsigned int testrepetition)
 
     for(size_t index=0;index<repetitions_;++index)
     {
-        TXLOG(Severity::info)<<"+++++++++++++++++++Start exec command name:"<<command_<<" -Total repetitions:"<<repetitions_<<" -Actual repetition:"<<index+1<<std::endl;
+        TXLOG(Severity::info)<<"+++++++++++++++++++Exec command name:"<<command_<<" Test name:"<<test_->code_<<" -Total repetitions:"<<repetitions_<<" -Actual repetition:"<<index+1<<std::endl;
         action_->beforeExecute();
         ret=action_->execute(testrepetition);
         if(ret==execution::stopexecution)
