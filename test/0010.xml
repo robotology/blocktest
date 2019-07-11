@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="ICub right ankle roll move." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />
+	<command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+	</testbody>

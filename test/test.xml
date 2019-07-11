@@ -1,16 +1,25 @@
 <?xml version="1.0"?>
-<testlist repetitions="1">
+<testlist repetitions="4">
 	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="test/tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="infologgeryarp" />
 	<librarysettings enabled="true" name="genericactiondepot" />
 	<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="false" />
+
+	<!-- ICub move -->
 	<test file="test/0001.xml" repetitions="0" repetitionsfortime="" code="0001" parallel="false" />
 	<test file="test/0100.xml" repetitions="0" repetitionsfortime="" code="0100" parallel="false" />
 	<test file="test/0110.xml" repetitions="0" repetitionsfortime="" code="0110" parallel="false" />
+
+	<!-- Generic -->
 	<test file="test/0600.xml" repetitions="0" repetitionsfortime="" code="0600" parallel="false" />
 	<test file="test/0601.xml" repetitions="0" repetitionsfortime="" code="0601" parallel="false" />
 	<test file="test/0602.xml" repetitions="0" repetitionsfortime="" code="0602" parallel="false" />
-	<test file="test/0603.xml" repetitions="1" repetitionsfortime="" code="0603" parallel="true" />
-	<test file="test/0604.xml" repetitions="1" repetitionsfortime="" code="0604" parallel="true" />
+
+	<!-- YARP API -->
+	<test file="test/0010.xml" repetitions="1" repetitionsfortime="" code="nop_1" parallel="false" />
+	<test file="test/0800.xml" repetitions="1" repetitionsfortime="" code="0800" parallel="true" />
+	<test file="test/0801.xml" repetitions="1" repetitionsfortime="" code="0801" parallel="true" />
+	<test file="test/0010.xml" repetitions="1" repetitionsfortime="" code="nop_2" parallel="false" />
+
 	<prerequisite enabled="false" command="roscore" waitafter="5000" param="" prefix="" kill="true" />
 	<prerequisite enabled="false" command="yarpserver" waitafter="5000" param="--silent --write --ros" prefix="" kill="true" />
 	<prerequisite enabled="true" command="yarpserver" waitafter="5000" param="--silent" prefix="" kill="true" />

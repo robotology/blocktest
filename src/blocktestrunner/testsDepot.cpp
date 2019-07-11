@@ -108,6 +108,8 @@ execution TestsDepot::execute() const
             out=current->execute(realRobot_);
             std::cout<<"------"<<std::endl;
         }
+
+        waitTermination();
     }
     return out;
 }
