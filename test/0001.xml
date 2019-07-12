@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<testbody>
-	<info note="ICub right ankle roll move." shortnote="" version="1.0" />
-	<logging loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
-	<settings wait="0" />
-	
-	<command library="yarp" name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="$test7$" repetitions="1000" wait="0.2" reporterror="true" />
-	</testbody>

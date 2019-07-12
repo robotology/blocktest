@@ -22,7 +22,7 @@ ActionNow::ActionNow(const CommandAttributes& commandAttributes,const std::strin
 {
 }     
 
-execution ActionNow::execute(unsigned int )
+execution ActionNow::execute(const TestRepetitions&)
 {
     return execution::continueexecution;
 }

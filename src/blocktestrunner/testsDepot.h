@@ -31,7 +31,6 @@ class Test;
 class TestsDepot: public std::enable_shared_from_this<TestsDepot>
 {
 public:
-
     std::string loggingcommand_;
     double loggingTime_{0.010};
 
@@ -42,17 +41,14 @@ public:
     bool waitTermination() const;
 
     bool valid() const;
-
-    static std::string getRobotStr();
-    static std::string getWaitCommand();
-   
+  
     std::set<std::string> commandOnlySim_;   
 
+    unsigned int repetitions_{0};
+
 private:
-    static  std::string waitcommand_;
     const std::string testName_{"./test/test.xml"};    
 
-    unsigned int repetitions_{0};
     bool realRobot_{false};
 
     std::vector<Test_sptr> data_;

@@ -5,7 +5,7 @@
 	<settings wait="0" />
 	
 	<command library="yarp" name="yarpportopen" portname="/send" repetitions="1" wait="0" reporterror="true" />
-	<command library="general" name="wait" seconds="2" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
 	<command library="yarp" name="yarpportwrite" portname="/send" value="test" repetitions="1" wait="0" reporterror="true" />
 	<command library="general" name="wait" seconds="2" repetitions="1" wait="0" reporterror="true" />
 	<command library="general" name="wait" seconds="2" repetitions="1" wait="0" reporterror="true" />	

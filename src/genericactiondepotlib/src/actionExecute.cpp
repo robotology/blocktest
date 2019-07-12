@@ -13,6 +13,7 @@
 
 #include "actionExecute.h"
 #include "logger.h"
+#include "report.h"
 
 ACTIONREGISTER_DEF_TYPE(GenericActions::ActionExecute,"execute");
 
@@ -34,14 +35,16 @@ void ActionExecute::beforeExecute()
     getCommandAttribute("kill",kill_); 
 }
 
-execution ActionExecute::execute(unsigned int testrepetition)
+execution ActionExecute::execute(const TestRepetitions& testrepetition)
 {
     std::string tagTmp=normalizeSingle(tag_,false);
     if(kill_)
     {
         if(processes_.find(tagTmp)==processes_.end())
         {
-            TXLOG(Severity::critical)<<"Repetition "<<testrepetition<<": tag "<<tagTmp <<" for kill not found"<<std::endl;
+            std::stringstream ss;
+            ss<<"tag "<<tagTmp <<" not found for kill."<<std::endl;
+            addProblem(testrepetition,Severity::critical,ss.str(),true);
             return execution::stopexecution;
         }
 
@@ -56,8 +59,8 @@ execution ActionExecute::execute(unsigned int testrepetition)
 
     if(processes_.find(tagTmp)!=processes_.end())
     {
-        TXLOG(Severity::critical)<<"Repetition "<<testrepetition<<": duplicate execute command tag "<<tagTmp<<std::endl;
-        return execution::stopexecution;
+        TXLOG(Severity::warning)<<"Repetition "<<testrepetition.testRepetitions_<<": duplicate execute command tag "<<tagTmp<<std::endl;
+        //return execution::stopexecution;
     }
 
     auto process=std::make_shared<boost::process::child>(ss.str());

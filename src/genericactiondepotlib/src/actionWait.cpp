@@ -29,7 +29,7 @@ void ActionWait::beforeExecute()
     getCommandAttribute("seconds",seconds_);      
 }
 
-execution ActionWait::execute(unsigned int)
+execution ActionWait::execute(const TestRepetitions&)
 {
     std::this_thread::sleep_for(std::chrono::milliseconds((int) seconds_*1000));
     return execution::continueexecution;

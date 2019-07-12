@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Base port test read." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />	
+	
+	<command library="general" name="wait" seconds="0.5" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpportopen" portname="/receive2" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpconnect" source="/send" destination="/receive2" carrier="tcp" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpportread" portname="/receive2" value="test" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpdisconnect" source="/send" destination="/receive2" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpportclose" portname="/receive2" repetitions="1" wait="0" reporterror="true" />
+
+</testbody>

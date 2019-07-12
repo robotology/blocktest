@@ -20,6 +20,7 @@
 using CommandAttributes=std::map<std::string,std::string>;
 
 #include "actionRegister.h"
+#include "testrepetitions.h"
 
 namespace BlockTestCore
 {
@@ -34,7 +35,7 @@ class BLOCKTEST_EXPORT Action
     public:      
         Action(const CommandAttributes& commandAttributes,const std::string& testCode);
         virtual void beforeExecute() =0;
-        virtual execution execute(unsigned int testrepetition)=0;
+        virtual execution execute(const TestRepetitions& testrepetition)=0;
         virtual double getDouble() {return 0;};
         virtual ~Action();
 
@@ -46,7 +47,7 @@ class BLOCKTEST_EXPORT Action
         unsigned int normalizeUInt(const std::string& str,bool justFetch) const;
         Test& getMyTest();
 
-        void addProblem(unsigned int repetition,Severity severity,const std::string& errorMessage) const;
+        void addProblem(const TestRepetitions& repetitions,Severity severity,const std::string& errorMessage,bool alsoLog=true) const;
         std::string testCode_;
 
         bool reporterror_{true};
@@ -74,7 +75,6 @@ class BLOCKTEST_EXPORT Action
             out = std::vector<T>{ std::istream_iterator<T>{ss},std::istream_iterator<T>() };
             return out;
         }
-
 };
 
 }

@@ -33,9 +33,9 @@ void ActionNop::beforeExecute()
     getCommandAttribute("printtestinfo",printtestinfo_); 
 }
 
-execution ActionNop::execute(unsigned int testrepetition)
+execution ActionNop::execute(const TestRepetitions& testrepetition)
 {
-    if(justOneTime_ && testrepetition!=0)
+    if(justOneTime_ && testrepetition.testRepetitions_!=0)
         return execution::continueexecution;
 
     std::vector<std::string> tablesDepot;
@@ -46,7 +46,7 @@ execution ActionNop::execute(unsigned int testrepetition)
         ss<<fixvalue_<<'\t';
     
     if(printtestinfo_)
-        ss<<testCode_<<'\t'<<testrepetition<<'\t'; 
+        ss<<testCode_<<'\t'<<testrepetition.testRepetitions_<<'\t'; 
     
     for(std::string current:tablesDepot)
     {

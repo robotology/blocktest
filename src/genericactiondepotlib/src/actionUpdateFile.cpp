@@ -30,18 +30,18 @@ void ActionUpdateFile::beforeExecute()
     getCommandAttribute("destinationfile",destinationFile_);        
 }
 
-execution ActionUpdateFile::execute(unsigned int testrepetition)
+execution ActionUpdateFile::execute(const TestRepetitions& testrepetition)
 {
     std::ifstream ifs(sourceFile_);
     if(!ifs.is_open())
     {
-        TXLOG(Severity::error)<<"Repetition "<<testrepetition<<": source file "<<sourceFile_<<"not found"<<std::endl;
+        TXLOG(Severity::error)<<"Repetition "<<testrepetition.testRepetitions_<<": source file "<<sourceFile_<<"not found"<<std::endl;
         return execution::stopexecution;
     }
     std::ofstream ofs(destinationFile_,std::fstream::in | std::fstream::trunc);
     if(!ofs.is_open())
     {
-        TXLOG(Severity::error)<<"Repetition "<<testrepetition<<": file "<<destinationFile_<<" not ready"<<std::endl;
+        TXLOG(Severity::error)<<"Repetition "<<testrepetition.testRepetitions_<<": file "<<destinationFile_<<" not ready"<<std::endl;
         return execution::stopexecution;
     }    
 

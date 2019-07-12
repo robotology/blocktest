@@ -56,7 +56,7 @@ const std::string Command::dumpCommand() const
     return ss.str();
 }
 
-execution Command::execute(bool isRealRobot,unsigned int testrepetition)
+execution Command::execute(bool isRealRobot,TestRepetitions testrepetition)
 {
 	if (!action_)
 	{

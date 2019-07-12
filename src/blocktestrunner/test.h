@@ -16,6 +16,7 @@
 #include "type.h"
 #include "command.h"
 #include "general.h"
+#include "testrepetitions.h"
 
 namespace BlockTestCore
 {
@@ -31,16 +32,17 @@ public:
     bool valid() const;
     bool isLogActive(loggingType type) const;
     bool load();
-    execution execute(bool isRealRobot);
+    execution execute(bool isRealRobot,unsigned int repetition);
     bool waitTermination() const;
 
-    unsigned int repetitions_{0};
     std::string code_;
     bool parallel_{false};
     TestsDepot_sptr testDepot_;
 
+    unsigned int repetitions_{0};
+    
 private:
-    execution work(bool isRealRobot) const;
+    execution work(bool isRealRobot,unsigned int globalRepetition) const;
     std::unique_ptr<std::thread> testThread_;
 
     std::vector<Command_sptr> data_;

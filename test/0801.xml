@@ -4,7 +4,7 @@
 	<logging loggingtype="" loggingpart="" loggingwrappername="" />
 	<settings wait="0" />	
 	
-	<command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="0.5" repetitions="1" wait="0" reporterror="true" />
 	<command library="yarp" name="yarpportopen" portname="/receive" repetitions="1" wait="0" reporterror="true" />
 	<command library="yarp" name="yarpconnect" source="/send" destination="/receive" carrier="tcp" repetitions="1" wait="0" reporterror="true" />
 	<command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />

@@ -34,7 +34,7 @@ public:
 
     const std::string dumpCommand() const;
 
-    execution execute(bool isRealRobot,unsigned int testrepetition);
+    execution execute(bool isRealRobot,TestRepetitions testrepetition);
 
 private:
     Test_sptr test_;
