@@ -17,7 +17,7 @@
 namespace GenericActions
 {
 
-static GenericActionDepotStart start;
+
 
 std::chrono::milliseconds GenericActionDepotStart::begin_;
 
@@ -41,15 +41,18 @@ GenericActionDepotStart::~GenericActionDepotStart()
 
 extern "C"
 {
-
 void Stop(char*, char*)
 {
     //TXLOG(Severity::info)<<"Library stop called:"<<std::endl;
 }
+}
 
+extern "C"
+{
+static GenericActions::GenericActionDepotStart start;
 void Configure(const std::map<std::string,std::string>& conf)
 {
-    GenericActions::start.configure(conf);
+    start.configure(conf);
     //TXLOG(Severity::info)<<"Library stop called:"<<std::endl;
 }
 
