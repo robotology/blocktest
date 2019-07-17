@@ -28,6 +28,8 @@ class BLOCKTEST_EXPORT ActionDepotStart
 {
     public:
         virtual void configure(const std::map<std::string,std::string>&) =0;
+        virtual void stop() =0;
+
         virtual ~ActionDepotStart() = default;
 
         //helper funcion
@@ -39,3 +41,9 @@ class BLOCKTEST_EXPORT ActionDepotStart
 };
 
 }
+
+#define ACTIONDEPOTSTART(x) \
+static x start; \
+extern "C" void Stop(char* ,char* ){} \
+extern "C" void Configure(const std::map<std::string,std::string>& conf){start.configure(conf);}
+

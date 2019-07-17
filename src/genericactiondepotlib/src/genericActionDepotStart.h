@@ -18,9 +18,6 @@
 
 using namespace BlockTestCore;
 
-namespace GenericActions
-{
-
 /**
  * @class GenericActionDepotStart
  * @brief ...
@@ -32,8 +29,7 @@ class GenericActionDepotStart : public ActionDepotStart
         GenericActionDepotStart(); 
         virtual ~GenericActionDepotStart(); 
         void configure(const std::map<std::string,std::string>&) override;
+        void stop() override;
 
         static std::chrono::milliseconds begin_;
 };
-
-}

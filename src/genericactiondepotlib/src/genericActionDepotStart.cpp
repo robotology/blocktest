@@ -14,10 +14,7 @@
 #include "logger.h"
 #include "genericActionDepotStart.h"
 
-namespace GenericActions
-{
-
-
+ACTIONDEPOTSTART(GenericActionDepotStart)
 
 std::chrono::milliseconds GenericActionDepotStart::begin_;
 
@@ -32,31 +29,7 @@ void GenericActionDepotStart::configure(const std::map<std::string,std::string>&
     //Nothing todo
 }
 
-GenericActionDepotStart::~GenericActionDepotStart()
+void GenericActionDepotStart::stop()
 {
     //Nothing todo
 }
-
-}
-
-extern "C"
-{
-void Stop(char*, char*)
-{
-    //TXLOG(Severity::info)<<"Library stop called:"<<std::endl;
-}
-}
-
-extern "C"
-{
-static GenericActions::GenericActionDepotStart start;
-void Configure(const std::map<std::string,std::string>& conf)
-{
-    start.configure(conf);
-    //TXLOG(Severity::info)<<"Library stop called:"<<std::endl;
-}
-
-
-}
-
-

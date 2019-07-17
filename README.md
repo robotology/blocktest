@@ -568,11 +568,11 @@ At the end of the test a report summary is been written:
 ## 9.1. Existing plugins
 Two plugin are already available:
 The Yarp BlockTest-plugin look at https://github.com/robotology/blocktest-yarp-plugins and the
-Generic BlockTest-plugin that is included in the current repository.
+Generic BlockTest-plugin that is included in the current repository https://github.com/robotology/blocktest/tree/master/src/genericactiondepotlib.
  
 
 ## 9.2. Create a new plugin
-It is possible to write your own plugin for BlockTest, check the following section.
+It is possible to write your own plugin for BlockTest, check the following sections.
 
 ## 9.3. Create a new repository for plugin
 Create a new repository in github.
@@ -582,10 +582,10 @@ Step by step.
 
 1)
 Derive the class ActionDepotStart. The class will contain plugin initialization.
-In the code the example from the generic BlockTest plugin. 
+In the following section the example from the generic BlockTest plugin. 
 
 2)
-The method configure is overwritten.
+The methods **configure** and **stop** are overwritten.
 
 ```c++
 class GenericActionDepotStart : public ActionDepotStart
@@ -594,56 +594,62 @@ class GenericActionDepotStart : public ActionDepotStart
         GenericActionDepotStart(); 
         virtual ~GenericActionDepotStart(); 
         void configure(const std::map<std::string,std::string>&) override;
+        void stop() override;
 
         ...
 };
 ```
-In the code the example from the generic BlockTest plugin. The method **configure**
-is overwritten.
 
 3)
 
-The **Stop** and **Configure** function should be added as shown in figure.
+The **ACTIONDEPOTSTART**(\<classname\>) macro is added in \<classname\>.cpp file as shown in figure.
 
 ```c++
+ACTIONDEPOTSTART(GenericActionDepotStart)  
+
 void GenericActionDepotStart::configure(const std::map<std::string,std::string>&)
 {
-    ...
+    //Nothing todo
 }
 
-extern "C"
+void GenericActionDepotStart::stop()
 {
-    void Stop(char*, char*)
-    {
-        ...
-    }
+    //Nothing todo
 }
-
-extern "C"
-{
-    static GenericActions::GenericActionDepotStart start;
-    void Configure(const std::map<std::string,std::string>& conf)
-    {
-        start.configure(conf);
-        ...
-    }
-}    
 ```
+The **configure** method is automatic called when the library is loaded by BlockTest. The **stop** method is called when the library is close by  BlockTest.
 
-The configure function conf parameter is a map key-value. The map contains
+
+The **configure** method conf parameter is a map key-value. The map contains
 all the configuration parameter that are present in xml.
 
 ```xml
-	<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="true" />
+<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="true" />
 
 ```
 In this example the map contains the following key-value:  
-name-->"yarpactiondepot"  
-wrappername-->"/right_leg /left_leg /torso /head /right_arm /left_arm"  
-robotname-->"icubSim"   
-netclock-->"true"  
 
+| Key | Value |
+| ---------- | ------- |
+| name      | "yarpactiondepot"       |
+| wrappername      | "/right_leg /left_leg /torso /head /right_arm /left_arm"       |
+| robotname      | "icubSim"       | 
+| netclock      |"true"       |
 
+4.
+Write your librarysettings and library entries in text.xml. In the figure below it is shown a pair of libraries and their settings.
+
+```xml
+<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic action library" />
+<library enabled="true" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp action library" />
+
+<librarysettings enabled="true" name="genericactiondepot" />
+<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="true" />
+
+```
+
+5.
+Write the code in **configure**,**stop** methods depending on your needs.
 ## 9.5. Blocks writing
 Write your own blocks, each block is derived from CAction.
 
