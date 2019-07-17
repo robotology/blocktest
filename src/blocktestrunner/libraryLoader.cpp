@@ -89,7 +89,7 @@ bool LibraryLoader::load(const std::string& path)
         }
         catch(boost::exception const& e) {
             std::cout<<"------------------"<<boost::diagnostic_information(e, true)<<std::endl;
-            TXLOG(Severity::criticalminimal)<<"Custom lib:"<<currentPath<<extension<<" error missing Start/Stop function in lib----"<<boost::diagnostic_information(e, true)<<std::endl;
+            TXLOG(Severity::criticalminimal)<<"Custom lib:"<<currentPath<<extension<<" error missing Configure/Stop function in lib----"<<boost::diagnostic_information(e, true)<<std::endl;
             return false;
         }
         catch(std::exception& e)

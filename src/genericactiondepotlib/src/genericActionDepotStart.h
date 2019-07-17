@@ -14,8 +14,6 @@
 
 #include "actionDepotStart.h"
 
-
-
 using namespace BlockTestCore;
 
 /**
@@ -27,7 +25,6 @@ class GenericActionDepotStart : public ActionDepotStart
 {
     public:
         GenericActionDepotStart(); 
-        virtual ~GenericActionDepotStart(); 
         void configure(const std::map<std::string,std::string>&) override;
         void stop() override;
 
