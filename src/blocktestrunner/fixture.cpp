@@ -48,7 +48,9 @@ Fixture::Fixture(const std::string& path)
 Fixture::~Fixture()
 {
     fixtureCheckerActive_=false;
-	if(fixtureCheck_)
+    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+
+	if(fixtureCheck_ && fixtureCheck_->joinable())
 		fixtureCheck_->join();
 
     std::list<FixtureParam>::reverse_iterator it;
@@ -63,8 +65,9 @@ Fixture::~Fixture()
 		if((*it).process_)
 			(*it).process_->terminate();
         (*it).writerActive_=false;
+        if((*it).writer_->joinable())
+            (*it).writer_->join();
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
-        //(*it).writer_->join();
         TXLOG(Severity::criticalminimal)<<"prerequisite destroyed:"<<(*it).commandName_<<std::endl;
 
         std::this_thread::sleep_for(std::chrono::milliseconds((*it).waitafter_));
@@ -98,7 +101,7 @@ void Fixture::execute()
 
 		try
 		{
-			current.process_ = std::make_shared<boost::process::child>(ss.str(), boost::process::std_err > *current.output_);
+			current.process_ = std::make_unique<boost::process::child>(ss.str(), boost::process::std_err > *current.output_);
 		}
 		catch(const boost::process::process_error& e)
 		{
@@ -113,7 +116,7 @@ void Fixture::execute()
             while (current.process_->running() && current.writerActive_)
             {
                 std::getline(*current.output_, line);
-                std::this_thread::sleep_for(std::chrono::microseconds(10));
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
                 if(line=="")
                     continue;
                 ofs << line << std::endl;
@@ -161,7 +164,7 @@ Fixture::FixtureParam::FixtureParam(const std::string& commandName,const std::st
                                                                                                                                                 prefix_(prefix),
                                                                                                                                                 waitafter_(waitafter)
 {
-    output_=std::make_shared<boost::process::ipstream>();
+    output_=std::make_unique<boost::process::ipstream>();
 }
 
 }

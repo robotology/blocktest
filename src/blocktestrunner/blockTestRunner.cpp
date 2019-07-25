@@ -29,12 +29,13 @@ BlockTest::BlockTest(const std::string &path):path_(path)
 
  BlockTest::~BlockTest()
  {
-     TXLOG(Severity::debug)<<"BlockTest destroyed"<<std::endl;
+     /*
+    TXLOG(Severity::debug)<<"BlockTest destroyed"<<std::endl;
 
     TXLOG(Severity::info)<<"********************"<<std::endl;
     TXLOG(Severity::info)<<"**Stop Test system**"<<std::endl;
     TXLOG(Severity::info)<<"********************"<<std::endl;
-
+    */
  }
 
 unsigned int BlockTest::run()

@@ -44,6 +44,6 @@ class BLOCKTEST_EXPORT ActionDepotStart
 
 #define ACTIONDEPOTSTART(x) \
 static x start; \
-extern "C" void Stop(char* ,char* ){} \
+extern "C" void Stop(char* ,char* ){start.stop();} \
 extern "C" void Configure(const std::map<std::string,std::string>& conf){start.configure(conf);}
 
