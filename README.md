@@ -79,6 +79,28 @@ The following library are used in blocktest:
 **exprtk** https://github.com/ArashPartow/exprtk  
 **boost** https://www.boost.org/  
 
+Install just pugixml:
+```bash
+git clone https://github.com/zeux/pugixml
+cd pugixml
+mkdir build
+cd build
+ccmake ..
+```
+Select:
+```bash
+ BUILD_SHARED_AND_STATIC_LIBS     ON                                                           
+ BUILD_SHARED_LIBS                ON
+```
+
+Then:
+
+```bash
+make
+sudo make install
+```
+
+
 ## 4.4. Installation and compilation
 
 In order to compile just execute the following commands in a bash
