@@ -6,33 +6,21 @@
  ******************************************************************************/
 
 /**
- * @file ActionUpdateFile.h
+ * @file testrepetitions.h
  * @authors: Luca Tricerri <luca.tricerri@iit.it>
  */
 
 #pragma once
 
-#include "action.h"
-
-using namespace BlockTestCore;
-
-namespace GenericActions
+namespace BlockTestCore
 {
 
-
-class ActionUpdateFile : public Action
+class TestRepetitions
 {
-    public:
-        ActionUpdateFile(const CommandAttributes& commandAttributes,const std::string& testCode);    
-        execution execute(const TestRepetitions& testrepetition) override;
-        void beforeExecute() override;
-
-    private:        
-        std::string sourceFile_;
-        std::string destinationFile_;
-        std::string value_;
-
-    ACTIONREGISTER_DEC_TYPE(ActionUpdateFile)        
+public:
+    unsigned int globalRepetitions_{0};
+    unsigned int testRepetitions_{0};    
 };
+
 
 }

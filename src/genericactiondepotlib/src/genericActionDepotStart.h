@@ -14,12 +14,7 @@
 
 #include "actionDepotStart.h"
 
-
-
 using namespace BlockTestCore;
-
-namespace GenericActions
-{
 
 /**
  * @class GenericActionDepotStart
@@ -30,10 +25,8 @@ class GenericActionDepotStart : public ActionDepotStart
 {
     public:
         GenericActionDepotStart(); 
-        virtual ~GenericActionDepotStart(); 
         void configure(const std::map<std::string,std::string>&) override;
+        void stop() override;
 
         static std::chrono::milliseconds begin_;
 };
-
-}

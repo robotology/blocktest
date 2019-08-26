@@ -6,33 +6,27 @@
  ******************************************************************************/
 
 /**
- * @file ActionUpdateFile.h
+ * @file server.h
  * @authors: Luca Tricerri <luca.tricerri@iit.it>
  */
 
 #pragma once
+#include <boost/asio.hpp>
+#include "connection.h"
 
-#include "action.h"
+using boost::asio::ip::tcp;
 
-using namespace BlockTestCore;
-
-namespace GenericActions
-{
-
-
-class ActionUpdateFile : public Action
+class Server
 {
     public:
-        ActionUpdateFile(const CommandAttributes& commandAttributes,const std::string& testCode);    
-        execution execute(const TestRepetitions& testrepetition) override;
-        void beforeExecute() override;
-
-    private:        
-        std::string sourceFile_;
-        std::string destinationFile_;
-        std::string value_;
-
-    ACTIONREGISTER_DEC_TYPE(ActionUpdateFile)        
+        Server(boost::asio::io_context& io);
+        void init();
+    private:
+        const unsigned int port_{9876};
+        boost::asio::io_context& io_;
+        tcp::acceptor acceptor_;
+        Connection::pointer newConnection_;
+        
+        void startAccept();
+        void handleAccept(Connection::pointer newConnection,const boost::system::error_code& error);
 };
-
-}

@@ -106,10 +106,10 @@ unsigned int Action::normalizeUInt(const std::string& str,bool justFetch) const
     return out;
 }
 
-void Action::addProblem(unsigned int repetition,Severity severity,const std::string& errorMessage) const
+void Action::addProblem(const TestRepetitions& repetitions,Severity severity,const std::string& errorMessage,bool alsoLog) const
 {
     if(reporterror_)
-        Report::instance().addProblem(testCode_,repetition,severity,errorMessage);
+        Report::instance().addProblem(testCode_,repetitions,severity,errorMessage,alsoLog);
 }
 
 Action::~Action()

@@ -23,6 +23,7 @@ namespace BlockTestCore
 
 Test::Test(const pugi::xml_node& nodeTest,const TestsDepot_sptr& testDepot): testDepot_(testDepot), nodeTest_(nodeTest)
 {
+
 }
 
 bool Test::load()
@@ -95,7 +96,7 @@ bool Test::load()
     }
 
     if(repetitions_)
-        Report::instance().addTest(code_,repetitions_);
+        Report::instance().addTest(code_,{testDepot_->repetitions_,repetitions_});
 
     return true;
 };
@@ -117,7 +118,7 @@ bool Test::isLogActive(loggingType type) const
     return false;
 }
 
-execution Test::execute(bool isRealRobot)
+execution Test::execute(bool isRealRobot,unsigned int repetition)
 {
     if(!repetitions_)
         return execution::continueexecution;
@@ -128,7 +129,7 @@ execution Test::execute(bool isRealRobot)
     execution out;
     testThread_=std::make_unique<std::thread>([&]()
     {
-        out=work(isRealRobot);
+        out=work(isRealRobot,repetition);
     });
 
     if(!parallel_)
@@ -136,11 +137,11 @@ execution Test::execute(bool isRealRobot)
     return out;
 }
 
-execution Test::work(bool isRealRobot) const
+execution Test::work(bool isRealRobot,unsigned int currentGlobalRepetition) const
 {
     execution out{execution::continueexecution};
     double start=ClockFacility::instance().nowDbl();
-    for(unsigned int index=0;index<repetitions_;++index)
+    for(unsigned int currentTestRepetitions=0;currentTestRepetitions<repetitions_;++currentTestRepetitions)
     {
         //**logging
         logCreationFunction call;
@@ -153,15 +154,16 @@ execution Test::work(bool isRealRobot) const
         else
         {
             call=LoggerRegister::getCreatorFunction(testDepot_->loggingcommand_);
-            logger=(call)(loggingJoints_,testDepot_->loggingTime_,loggingwrapperName_,code_,index);
+            logger=(call)(loggingJoints_,testDepot_->loggingTime_,loggingwrapperName_,code_,currentTestRepetitions);
             logger->start();
         }
         //**end logger
       
-        TXLOG(Severity::info)<<"+++++Test code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;
+        TXLOG(Severity::info)<<"+++++Test code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<currentTestRepetitions+1<<std::endl;
         for(const Command_sptr& current:data_)
         {
-            out=current->execute(isRealRobot,index);
+            TestRepetitions currentRepetition{currentGlobalRepetition,currentTestRepetitions};
+            out=current->execute(isRealRobot,currentRepetition);
             if(out==execution::stopexecution)
             {
                 TXLOG(Severity::error)<<"Stop execution:"<<current->dumpCommand()<<std::endl;
@@ -171,7 +173,7 @@ execution Test::work(bool isRealRobot) const
         ClockFacility::instance().wait(wait_);
         if(repetitionsForTime_ && ClockFacility::instance().nowDbl()-start>repetitionsForTime_)
         {
-            TXLOG(Severity::debug)<<"Exit test for repetition timeout:"<<repetitionsForTime_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<index+1<<std::endl;
+            TXLOG(Severity::debug)<<"Exit test for repetition timeout:"<<repetitionsForTime_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<currentTestRepetitions+1<<std::endl;
             break;
         }
     }

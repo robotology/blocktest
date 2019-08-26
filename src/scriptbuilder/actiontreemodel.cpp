@@ -111,7 +111,7 @@ QMimeData *ActionTreeModel::mimeData(const QModelIndexList &indexes) const
     return mimeData;
 }
 
-bool ActionTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action,int row, int column, const QModelIndex &parent)
+bool ActionTreeModel::dropMimeData(const QMimeData*, Qt::DropAction,int , int, const QModelIndex &)
 {
     return false;
 }

@@ -14,6 +14,8 @@ set(BlockTestRunnerSrc  main.cpp
                         fixture.cpp
                         test.cpp
                         command.cpp
+                        server.cpp
+                        connection.cpp
                         )
 set(BlockTestRunnerHdr  blockTestRunner.h
                         libraryLoader.h
@@ -21,6 +23,8 @@ set(BlockTestRunnerHdr  blockTestRunner.h
                         fixture.h
                         command.h
                         test.h
+                        server.h
+                        connection.h
                         )
 
 include_directories(${Boost_INCLUDE_DIRS})

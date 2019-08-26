@@ -70,7 +70,7 @@ QMimeData *ScriptTreeModel::mimeData(const QModelIndexList &indexes) const
 }
 
 
-bool ScriptTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action,int row, int column, const QModelIndex &parent)
+bool ScriptTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action,int row, int column, const QModelIndex &)
 {
     qDebug() << "dropMimeData: " << row << " " << column;
 

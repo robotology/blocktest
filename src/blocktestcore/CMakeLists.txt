@@ -43,6 +43,7 @@ set(BlockTestCoreHdr   api.h
                        tableWave.h
                        type.h
                        exprtk.hpp
+                       testrepetitions.h
                        )
 
 add_library(blocktestcore SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})

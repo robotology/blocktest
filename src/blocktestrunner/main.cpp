@@ -11,18 +11,33 @@
  */
 
 #include "blockTestRunner.h"
+#include "server.h"
 
+using namespace std::literals::chrono_literals;
 
 int main(int argc,char* argv[]) noexcept
 {    
+    boost::asio::io_context io; 
+    Server comServer(io);
+    comServer.init();
+
     try
     {
         std::string path;
         if(argc>1)
             path=argv[1];
 
+        bool out;  
         BlockTest test(path);
-        bool out=test.run();
+        std::thread mythread{
+            [&](){
+            out=test.run();
+            io.stop();
+            }};
+           
+        io.run();
+        if(mythread.joinable())
+            mythread.join();
         return out;
     }
     catch(const std::exception& e)

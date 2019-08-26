@@ -209,7 +209,7 @@ void TestsDepotModel::deleteTest(const QModelIndex& index)
     removeRow(index.row(),index.parent());
 }
 
-void TestsDepotModel::newTest(const QModelIndex& index)
+void TestsDepotModel::newTest(const QModelIndex&)
 {
     pugi::xpath_node rootPath = docTestList_.select_node("/testlist");
     pugi::xml_node root=rootPath.node();
@@ -334,7 +334,7 @@ QStringList TestsDepotModel::mimeTypes() const
 }
 
 
-Qt::ItemFlags TestsDepotModel::flags(const QModelIndex &index) const
+Qt::ItemFlags TestsDepotModel::flags(const QModelIndex &) const
 {
     return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }

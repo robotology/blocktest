@@ -28,7 +28,7 @@ class ActionNow : public Action
 {
     public:
         ActionNow(const CommandAttributes& commandAttributes,const std::string& testCode);    
-        execution execute(unsigned int testrepetition) override;
+        execution execute(const TestRepetitions& testrepetition) override;
         void beforeExecute() override;
         double getDouble() override;    
     private:        

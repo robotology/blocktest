@@ -35,6 +35,12 @@ class BLOCKTEST_EXPORT LoggerRegister
         return map_;
     }
 
+    virtual ~LoggerRegister()
+    {
+        logCreationFuncDepot &mymap = getMap();
+        mymap.clear();
+    };
+
   public:
     static std::function<std::shared_ptr<InfoLogger>(const std::string &toLog, double loggingTime, const std::string &wrapperName, const std::string& testCode, int repetition)> getCreatorFunction(const std::string& commandname)
     {

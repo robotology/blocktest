@@ -145,3 +145,14 @@ expression      <table type>
 40              <max>
 (1-x)*((1-x)*((1-x)*8.51+x*5.8)+x*((1-x)*5.8+x*3.62))+x*((1-x)*((1-x)*5.8+x*3.62)+x*((1-x)*3.62+x*0.03))      <expression>
 ]  
+
+[
+test8           <table name>
+expression      <table type>
+1               <increment by time>
+
+0.01            <increment unit>
+0              <min>
+1              <max>
+10*sin(x)          <expression>
+] 

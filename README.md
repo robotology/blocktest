@@ -18,7 +18,7 @@
   - [5.2. Library Settings](#52-Library-Settings)
   - [5.3. Prerequisites](#53-Prerequisites)
   - [5.4. Test list](#54-Test-list)
-    - [5.4.1. Parallel or serie execution](#541-Parallel-or-serie-execution)
+    - [5.4.1. Parallel or series execution](#541-Parallel-or-series-execution)
     - [5.4.2. Repetitions](#542-Repetitions)
   - [5.5. Finally the test](#55-Finally-the-test)
     - [5.5.1. Generic commands](#551-Generic-commands)
@@ -33,19 +33,19 @@
   - [8.2. Sensors logging](#82-Sensors-logging)
   - [8.3. Plot logging](#83-Plot-logging)
   - [8.4. Report](#84-Report)
-- [9. Specific plugin writing](#9-Specific-plugin-writing)
-  - [9.1. Create new repository for plugin](#91-Create-new-repository-for-plugin)
-  - [9.2. Create plugin initialization](#92-Create-plugin-initialization)
-  - [9.3. Blocks writing](#93-Blocks-writing)
-  - [9.4. XML files](#94-XML-files)
-  - [9.5. Yarp BlockTest plugin](#95-Yarp-BlockTest-plugin)
+- [9. Specific plugin](#9-Specific-plugin)
+  - [9.1. Existing plugins](#91-Existing-plugins)
+  - [9.2. Create a new plugin](#92-Create-a-new-plugin)
+  - [9.3. Create a new repository for plugin](#93-Create-a-new-repository-for-plugin)
+  - [9.4. Create plugin initialization](#94-Create-plugin-initialization)
+  - [9.5. Blocks writing](#95-Blocks-writing)
+  - [9.6. XML files](#96-XML-files)
 - [10. Authors](#10-Authors)
 
 # 3. Introduction
 
-The application provides functionalities for developing and running not regression tests in a likely natural language as close as possible to test case writing.
-The test philosophy is to divide a test into elementary blocks. The
-blocks can be used to build different tests (See Figure below).
+The main idea of BlockTest is to adopt testing methodologies and best practices adopted in the software industry and propose their use in robotic applications within the robotics community.  BlockTest allows developers to build test that verifies the correct functioning of a robotic component, be it a piece of hardware (e.g. a robotic arm) or a piece of software (e.g. an algorithm). The main idea is to provide a set of basic blocks that can be composed to build more complex tests, without writing new code. The rationale behind this approach is that tests should be easy to write and, more importantly, should not require debugging efforts. Writing tests by combining existing, already debugged, components guarantees that no effort is required to debug the tests themselves. BlockTest is also written to provide support for running system components (e.g. a robot simulator), and robotic middleware. This can be achieved by extending the framework providing plugin libraries which export functionalities for a new middleware if needed. At the moment of writing, BlockTest already supports YARP, while ROS support is under development.
+(See Figure below).
 <br/><br/>
 
 
@@ -132,8 +132,8 @@ CMAKE_INSTALL_PREFIX
 
 # 5. Test writing
 
-If you don't like work with a text editor you can skip directly to the section [Scriptbuilder](##4.7.-test-writing-with-scriptbuilder). <br>
-Else the starting point for writing a test is the file ./test/test.xml
+For easy test writing you can skip directly to the section [Scriptbuilder](##5.6.-test-writing-with-scriptbuilder). You can use the test writing tool called ScriptBuilder.  <br>
+Otherwise the starting point for writing a test is the file ./test/test.xml, see below.
 
 ```xml
     <testlist repetitions="1">
@@ -183,11 +183,11 @@ This file contains:
 
 | Param name           | Default value        | Comment                                                                                        |
 | -------------------- | -------------------- | ---------------------------------------------------------------------------------------------- |
-| realrobot            | false                | Indicates if it is a real robot in test, or it is a Gazebo simulation                          |
+| realrobot            | false                | Indicates if it is a real robot under test, or it is a Gazebo simulation                          |
 | onlysimcommands      | yarpreset applyForce | Indicates which are the commands to be executed only in simulation                             |
 | neverexecutecommands | ---                  | Indicates which are the commands not to be executed.                                           |
 | logseverity          | info                 | Indicates the severity to be logged in log.log                                                 |
-| loggingtime          | 0.01                 | Indicates the time in seconds for logging joint info if are requested in test.                 |
+| loggingtime          | 0.01                 | Indicates the time in seconds for logging joints info if are required in the test.                 |
 | tablename            | test/tables/main.tab | Indicates the table name for parametric value                                                  |
 | waitcommand          | yarpwait             | Indicates the command blocks to be used for wait                                               |
 | nowcommand           | yaronow              | Indicates the command blocks to be used for now                                                |
@@ -217,7 +217,7 @@ In this section it is possible to specify the plugin library to be used.
 | Param name | Default value | Comment                       |
 | ---------- | ------------- | ----------------------------- |
 | enabled    | true          | If the library will be loaded |
-| path       | ---           | Librari .so file path         |
+| path       | ---           | Library .so file path         |
 | name       | ---           | library tag name              |
 | note       | ---           | Explanation notes             |
 | robotname            | icubSim              | Robot name to be used
@@ -264,11 +264,11 @@ list the tests together with the **file** in which the test has been written.
 | repetitions        | 1             | How many times the test is repeated.                                                             |
 | name               | ---           | Test name.                                                                                       |
 | code               | ---           | Numeric code for identifying the test, could be related to test case.                            |
-| parallel           | false         | Should the test be executed in paralell.                                                         |
-| repetitionsfortime | 0             | If specified is the time to repeat the test.                                                     |
+| parallel           | false         | Should the test be executed in parallel.                                                         |
+| repetitionsfortime | 0             | If specified is the time to repeat the test in seconds.                                                     |
 
-### 5.4.1. Parallel or serie execution
-It is possibile to specify if some tests are executed in series or parallel.
+### 5.4.1. Parallel or series execution
+It is possible to specify if some tests are executed in series or parallel.
 
 ```xml
 <test file="test//0001.xml" repetitions="1" repetitionsfortime="" name="xxx"  code="0001"  parallel="false"/>
@@ -279,17 +279,17 @@ It is possibile to specify if some tests are executed in series or parallel.
 ```
 In the above example the tests will be executed in the following way:
 
-**0001** start in serie
+**0001** start in series
 
 **0002-0003-0004** start in parallel when 0001 is finished
 
 **0005** start when all 0002-0003-0004 are finished
 
-In the case it is possibile to insert a dummy test in serie to  align the following tests executions.
+In the case it is possible to insert a dummy test in series to  align the following tests executions.
 
 ### 5.4.2. Repetitions
 Repetitions can be at action or test or test list level trought **"repetitions"** key (in action,test,test list).
-At test level repetitions can be also used throught the key **"repetitionsfortime"**. In this case will be executed as many repetitions as the timer in seconds will allow. Inside of test is available 
+At test level repetitions can be also used through the key **"repetitionsfortime"**. In this case will be executed as many repetitions as the timer in seconds will allow. Inside of test is available 
 the key **"wait"** that indicates the time between two tests executions.
 
 ## 5.5. Finally the test
@@ -338,7 +338,7 @@ The **settings node** contains the following parameters:
 
 | Param name | Default | Comment                 |
 | ---------- | ------- | ----------------------- |
-| wait       | 0       | Wait after test completition.       |
+| wait       | 0       | Wait after test completion.       |
 
 ### 5.5.1. Generic commands
 These commands are contained in the generic command library plugin.
@@ -389,12 +389,12 @@ These commands are contained in the generic command library plugin.
     </command>
     ```
 
-    The command execute the specified application.
+    The command executes the specified application.
 
 ## 5.6. Test writing with Scriptbuilder
 Script builder is a UI for test and test list writing.
-See at https://github.com/robotology/blocktest/tree/master/scriptbuilder
-for more informations.
+See at https://github.com/robotology/blocktest/blob/master/src/scriptbuilder/README.md
+for more information.
 
 ![alt text](img/img002.png "Scriptbuilder.")
 
@@ -585,26 +585,99 @@ At the end of the test a report summary is been written:
 (2019-05-21 11:43:24.490)(Info*****)====================================\
 (2019-05-21 11:43:24.490)(Info*****)====================================\
 
-# 9. Specific plugin writing
+# 9. Specific plugin
 
-It is possibile to write your own plugin for blockTest. One plugin is already available
-see section [Yarp BlockTest plugin](#yarp-blocktest-plugin). 
+## 9.1. Existing plugins
+Two plugin are already available:
+The Yarp BlockTest-plugin look at https://github.com/robotology/blocktest-yarp-plugins and the
+Generic BlockTest-plugin that is included in the current repository https://github.com/robotology/blocktest/tree/master/src/genericactiondepotlib.
+ 
 
+## 9.2. Create a new plugin
+It is possible to write your own plugin for BlockTest, check the following sections.
 
-## 9.1. Create new repository for plugin
+## 9.3. Create a new repository for plugin
 Create a new repository in github.
 
-## 9.2. Create plugin initialization
-Derive the class ActionDepotStart. The class will contains plugin initialization.
+## 9.4. Create plugin initialization
+Step by step.
 
-## 9.3. Blocks writing
+1)
+Derive the class ActionDepotStart. The class will contain plugin initialization.
+In the following section the example from the generic BlockTest plugin. 
+
+2)
+The methods **configure** and **stop** are overwritten.
+
+```c++
+class GenericActionDepotStart : public ActionDepotStart
+{
+    public:
+        GenericActionDepotStart(); 
+        virtual ~GenericActionDepotStart(); 
+        void configure(const std::map<std::string,std::string>&) override;
+        void stop() override;
+
+        ...
+};
+```
+
+3)
+
+The **ACTIONDEPOTSTART**(\<classname\>) macro is added in \<classname\>.cpp file as shown in figure.
+
+```c++
+ACTIONDEPOTSTART(GenericActionDepotStart)  
+
+void GenericActionDepotStart::configure(const std::map<std::string,std::string>&)
+{
+    //Nothing todo
+}
+
+void GenericActionDepotStart::stop()
+{
+    //Nothing todo
+}
+```
+The **configure** method is automatic called when the library is loaded by BlockTest. The **stop** method is called when the library is close by  BlockTest.
+
+
+The **configure** method conf parameter is a map key-value. The map contains
+all the configuration parameter that are present in xml.
+
+```xml
+<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="true" />
+
+```
+In this example the map contains the following key-value:  
+
+| Key | Value |
+| ---------- | ------- |
+| name      | "yarpactiondepot"       |
+| wrappername      | "/right_leg /left_leg /torso /head /right_arm /left_arm"       |
+| robotname      | "icubSim"       | 
+| netclock      |"true"       |
+
+4.
+Write your librarysettings and library entries in text.xml. In the figure below it is shown a pair of libraries and their settings.
+
+```xml
+<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic action library" />
+<library enabled="true" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp action library" />
+
+<librarysettings enabled="true" name="genericactiondepot" />
+<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="true" />
+
+```
+
+5.
+Write the code in **configure**,**stop** methods depending on your needs.
+## 9.5. Blocks writing
 Write your own blocks, each block is derived from CAction.
 
-## 9.4. XML files
-Write an xmk file for each blocks.
-
-## 9.5. Yarp BlockTest plugin
-An example is this plugin. It is available in https://github.com/robotology/blocktest-yarp-plugins.
+## 9.6. XML files
+Write an xml file for each block.
 
 # 10. Authors
-* Luca Tricerri ([*personal page*](http://www.iit.it/en/people/Luca-tricerri.html))
+* Luca Tricerri ([*personal page*](https://www.iit.it/people/luca-tricerri))
+* Lorenzo Natale ([*personal page*](https://www.iit.it/people/lorenzo-natale))

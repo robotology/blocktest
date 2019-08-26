@@ -24,13 +24,13 @@ class ActionExecute : public Action
 {
     public:
         ActionExecute(const CommandAttributes& commandAttributes,const std::string& testCode);    
-        execution execute(unsigned int testrepetition) override;
+        execution execute(const TestRepetitions& testrepetition) override;
         void beforeExecute() override;
 
     private:        
         std::string commandName_;
         std::string commandParam_;
-        std::string prefix_;
+        std::string prefix_;    
         bool kill_;
         unsigned int waitafter_;
         std::string tag_;

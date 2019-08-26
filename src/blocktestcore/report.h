@@ -15,6 +15,7 @@
 #include "api.h"
 #include "logger.h"
 #include "general.h"
+#include "testrepetitions.h"
 
 namespace BlockTestCore
 {
@@ -24,15 +25,13 @@ class BLOCKTEST_EXPORT Report
     public:
         static Report& instance();
 
-        void addProblem(const std::string& code,unsigned int repetition,Severity severity,const std::string& errorMessage);
-        void addTest(const std::string& code,unsigned int repetitions);
+        void addProblem(const std::string& code,const TestRepetitions& repetition,Severity severity,const std::string& errorMessage,bool alsoLog);
+        void addTest(const std::string& code,const TestRepetitions& repetitions);
         void dump() const;
-        unsigned int get(Severity severity,std::pair<std::string,unsigned int> key);
+        unsigned int get(Severity severity,std::pair<std::string,TestRepetitions> key);
 
         Report(const Report& copy) = delete;
         void operator=(const Report& copy) = delete;
-
-        //void addError(const std::string& code,unsigned int repetition);
 
         int totalErrors_{0};
     private:
@@ -57,12 +56,11 @@ class BLOCKTEST_EXPORT Report
                 std::vector<ErrorMessage> errorMessages_;
         };
         Report(){};
-        std::map<std::pair<std::string,unsigned int>,TestReport> report_;
+        std::map<std::pair<std::string,TestRepetitions>,TestReport> report_;
 
-        
-        void addCritical(const std::string& code,unsigned int repetition,const std::string& errorMessage);
-        void addError(const std::string& code,unsigned int repetition,const std::string& errorMessage);
-        void addWarning(const std::string& code,unsigned int repetition,const std::string& errorMessage);
+        void addCritical(const std::string& code,const TestRepetitions& repetition,const std::string& errorMessage);
+        void addError(const std::string& code,const TestRepetitions& repetition,const std::string& errorMessage);
+        void addWarning(const std::string& code,const TestRepetitions& repetition,const std::string& errorMessage);        
 };
 
 }

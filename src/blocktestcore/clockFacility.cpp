@@ -6,6 +6,7 @@
 #include "pugixml.hpp"
 
 #include "actionRegister.h"
+#include "testrepetitions.h"
 
 namespace BlockTestCore
 {
@@ -37,7 +38,8 @@ bool ClockFacility::wait(double value) const
     CommandAttributes commandAttributes{{"command","wait"},{"seconds",std::to_string(value)},{"reporterror","false"}};
 
     auto action=(call)(commandAttributes,"");
-    action->execute(0);
+    TestRepetitions rep{0,0};
+    action->execute(rep);
     return true;
 }
 
