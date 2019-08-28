@@ -5,42 +5,45 @@
 
 # 2. Block Test
 
-- [1. CI Status](#1-CI-Status)
-- [2. Block Test](#2-Block-Test)
-- [3. Introduction](#3-Introduction)
-- [4. Installation](#4-Installation)
-  - [4.1. Prerequisite Linux](#41-Prerequisite-Linux)
-  - [4.2. Prerequisite Windows](#42-Prerequisite-Windows)
-  - [4.3. External library](#43-External-library)
-  - [4.4. Installation and compilation](#44-Installation-and-compilation)
-- [5. Test writing](#5-Test-writing)
-  - [5.1. General Settings](#51-General-Settings)
-  - [5.2. Library Settings](#52-Library-Settings)
-  - [5.3. Prerequisites](#53-Prerequisites)
-  - [5.4. Test list](#54-Test-list)
-    - [5.4.1. Parallel or series execution](#541-Parallel-or-series-execution)
-    - [5.4.2. Repetitions](#542-Repetitions)
-  - [5.5. Finally the test](#55-Finally-the-test)
-    - [5.5.1. Generic commands](#551-Generic-commands)
-  - [5.6. Test writing with Scriptbuilder](#56-Test-writing-with-Scriptbuilder)
-- [6. Parametric test](#6-Parametric-test)
-  - [6.1. Table](#61-Table)
-  - [6.2. Using the parameter](#62-Using-the-parameter)
-  - [6.3. Examples](#63-Examples)
-- [7. Test execution](#7-Test-execution)
-- [8. Logging](#8-Logging)
-  - [8.1. Application logging](#81-Application-logging)
-  - [8.2. Sensors logging](#82-Sensors-logging)
-  - [8.3. Plot logging](#83-Plot-logging)
-  - [8.4. Report](#84-Report)
-- [9. Specific plugin](#9-Specific-plugin)
-  - [9.1. Existing plugins](#91-Existing-plugins)
-  - [9.2. Create a new plugin](#92-Create-a-new-plugin)
-  - [9.3. Create a new repository for plugin](#93-Create-a-new-repository-for-plugin)
-  - [9.4. Create plugin initialization](#94-Create-plugin-initialization)
-  - [9.5. Blocks writing](#95-Blocks-writing)
-  - [9.6. XML files](#96-XML-files)
-- [10. Authors](#10-Authors)
+- [1. CI Status](#1-ci-status)
+- [2. Block Test](#2-block-test)
+- [3. Introduction](#3-introduction)
+- [4. Installation](#4-installation)
+  - [4.1. External library](#41-external-library)
+  - [4.2. Prerequisite Linux](#42-prerequisite-linux)
+    - [4.2.1. Boost](#421-boost)
+    - [4.2.1. Pugixml](#421-pugixml)
+    - [4.2.1. Numpy](#421-numpy)
+  - [4.3. Prerequisite Windows](#43-prerequisite-windows)
+  - [4.4. Installation and compilation](#44-installation-and-compilation)
+- [5. Test writing](#5-test-writing)
+  - [5.1. General Settings](#51-general-settings)
+  - [5.2. Library Settings](#52-library-settings)
+  - [5.3. Prerequisites](#53-prerequisites)
+  - [5.4. Test list](#54-test-list)
+    - [5.4.1. Parallel or series execution](#541-parallel-or-series-execution)
+    - [5.4.2. Repetitions](#542-repetitions)
+  - [5.5. Finally the test](#55-finally-the-test)
+    - [5.5.1. Generic commands](#551-generic-commands)
+  - [5.6. Test writing with Scriptbuilder](#56-test-writing-with-scriptbuilder)
+- [6. Parametric test](#6-parametric-test)
+  - [6.1. Table](#61-table)
+  - [6.2. Using the parameter](#62-using-the-parameter)
+  - [6.3. Examples](#63-examples)
+- [7. Test execution](#7-test-execution)
+- [8. Logging](#8-logging)
+  - [8.1. Application logging](#81-application-logging)
+  - [8.2. Sensors logging](#82-sensors-logging)
+  - [8.3. Plot logging](#83-plot-logging)
+  - [8.4. Report](#84-report)
+- [9. Specific plugin](#9-specific-plugin)
+  - [9.1. Existing plugins](#91-existing-plugins)
+  - [9.2. Create a new plugin](#92-create-a-new-plugin)
+  - [9.3. Create a new repository for plugin](#93-create-a-new-repository-for-plugin)
+  - [9.4. Create plugin initialization](#94-create-plugin-initialization)
+  - [9.5. Blocks writing](#95-blocks-writing)
+  - [9.6. XML files](#96-xml-files)
+- [10. Authors](#10-authors)
 
 # 3. Introduction
 
@@ -55,23 +58,9 @@ The main idea of BlockTest is to adopt testing methodologies and best practices 
 # 4. Installation
 
 Supported OS: Linux Ubuntu 18.10 and Windows 10.
-Boost library version must be >1.64.
+Boost library version must be >=1.66.
 
-
-## 4.1. Prerequisite Linux
-
-```bash
-sudo apt-get install -y cmake libboost-all-dev libpugixml-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
-```
-## 4.2. Prerequisite Windows
-
-```bash
-vcpkg install boost:x86-windows
-vcpkg install pugixml
-```
-Qt5 from binary https://doc.qt.io/qt-5/windows.html
-
-## 4.3. External library
+## 4.1. External library
 
 The following library are used in blocktest:  
   
@@ -79,7 +68,22 @@ The following library are used in blocktest:
 **exprtk** https://github.com/ArashPartow/exprtk  
 **boost** https://www.boost.org/  
 
-Install just pugixml:
+## 4.2. Prerequisite Linux
+
+```bash
+sudo apt-get install -y cmake libboost-all-dev libpugixml-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
+```
+
+### 4.2.1. Boost
+Note that if the boost library installed is not ver>=1.66 follow the boost installation guide:
+
+https://www.boost.org/doc/libs/1_71_0/more/getting_started/unix-variants.html
+
+
+### 4.2.1. Pugixml
+
+Install pugi:
+
 ```bash
 git clone https://github.com/zeux/pugixml
 cd pugixml
@@ -100,6 +104,23 @@ make
 sudo make install
 ```
 
+### 4.2.1. Numpy
+
+Optionally you can install numpy for plotting purpouse:
+
+```bash
+sudo apt install python3-pip
+pip3 install numpy
+pip3 install matplotlib
+```
+
+## 4.3. Prerequisite Windows
+
+```bash
+vcpkg install boost:x86-windows
+vcpkg install pugixml
+```
+Qt5 from binary https://doc.qt.io/qt-5/windows.html
 
 ## 4.4. Installation and compilation
 
