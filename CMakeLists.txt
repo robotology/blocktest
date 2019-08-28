@@ -26,7 +26,7 @@ option(COMPILE_SCRIPTBUILDER "Compile the UI for creating the test" ON)
 set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREAD ON)
-set(BOOST_MIN_VERSION "1.64.0")
+set(BOOST_MIN_VERSION "1.65.0")
 
 find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
 find_package(pugixml REQUIRED)

@@ -13,11 +13,9 @@
 #include "blockTestRunner.h"
 #include "server.h"
 
-using namespace std::literals::chrono_literals;
-
 int main(int argc,char* argv[]) noexcept
 {    
-    boost::asio::io_context io; 
+    boost::asio::io_service io; 
     Server comServer(io);
     comServer.init();
 

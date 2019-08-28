@@ -21,8 +21,8 @@ class Connection : public boost::enable_shared_from_this<Connection>
 public:
   typedef boost::shared_ptr<Connection> pointer;
 
-  static pointer create(boost::asio::io_context& io_context){
-    return pointer(new Connection(io_context));
+  static pointer create(boost::asio::io_service& io_service){
+    return pointer(new Connection(io_service));
 }
 
   tcp::socket& socket();
@@ -30,7 +30,7 @@ public:
   void start();
 
 private:
-  Connection(boost::asio::io_context& io_context);
+  Connection(boost::asio::io_service& io_service);
 
   void handleWrite(const boost::system::error_code& err,size_t bytes_transferred);   
   void handleRead(const boost::system::error_code& err,size_t bytes_transferred);   

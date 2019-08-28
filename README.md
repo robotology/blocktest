@@ -11,7 +11,6 @@
 - [4. Installation](#4-installation)
   - [4.1. External library](#41-external-library)
   - [4.2. Prerequisite Linux](#42-prerequisite-linux)
-    - [4.2.1. Boost](#421-boost)
     - [4.2.1. Pugixml](#421-pugixml)
     - [4.2.1. Numpy](#421-numpy)
   - [4.3. Prerequisite Windows](#43-prerequisite-windows)
@@ -57,8 +56,8 @@ The main idea of BlockTest is to adopt testing methodologies and best practices 
 
 # 4. Installation
 
-Supported OS: Linux Ubuntu 18.10 and Windows 10.
-Boost library version must be >=1.66.
+Supported OS: Linux Ubuntu 18.04 and Windows 10.
+Boost library version must be >=1.65.
 
 ## 4.1. External library
 
@@ -71,15 +70,8 @@ The following library are used in blocktest:
 ## 4.2. Prerequisite Linux
 
 ```bash
-sudo apt-get install -y cmake libboost-all-dev libpugixml-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
+sudo apt-get install -y cmake libboost1.65-all-dev libpugixml-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
 ```
-
-### 4.2.1. Boost
-Note that if the boost library installed is not ver>=1.66 follow the boost installation guide:
-
-https://www.boost.org/doc/libs/1_71_0/more/getting_started/unix-variants.html
-
-
 ### 4.2.1. Pugixml
 
 Install pugi:
