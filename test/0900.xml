@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Red ball open port." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />	
+	
+	<command library="general" name="wait" seconds="0.5" repetitions="1" wait="0" reporterror="true" />
+
+	<command library="yarp" name="yarpconnect" source="/icubSim/inertial" destination="/iCubGui/inertial:i" carrier="udp" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpconnect" source="/icubSim/head/state:o" destination="/iCubGui/head:i" carrier="udp" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpconnect" source="/icubSim/torso/state:o" destination="/iCubGui/torso:i" carrier="udp" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpconnect" source="/icubSim/left_arm/state:o" destination="/iCubGui/left_arm:i" carrier="udp" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpconnect" source="/icubSim/right_arm/state:o" destination="/iCubGui/right_arm:i" carrier="udp" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpconnect" source="/demoRedBall/gui:o" destination="/iCubGui/objects" carrier="tcp" repetitions="1" wait="0" reporterror="true" />
+
+	<command library="general" name="wait" seconds="2" repetitions="1" wait="0" reporterror="true" />
+
+	<command library="custom" name="actionredball" seconds="1" repetitions="1" wait="0" balltimeout="" reporterror="true" />
+
+	<command library="general" name="wait" seconds="100" repetitions="1" wait="0" reporterror="true" />
+
+</testbody>

@@ -16,8 +16,8 @@
 int main(int argc,char* argv[]) noexcept
 {    
     boost::asio::io_service io; 
-    Server comServer(io);
-    comServer.init();
+    //Server comServer(io);
+    //comServer.init();
 
     try
     {
