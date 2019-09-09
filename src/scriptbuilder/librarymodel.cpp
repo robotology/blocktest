@@ -12,6 +12,9 @@
 
 
 #include "librarymodel.h"
+#include <boost/filesystem.hpp>
+
+namespace fs = boost::filesystem;
 
 LibraryModel::LibraryModel()
 {
@@ -39,6 +42,13 @@ void LibraryModel::redraw()
         std::string enabled=current.node().attribute("enabled").value();
         std::string name=current.node().attribute("name").value();
         std::string note=current.node().attribute("note").value();
+        bool missingFile{false};
+        size_t pos=path.find_last_of("/");
+        std::string smallpath=path.substr(0,pos);
+        if(!fs::exists(path+".so"))
+        {
+            missingFile=true;
+        }
 
         QStandardItem* pathItem = new QStandardItem(path.c_str());
         pathItem->setIcon(QIcon(":/icons/envelope.png"));
@@ -51,6 +61,10 @@ void LibraryModel::redraw()
         itemList<<enabledItem;
         itemList<<nameItem;
         itemList<<noteItem;
+        if(missingFile)
+        {
+            pathItem->setBackground(Qt::red);
+        }
 
         QStringList list{"","","","",""};
         pathItem->setData(list,Qt::UserRole);
@@ -125,7 +139,7 @@ void LibraryModel::deleteLibrary(const QModelIndex& index)
     redraw();
 }
 
-void LibraryModel::newLibrary(const QModelIndex& index)
+void LibraryModel::newLibrary(const QModelIndex&)
 {
     pugi::xpath_node rootPath = doc_.select_node("/testlist");
     pugi::xml_node root=rootPath.node();

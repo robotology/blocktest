@@ -9,7 +9,7 @@ CONFIG += c++14
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = scriptbuilder
+TARGET = Scriptbuilder
 TEMPLATE = app
 
 MOC_DIR = tmp
@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     comboboxitemdelegate.cpp \
     spinboxdelegate.cpp \
     settingdialog.cpp \
-    loggermodel.cpp
+    loggermodel.cpp\
+    librarymodel.cpp
 
 HEADERS  += mainwindow.h \
     actiontreemodel.h \
@@ -43,7 +44,8 @@ HEADERS  += mainwindow.h \
     comboboxitemdelegate.h \
     spinboxdelegate.h \
     settingdialog.h \
-    loggermodel.h
+    loggermodel.h \
+    librarymodel.h
 
 LIBS += -lstdc++fs -lboost_system -lboost_filesystem
 
@@ -52,3 +54,5 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     resource.qrc
+
+

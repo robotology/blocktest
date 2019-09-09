@@ -12,7 +12,7 @@
   - [4.1. External library](#41-external-library)
   - [4.2. Prerequisite Linux](#42-prerequisite-linux)
     - [4.2.1. Pugixml](#421-pugixml)
-    - [4.2.1. Numpy](#421-numpy)
+    - [4.2.2. Numpy](#422-numpy)
   - [4.3. Prerequisite Windows](#43-prerequisite-windows)
   - [4.4. Installation and compilation](#44-installation-and-compilation)
 - [5. Test writing](#5-test-writing)
@@ -96,7 +96,7 @@ make
 sudo make install
 ```
 
-### 4.2.1. Numpy
+### 4.2.2. Numpy
 
 Optionally you can install numpy for plotting purpouse:
 

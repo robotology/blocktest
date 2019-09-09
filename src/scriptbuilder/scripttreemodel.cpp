@@ -175,17 +175,18 @@ void ScriptTreeModel::load(const std::string& fileName)
     item->appendRow(script_);
 
     pugi::xml_parse_result result = doc_.load_file(fileName.c_str());
-    assert(result.status == pugi::xml_parse_status::status_ok);
+    //assert(result.status == pugi::xml_parse_status::status_ok);
 
-    /*
+
     if(!result)
     {
-        QMessageBox messageBox;
-        messageBox.critical(0,"ERROR","Missing test file.");
-        messageBox.setFixedSize(800,400);
         return;
+        //QMessageBox messageBox;
+        //messageBox.critical(0,"ERROR","Missing test file.");
+        //messageBox.setFixedSize(800,400);
+        //return;
     }
-    */
+
 
     pugi::xpath_node_set commands = doc_.select_nodes("/testbody/command");
 

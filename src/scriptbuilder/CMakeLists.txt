@@ -9,8 +9,8 @@
 
 project (Scriptbuilder)
 set(CMAKE_AUTOMOC TRUE)
-file(GLOB scriptbuilder_src "*.cpp")
 file(GLOB scriptbuilder_header "*.h" )
+file(GLOB scriptbuilder_src "*.cpp" )
 
 if(COMPILE_SCRIPTBUILDER)
 

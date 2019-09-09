@@ -15,8 +15,8 @@
 
 	<command library="general" name="wait" seconds="2" repetitions="1" wait="0" reporterror="true" />
 
-	<command library="custom" name="actionredball" seconds="1" repetitions="1" wait="0" balltimeout="" reporterror="true" />
+	<command library="custom" name="actionredball" seconds="1" repetitions="1" wait="0" robotname="icubSim" eye="left" useleft="false" useright="true" tollerance="0.01" reporterror="true" />
 
-	<command library="general" name="wait" seconds="100" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="5" repetitions="1" wait="0" reporterror="true" />
 
 </testbody>

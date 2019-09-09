@@ -513,3 +513,8 @@ void MainWindow::deleteLibrary()
     QModelIndex index=ui->libraries->currentIndex();
     libraryModel_->deleteLibrary(index);
 }
+
+void MainWindow::on_newTest_clicked()
+{
+    newTest();
+}

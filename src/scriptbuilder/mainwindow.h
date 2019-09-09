@@ -57,6 +57,7 @@ private slots:
     void newLibrary();
     void deleteLibrary();
 
+    void on_newTest_clicked();
     void on_loadTests_clicked();
     void on_testsDepot_clicked(const QModelIndex &index);
     void on_scriptTree_clicked(const QModelIndex &index);

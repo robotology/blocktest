@@ -23,7 +23,7 @@ ComboBoxItemDelegate::~ComboBoxItemDelegate()
 {
 }
 
-QWidget *ComboBoxItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+QWidget *ComboBoxItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &, const QModelIndex &index) const
 {
     // Create the combobox and populate it
     QComboBox *cb = new QComboBox(parent);
