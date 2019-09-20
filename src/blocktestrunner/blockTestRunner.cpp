@@ -40,6 +40,7 @@ BlockTest::BlockTest(const std::string &path):path_(path)
 
 unsigned int BlockTest::run()
 {
+    unsigned int totErrorsOut;
     BlockTestCore::Fixture fixture(path_);
     fixture.execute();
 
@@ -62,6 +63,10 @@ unsigned int BlockTest::run()
 
     BlockTestCore::Report::instance().dump();
 
-    unsigned int totErrorsOut=BlockTestCore::Report::instance().totalErrors_;
+    totErrorsOut=BlockTestCore::Report::instance().totalErrors_;
+
+    loader.stop();
+    fixture.stop();
+ 
     return totErrorsOut;
 }

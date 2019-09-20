@@ -31,6 +31,7 @@ class Fixture
         explicit Fixture(const std::string& path);
         ~Fixture();
         void execute();
+        void stop();
 
     private:
         class FixtureParam

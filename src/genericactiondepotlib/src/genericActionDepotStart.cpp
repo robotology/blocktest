@@ -26,10 +26,11 @@ GenericActionDepotStart::GenericActionDepotStart()
 
 void GenericActionDepotStart::configure(const std::map<std::string,std::string>&)
 {
-    //Nothing todo
+    TXLOG(Severity::info)<<"Library genericaction config called."<<std::endl;
 }
 
 void GenericActionDepotStart::stop()
 {
-    //Nothing todo
+    TXLOG(Severity::info)<<"Library genericaction stop called."<<std::endl;
+    TXLOG(Severity::info)<<"Library genericaction stop called."<<std::endl;
 }

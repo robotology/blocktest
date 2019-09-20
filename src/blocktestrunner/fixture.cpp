@@ -45,13 +45,16 @@ Fixture::Fixture(const std::string& path)
     }
 }
 
-Fixture::~Fixture()
+void Fixture::stop()
 {
     fixtureCheckerActive_=false;
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+//    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+    TXLOG(Severity::debug)<<"Try fixture check stop"<<std::endl;
 
 	if(fixtureCheck_ && fixtureCheck_->joinable())
 		fixtureCheck_->join();
+
+    TXLOG(Severity::debug)<<"Fixture check stopped"<<std::endl;        
 
     std::list<FixtureParam>::reverse_iterator it;
     for(it=fixtures_.rbegin();it!=fixtures_.rend();++it)
@@ -62,6 +65,7 @@ Fixture::~Fixture()
         if(!(*it).kill_)
             continue;
 
+        TXLOG(Severity::criticalminimal)<<"try prerequisite destroy:"<<(*it).commandName_<<std::endl;
 		if((*it).process_)
 			(*it).process_->terminate();
         (*it).writerActive_=false;
@@ -72,6 +76,11 @@ Fixture::~Fixture()
 
         std::this_thread::sleep_for(std::chrono::milliseconds((*it).waitafter_));
     }
+}
+
+Fixture::~Fixture()
+{
+
 }
 
 void Fixture::execute()

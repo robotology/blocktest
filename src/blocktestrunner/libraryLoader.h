@@ -33,6 +33,7 @@ class LibraryLoader
         LibraryLoader();
         ~LibraryLoader();
         bool load(const std::string& path);
+        void stop();
 
     private:
         const std::string testName_{"./test/test.xml"};

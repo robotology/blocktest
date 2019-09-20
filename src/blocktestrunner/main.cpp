@@ -27,15 +27,15 @@ int main(int argc,char* argv[]) noexcept
 
         bool out;  
         BlockTest test(path);
-        std::thread mythread{
-            [&](){
+        //std::thread mythread{
+        //    [&](){
             out=test.run();
-            io.stop();
-            }};
+        //    io.stop();
+         //   }};
            
-        io.run();
-        if(mythread.joinable())
-            mythread.join();
+        //io.run();
+        //if(mythread.joinable())
+        //    mythread.join();
         return out;
     }
     catch(const std::exception& e)
