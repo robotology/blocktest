@@ -21,7 +21,6 @@ for i in range(tablenumber):
 
 fig, ax=plt.subplots(nrows=tablenumber, ncols=1,sharex=True, sharey=False)
 plt.tight_layout()
-
 AKP=[]
 AKPtime=[]
 for seriesnum in range(tablenumber):
@@ -39,7 +38,7 @@ for i in range(tablenumber):
     ax.grid(True)
     ax.set_ylabel("degree")   
     ax.set_xlabel("sec") 
-    ax.set_xlim(0,40)
+    ax.set_xlim(5,55)
     ax.plot(AKPtime[i],AKP[i],label=label[i])
     ax.legend(loc='upper right') 
 

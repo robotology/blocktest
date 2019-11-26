@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <testbody>
-	<info note="ICub right ankle roll move." shortnote="" version="1.0" />
+	<info note="iCub right ankle roll move using y=10sin(t) degree expression with YARP middleware.." shortnote="" version="1.0" />
 	<logging loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
 	<settings wait="0" />
 	
-	<command library="yarp" name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="$test7$" repetitions="200" wait="0.01" reporterror="true" />
+	<command library="yarp" name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="$test8$" repetitions="750" wait="0.01" reporterror="true" />
 	<command library="yarp" name="yarpwait" seconds="1" repetitions="1" wait="0" reporterror="true" />	
 	<command library="general" name="execute" command="python3" param=".//test//files//plot.py 1 log//pos_0102-r_ankle_roll-0 Ankle_roll_0102" prefix="" tag="exe102" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />
 

@@ -65,6 +65,7 @@ void Fixture::stop()
         if(!(*it).kill_)
             continue;
 
+        std::string tmp=(*it).commandName_;
         TXLOG(Severity::criticalminimal)<<"try prerequisite destroy:"<<(*it).commandName_<<std::endl;
 		if((*it).process_)
 			(*it).process_->terminate();
