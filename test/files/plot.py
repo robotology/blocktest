@@ -38,8 +38,12 @@ for i in range(tablenumber):
     ax.grid(True)
     ax.set_ylabel("degree")   
     ax.set_xlabel("sec") 
-    ax.set_xlim(5,55)
-    ax.plot(AKPtime[i],AKP[i],label=label[i])
+    ax.set_xlim(5,24)
+    
+    a = np.array(AKPtime[i])
+    time = a-AKPtime[i][0]+1
+    ax.plot(time,AKP[i],label=label[i])
+
     ax.legend(loc='upper right') 
 
 plt.show()
