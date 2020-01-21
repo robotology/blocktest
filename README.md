@@ -140,9 +140,11 @@ ccmake ..
 ![alt text](img/img003.png "Tarp and Scriptbuilder options.")
 
 Select your preferred installation folder using:
-CMAKE_INSTALL_PREFIX
-
-
+CMAKE_INSTALL_PREFIX <br>
+Suggested location:
+```
+~\blocktest\build
+```
 # 5. Test writing
 
 For easy test writing you can skip directly to the section [Scriptbuilder](##5.6.-test-writing-with-scriptbuilder). You can use the test writing tool called ScriptBuilder.  <br>
