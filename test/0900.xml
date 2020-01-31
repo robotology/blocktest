@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <testbody>
-	<info note="Red ball open port." shortnote="" version="1.0" />
+	<info note="Red ball open port and applications execution." shortnote="" version="1.0" />
 	<logging loggingtype="" loggingpart="" loggingwrappername="" />
 	<settings wait="0" />	
 	
