@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <testbody>
-	<info note="Red ball open port." shortnote="" version="1.0" />
+	<info note="Red ball put ball in position." shortnote="" version="1.0" />
 	<logging loggingtype="" loggingpart="" loggingwrappername="" />
 
 	<command library="general" name="wait" seconds="2" repetitions="1" wait="0" reporterror="true" />
