@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Execute gazebo." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />	
+
+    <command library="general" name="wait" seconds="5" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="execute" command="gzclient" param="" prefix="" tag="gzclient" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="execute" command="gzserver" param="kr30_ha-rsi.world" prefix="" tag="gzserver" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />
+
+</testbody>

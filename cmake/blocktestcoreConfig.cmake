@@ -5,7 +5,7 @@
 #                                                                              #
 ################################################################################
 
-# @author Andrea Ruzzenenti <andrea.ruzzenenti@iit.it>, Nicolo' Genesio <nicolo.genesio@iit.it>
+# @author Andrea Ruzzenenti <andrea.ruzzenenti@iit.it>, Nicolo' Genesio <nicolo.genesio@iit.it>, Luca Tricerri <luca.tricerri@iit.it>
 
 include(FindPackageHandleStandardArgs)
 include(SelectLibraryConfigurations)
@@ -22,39 +22,38 @@ else()
 endif()
 find_path(blocktestcore_INCLUDE_DIR
           NAMES actionDepotStart.h
-				action.h
-				actionRegister.h
-				api.h
-				clockFacility.h
-				dataLogger.h
-				exprtk.hpp
-				general.h
-				infoLogger.h
-				logconst.h
-				logger.h
-				loggerRegister.h
-				report.h
-				table.h
+                action.h
+                actionRegister.h
+                api.h
+                clockFacility.h
+                dataLogger.h
+                exprtk.hpp
+                general.h
+                infoLogger.h
+                logconst.h
+                logger.h
+                loggerRegister.h
+                report.h
+                table.h
                 tableExpression.h
-				tableIncrement.h
-				tableNormal.h
-				tables.h
-				tableWave.h
-				type.h
+                tableIncrement.h
+                tableNormal.h
+                tables.h
+                tableWave.h
+                type.h
 
-		PATHS   $ENV{blocktestcore_DIR}/../src/blocktestcore
-		        $ENV{blocktestcore_DIR}/include/blocktestcore
-		        /usr/include/
-		        /usr/local/include
-          DOC "blocktest include directory")
+PATHS   ${blocktestcore_DIR}/../src/blocktestcore
+        /usr/include/
+        /usr/local/include
+      DOC "blocktest include directory")
 
 find_library(blocktestcore_LIBRARY_RELEASE
              NAMES ${libname_release}
-             PATHS $ENV{blocktestcore_DIR}/${librarydirectory_release}
+             PATHS $ENV{blocktestcore_DIR}/../${librarydirectory_release}
              DOC "BlockTestCore library file (release version)")
 find_library(blocktestcore_LIBRARY_DEBUG
              NAMES ${libname_debug}
-             PATHS $ENV{blocktestcore_DIR}/${librarydirectory_debug}
+             PATHS $ENV{blocktestcore_DIR}/../${librarydirectory_debug}
              DOC "BlockTestCore library file (debug version)")
 
 mark_as_advanced(blocktestcore_INCLUDE_DIR

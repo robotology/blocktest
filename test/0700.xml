@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Kuka move hand factor." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />	
+
+    <command library="idjl" name="idjlsendcartesianpos" position="- - - - 60 -" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="wait" seconds="0.5" repetitions="1" wait="0" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="- - - - 0 -" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="wait" seconds="0.5" repetitions="1" wait="0" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="- - - - 90 -" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="- - - - 60 44" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="wait" seconds="0.5" repetitions="1" wait="0" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="- - - - 0 12" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="wait" seconds="0.5" repetitions="1" wait="0" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="- - - - 90 90" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="wait" seconds="0.5" repetitions="1" wait="0" reporterror="true" />
+
+</testbody>

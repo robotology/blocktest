@@ -1,0 +1,9 @@
+    <?xml version="1.0"?>
+<testbody>
+	<info note="Kuka connect." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />	
+
+    <command library="idjl" name="idjlconnect" repetitions="1" wait="0" reporterror="true"></command>
+
+</testbody>
