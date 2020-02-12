@@ -14,7 +14,7 @@ file(GLOB scriptbuilder_header "*.h" )
 
 if(COMPILE_SCRIPTBUILDER)
 
-  find_package(Qt5 COMPONENTS REQUIRED Core Gui Widgets)
+  find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
   
   set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 
