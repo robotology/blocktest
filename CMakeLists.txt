@@ -31,6 +31,19 @@ set(BOOST_MIN_VERSION "1.65.0")
 find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
 find_package(pugixml REQUIRED)
 
+# To build shared libraries in Windows, we set CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS to TRUE.
+# See https://cmake.org/cmake/help/v3.4/variable/CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS.html
+# See https://blog.kitware.com/create-dlls-on-windows-without-declspec-using-new-cmake-export-all-feature/
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
+# Under MSVC, we set CMAKE_DEBUG_POSTFIX to "d" to add a trailing "d" to library
+# built in debug mode. In this Windows user can compile, build and install the
+# library in both Release and Debug configuration avoiding naming clashes in the
+# installation directories.
+if(MSVC)
+    set(CMAKE_DEBUG_POSTFIX "d")
+endif()
+
 if (NOT Boost_FOUND)
       message(FATAL_ERROR "Fatal error: Boost (version >= ${BOOST_MIN_VERSION}) required.\n")
 endif (NOT Boost_FOUND)
@@ -85,9 +98,15 @@ else()
     set(Common_LIBRARIES dl pthread)
 endif()
 
+# Enable RPATH support for installed binaries and libraries
+include(AddInstallRPATHSupport)
+add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
+                          LIB_DIRS "${CMAKE_INSTALL_FULL_LIBDIR}"
+                          INSTALL_NAME_DIR "${CMAKE_INSTALL_FULL_LIBDIR}"
+                          USE_LINK_PATH)
 
 add_subdirectory(src)
-# 
+
 if(WIN32)
     add_custom_command(TARGET ${PROJECT_NAME}
     POST_BUILD
@@ -106,5 +125,7 @@ endif()
 # conf files
 install(DIRECTORY test DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES config.xml DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+include(AddUninstallTarget)
 
 
