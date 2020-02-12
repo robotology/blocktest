@@ -30,6 +30,8 @@ class BLOCKTEST_EXPORT ClockFacility
             static ClockFacility clock;
             return clock;
         }
+
+        void relativeTime(bool);
         
         ClockFacility(ClockFacility const&) = delete;
         void operator=(ClockFacility const&)  = delete;

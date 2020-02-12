@@ -44,6 +44,23 @@ void DataLogger::add(double data,const std::string& time)
     dataToBeWritten_.emplace(data,time);
 }
 
+void DataLogger::add(const std::vector<double>& data,double time)
+{
+    std::stringstream ss;
+    std::copy(data.begin(),data.end(),std::ostream_iterator<double>(ss,","));
+    std::lock_guard<std::mutex> lock(queueMutex_);
+    dataToBeWritten_.emplace(ss.str(),time);
+}
+
+void DataLogger::add(const std::vector<double>& data,const std::string& time)
+{
+    std::stringstream ss;
+    std::copy(data.begin(),data.end(),std::ostream_iterator<double>(ss,","));
+    std::lock_guard<std::mutex> lock(queueMutex_);
+    dataToBeWritten_.emplace(ss.str(),time);
+}
+
+
 void DataLogger::work()
 {
     while(threadIsActive_)
