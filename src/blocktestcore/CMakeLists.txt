@@ -47,19 +47,15 @@ set(BlockTestCoreHdr   api.h
                        )
 
 add_library(blocktestcore SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})
+add_library(${PROJECT_NAME}::${LIBRARY_TARGET_NAME} ALIAS blocktestcore)
 target_link_libraries(blocktestcore ${Boost_LIBRARIES}
                                     ${Common_LIBRARIES}
                                     pugixml)
 target_include_directories(blocktestcore PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
                                       $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
-set_property(TARGET blocktestcore PROPERTY PUBLIC_HEADER ${BlockTestCoreHdr})
 
-write_basic_package_version_file(${CMAKE_BINARY_DIR}/blocktestcoreConfigVersion.cmake
-                                 VERSION ${PROJECT_VERSION}
-                                 COMPATIBILITY SameMajorVersion )
-
-file(COPY ${PROJECT_SOURCE_DIR}/cmake/blocktestcoreConfig.cmake DESTINATION ${CMAKE_BINARY_DIR})
-
+set_target_properties(blocktestcore PROPERTIES VERSION  ${${PROJECT_NAME}_VERSION}
+                                                        PUBLIC_HEADER ${BlockTestCoreHdr})
 
 install(TARGETS blocktestcore
         EXPORT blocktestcore
@@ -68,6 +64,10 @@ install(TARGETS blocktestcore
         LIBRARY DESTINATION ${CMAKE_INSTALL_BINDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/blocktestcore)
-install(FILES ${PROJECT_SOURCE_DIR}/cmake/blocktestcoreConfig.cmake
-              ${CMAKE_BINARY_DIR}/blocktestcoreConfigVersion.cmake
-              DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/blocktestcore)
+
+include(InstallBasicPackageFiles)
+install_basic_package_files(blocktestcore
+                            VERSION ${${PROJECT_NAME}_VERSION}
+                            COMPATIBILITY AnyNewerVersion
+                            VARS_PREFIX blocktestcore
+                            NO_CHECK_REQUIRED_COMPONENTS_MACRO)

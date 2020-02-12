@@ -85,9 +85,15 @@ else()
     set(Common_LIBRARIES dl pthread)
 endif()
 
+# Enable RPATH support for installed binaries and libraries
+include(AddInstallRPATHSupport)
+add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
+                          LIB_DIRS "${CMAKE_INSTALL_FULL_LIBDIR}"
+                          INSTALL_NAME_DIR "${CMAKE_INSTALL_FULL_LIBDIR}"
+                          USE_LINK_PATH)
 
 add_subdirectory(src)
-# 
+
 if(WIN32)
     add_custom_command(TARGET ${PROJECT_NAME}
     POST_BUILD
@@ -106,5 +112,7 @@ endif()
 # conf files
 install(DIRECTORY test DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES config.xml DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+include(AddUninstallTarget)
 
 
