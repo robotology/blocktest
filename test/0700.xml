@@ -6,13 +6,13 @@
 
     <command library="idjl" name="idjlsendcartesianpos" position="* * * * * 90" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
     <command library="general" name="wait" seconds="0.5" repetitions="1" wait="" reporterror="true" />
-    <command library="idjl" name="idjlsendcartesianpos" position="* * * * * 180" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
-    <command library="general" name="wait" seconds="0.5" repetitions="1" wait="" reporterror="true" />
-    <command library="idjl" name="idjlsendcartesianpos" position="* * * * * 270" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
-    <command library="general" name="wait" seconds="0.5" repetitions="1" wait="" reporterror="true" />
-    <command library="idjl" name="idjlsendcartesianpos" position="* * * * * 360" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />    
-    <command library="general" name="wait" seconds="1" repetitions="1" wait="" reporterror="true" />
     <command library="idjl" name="idjlsendcartesianpos" position="i i i i i i" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="wait" seconds="0.5" repetitions="1" wait="" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="* * * * * -90" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="wait" seconds="0.5" repetitions="1" wait="" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="i i i i i i" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />    
+    <command library="general" name="wait" seconds="1" repetitions="1" wait="" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="* * * * * 0" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
     <command library="general" name="wait" seconds="1" repetitions="1" wait="" reporterror="true" />
 
 </testbody>
