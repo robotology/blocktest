@@ -603,9 +603,10 @@ At the end of the test a report summary is been written:
 # 9. Specific plugin
 
 ## 9.1. Existing plugins
-Two plugin are already available:
-The Yarp BlockTest-plugin look at https://github.com/robotology/blocktest-yarp-plugins and the
-Generic BlockTest-plugin that is included in the current repository https://github.com/robotology/blocktest/tree/master/src/genericactiondepotlib.
+Three plugins are already available:
+- The Yarp BlockTest-plugin look at https://github.com/robotology/blocktest-yarp-plugins
+- The Generic BlockTest-plugin that is included in the current repository https://github.com/robotology/blocktest/tree/master/src/genericactiondepotlib
+- The Kuka idjl plugin https://github.com/icub-tech-iit/blocktest-kuka-plugins
  
 
 ## 9.2. Create a new plugin
