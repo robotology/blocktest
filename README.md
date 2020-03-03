@@ -70,33 +70,10 @@ The following library are used in blocktest:
 ## 4.2. Prerequisite Linux
 
 ```bash
-sudo apt-get install -y cmake libboost1.65-all-dev libpugixml-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
-```
-### 4.2.1. Pugixml
-
-Install pugi:
-
-```bash
-git clone https://github.com/zeux/pugixml
-cd pugixml
-mkdir build
-cd build
-ccmake ..
-```
-Select:
-```bash
- BUILD_SHARED_AND_STATIC_LIBS     ON                                                           
- BUILD_SHARED_LIBS                ON
+sudo apt-get install -y cmake libboost1.65-all-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
 ```
 
-Then:
-
-```bash
-make
-sudo make install
-```
-
-### 4.2.2. Numpy
+### 4.2.1. Numpy
 
 Optionally you can install numpy for plotting purpouse:
 
