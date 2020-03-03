@@ -18,9 +18,14 @@
 namespace BlockTestCore
 {
 
-Fixture::Fixture(const std::string& path)
+Fixture::Fixture(const std::string& name,const std::string& path)
 {
     std::string completePath;
+    if(!name.empty())
+    {
+        testName_=name;
+    }
+
     if(!path.empty())
         completePath=path+"/"+testName_;
     else
@@ -28,7 +33,11 @@ Fixture::Fixture(const std::string& path)
 
     pugi::xml_document doc;    
     pugi::xml_parse_result result=doc.load_file(completePath.c_str());
-    assert(result.status == pugi::xml_parse_status::status_ok);
+    if(result.status != pugi::xml_parse_status::status_ok)
+    {
+        TXLOG(Severity::error)<<"Can not load fixture xml:"<<completePath<<std::endl;      
+        return;
+    }
 
     pugi::xpath_node_set fixturesNode = doc.select_nodes("//prerequisite");
 

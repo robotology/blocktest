@@ -24,6 +24,7 @@ class BLOCKTEST_EXPORT ClockFacility
         bool wait(double value) const;
         std::string now() const;
         double nowDbl() const;
+        bool load(const std::string& name,const std::string& path);
 
         static ClockFacility& instance()
         {
@@ -43,7 +44,7 @@ class BLOCKTEST_EXPORT ClockFacility
         bool relativetime_{true};
         std::string waitcommand_;
         std::string nowcommand_;
-        const std::string testPath_{"./test/test.xml"};
+        std::string testPath_{"./test/test.xml"};
 };
 
 }

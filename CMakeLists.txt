@@ -29,7 +29,6 @@ set(Boost_USE_MULTITHREAD ON)
 set(BOOST_MIN_VERSION "1.65.0")
 
 find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
-find_package(pugixml REQUIRED)
 
 # To build shared libraries in Windows, we set CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS to TRUE.
 # See https://cmake.org/cmake/help/v3.4/variable/CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS.html

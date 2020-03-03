@@ -15,11 +15,9 @@
 	<test file="test/0602.xml" repetitions="0" repetitionsfortime="" code="0602" parallel="false" />
 
 	<!-- Kuka -->
-	<test file="test/0702.xml" repetitions="0" repetitionsfortime="" code="0702" parallel="false" />	
 	<test file="test/0701.xml" repetitions="0" repetitionsfortime="" code="0701" parallel="false" />
 	<test file="test/0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
 	<test file="test/0700.xml" repetitions="0" repetitionsfortime="" code="0700" parallel="false" />
-	<test file="test/0703.xml" repetitions="0" repetitionsfortime="" code="0703" parallel="false" />
 
 	<!-- Kuka Gazebo-->
 	<test file="test/0702.xml" repetitions="1" repetitionsfortime="" code="0702" parallel="true" />	
@@ -42,7 +40,6 @@
 	<test file="test/0902.xml" repetitions="0" repetitionsfortime="" code="0902" parallel="true" />
 	<test file="test/0903.xml" repetitions="0" repetitionsfortime="" code="0903" parallel="false" />
 	<test file="test/0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
-
 	<test file="test/0002.xml" repetitions="0" repetitionsfortime="" code="cleanup" parallel="false" />
 
 	<!-- RED BALL -->

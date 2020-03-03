@@ -36,7 +36,7 @@ public:
 
     explicit TestsDepot();
     ~TestsDepot();
-    bool load(const std::string& path);
+    bool load(const std::string& name,const std::string& path);
     execution execute() const;
     bool waitTermination() const;
 
@@ -47,7 +47,7 @@ public:
     unsigned int repetitions_{0};
 
 private:
-    const std::string testName_{"./test/test.xml"};    
+    std::string testName_{"./test/test.xml"};    
 
     bool realRobot_{false};
 

@@ -28,14 +28,18 @@ TestsDepot::~TestsDepot()
     TXLOG(Severity::debug)<<"TestsDepot destroyed"<<std::endl;
 }
 
-bool TestsDepot::load(const std::string& path)
+bool TestsDepot::load(const std::string& name,const std::string& path)
 {
     std::string completePath;
+    if(!name.empty())
+        testName_=name;
+        
     if(!path.empty())
         completePath=path+"/"+testName_;
     else
         completePath=testName_;
         
+
     doc_.load_file(completePath.c_str());
 
     pugi::xpath_node root = doc_.select_node("//testlist");

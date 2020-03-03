@@ -31,10 +31,13 @@ LibraryLoader::LibraryLoader()
 {
 }
 
-bool LibraryLoader::load(const std::string& path)
+bool LibraryLoader::load(const std::string& name,const std::string& path)
 {
     TXLOG(Severity::debug)<<"LibraryLoader constructor"<<std::endl;
     std::string completePath;
+   
+    if(!name.empty())
+        testName_=name;
     if(!path.empty())
         completePath=path+"/"+testName_;
     else

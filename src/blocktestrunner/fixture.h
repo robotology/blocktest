@@ -28,7 +28,7 @@ namespace BlockTestCore
 class Fixture
 {
     public:
-        explicit Fixture(const std::string& path);
+        explicit Fixture(const std::string& name,const std::string& path);
         ~Fixture();
         void execute();
         void stop();
@@ -52,7 +52,7 @@ class Fixture
                 bool writerActive_{true};
         };
 
-        const std::string testName_{"./test/test.xml"};
+        std::string testName_{"./test/test.xml"};
 
         std::list<FixtureParam> fixtures_;
 
