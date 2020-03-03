@@ -4,15 +4,15 @@
 	<logging loggingtype="" loggingpart="" loggingwrappername="" />
 	<settings wait="0" />	
 
-    <command library="idjl" name="idjlsendcartesianpos" position="* * * * * 90" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="* * * * * 90" velocity="100 100" repetitions="1" wait="0" reporterror="true" />
     <command library="general" name="wait" seconds="0.5" repetitions="1" wait="" reporterror="true" />
-    <command library="idjl" name="idjlsendcartesianpos" position="i i i i i i" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="i i i i i i" velocity="100 100" repetitions="1" wait="0" reporterror="true" />
     <command library="general" name="wait" seconds="0.5" repetitions="1" wait="" reporterror="true" />
-    <command library="idjl" name="idjlsendcartesianpos" position="* * * * * -90" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="* * * * * -90" velocity="100 100" repetitions="1" wait="0" reporterror="true" />
     <command library="general" name="wait" seconds="0.5" repetitions="1" wait="" reporterror="true" />
-    <command library="idjl" name="idjlsendcartesianpos" position="i i i i i i" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />    
+    <command library="idjl" name="idjlsendcartesianpos" position="i i i i i i" velocity="100 100" repetitions="1" wait="0" reporterror="true" />    
     <command library="general" name="wait" seconds="1" repetitions="1" wait="" reporterror="true" />
-    <command library="idjl" name="idjlsendcartesianpos" position="* * * * * 0" velocity="1000 1000" repetitions="1" wait="0" reporterror="true" />
+    <command library="idjl" name="idjlsendcartesianpos" position="* * * * * 0" velocity="100 100" repetitions="1" wait="0" reporterror="true" />
     <command library="general" name="wait" seconds="1" repetitions="1" wait="" reporterror="true" />
 
 </testbody>
