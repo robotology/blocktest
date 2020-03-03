@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <testbody>
 	<info note="Kuka move hand factor." shortnote="" version="1.0" />
-	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<logging loggingtype="position" loggingpart="none" loggingwrappername="none" />
 	<settings wait="0" />	
 
     <command library="idjl" name="idjlsendcartesianpos" position="* * * * * 90" velocity="100 100" repetitions="1" wait="0" reporterror="true" />
