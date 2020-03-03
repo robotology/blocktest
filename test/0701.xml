@@ -4,6 +4,7 @@
 	<logging loggingtype="" loggingpart="" loggingwrappername="" />
 	<settings wait="0" />	
 
+    <command library="general" name="wait" seconds="2" repetitions="1" wait="" reporterror="true" />
     <command library="idjl" name="idjlconnect" repetitions="1" wait="0" reporterror="true"></command>
 
 </testbody>
