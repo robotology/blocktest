@@ -21,7 +21,6 @@ set(BlockTestCoreSrc    action.cpp
                         tableIncrement.cpp
                         tableNormal.cpp
                         tableWave.cpp
-                        pugixml.cpp
                         )
 
 set(BlockTestCoreHdr   api.h
@@ -45,8 +44,6 @@ set(BlockTestCoreHdr   api.h
                        type.h
                        exprtk.hpp
                        testrepetitions.h
-                       pugixml.hpp
-                       pugiconfig.hpp
                        )
 
 add_library(blocktestcore SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})

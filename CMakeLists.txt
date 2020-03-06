@@ -23,6 +23,21 @@ include(GNUInstallDirs)
 
 option(COMPILE_SCRIPTBUILDER "Compile the UI for creating the test" ON)
 
+option(BLOCKTEST_USE_EXTERNAL_PUGIXML "Set to on if you want to use an external pugixml" OFF)
+if(BLOCKTEST_USE_EXTERNAL_PUGIXML)
+  find_package(pugixml REQUIRED)
+else()
+  # If we use the pugixml internal source code, 
+  # define a pugixml::pugixml target that add in any linked 
+  # libraries the necessary pugixml files 
+  add_library(pugixml INTERFACE)
+  add_library(pugixml::pugixml ALIAS pugixml)
+  target_sources(pugixml INTERFACE 
+                         ${CMAKE_CURRENT_SOURCE_DIR}/src/blocktestcore/pugixml.hpp
+                         ${CMAKE_CURRENT_SOURCE_DIR}/src/blocktestcore/pugiconfig.hpp
+                         ${CMAKE_CURRENT_SOURCE_DIR}/src/blocktestcore/pugixml.cpp)
+endif()
+
 set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREAD ON)
