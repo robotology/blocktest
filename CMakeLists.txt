@@ -33,9 +33,9 @@ else()
   add_library(pugixml INTERFACE)
   add_library(pugixml::pugixml ALIAS pugixml)
   target_sources(pugixml INTERFACE 
-                         ${CMAKE_CURRENT_SOURCE_DIR}/src/blocktestcore/pugixml.hpp
-                         ${CMAKE_CURRENT_SOURCE_DIR}/src/blocktestcore/pugiconfig.hpp
-                         ${CMAKE_CURRENT_SOURCE_DIR}/src/blocktestcore/pugixml.cpp)
+                         ${CMAKE_CURRENT_SOURCE_DIR}/extern/pugixml/pugixml.hpp
+                         ${CMAKE_CURRENT_SOURCE_DIR}/extern/pugixml/pugiconfig.hpp
+                         ${CMAKE_CURRENT_SOURCE_DIR}/extern/pugixml/pugixml.cpp)
 endif()
 
 set(Boost_NO_BOOST_CMAKE ON)
