@@ -27,7 +27,6 @@ if(COMPILE_SCRIPTBUILDER)
   
   include_directories (${PROJECT_SOURCE_DIR} ${PROJECT_BINARY_DIR})
 
-
   add_library(resourcelib  STATIC
                           ${moc_src}
                           ${ui_wrap}
@@ -54,7 +53,8 @@ if(COMPILE_SCRIPTBUILDER)
                           Qt5::Gui
                           ${Common_LIBRARIES}
                           resourcelib
-                          ${Boost_LIBRARIES}
+                          Boost::system
+                          Boost::filesystem
                        )
 
   #xml template folder
