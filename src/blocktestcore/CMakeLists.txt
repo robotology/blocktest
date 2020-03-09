@@ -48,7 +48,8 @@ set(BlockTestCoreHdr   api.h
 
 add_library(blocktestcore SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})
 add_library(${PROJECT_NAME}::${LIBRARY_TARGET_NAME} ALIAS blocktestcore)
-target_link_libraries(blocktestcore PUBLIC ${Boost_LIBRARIES}
+target_link_libraries(blocktestcore PUBLIC Boost::system
+                                           Boost::filesystem
                                            ${Common_LIBRARIES}
                                     PRIVATE pugixml)
 
