@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Red ball open port and applications execution." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />	
+	
+	<command library="general" name="execute" command="iCub_SIM" param="" prefix="" tag="icubsim" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="execute" command="yarprobotinterface" param="--context simCartesianControl --config no_legs.xml" prefix="" tag="yarprobotinterface" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="execute" command="iKinGazeCtrl" param="--from configSim.ini" prefix="" tag="ikingazectrl" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="execute" command="iKinCartesianSolver" param="--context simCartesianControl --part right_arm" prefix="" tag="ikincartesiansolver1" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="execute" command="iKinCartesianSolver" param="--context simCartesianControl --part left_arm" prefix="" tag="ikincartesiansolver2" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />	
+	<command library="general" name="execute" command="iCubGui" param="--xpos 800 --ypos 80 --width 370" prefix="" tag="icubgui" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="execute" command="demoRedBall" param="--from config-test.ini" prefix="" tag="demoredball" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />
+
+	<command library="general" name="wait" seconds="0.5" repetitions="1" wait="0" reporterror="true" />
+
+	<command library="yarp" name="yarpconnect" source="/icubSim/inertial" destination="/iCubGui/inertial:i" carrier="udp" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpconnect" source="/icubSim/head/state:o" destination="/iCubGui/head:i" carrier="udp" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpconnect" source="/icubSim/torso/state:o" destination="/iCubGui/torso:i" carrier="udp" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpconnect" source="/icubSim/left_arm/state:o" destination="/iCubGui/left_arm:i" carrier="udp" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpconnect" source="/icubSim/right_arm/state:o" destination="/iCubGui/right_arm:i" carrier="udp" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpconnect" source="/demoRedBall/gui:o" destination="/iCubGui/objects" carrier="tcp" repetitions="1" wait="0" reporterror="true" />
+
+</testbody>

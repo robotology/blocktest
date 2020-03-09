@@ -11,7 +11,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(blockTest
         LANGUAGES C CXX
-        VERSION 2.1.0)
+        VERSION 2.2.0)
 
 set(CMAKE_AUTOMOC ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -23,13 +23,20 @@ include(GNUInstallDirs)
 
 option(COMPILE_SCRIPTBUILDER "Compile the UI for creating the test" ON)
 
+option(BLOCKTEST_USE_EXTERNAL_PUGIXML "Set to on if you want to use an external pugixml" OFF)
+
+if(BLOCKTEST_USE_EXTERNAL_PUGIXML)
+  find_package(pugixml REQUIRED)
+else()
+  add_subdirectory(extern/pugixml)
+endif()
+
 set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREAD ON)
 set(BOOST_MIN_VERSION "1.65.0")
 
 find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
-find_package(pugixml REQUIRED)
 
 # To build shared libraries in Windows, we set CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS to TRUE.
 # See https://cmake.org/cmake/help/v3.4/variable/CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS.html

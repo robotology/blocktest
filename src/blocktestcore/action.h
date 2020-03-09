@@ -47,7 +47,7 @@ class BLOCKTEST_EXPORT Action
         unsigned int normalizeUInt(const std::string& str,bool justFetch) const;
         Test& getMyTest();
 
-        void addProblem(const TestRepetitions& repetitions,Severity severity,const std::string& errorMessage,bool alsoLog=true) const;
+        void addProblem(const TestRepetitions& repetitions,Severity severity,const std::string& errorMessage,bool alsoLog) const;
         std::string testCode_;
 
         bool reporterror_{true};

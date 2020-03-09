@@ -11,18 +11,33 @@
 namespace BlockTestCore
 {
 
+
 ClockFacility::ClockFacility()
 {  
+}
+
+bool ClockFacility::load(const std::string& name,const std::string& path)
+{
+
+    if(!name.empty() && !path.empty())
+        testPath_=path+name;
     begin_ = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
 
     pugi::xml_document doc;
     pugi::xml_parse_result result=doc.load_file(testPath_.c_str());
 
+    if(result.status != pugi::xml_parse_status::status_ok)
+    {
+        TXLOG(Severity::error)<<"Can not load clockfacility xml:"<<testPath_<<std::endl;      
+        return false;
+    }
+  
     assert(result.status == pugi::xml_parse_status::status_ok);
 
     pugi::xpath_node settings = doc.select_node("//settings");
     waitcommand_=settings.node().attribute("waitcommand").value();
     nowcommand_=settings.node().attribute("nowcommand").value();
+    return true;
 }
 
 bool ClockFacility::wait(double value) const
@@ -97,6 +112,7 @@ std::string ClockFacility::now() const
     }
     else
     {
+        /*
         std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
         std::time_t now_c = std::chrono::system_clock::to_time_t(now);
 
@@ -104,7 +120,37 @@ std::string ClockFacility::now() const
         out << std::put_time(std::localtime(&now_c), "%F %T");
 
         return out.str();
+*/
+    using namespace std::chrono;
+
+    // get current time
+    auto now = system_clock::now();
+
+    // get number of milliseconds for the current second
+    // (remainder after division into seconds)
+    auto ms = duration_cast<milliseconds>(now.time_since_epoch()) % 1000;
+
+    // convert to std::time_t in order to convert to std::tm (broken time)
+    auto timer = system_clock::to_time_t(now);
+
+    // convert to broken time
+    std::tm bt = *std::localtime(&timer);
+
+    std::ostringstream oss;
+
+    oss << std::put_time(&bt, "%H:%M:%S"); // HH:MM:SS
+    oss << '.' << std::setfill('0') << std::setw(3) << ms.count();
+
+    return oss.str();
+
+
+
     }
+}
+
+void ClockFacility::relativeTime(bool value)
+{
+    relativetime_=value;
 }
 
 }

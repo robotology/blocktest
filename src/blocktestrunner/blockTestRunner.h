@@ -20,13 +20,14 @@
 class BlockTest
 {
 public:
-    explicit BlockTest(const std::string &path);
+    explicit BlockTest(const std::string &name,const std::string &path);
     ~BlockTest();
 
     unsigned int run();
 
 private:
     std::string path_;
+    std::string name_;
 
     BlockTestCore::TestsDepot_sptr tests_;
 };

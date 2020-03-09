@@ -18,9 +18,14 @@
 namespace BlockTestCore
 {
 
-Fixture::Fixture(const std::string& path)
+Fixture::Fixture(const std::string& name,const std::string& path)
 {
     std::string completePath;
+    if(!name.empty())
+    {
+        testName_=name;
+    }
+
     if(!path.empty())
         completePath=path+"/"+testName_;
     else
@@ -28,7 +33,11 @@ Fixture::Fixture(const std::string& path)
 
     pugi::xml_document doc;    
     pugi::xml_parse_result result=doc.load_file(completePath.c_str());
-    assert(result.status == pugi::xml_parse_status::status_ok);
+    if(result.status != pugi::xml_parse_status::status_ok)
+    {
+        TXLOG(Severity::error)<<"Can not load fixture xml:"<<completePath<<std::endl;      
+        return;
+    }
 
     pugi::xpath_node_set fixturesNode = doc.select_nodes("//prerequisite");
 
@@ -45,13 +54,16 @@ Fixture::Fixture(const std::string& path)
     }
 }
 
-Fixture::~Fixture()
+void Fixture::stop()
 {
     fixtureCheckerActive_=false;
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+//    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+    TXLOG(Severity::debug)<<"Try fixture check stop"<<std::endl;
 
 	if(fixtureCheck_ && fixtureCheck_->joinable())
 		fixtureCheck_->join();
+
+    TXLOG(Severity::debug)<<"Fixture check stopped"<<std::endl;        
 
     std::list<FixtureParam>::reverse_iterator it;
     for(it=fixtures_.rbegin();it!=fixtures_.rend();++it)
@@ -62,6 +74,8 @@ Fixture::~Fixture()
         if(!(*it).kill_)
             continue;
 
+        std::string tmp=(*it).commandName_;
+        TXLOG(Severity::criticalminimal)<<"try prerequisite destroy:"<<(*it).commandName_<<std::endl;
 		if((*it).process_)
 			(*it).process_->terminate();
         (*it).writerActive_=false;
@@ -72,6 +86,11 @@ Fixture::~Fixture()
 
         std::this_thread::sleep_for(std::chrono::milliseconds((*it).waitafter_));
     }
+}
+
+Fixture::~Fixture()
+{
+
 }
 
 void Fixture::execute()

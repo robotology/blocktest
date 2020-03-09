@@ -1,7 +1,7 @@
 # 1. CI Status
 
-[![Build Status (Linux) (master branch)](https://img.shields.io/travis/com/robotology/blocktest/master.svg?logo=travis&label=[master]%20build%20(Linux))](https://travis-ci.com/robotology/blocktest)
-[![Build Status (Linux) (devel branch)](https://img.shields.io/travis/com/robotology/blocktest/devel.svg?logo=travis&label=[devel]%20build%20(Linux))](https://travis-ci.com/robotology/blocktest)
+![ci](https://github.com/robotology/blocktest/workflows/Continuous%20Integration/badge.svg)
+
 
 # 2. Block Test
 
@@ -12,7 +12,7 @@
   - [4.1. External library](#41-external-library)
   - [4.2. Prerequisite Linux](#42-prerequisite-linux)
     - [4.2.1. Pugixml](#421-pugixml)
-    - [4.2.1. Numpy](#421-numpy)
+    - [4.2.2. Numpy](#422-numpy)
   - [4.3. Prerequisite Windows](#43-prerequisite-windows)
   - [4.4. Installation and compilation](#44-installation-and-compilation)
 - [5. Test writing](#5-test-writing)
@@ -70,30 +70,7 @@ The following library are used in blocktest:
 ## 4.2. Prerequisite Linux
 
 ```bash
-sudo apt-get install -y cmake libboost1.65-all-dev libpugixml-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
-```
-### 4.2.1. Pugixml
-
-Install pugi:
-
-```bash
-git clone https://github.com/zeux/pugixml
-cd pugixml
-mkdir build
-cd build
-ccmake ..
-```
-Select:
-```bash
- BUILD_SHARED_AND_STATIC_LIBS     ON                                                           
- BUILD_SHARED_LIBS                ON
-```
-
-Then:
-
-```bash
-make
-sudo make install
+sudo apt-get install -y cmake libboost1.65-all-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
 ```
 
 ### 4.2.1. Numpy
@@ -140,9 +117,11 @@ ccmake ..
 ![alt text](img/img003.png "Tarp and Scriptbuilder options.")
 
 Select your preferred installation folder using:
-CMAKE_INSTALL_PREFIX
-
-
+CMAKE_INSTALL_PREFIX <br>
+Suggested location:
+```
+~\blocktest\build
+```
 # 5. Test writing
 
 For easy test writing you can skip directly to the section [Scriptbuilder](##5.6.-test-writing-with-scriptbuilder). You can use the test writing tool called ScriptBuilder.  <br>
@@ -601,9 +580,10 @@ At the end of the test a report summary is been written:
 # 9. Specific plugin
 
 ## 9.1. Existing plugins
-Two plugin are already available:
-The Yarp BlockTest-plugin look at https://github.com/robotology/blocktest-yarp-plugins and the
-Generic BlockTest-plugin that is included in the current repository https://github.com/robotology/blocktest/tree/master/src/genericactiondepotlib.
+Three plugins are already available:
+- The Yarp BlockTest-plugin look at https://github.com/robotology/blocktest-yarp-plugins
+- The Generic BlockTest-plugin that is included in the current repository https://github.com/robotology/blocktest/tree/master/src/genericactiondepotlib
+- The Kuka idjl plugin https://github.com/icub-tech-iit/blocktest-kuka-plugins
  
 
 ## 9.2. Create a new plugin

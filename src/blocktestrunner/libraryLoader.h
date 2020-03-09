@@ -32,10 +32,11 @@ class LibraryLoader
     public:
         LibraryLoader();
         ~LibraryLoader();
-        bool load(const std::string& path);
+        bool load(const std::string& name,const std::string& path);
+        void stop();
 
     private:
-        const std::string testName_{"./test/test.xml"};
+        std::string testName_{"./test/test.xml"};
         typedef void (funcptr)( char*,char* );
         typedef void (funcptr1)(const std::map<std::string,std::string>); 
 

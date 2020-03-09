@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Red ball put ball in position." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+
+	<command library="general" name="wait" seconds="2" repetitions="1" wait="0" reporterror="true" />
+
+	<command library="custom" name="actionredballposition" seconds="1" repetitions="1" wait="0" robotname="icubSim" positionx="-0.15" positiony="1" elapse="10" reporterror="true" />
+
+	<command library="general" name="wait" seconds="2" repetitions="1" wait="0" reporterror="true" />
+</testbody>

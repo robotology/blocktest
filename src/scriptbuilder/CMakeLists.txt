@@ -9,8 +9,8 @@
 
 project (Scriptbuilder)
 set(CMAKE_AUTOMOC TRUE)
-file(GLOB scriptbuilder_src "*.cpp")
 file(GLOB scriptbuilder_header "*.h" )
+file(GLOB scriptbuilder_src "*.cpp" )
 
 if(COMPILE_SCRIPTBUILDER)
 
@@ -27,11 +27,10 @@ if(COMPILE_SCRIPTBUILDER)
   
   include_directories (${PROJECT_SOURCE_DIR} ${PROJECT_BINARY_DIR})
 
-
   add_library(resourcelib  STATIC
                           ${moc_src}
                           ${ui_wrap}
-                          ${qrc_moc}       
+                          ${qrc_moc}
               )
 
   target_link_libraries(resourcelib  
@@ -40,6 +39,7 @@ if(COMPILE_SCRIPTBUILDER)
                         Qt5::Widgets
                         Qt5::Gui
                         ${Common_LIBRARIES}
+                        Boost::boost
                        )
 
   add_executable(${PROJECT_NAME}
@@ -54,7 +54,8 @@ if(COMPILE_SCRIPTBUILDER)
                           Qt5::Gui
                           ${Common_LIBRARIES}
                           resourcelib
-                          ${Boost_LIBRARIES}
+                          Boost::system
+                          Boost::filesystem
                        )
 
   #xml template folder

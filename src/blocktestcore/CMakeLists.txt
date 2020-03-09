@@ -48,9 +48,11 @@ set(BlockTestCoreHdr   api.h
 
 add_library(blocktestcore SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})
 add_library(${PROJECT_NAME}::${LIBRARY_TARGET_NAME} ALIAS blocktestcore)
-target_link_libraries(blocktestcore ${Boost_LIBRARIES}
-                                    ${Common_LIBRARIES}
-                                    pugixml)
+target_link_libraries(blocktestcore PUBLIC Boost::system
+                                           Boost::filesystem
+                                           ${Common_LIBRARIES}
+                                    PRIVATE pugixml)
+
 target_include_directories(blocktestcore PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
                                       $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 

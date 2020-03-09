@@ -31,10 +31,13 @@ LibraryLoader::LibraryLoader()
 {
 }
 
-bool LibraryLoader::load(const std::string& path)
+bool LibraryLoader::load(const std::string& name,const std::string& path)
 {
     TXLOG(Severity::debug)<<"LibraryLoader constructor"<<std::endl;
     std::string completePath;
+   
+    if(!name.empty())
+        testName_=name;
     if(!path.empty())
         completePath=path+"/"+testName_;
     else
@@ -109,12 +112,16 @@ bool LibraryLoader::load(const std::string& path)
 
 LibraryLoader::~LibraryLoader()
 {
-    TXLOG(Severity::debug)<<"LibraryLoader destructor"<<std::endl;
-    for(auto current:stopFunction_)
-    {
+}
+
+void LibraryLoader::stop()
+{
+    TXLOG(Severity::debug)<<"LibraryLoader stop"<<std::endl;
+
+    std::for_each(stopFunction_.rbegin(),stopFunction_.rend(),[](const auto current){
         if(current)
             current(nullptr,nullptr); 
-    }
+    });
 }
 
 std::map<std::string,std::string> LibraryLoader::xmlLibrarySettingsToMap(const pugi::xml_document& doc,const std::string& libraryName)

@@ -77,7 +77,8 @@ class BLOCKTEST_EXPORT DataLogger
         void add(const std::string& data,double time);
         void add(const std::string& data,const std::string& time);
         void add(double data,const std::string& time);
-
+        void add(const std::vector<double>& data,double time);
+        void add(const std::vector<double>& data,const std::string& time);
     private:
         const unsigned int sleepTimeMsec_{10};
         const unsigned int readInALoop_{10};

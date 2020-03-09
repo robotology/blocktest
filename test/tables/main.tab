@@ -152,7 +152,17 @@ expression      <table type>
 1               <increment by time>
 
 0.01            <increment unit>
-0              <min>
-1              <max>
-10*sin(x)          <expression>
+20              <min>
+40              <max>
+10*sin(x)+20    <expression>
+] 
+
+[
+ballposx           <table name>
+normal            <table type>
+1                 <increment by time>
+0.15
+0.30
+0.45
+0.60
 ] 

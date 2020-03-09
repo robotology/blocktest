@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Clean up." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />
+	<command library="general" name="wait" seconds="2" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="execute" command="killall" param="-9 gzclient gzserver iKinCartesianSolver iCubGui demoRedBall iKinGazeCtrl yarprobotinterface iCub_SIM" prefix="" tag="icubsim" waitafter="1" kill="false" repetitions="1" wait="0" reporterror="true" />
+	</testbody>

@@ -110,6 +110,8 @@ void Action::addProblem(const TestRepetitions& repetitions,Severity severity,con
 {
     if(reporterror_)
         Report::instance().addProblem(testCode_,repetitions,severity,errorMessage,alsoLog);
+    if(alsoLog)
+         TXLOG(severity)<<errorMessage<<std::endl;
 }
 
 Action::~Action()
