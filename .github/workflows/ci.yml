@@ -20,10 +20,19 @@ jobs:
     strategy:
       matrix:
         build_type: [Release, Debug]
-        os: [ubuntu-latest, macOS-latest]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
 
     steps:
     - uses: actions/checkout@master
+
+    - name: Set up environment variables [Windows]
+      if: matrix.os == 'windows-latest'
+      shell: bash
+      run: |
+        # the following fix the problem described in https://github.community/t5/GitHub-Actions/Windows-tests-worked-yesterday-broken-today/m-p/43839#M5530
+        echo "::add-path::C:\Program Files\Git\bin"
+        echo "::set-env name=VCPKG_ROBOTOLOGY_ROOT::C:/vcpkg-robotology"
+        echo "::set-env name=VCPKG_ROBOTOLOGY_BIN_PORTS_ROOT::C:/vcpkg-robotology-binary-ports"
 
 
     - name: Display environment variables
@@ -55,6 +64,17 @@ jobs:
         brew update
         brew upgrade
         brew install cmake qt boost
+    
+    - name: Dependencies [Windows]
+      if: matrix.os == 'windows-latest'
+      shell: bash
+      run: |
+        git clone https://github.com/microsoft/vcpkg.git --depth 1 --branch 2019.10 ${VCPKG_ROBOTOLOGY_ROOT}
+        git clone https://github.com/robotology/robotology-vcpkg-binary-ports.git ${VCPKG_ROBOTOLOGY_BIN_PORTS_ROOT}
+        ${VCPKG_ROBOTOLOGY_ROOT}/bootstrap-vcpkg.sh
+        ${VCPKG_ROBOTOLOGY_ROOT}/vcpkg.exe --overlay-ports=${VCPKG_ROBOTOLOGY_BIN_PORTS_ROOT} install --triplet x64-windows boost-system boost-filesystem \
+                                                                                                                            qt5-declarative qt5-multimedia \
+                                                                                                                            qt5-base 
 
     # ===================
     # CMAKE-BASED PROJECT
@@ -71,6 +91,16 @@ jobs:
       env:
         # This is necessary only on macOS/homebrew, but on Linux it should be ignored
         Qt5_DIR: /usr/local/opt/qt5/lib/cmake/Qt5
+        
+    - name: Configure [Windows]
+      # Use bash also on Windows (otherwise cd, mkdir, ... do not work)
+      if: matrix.os == 'windows-latest'
+      shell: bash
+      run: |
+        mkdir -p build
+        cd build
+        cmake -A x64 -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROBOTOLOGY_ROOT}/scripts/buildsystems/vcpkg.cmake -DCMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install \
+              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install ..
 
     - name: Build
       shell: bash
