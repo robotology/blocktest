@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         build_type: [Release, Debug]
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macOS-latest]
 
     steps:
     - uses: actions/checkout@master
@@ -54,7 +54,7 @@ jobs:
       run: |
         brew update
         brew upgrade
-        brew install cmake lua51 qt graphviz swig python
+        brew install cmake qt boost
 
     # ===================
     # CMAKE-BASED PROJECT
