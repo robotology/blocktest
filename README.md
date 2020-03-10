@@ -1,3 +1,14 @@
+# Maintainers
+
+
+| | CI and deployment |
+|:---:|:---:|
+| [<img src="https://github.com/Nicogene.png" width="40">](https://github.com/niNicogenecogene) | [@Nicogene](https://github.com/Nicogene) |
+
+| | Development |
+|:---:|:---:|
+| [<img src="https://github.com/triccyx.png" width="40">](https://github.com/triccyx) | [@triccyx](https://github.com/triccyx) |
+
 # 1. CI Status
 
 ![ci](https://github.com/robotology/blocktest/workflows/Continuous%20Integration/badge.svg)
