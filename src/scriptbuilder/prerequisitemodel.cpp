@@ -12,6 +12,7 @@
 
 
 #include "prerequisitemodel.h"
+#include <cassert>
 
 PrerequisiteModel::PrerequisiteModel()
 {
