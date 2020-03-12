@@ -73,6 +73,7 @@ jobs:
         git clone https://github.com/robotology/robotology-vcpkg-binary-ports.git ${VCPKG_ROBOTOLOGY_BIN_PORTS_ROOT}
         ${VCPKG_ROBOTOLOGY_ROOT}/bootstrap-vcpkg.sh
         ${VCPKG_ROBOTOLOGY_ROOT}/vcpkg.exe --overlay-ports=${VCPKG_ROBOTOLOGY_BIN_PORTS_ROOT} install --triplet x64-windows boost-system boost-filesystem \
+                                                                                                                            boost-process boost-asio boost-dll \
                                                                                                                             qt5-declarative qt5-multimedia \
                                                                                                                             qt5-base 
 
