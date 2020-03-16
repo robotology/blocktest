@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <testlist repetitions="1">
 	<!-- <settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="test/tables/main.tab" waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp" /> -->
-	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="test/tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="InfoLoggerIdjl" />
+	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.01" tablename="test/tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="InfoLoggerIdjl" relativetime="true"/>
 	
 	<!-- ICub move -->
 	<test file="test/0100.xml" repetitions="0" repetitionsfortime="" code="0100" parallel="false" />
@@ -20,11 +20,11 @@
 	<test file="test/0700.xml" repetitions="0" repetitionsfortime="" code="0700" parallel="false" />
 
 	<!-- Kuka Gazebo-->
-	<test file="test/0702.xml" repetitions="1" repetitionsfortime="" code="0702" parallel="true" />	
-	<test file="test/0701.xml" repetitions="1" repetitionsfortime="" code="0701" parallel="true" />
-	<test file="test/0010.xml" repetitions="1" repetitionsfortime="" code="nop_2" parallel="false" />
-	<test file="test/0700.xml" repetitions="1" repetitionsfortime="" code="0700" parallel="false" />
-	<test file="test/0703.xml" repetitions="1" repetitionsfortime="" code="0703" parallel="false" />
+	<test file="test/0702.xml" repetitions="0" repetitionsfortime="" code="0702" parallel="true" />	
+	<test file="test/0701.xml" repetitions="0" repetitionsfortime="" code="0701" parallel="true" />
+	<test file="test/0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
+	<test file="test/0700.xml" repetitions="0" repetitionsfortime="" code="0700" parallel="false" />
+	<test file="test/0703.xml" repetitions="0" repetitionsfortime="" code="0703" parallel="false" />
 
 	<!-- YARP API -->
 	<test file="test/0010.xml" repetitions="0" repetitionsfortime="" code="nop_1" parallel="false" />
@@ -32,6 +32,9 @@
 	<test file="test/0801.xml" repetitions="0" repetitionsfortime="" code="0801" parallel="true" />
 	<test file="test/0802.xml" repetitions="0" repetitionsfortime="" code="0802" parallel="true" />
 	<test file="test/0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
+
+	<!-- YARP API SERIAL-->
+	<test file="test/0810.xml" repetitions="1" repetitionsfortime="" code="0810" parallel="false" />
 
 	<!-- RED BALL -->
 	<test file="test/0900.xml" repetitions="0" repetitionsfortime="" code="0900" parallel="false" />
@@ -56,7 +59,8 @@
 	<prerequisite enabled="false" command="yarpserver" waitafter="5000" param="--silent --write --ros" prefix="" kill="true" />
 	<prerequisite enabled="false" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub.world" prefix="" kill="true" />
 
-	<prerequisite enabled="false"  command="yarpserver" waitafter="5000" param="--silent --write" prefix="" kill="true" />
+	<prerequisite enabled="true"  command="yarpserver" waitafter="5000" param="--silent --write" prefix="" kill="true" />
+	<prerequisite enabled="true"  command="yarpdev" waitafter="5000" param="--from serialPortConf.ini" prefix="" kill="true" />
 	<prerequisite enabled="false"  command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true" />
 	<prerequisite enabled="false"  command="gzserver" waitafter="5000" param="--verbose kr30_ha-rsi.world" prefix="" kill="true" />
 	<prerequisite enabled="false"  command="gzclient" waitafter="1000" param="" prefix="" kill="true" />
@@ -74,12 +78,13 @@
 	<prerequisite enabled="false" command="demoRedBall" waitafter="2000" param="--from config-test.ini" prefix="" kill="true" />
 
 	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic actions library" />
-	<library enabled="false" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp actions library" />
-	<library enabled="false" path="blocktestcustomplugins/libblockte300stcustomplugins" name="customactiondepot" note="Custom actions library" />
+	<library enabled="true" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp actions library" />
+	<library enabled="false" path="blocktestcustomplugins/libblocktestcustomplugins" name="customactiondepot" note="Custom actions library" />
 	<library enabled="true" path="blocktestkukaplugins/libblocktestidjlplugins" name="idjlactiondepot" note="Idjl actions library" />
 
 	<librarysettings enabled="true" name="genericactiondepot" />
-	<librarysettings enabled="false" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="false" />
+	<!-- <librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="false" /> -->
+	<librarysettings enabled="true" name="yarpactiondepot" wrappername="" robotname="icubSim" netclock="false" /> 
 	<librarysettings enabled="false" name="customactiondepot" />
 	<librarysettings enabled="true" name="idjlactiondepot" />
 

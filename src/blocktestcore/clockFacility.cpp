@@ -37,6 +37,7 @@ bool ClockFacility::load(const std::string& name,const std::string& path)
     pugi::xpath_node settings = doc.select_node("//settings");
     waitcommand_=settings.node().attribute("waitcommand").value();
     nowcommand_=settings.node().attribute("nowcommand").value();
+    relativetime_=settings.node().attribute("relativetime").value();
     return true;
 }
 
@@ -112,39 +113,27 @@ std::string ClockFacility::now() const
     }
     else
     {
-        /*
-        std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-        std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+        using namespace std::chrono;
 
-        std::stringstream out;
-        out << std::put_time(std::localtime(&now_c), "%F %T");
+        // get current time
+        auto now = system_clock::now();
 
-        return out.str();
-*/
-    using namespace std::chrono;
+        // get number of milliseconds for the current second
+        // (remainder after division into seconds)
+        auto ms = duration_cast<milliseconds>(now.time_since_epoch()) % 1000;
 
-    // get current time
-    auto now = system_clock::now();
+        // convert to std::time_t in order to convert to std::tm (broken time)
+        auto timer = system_clock::to_time_t(now);
 
-    // get number of milliseconds for the current second
-    // (remainder after division into seconds)
-    auto ms = duration_cast<milliseconds>(now.time_since_epoch()) % 1000;
+        // convert to broken time
+        std::tm bt = *std::localtime(&timer);
 
-    // convert to std::time_t in order to convert to std::tm (broken time)
-    auto timer = system_clock::to_time_t(now);
+        std::ostringstream oss;
 
-    // convert to broken time
-    std::tm bt = *std::localtime(&timer);
+        oss << std::put_time(&bt, "%H:%M:%S"); // HH:MM:SS
+        oss << '.' << std::setfill('0') << std::setw(3) << ms.count();
 
-    std::ostringstream oss;
-
-    oss << std::put_time(&bt, "%H:%M:%S"); // HH:MM:SS
-    oss << '.' << std::setfill('0') << std::setw(3) << ms.count();
-
-    return oss.str();
-
-
-
+        return oss.str();
     }
 }
 

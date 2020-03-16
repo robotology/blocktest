@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Base port test write and connect for relay board." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />
+	
+    <command library="yarp" name="yarpportopen" portname="/blocktest/send" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+    <command library="yarp" name="yarpconnect" source="/blocktest/send" destination="/serial/in" carrier="tcp" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpportwrite" portname="/blocktest/send" value="k" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="5" repetitions="1" wait="0" reporterror="true" />
+    <command library="yarp" name="yarpportwrite" portname="/blocktest/send" value="m" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />	
+    <command library="yarp" name="yarpportclose" portname="/blocktest/send" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />	
+</testbody>
