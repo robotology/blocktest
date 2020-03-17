@@ -184,10 +184,8 @@ bool Test::waitTermination() const
 {
     if(!testThread_)
         return true;
-
     if(!testThread_->joinable())
         return true;        
-
     TXLOG(Severity::debug)<<"Wait termination for test code:"<<code_<<std::endl;
     testThread_->join();
     TXLOG(Severity::debug)<<"Exit termination for test code:"<<code_<<std::endl;
@@ -196,6 +194,7 @@ bool Test::waitTermination() const
 
 Test::~Test()
 {
+    TXLOG(Severity::debug)<<"Test destroyed code:"<<code_<<std::endl;
 }
 
 }

@@ -62,7 +62,7 @@ unsigned int BlockTest::run()
     }
 
     tests_->execute();
-    tests_->waitTermination();
+    //tests_->waitTermination();
 
     BlockTestCore::Report::instance().dump();
 

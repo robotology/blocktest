@@ -54,7 +54,8 @@ bool TestsDepot::load(const std::string& name,const std::string& path)
         pugi::xpath_node nodeTest = *it;
         Test_sptr outTest=std::make_shared<Test>(nodeTest.node(),shared_from_this());
         outTest->load();
-        data_.emplace_back(outTest);
+        if(outTest->repetitions_)
+            data_.emplace_back(outTest);
     }
 
     return true;
@@ -101,9 +102,7 @@ execution TestsDepot::execute() const
             if(!current->repetitions_)
                 continue;
             out=current->execute(realRobot_,index);
-            std::cout<<"------"<<std::endl;
         }
-
         waitTermination();
     }
     return out;
@@ -111,10 +110,13 @@ execution TestsDepot::execute() const
 
 bool TestsDepot::waitTermination() const
 {
-    for(Test_sptr current:data_)
+    for(auto it=data_.begin();it!=data_.end();++it)
     {
-        if(current->repetitions_)
-            current->waitTermination();
+        auto current=*it;
+        if(current->repetitions_==0)
+            continue;
+        
+        current->waitTermination();
     }
 	return true;
 }
