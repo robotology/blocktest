@@ -36,6 +36,7 @@ set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREAD ON)
 set(BOOST_MIN_VERSION "1.65.0")
 
+find_package(YCM REQUIRED)
 find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
 
 # To build shared libraries in Windows, we set CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS to TRUE.
