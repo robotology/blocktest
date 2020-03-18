@@ -76,13 +76,35 @@ The following library are used in blocktest:
   
 **pugixml** https://github.com/zeux/pugixml  
 **exprtk** https://github.com/ArashPartow/exprtk  
-**boost** https://www.boost.org/  
+**boost** https://www.boost.org/
+**YCM**   https://github.com/robotology/ycm
 
 ## 4.2. Prerequisite Linux
+
+### Dependencies
 
 ```bash
 sudo apt-get install -y cmake libboost1.65-all-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
 ```
+### Source based Dependencies
+
+- `YCM`
+
+```bash
+$ git clone https://github.com/robotology/ycm
+$ cd ycm
+$ mkdir build && cd build
+$ cmake ..
+$ make
+$ make install <optional>
+```
+Add in your bashrc:
+
+```
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/<build/install_dir_of_ycm>
+```
+
+
 
 ### 4.2.1. Numpy
 
