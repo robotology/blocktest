@@ -135,5 +135,3 @@ install(DIRECTORY test DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES config.xml DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 include(AddUninstallTarget)
-
-
