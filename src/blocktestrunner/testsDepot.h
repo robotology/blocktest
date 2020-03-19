@@ -16,6 +16,7 @@
 #include "api.h"
 #include "type.h"
 #include "general.h"
+#include "sintax.h"
 
 #ifndef _WIN32
 #include <dlfcn.h>
@@ -47,8 +48,6 @@ public:
     unsigned int repetitions_{0};
 
 private:
-    std::string testName_{"./test/test.xml"};    
-
     bool realRobot_{false};
 
     std::vector<Test_sptr> data_;

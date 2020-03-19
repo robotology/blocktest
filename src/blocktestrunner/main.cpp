@@ -32,7 +32,7 @@ int main(int argc,char* argv[]) noexcept
         {
             name=argv[1];
             path=argv[2];
-            std::cerr << "Load tests:"<<name << std::endl;
+            std::cerr << "Load tests:"<<name << " path:"<<path<<std::endl;
         }
         else if(argc>3)
         {

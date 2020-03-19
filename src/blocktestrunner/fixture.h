@@ -15,6 +15,7 @@
 #include "type.h"
 #include "api.h"
 #include "general.h"
+#include "sintax.h"
 
 #include <boost/process.hpp>
 
@@ -51,8 +52,6 @@ class Fixture
                 std::unique_ptr<std::thread> writer_;
                 bool writerActive_{true};
         };
-
-        std::string testName_{"./test/test.xml"};
 
         std::list<FixtureParam> fixtures_;
 

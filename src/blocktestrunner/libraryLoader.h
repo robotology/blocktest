@@ -13,6 +13,7 @@
  */
 #include "api.h"
 #include "general.h"
+#include "sintax.h"
 
 #ifndef _WIN32
 #include <dlfcn.h>
@@ -36,7 +37,6 @@ class LibraryLoader
         void stop();
 
     private:
-        std::string testName_{"./test/test.xml"};
         typedef void (funcptr)( char*,char* );
         typedef void (funcptr1)(const std::map<std::string,std::string>); 
 

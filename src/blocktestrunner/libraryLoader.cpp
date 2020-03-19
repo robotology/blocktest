@@ -34,14 +34,8 @@ LibraryLoader::LibraryLoader()
 bool LibraryLoader::load(const std::string& name,const std::string& path)
 {
     TXLOG(Severity::debug)<<"LibraryLoader constructor"<<std::endl;
-    std::string completePath;
-   
-    if(!name.empty())
-        testName_=name;
-    if(!path.empty())
-        completePath=path+"/"+testName_;
-    else
-        completePath=testName_;
+
+    std::string completePath=calcolateTestName(name,path);
         
     pugi::xml_document doc;
     pugi::xml_parse_result result=doc.load_file(completePath.c_str());
@@ -92,18 +86,17 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
         }
         catch(boost::exception const& e) {
             std::cout<<"------------------"<<boost::diagnostic_information(e, true)<<std::endl;
-            TXLOG(Severity::criticalminimal)<<"Custom lib:"<<currentPath<<extension<<" error missing Configure/Stop function in lib----"<<boost::diagnostic_information(e, true)<<std::endl;
+            TXLOG(Severity::criticalminimal)<<"Lib:"<<currentPath<<extension<<" error missing Configure/Stop function in lib----"<<boost::diagnostic_information(e, true)<<std::endl;
             return false;
         }
         catch(std::exception& e)
         {
             std::string error;
-            error=e.what();
-            error=e.what();        
+            error=e.what();   
         }
         catch(...)
         {
-            std::string error;
+            std::string error{"Unknown error"};
         }
         TXLOG(Severity::info)<<"Load lib ok:"<<currentPath<<extension<<std::endl;
     }

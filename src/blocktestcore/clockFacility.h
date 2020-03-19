@@ -14,6 +14,7 @@
 
 #include "general.h"
 #include "api.h"
+#include "sintax.h"
 
 namespace BlockTestCore
 {
@@ -44,7 +45,6 @@ class BLOCKTEST_EXPORT ClockFacility
         bool relativetime_{true};
         std::string waitcommand_;
         std::string nowcommand_;
-        std::string testPath_{"./test/test.xml"};
 };
 
 }

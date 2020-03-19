@@ -20,16 +20,7 @@ namespace BlockTestCore
 
 Fixture::Fixture(const std::string& name,const std::string& path)
 {
-    std::string completePath;
-    if(!name.empty())
-    {
-        testName_=name;
-    }
-
-    if(!path.empty())
-        completePath=path+"/"+testName_;
-    else
-        completePath=testName_;
+    std::string completePath=calcolateTestName(name,path);
 
     pugi::xml_document doc;    
     pugi::xml_parse_result result=doc.load_file(completePath.c_str());

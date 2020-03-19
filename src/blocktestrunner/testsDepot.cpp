@@ -30,14 +30,7 @@ TestsDepot::~TestsDepot()
 
 bool TestsDepot::load(const std::string& name,const std::string& path)
 {
-    std::string completePath;
-    if(!name.empty())
-        testName_=name;
-        
-    if(!path.empty())
-        completePath=path+"/"+testName_;
-    else
-        completePath=testName_;
+    std::string completePath=calcolateTestName(name,path);
         
 
     doc_.load_file(completePath.c_str());

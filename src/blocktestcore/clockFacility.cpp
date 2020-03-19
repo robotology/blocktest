@@ -18,17 +18,16 @@ ClockFacility::ClockFacility()
 
 bool ClockFacility::load(const std::string& name,const std::string& path)
 {
+    std::string completePath=calcolateTestName(name,path);
 
-    if(!name.empty() && !path.empty())
-        testPath_=path+name;
     begin_ = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
 
     pugi::xml_document doc;
-    pugi::xml_parse_result result=doc.load_file(testPath_.c_str());
+    pugi::xml_parse_result result=doc.load_file(completePath.c_str());
 
     if(result.status != pugi::xml_parse_status::status_ok)
     {
-        TXLOG(Severity::error)<<"Can not load clockfacility xml:"<<testPath_<<std::endl;      
+        TXLOG(Severity::error)<<"Can not load clockfacility xml:"<<completePath<<std::endl;      
         return false;
     }
   

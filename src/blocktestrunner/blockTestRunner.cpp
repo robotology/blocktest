@@ -29,7 +29,7 @@ BlockTest::BlockTest(const std::string &name,const std::string &path):path_(path
 }
 
  BlockTest::~BlockTest()
- {bool load(const std::string& name,const std::string& path);
+ {
      /*
     TXLOG(Severity::debug)<<"BlockTest destroyed"<<std::endl;
 
