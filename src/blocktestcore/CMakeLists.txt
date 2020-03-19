@@ -46,6 +46,7 @@ set(BlockTestCoreHdr   api.h
                        type.h
                        exprtk.hpp
                        testrepetitions.h
+                       sintax.h
                        )
 
 add_library(${LIBRARY_TARGET_NAME} SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})

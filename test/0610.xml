@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Write to serial." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="1" />	
+
+	<command library="general" name="wait" seconds="1" repetitions="1" wait="2" reporterror="true" />
+	<command library="general" name="writeserial" value="m" port="/dev/ttyUSB0" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="1" repetitions="1" wait="2" reporterror="true" />
+	<command library="general" name="writeserial" value="k" port="/dev/ttyUSB0" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="1" repetitions="1" wait="2" reporterror="true" />
+</testbody>
