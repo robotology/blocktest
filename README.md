@@ -388,6 +388,7 @@ These commands are contained in the generic command library plugin.
     ```
 
     The nop command is used to print log on the plot.log file.
+    The nop command can be used to synch parallel tests.
 
 -   **updatefile**     
 
@@ -418,7 +419,15 @@ These commands are contained in the generic command library plugin.
     </command>
     ```
 
-    The command executes the specified application.
+    The command executes the specified application or script.
+
+-   **writeserial**
+
+    ```xml
+    <command name="writeserial" value="" port="" repetitions="1" wait="0" reporterror="true"/>
+    ```
+
+    The writeserial command is used to write data on a /dev/ttyxx port. Note that you need the permission to write on the port.   
 
 ## 6.6. Test writing with Scriptbuilder
 Script builder is a UI for test and test list writing.
@@ -740,4 +749,3 @@ Write an xml file for each block.
 
 # 11. Authors
 * Luca Tricerri ([*personal page*](https://www.iit.it/people/luca-tricerri))
-* Lorenzo Natale ([*personal page*](https://www.iit.it/people/lorenzo-natale))
