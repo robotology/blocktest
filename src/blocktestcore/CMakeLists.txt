@@ -56,7 +56,7 @@ target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC Boost::system
                                              PRIVATE pugixml)
 
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-                                                         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+                                                         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${LIBRARY_TARGET_NAME}>")
 
 set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES VERSION  ${${PROJECT_NAME}_VERSION}
                                                         PUBLIC_HEADER "${BlockTestCoreHdr}")
