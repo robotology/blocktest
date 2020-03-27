@@ -46,7 +46,7 @@ public:
     std::set<std::string> commandOnlySim_;   
 
     unsigned int repetitions_{0};
-
+    
 private:
     bool realRobot_{false};
 

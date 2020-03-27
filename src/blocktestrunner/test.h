@@ -31,7 +31,7 @@ public:
 
     bool valid() const;
     bool isLogActive(loggingType type) const;
-    bool load();
+    bool load(const std::string& path);
     execution execute(bool isRealRobot,unsigned int repetition);
     bool waitTermination() const;
 

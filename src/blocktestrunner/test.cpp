@@ -26,7 +26,7 @@ Test::Test(const pugi::xml_node& nodeTest,const TestsDepot_sptr& testDepot): tes
 
 }
 
-bool Test::load()
+bool Test::load(const std::string& path)
 {
     file_ = nodeTest_.attribute("file").value();
     code_ = nodeTest_.attribute("code").value();
@@ -55,6 +55,7 @@ bool Test::load()
     pugi::xpath_node_set nodeCommandsList;
 
     pugi::xml_document doc;
+    file_=calcolateTestName(file_,path);
     if(!file_.empty())
     {    
         pugi::xml_parse_result result=doc.load_file(file_.c_str());

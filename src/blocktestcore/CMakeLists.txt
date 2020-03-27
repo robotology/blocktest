@@ -23,6 +23,7 @@ set(BlockTestCoreSrc    action.cpp
                         tableIncrement.cpp
                         tableNormal.cpp
                         tableWave.cpp
+                        general.cpp
                         )
 
 set(BlockTestCoreHdr   api.h

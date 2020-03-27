@@ -46,7 +46,7 @@ bool TestsDepot::load(const std::string& name,const std::string& path)
     {
         pugi::xpath_node nodeTest = *it;
         Test_sptr outTest=std::make_shared<Test>(nodeTest.node(),shared_from_this());
-        outTest->load();
+        outTest->load(path);
         if(outTest->repetitions_)
             data_.emplace_back(outTest);
     }

@@ -24,3 +24,8 @@
 #include <cassert>
 
 #define BLOCKTEST_UNUSED(x) (void)x;
+
+
+constexpr char maintestfile[] = "./test/test.xml";
+
+std::string calcolateTestName(const std::string& name,const std::string& path);
