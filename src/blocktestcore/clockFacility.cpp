@@ -36,7 +36,8 @@ bool ClockFacility::load(const std::string& name,const std::string& path)
     pugi::xpath_node settings = doc.select_node("//settings");
     waitcommand_=settings.node().attribute("waitcommand").value();
     nowcommand_=settings.node().attribute("nowcommand").value();
-    relativetime_=settings.node().attribute("relativetime").value();
+    relativetime_=settings.node().attribute("relativetime").as_bool();
+    TXLOG(Severity::debug)<<"Relative time:"<<relativetime_<<std::endl;   
     return true;
 }
 
@@ -138,6 +139,7 @@ std::string ClockFacility::now() const
 
 void ClockFacility::relativeTime(bool value)
 {
+    TXLOG(Severity::debug)<<"Relative time set:"<<value<<std::endl;   
     relativetime_=value;
 }
 
