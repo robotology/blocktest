@@ -129,7 +129,7 @@ private:
                 ss1 << "(" << file_ << ":" << line_ << ":" << std::this_thread::get_id() << ":" << ")";
             std::string positionheader = ss1.str();
             if(severity_==Severity::plot)
-                currentLogLine_ << data;
+                currentLogLine_ << timeheader<<"::"<< data;
             else
                 currentLogLine_ << timeheader << severityheader << positionheader << data;
         }

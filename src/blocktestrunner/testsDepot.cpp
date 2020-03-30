@@ -30,6 +30,7 @@ TestsDepot::~TestsDepot()
 
 bool TestsDepot::load(const std::string& name,const std::string& path)
 {
+    path_=path;
     std::string completePath=calcolateTestName(name,path);
         
 
@@ -77,7 +78,8 @@ void TestsDepot::loadSimulationCommand()
     loggingTime_=settings.node().attribute("loggingtime").as_double();
     Logger::instance().SetSeverity(logseverity);
     std::string tableName=settings.node().attribute("tablename").value();
-    loggingcommand_=settings.node().attribute("loggingcommand").value();    
+    loggingcommand_=settings.node().attribute("loggingcommand").value(); 
+    tableName=calcolateTestName(tableName,path_);
     Tables::instance().load(tableName);
     //Tables::instance().dump();
 }

@@ -44,9 +44,10 @@ public:
     bool valid() const;
   
     std::set<std::string> commandOnlySim_;   
+    std::string path_;
 
     unsigned int repetitions_{0};
-    
+
 private:
     bool realRobot_{false};
 

@@ -43,7 +43,7 @@ bool Tables::load(const std::string& fileName)
         TXLOG(Severity::error)<<"Unable to load table"<<std::endl;
         return false;
     }
-    TXLOG(Severity::debug)<<"Begin to load table size:"<<str.size()<<std::endl;
+    TXLOG(Severity::debug)<<"Load tables, table number:"<<str.size()<<std::endl;
     size_t currentListPos=0;
     while(currentListPos<str.size())
     {
