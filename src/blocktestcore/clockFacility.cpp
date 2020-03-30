@@ -37,6 +37,7 @@ bool ClockFacility::load(const std::string& name,const std::string& path)
     waitcommand_=settings.node().attribute("waitcommand").value();
     nowcommand_=settings.node().attribute("nowcommand").value();
     relativetime_=settings.node().attribute("relativetime").as_bool();
+    unixtime_=settings.node().attribute("unixtime").as_bool();
     TXLOG(Severity::debug)<<"Relative time:"<<relativetime_<<std::endl;   
     return true;
 }
@@ -113,26 +114,31 @@ std::string ClockFacility::now() const
     }
     else
     {
-        using namespace std::chrono;
-
-        // get current time
-        auto now = system_clock::now();
-
-        // get number of milliseconds for the current second
-        // (remainder after division into seconds)
-        auto ms = duration_cast<milliseconds>(now.time_since_epoch()) % 1000;
-
-        // convert to std::time_t in order to convert to std::tm (broken time)
-        auto timer = system_clock::to_time_t(now);
-
-        // convert to broken time
-        std::tm bt = *std::localtime(&timer);
-
         std::ostringstream oss;
+        if(unixtime_)
+        {
+            int64_t timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+            oss<<timestamp;
+        }
+        else
+        {      
+            // get current time
+            auto now = std::chrono::system_clock::now();
 
-        oss << std::put_time(&bt, "%H:%M:%S"); // HH:MM:SS
-        oss << '.' << std::setfill('0') << std::setw(3) << ms.count();
+            // get number of milliseconds for the current second
+            // (remainder after division into seconds)
+            auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
 
+            // convert to std::time_t in order to convert to std::tm (broken time)
+            auto timer = std::chrono::system_clock::to_time_t(now);
+
+            // convert to broken time
+            std::tm bt = *std::localtime(&timer);
+
+
+            oss << std::put_time(&bt, "%H:%M:%S"); // HH:MM:SS
+            oss << '.' << std::setfill('0') << std::setw(3) << ms.count();
+        }
         return oss.str();
     }
 }

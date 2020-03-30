@@ -207,20 +207,22 @@ This file contains:
 ```xml
 <settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" 
             neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab" 
-            waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp"/> <!--loggingtime in sec-->
+            waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp" relativetime="false" unixtime="true"/>
 ```
 
 | Param name           | Default value        | Comment                                                                                        |
 | -------------------- | -------------------- | ---------------------------------------------------------------------------------------------- |
-| realrobot            | false                | Indicates if it is a real robot under test, or it is a Gazebo simulation                          |
+| realrobot            | false                | Indicates if it is a real robot under test, or it is a Gazebo simulation                       |
 | onlysimcommands      | yarpreset applyForce | Indicates which are the commands to be executed only in simulation                             |
 | neverexecutecommands | ---                  | Indicates which are the commands not to be executed.                                           |
 | logseverity          | info                 | Indicates the severity to be logged in log.log                                                 |
-| loggingtime          | 0.01                 | Indicates the time in seconds for logging joints info if are required in the test.                 |
+| loggingtime          | 0.01                 | Indicates the time in seconds for logging joints info if are required in the test.             |
 | tablename            | test/tables/main.tab | Indicates the table name for parametric value                                                  |
-| waitcommand          | wait             | Indicates the command blocks to be used for wait                                               |
-| nowcommand           | now              | Indicates the command blocks to be used for now                                                |
+| waitcommand          | wait                 | Indicates the command blocks to be used for wait                                               |
+| nowcommand           | now                  | Indicates the command blocks to be used for now                                                |
 | loggingcommand       | infologgeryarp       | Indicates the command blocks to be used for logging                                            |
+| relativetime         | true                 | The logging time is relative(from test start) or absolute                                      |
+| unixtime             | false                | If the time is absolute it can be unix time format or string format                            |
 
 ## 6.2. Library Settings
 In this section, it is possible to specify the plugin library to be used.

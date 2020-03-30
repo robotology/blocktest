@@ -43,6 +43,7 @@ class BLOCKTEST_EXPORT ClockFacility
         ~ClockFacility(){};
         std::chrono::milliseconds begin_;
         bool relativetime_{true};
+        bool unixtime_{false};
         std::string waitcommand_;
         std::string nowcommand_;
 };
