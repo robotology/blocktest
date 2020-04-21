@@ -88,7 +88,7 @@ The following library are used in blocktest:
 ### 5.2.1. Dependencies
 
 ```bash
-sudo apt-get install -y cmake libboost1.65-all-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
+sudo apt-get install -y cmake libboost-all-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
 ```
 ### 5.2.2. Source based Dependencies
 
@@ -107,8 +107,6 @@ Add in your bashrc:
 ```
 export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/<build/install_dir_of_ycm>
 ```
-
-
 
 ### 5.2.3. Numpy
 
