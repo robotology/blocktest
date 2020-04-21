@@ -198,7 +198,7 @@ Otherwise, the starting point for writing a test is the file ./test/test.xml, se
 
 This file contains:
  * the simulation general settings
- * the used libraries
+ * the blocktest used shared libraries
  * the prerequisites
  * the tests link list
 
@@ -212,8 +212,8 @@ This file contains:
 
 | Param name           | Default value        | Comment                                                                                        |
 | -------------------- | -------------------- | ---------------------------------------------------------------------------------------------- |
-| realrobot            | false                | Indicates if it is a real robot under test, or it is a Gazebo simulation                       |
-| onlysimcommands      | yarpreset applyForce | Indicates which are the commands to be executed only in simulation                             |
+| realrobot            | false                | Indicates if it is a real robot under test (true), or it is a Gazebo (false)simulation                       |
+| onlysimcommands      | yarpreset applyForce | Indicates which are the commands to be executed only in simulation (realrobot param)                            |
 | neverexecutecommands | ---                  | Indicates which are the commands not to be executed.                                           |
 | logseverity          | info                 | Indicates the severity to be logged in log.log                                                 |
 | loggingtime          | 0.01                 | Indicates the time in seconds for logging joints info if are required in the test.             |
@@ -236,7 +236,8 @@ In this section, it is possible to specify the plugin library to be used.
 | ---------- | ------------- | -------------------------------- |
 | enabled    | true          | If these settings will be loaded |
 | name       | ---           | library tag name                 |
-| ...        | ...           | ...                              |
+| path       | ---           | library .so relative path from blocktest |
+| note       | ---           | Explanation notes |
 
 ```xml
 <!--Libraries settings-->
@@ -248,11 +249,10 @@ In this section, it is possible to specify the plugin library to be used.
 | Param name | Default value | Comment                       |
 | ---------- | ------------- | ----------------------------- |
 | enabled    | true          | If the library will be loaded |
-| path       | ---           | Library .so file path         |
 | name       | ---           | library tag name              |
 | note       | ---           | Explanation notes             |
 | robotname            | icubSim              | Robot name to be used
-| simclock             | true                 | Indicates if the network clock should be used. In the case it is used the one on "/clock" port |
+| netclock             | true                 | Indicates if the network clock (Yarp) should be used. In the case it is used the one on "/clock" port |
 In this section it is also possible to specify the plugin library settings.
 
 
