@@ -1,12 +1,12 @@
 /******************************************************************************
  *                                                                            *
- * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * Copyright (C) 2020 Fondazione Istituto Italiano di Tecnologia (IIT)        *
  * All Rights Reserved.                                                       *
  *                                                                            *
  ******************************************************************************/
 
 /**
- * @file actionNop.cpp
+ * @file actionWriteSerial.cpp
  * @author Luca Tricerri <luca.tricerri@iit.it>
  */
 
@@ -14,13 +14,6 @@
 #include "logger.h"
 #include "tables.h"
 #include "report.h"
-
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h> // UNIX standard function definitions
-#include <fcntl.h> // File control definitions
-#include <errno.h> // Error number definitions
-#include <termios.h> // POSIX terminal control definitionss
 
 ACTIONREGISTER_DEF_TYPE(GenericActions::ActionWriteSerial,"writeserial");
 
@@ -35,6 +28,7 @@ void ActionWriteSerial::beforeExecute()
 {
     getCommandAttribute("port",port_);
     getCommandAttribute("value",value_);
+    getCommandAttribute("baud",baud_);
 }
 
 /*
@@ -60,6 +54,13 @@ execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
 
 }*/
 
+#ifndef DCOMPILE_WITHEXTSERIAL
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h> // UNIX standard function definitions
+#include <fcntl.h> // File control definitions
+#include <errno.h> // Error number definitions
+#include <termios.h> // POSIX terminal control definitionss
 
 execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
 {
@@ -97,9 +98,14 @@ execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
     tty.c_cc[VTIME] = 10;    // Wait for up to 1s (10 deciseconds), returning as soon as any data is received.
     tty.c_cc[VMIN] = 0;
 
-    // Set in/out baud rate to be 115200
-    cfsetispeed(&tty, B115200);
-    cfsetospeed(&tty, B115200);
+    // Set out baud rate
+    unsigned int baudToBeAssigned=bauddepot_["9600"];
+    auto it=bauddepot_.find(baud_);
+    if(it!=bauddepot_.end())
+    {
+        baudToBeAssigned=it->second;
+    }
+    cfsetospeed(&tty, baudToBeAssigned);
 
     // Save tty settings, also checking for error
     if (tcsetattr(serial_port, TCSANOW, &tty) != 0) {
@@ -113,6 +119,13 @@ execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
     TXLOG(Severity::debug)<<"Set value:"<<value_<<" To:"<<port_<<std::endl;
     return execution::continueexecution;
 }
+#else
+execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
+{
+    //TODO
+    return execution::continueexecution;
+}
+#endif
 
 
 }

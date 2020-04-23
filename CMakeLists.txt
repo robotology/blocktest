@@ -22,8 +22,8 @@ endif()
 include(GNUInstallDirs)
 
 option(COMPILE_SCRIPTBUILDER "Compile the UI for creating the test" ON)
-
 option(BLOCKTEST_USE_EXTERNAL_PUGIXML "Set to on if you want to use an external pugixml" OFF)
+option(USE_SERIAL_LIB "Compile with serial library" OFF)
 
 if(BLOCKTEST_USE_EXTERNAL_PUGIXML)
   find_package(pugixml REQUIRED)
@@ -38,6 +38,9 @@ set(BOOST_MIN_VERSION "1.65.0")
 
 find_package(YCM REQUIRED)
 find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
+if(USE_SERIAL_LIB)
+  find_package(serial)
+endif()
 
 # To build shared libraries in Windows, we set CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS to TRUE.
 # See https://cmake.org/cmake/help/v3.4/variable/CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS.html

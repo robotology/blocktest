@@ -23,6 +23,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src ${P
 target_link_libraries(${PROJECT_NAME} blocktestcore ${Boost_LIBRARIES})
 
 # Add install target
+if(USE_SERIAL_LIB)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE -DCOMPILE_WITHEXTSERIAL)
+endif()
 set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECT_NAME}")
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${CMAKE_INSTALL_BINDIR}/${PROJECT_NAME})
 

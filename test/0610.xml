@@ -5,8 +5,8 @@
 	<settings wait="1" />	
 
 	<command library="general" name="wait" seconds="1" repetitions="1" wait="2" reporterror="true" />
-	<command library="general" name="writeserial" value="m" port="/dev/ttyUSB0" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="writeserial" value="1" port="/dev/ttyUSB0" baud="115200" repetitions="1" wait="0" reporterror="true" />
 	<command library="general" name="wait" seconds="1" repetitions="1" wait="2" reporterror="true" />
-	<command library="general" name="writeserial" value="k" port="/dev/ttyUSB0" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="writeserial" value="Q" port="/dev/ttyUSB0" baud="115200" repetitions="1" wait="0" reporterror="true" />
 	<command library="general" name="wait" seconds="1" repetitions="1" wait="2" reporterror="true" />
 </testbody>
