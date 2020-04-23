@@ -73,6 +73,7 @@ The main idea of BlockTest is to adopt testing methodologies and best practices 
 
 Supported OS: Linux Ubuntu 18.04 and Windows 10.
 Boost library version must be >=1.65.
+CMake must be > 3.12.
 
 ## 5.1. External library
 
