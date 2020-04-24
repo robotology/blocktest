@@ -45,6 +45,7 @@
 - [8. Test execution](#8-test-execution)
   - [8.1. Test folder struct](#81-test-folder-struct)
   - [8.2. Test execution of custom folder](#82-test-execution-of-custom-folder)
+    - [8.2.1. Troubleshoot](#821-troubleshoot)
 - [9. Logging](#9-logging)
   - [9.1. Application logging](#91-application-logging)
   - [9.2. Sensors logging](#92-sensors-logging)
@@ -590,8 +591,20 @@ If you need to execute tests in a different folder:
 Example:
 ```bash
 cd ./blocktest/build/bin
-./blocktestrunner test1.xml ./test1/
+./blocktestrunner test1.xml ./myfolder/testfolder
 ```
+
+### 8.2.1. Troubleshoot
+Check the path in test.xml files.
+
+```
+<test file="test//0002.xml" ...
+```
+In this case the path you have specified must take in account also of this "test/".  
+The test will be in "./myfolder/testfolder/test"
+<br><br>
+The path shouldn't end with "/", this can cause problems on WSL system.  
+
 
 # 9. Logging
 

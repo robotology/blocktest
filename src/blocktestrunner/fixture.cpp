@@ -29,6 +29,7 @@ Fixture::Fixture(const std::string& name,const std::string& path)
         TXLOG(Severity::error)<<"Can not load fixture xml:"<<completePath<<std::endl;      
         return;
     }
+    TXLOG(Severity::debug)<<"Load fixture xml:"<<completePath<<std::endl;  
 
     pugi::xpath_node_set fixturesNode = doc.select_nodes("//prerequisite");
 

@@ -44,6 +44,7 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
         TXLOG(Severity::error)<<"Unable to load file: "<<completePath<<std::endl;
         return false;
     }
+    TXLOG(Severity::debug)<<"Load library xml:"<<completePath<<std::endl;  
 
     pugi::xpath_node_set libraryNodes = doc.select_nodes("//library");
     

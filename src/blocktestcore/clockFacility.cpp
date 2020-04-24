@@ -39,6 +39,7 @@ bool ClockFacility::load(const std::string& name,const std::string& path)
     relativetime_=settings.node().attribute("relativetime").as_bool();
     unixtime_=settings.node().attribute("unixtime").as_bool();
     TXLOG(Severity::debug)<<"Relative time:"<<relativetime_<<std::endl;   
+    TXLOG(Severity::debug)<<"Load clockfacility xml:"<<completePath<<std::endl;      
     return true;
 }
 
@@ -47,7 +48,7 @@ bool ClockFacility::wait(double value) const
     auto mymap=ActionRegister::getMap();
     if(mymap.find(waitcommand_)==mymap.end())
     {
-        TXLOG(Severity::error)<<"Unknown wait command:"<<waitcommand_<<std::endl;      
+        TXLOG(Severity::error)<<"Unknown/None wait command:"<<waitcommand_<<std::endl;      
         return false;
     }
     auto call=ActionRegister::getCreatorFunction(waitcommand_);
@@ -69,12 +70,12 @@ double ClockFacility::nowDbl() const
         {
             //TXLOG(Severity::criticalminimal)<<"Unknown now command:"<<nowcommand_<<std::endl;      
             //No log available here due to logger ricorsion and mutex lock
+            std::cout<<"Critical:Unknown/None nowDbl command"<<std::endl;
             return 0;
         }
         auto call=ActionRegister::getCreatorFunction(nowcommand_);
 
-        CommandAttributes commandAttributes{{"command","wait"},{"reporterror","false"}};
-
+        CommandAttributes commandAttributes{{"command","now"},{"reporterror","false"}};
         auto action=(call)(commandAttributes,"");
         return action->getDouble();
     }
@@ -105,8 +106,6 @@ std::string ClockFacility::now() const
         auto action=(call)(commandAttributes,"");
         double value=action->getDouble();
 
-        //std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
-        //double value=(double)(now.count()-begin_.count())/1000;
         std::stringstream ss;
         ss.setf(std::ios::fixed);
         ss<<std::setfill('0')<<std::setw(9)<<std::setprecision(3)<<value;
