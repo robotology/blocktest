@@ -6,8 +6,8 @@
  ******************************************************************************/
 
 /**
- * @file ActionWait.h
- * @author Luca Tricerri <luca.tricerri@iit.it>
+ * @file ActionPrint.h
+ * @author tumme
  */
 
 #pragma once
