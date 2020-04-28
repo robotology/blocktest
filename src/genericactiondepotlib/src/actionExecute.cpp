@@ -33,6 +33,7 @@ void ActionExecute::beforeExecute()
     getCommandAttribute("prefix",prefix_);
     getCommandAttribute("waitafter",waitafter_);
     getCommandAttribute("kill",kill_); 
+    getCommandAttribute("nobackground",nobackground_);
 }
 
 execution ActionExecute::execute(const TestRepetitions& testrepetition)
@@ -55,7 +56,9 @@ execution ActionExecute::execute(const TestRepetitions& testrepetition)
         return execution::continueexecution;
     }
     std::stringstream ss;
-    ss<<prefix_<<" "<<commandName_<<" "<<normalize(commandParam_,false)<<" &";
+    ss<<prefix_<<" "<<commandName_<<" "<<normalize(commandParam_,false);
+    if(!nobackground_)
+        ss<<" &";
 
     if(processes_.find(tagTmp)!=processes_.end())
     {
@@ -63,6 +66,7 @@ execution ActionExecute::execute(const TestRepetitions& testrepetition)
         //return execution::stopexecution;
     }
 
+    TXLOG(Severity::debug)<<"Executing:"<<ss.str()<<std::endl;
     auto process=std::make_shared<boost::process::child>(ss.str());
     processes_[tagTmp]=process;
 

@@ -32,6 +32,7 @@ class ActionExecute : public Action
         std::string commandParam_;
         std::string prefix_;    
         bool kill_;
+        bool nobackground_{false};
         unsigned int waitafter_;
         std::string tag_;
 
