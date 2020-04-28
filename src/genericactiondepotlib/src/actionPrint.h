@@ -32,7 +32,7 @@ class ActionPrint : public Action
         void beforeExecute() override;
 
     private:        
-        std::string value_;
+        std::string message_;
 
     ACTIONREGISTER_DEC_TYPE(ActionPrint)        
 };
