@@ -1,0 +1,1 @@
+<command library="general" name="print" message="yourMessage" repetitions="1" wait="0" reporterror="true"></command>
