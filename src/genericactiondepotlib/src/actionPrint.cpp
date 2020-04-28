@@ -21,17 +21,17 @@ namespace GenericActions
 
     ActionPrint::ActionPrint(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
     { 
-        getCommandAttribute("message",value_);      
+        getCommandAttribute("message",message_);      
     }     
 
     void ActionPrint::beforeExecute()
     {
-        getCommandAttribute("message",value_);      
+        getCommandAttribute("message",message_);      
     }
 
     execution ActionPrint::execute(const TestRepetitions&)
     {
-        std::cout<<std::endl<<value_<<std::endl;
+        std::cout<<std::endl<<message_<<std::endl;
         std::cout<<std::endl;
     
         return execution::continueexecution;
