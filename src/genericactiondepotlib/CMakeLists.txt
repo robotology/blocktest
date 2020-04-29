@@ -31,7 +31,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 add_library(${PROJECT_NAME} MODULE ${allSrc})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/../src ${serial_SOURCE_DIR}/include )
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/../src )
 
 # Add install target
 if(USE_SERIAL_LIB)
