@@ -15,6 +15,19 @@
 #include "tables.h"
 #include "report.h"
 
+#include <string>
+
+#ifdef COMPILE_WITHEXTSERIAL
+#include "serial/serial.h"
+#else
+#include <string.h>
+#include <stdio.h>
+#include <unistd.h> // UNIX standard function definitions
+#include <fcntl.h> // File control definitions
+#include <errno.h> // Error number definitions
+#include <termios.h> // POSIX terminal control definitionss
+#endif
+
 ACTIONREGISTER_DEF_TYPE(GenericActions::ActionWriteSerial,"writeserial");
 
 namespace GenericActions
@@ -31,36 +44,7 @@ void ActionWriteSerial::beforeExecute()
     getCommandAttribute("baud",baud_);
 }
 
-/*
-execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
-{
-    std::fstream out;
-    out.open(port_); 
-
-    if(!out.is_open())
-    {
-        std::stringstream ss;
-        ss<<"Can not open port:"<<port_<<std::endl;
-        addProblem(testrepetition,Severity::error,ss.str(),true);
-        return execution::stopexecution;
-    }
-
-    out.
-
-    TXLOG(Severity::debug)<<"Set value:"<<value_<<" To:"<<port_<<std::endl;
-    out<<value_<<std::endl;;
-
-    return execution::continueexecution;
-
-}*/
-
-#ifndef DCOMPILE_WITHEXTSERIAL
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h> // UNIX standard function definitions
-#include <fcntl.h> // File control definitions
-#include <errno.h> // Error number definitions
-#include <termios.h> // POSIX terminal control definitionss
+#ifndef COMPILE_WITHEXTSERIAL
 
 execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
 {
@@ -122,10 +106,17 @@ execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
 #else
 execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
 {
-    //TODO
+    //JUST A TEST
+    serial::Serial my_serial(port_, 9600, serial::Timeout::simpleTimeout(1000));
+
+    if(my_serial.isOpen())
+        TXLOG(Severity::debug)<<"Serial port opened port:"<<port_<<std::endl;
+    else
+        TXLOG(Severity::error)<<"Serial port not opened port:"<<port_<<std::endl;
+
+    //TODO WRITE ON PORT
     return execution::continueexecution;
 }
 #endif
-
 
 }

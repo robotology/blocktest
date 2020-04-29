@@ -6,10 +6,23 @@
 ################################################################################
 
 # @author Luca Tricerri <luca.tricerri@iit.it>
+include(FetchContent)
 
-set(PROJECT_NAME genericactiondepot)
+if(USE_SERIAL_LIB)
+  FetchContent_Declare(
+    serial
+    GIT_REPOSITORY https://github.com/dic-iit/serial
+    GIT_TAG        origin/master
+  )
 
-project(${PROJECT_NAME})
+  FetchContent_GetProperties(serial)
+  if(NOT serial_POPULATED)
+    FetchContent_Populate(serial)
+    add_subdirectory(${serial_SOURCE_DIR} ${serial_BINARY_DIR})
+  endif()
+endif()
+
+project(genericactiondepot)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME})
 
@@ -18,14 +31,18 @@ include_directories(${Boost_INCLUDE_DIRS})
 add_library(${PROJECT_NAME} MODULE ${allSrc})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/../src)
-
-target_link_libraries(${PROJECT_NAME} blocktestcore ${Boost_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/../src )
 
 # Add install target
 if(USE_SERIAL_LIB)
+  target_link_libraries(${PROJECT_NAME} blocktestcore serial ${Boost_LIBRARIES})
   target_compile_definitions(${PROJECT_NAME} PRIVATE -DCOMPILE_WITHEXTSERIAL)
+else()
+  target_link_libraries(${PROJECT_NAME} blocktestcore ${Boost_LIBRARIES})
 endif()
+
 set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECT_NAME}")
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${CMAKE_INSTALL_BINDIR}/${PROJECT_NAME})
+
+
 
