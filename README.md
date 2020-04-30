@@ -428,8 +428,13 @@ These commands are contained in the generic command library plugin.
     ```xml
     <command name="writeserial" value="" port="" repetitions="1" wait="0" reporterror="true"/>
     ```
+-   **print**
 
-    The writeserial command is used to write data on a /dev/ttyxx port. Note that you need the permission to write on the port.   
+    ```xml
+    <command name="writeserial" message="" target="" repetitions="1" wait="0" reporterror="true"/>
+    ```
+
+    The wprint command is used to write a string on the console if target is console or on the log if target is log.   
 
 ## 6.6. Test writing with Scriptbuilder
 Script builder is a UI for test and test list writing.
