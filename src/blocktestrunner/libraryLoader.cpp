@@ -18,7 +18,6 @@
 #include <dlfcn.h>
 #endif // _WIN32
 
-#include <boost/process.hpp>
 #include <boost/dll/import.hpp>
 #include <boost/dll/shared_library.hpp>
 #include <boost/exception/diagnostic_information.hpp>

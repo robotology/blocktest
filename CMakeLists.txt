@@ -100,8 +100,13 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 #-------Important
 #Let the singleton to be unique
 #-------Important
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-set(CMAKE_EXE_LINKER_FLAGS  "-rdynamic")
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Wall")
+  add_compile_options(-bigobj)
+else ()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+  set(CMAKE_EXE_LINKER_FLAGS  "-rdynamic")
+endif ()
 
 if(WIN32)
     set(Common_LIBRARIES)
@@ -119,7 +124,8 @@ add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
 add_subdirectory(src)
 
 if(WIN32)
-    add_custom_command(TARGET ${PROJECT_NAME}
+    add_custom_target(copy_xml_in_build ALL)
+    add_custom_command(TARGET copy_xml_in_build
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${PROJECT_SOURCE_DIR}/test
