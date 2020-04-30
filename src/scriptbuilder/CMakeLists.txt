@@ -40,23 +40,22 @@ if(COMPILE_SCRIPTBUILDER)
                         Qt5::Gui
                         ${Common_LIBRARIES}
                         Boost::boost
-                       )
+                        PRIVATE pugixml)
 
   add_executable(${PROJECT_NAME}
                   ${scriptbuilder_src} 
                   ${qrc_moc}
                 )
 
-  target_link_libraries(${PROJECT_NAME}  
-                          PUBLIC
-                          Qt5::Core  
-                          Qt5::Widgets
-                          Qt5::Gui
-                          ${Common_LIBRARIES}
-                          resourcelib
-                          Boost::system
-                          Boost::filesystem
-                       )
+  target_link_libraries(${PROJECT_NAME}  PUBLIC  Qt5::Core
+                                                 Qt5::Widgets
+                                                 Qt5::Gui
+                                                 resourcelib
+                                                 Boost::system
+                                                 Boost::filesystem
+                                                 Boost::boost
+                                                 ${Common_LIBRARIES}
+                                         PRIVATE pugixml)
 
   #xml template folder
 

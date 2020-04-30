@@ -16,6 +16,7 @@
 #include "parametercommentmodel.h"
 #include "pugixml.hpp"
 #include <sstream>
+#include <cassert>
 
 ParametersListModel::ParametersListModel()
 {
