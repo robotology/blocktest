@@ -99,7 +99,7 @@ execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
     }
 
     // Write to serial port
-    unsigned char msg[] = { value_.c_str()[0] };
+    unsigned char msg[] = { static_cast<unsigned char>(value_.c_str()[0]) };
     write(serial_port, msg, sizeof(msg));
     TXLOG(Severity::debug)<<"Set value:"<<value_<<" To:"<<port_<<std::endl;
     return execution::continueexecution;
