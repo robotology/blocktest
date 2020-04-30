@@ -9,6 +9,7 @@
  * @file actionWriteSerial.cpp
  * @author Luca Tricerri <luca.tricerri@iit.it>
  */
+#if not defined WIN32
 
 #include "actionWriteSerial.h"
 #include "logger.h"
@@ -25,7 +26,7 @@
 #include <unistd.h> // UNIX standard function definitions
 #include <fcntl.h> // File control definitions
 #include <errno.h> // Error number definitions
-#include <termios.h> // POSIX terminal control definitionss
+#include <termios.h> // POSIX terminal control definitions
 #endif
 
 ACTIONREGISTER_DEF_TYPE(GenericActions::ActionWriteSerial,"writeserial");
@@ -120,3 +121,4 @@ execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
 #endif
 
 }
+#endif // WIN32

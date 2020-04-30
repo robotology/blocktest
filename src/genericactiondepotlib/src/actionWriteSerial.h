@@ -9,6 +9,7 @@
  * @file ActionWriteSerial.h
  * @author Luca Tricerri <luca.tricerri@iit.it>
  */
+#if not defined WIN32
 
 #pragma once
 
@@ -44,3 +45,5 @@ class ActionWriteSerial : public Action
 };
 
 }
+
+#endif // WIN32
