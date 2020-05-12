@@ -7,7 +7,7 @@
 
 /**
  * @file actionPrint.cpp
- * @author tumme
+ * @author davide.tome@iit.it
  */
 
 
@@ -26,14 +26,29 @@ namespace GenericActions
 
     void ActionPrint::beforeExecute()
     {
-        getCommandAttribute("message",message_);      
+        getCommandAttribute("target",target_); 
+        getCommandAttribute("message",message_);       
     }
 
     execution ActionPrint::execute(const TestRepetitions&)
     {
-        std::cout<<std::endl<<message_<<std::endl;
-        std::cout<<std::endl;
-    
+        if(target_ == "shell")
+        {
+            std::cout<<std::endl<<message_<<std::endl;
+            std::cout<<std::endl;
+               
+        } 
+        else if(target_ == "log")
+        {
+            TXLOG(Severity::info)<<message_<<std::endl;
+        }
+        else if(target_ == "shell-log")
+        {
+            std::cout<<std::endl<<message_<<std::endl;
+            std::cout<<std::endl;
+            TXLOG(Severity::info)<<message_<<std::endl;
+        }
+
         return execution::continueexecution;
     }
 
