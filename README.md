@@ -81,7 +81,7 @@ The following library are used in blocktest:
 ## 4.2. Prerequisite Linux
 
 ```bash
-sudo apt-get install -y cmake libboost1.65-all-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
+sudo apt-get install -y cmake libboost-all-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
 ```
 
 ### 4.2.1. Numpy
