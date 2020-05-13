@@ -1,1 +1,3 @@
-<command library="general" name="print" message="yourMessage" repetitions="1" wait="0" reporterror="true"></command>
+<command library="general" name="print" target"shell" message="yourMessage" repetitions="1" wait="0" reporterror="true"></command> 
+<!-- <command library="general" name="print" target"log" message="yourMessage" repetitions="1" wait="0" reporterror="true"></command> -->
+<!-- <command library="general" name="print" target"shell-log" message="yourMessage" repetitions="1" wait="0" reporterror="true"></command> -->

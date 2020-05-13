@@ -7,7 +7,7 @@
 
 /**
  * @file ActionPrint.h
- * @author tumme
+ * @author davide.tome@iit.it
  */
 
 #pragma once
@@ -31,7 +31,8 @@ class ActionPrint : public Action
         execution execute(const TestRepetitions& testrepetition) override;
         void beforeExecute() override;
 
-    private:        
+    private:
+        std::string target_;
         std::string message_;
 
     ACTIONREGISTER_DEC_TYPE(ActionPrint)        
