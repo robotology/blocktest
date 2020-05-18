@@ -17,6 +17,7 @@
 #include "tableNormal.h"
 #include "tableWave.h"
 #include "tableExpression.h"
+#include "tableVariable.h"
 
 namespace BlockTestCore
 {
@@ -43,7 +44,7 @@ bool Tables::load(const std::string& fileName)
         TXLOG(Severity::error)<<"Unable to load table"<<std::endl;
         return false;
     }
-    TXLOG(Severity::debug)<<"Load tables, table number:"<<str.size()<<std::endl;
+    TXLOG(Severity::debug)<<"Load tables, table number:"<<str.size()<<" FIle name:"<<fileName<<std::endl;
     size_t currentListPos=0;
     while(currentListPos<str.size())
     {
@@ -79,7 +80,9 @@ bool Tables::load(const std::string& fileName)
         else if(type=="wave")
             tables_[name]=std::make_shared<TableWave>();
         else if(type=="expression")
-            tables_[name]=std::make_shared<TableExpression>();            
+            tables_[name]=std::make_shared<TableExpression>();  
+        else if(type=="variable")
+            tables_[name]=std::make_shared<TableVariable>();                        
         else        
         {
             TXLOG(Severity::critical)<<"Wrong table type"<<std::endl;
