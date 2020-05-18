@@ -23,6 +23,7 @@ set(BlockTestCoreSrc    action.cpp
                         tableIncrement.cpp
                         tableNormal.cpp
                         tableWave.cpp
+                        tableVariable.cpp
                         )
 
 set(BlockTestCoreHdr   api.h
@@ -43,6 +44,7 @@ set(BlockTestCoreHdr   api.h
                        tableIncrement.h
                        tableNormal.h
                        tableWave.h
+                       tableVariable.h
                        type.h
                        exprtk.hpp
                        testrepetitions.h
