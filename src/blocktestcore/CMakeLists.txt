@@ -24,6 +24,10 @@ set(BlockTestCoreSrc    action.cpp
                         tableNormal.cpp
                         tableWave.cpp
                         tableVariable.cpp
+                        testsDepot.cpp
+                        fixture.cpp
+                        test.cpp
+                        command.cpp
                         )
 
 set(BlockTestCoreHdr   api.h
@@ -49,6 +53,10 @@ set(BlockTestCoreHdr   api.h
                        exprtk.hpp
                        testrepetitions.h
                        sintax.h
+                       testsDepot.h
+                       fixture.h
+                       test.h
+                       command.h
                        )
 
 add_library(${LIBRARY_TARGET_NAME} SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})

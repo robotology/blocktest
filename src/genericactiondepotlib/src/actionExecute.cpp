@@ -14,6 +14,7 @@
 #include "actionExecute.h"
 #include "logger.h"
 #include "report.h"
+#include "testsDepot.h"
 
 ACTIONREGISTER_DEF_TYPE(GenericActions::ActionExecute,"execute");
 
@@ -34,6 +35,7 @@ void ActionExecute::beforeExecute()
     getCommandAttribute("waitafter",waitafter_);
     getCommandAttribute("kill",kill_); 
     getCommandAttribute("nobackground",nobackground_);
+    getCommandAttribute("usetestpath",useTestPath_);
 }
 
 execution ActionExecute::execute(const TestRepetitions& testrepetition)
@@ -56,7 +58,13 @@ execution ActionExecute::execute(const TestRepetitions& testrepetition)
         return execution::continueexecution;
     }
     std::stringstream ss;
-    ss<<prefix_<<" "<<commandName_<<" "<<normalize(commandParam_,false);
+    if(useTestPath_)
+       ss<<TestsDepot::path_<<"/";
+    if(!prefix_.empty())
+        ss<<prefix_<<" ";
+
+    ss<<commandName_<<" "<<normalize(commandParam_,false);
+
     if(!nobackground_)
         ss<<" &";
 
@@ -67,9 +75,17 @@ execution ActionExecute::execute(const TestRepetitions& testrepetition)
     }
 
     TXLOG(Severity::debug)<<"Executing:"<<ss.str()<<std::endl;
-    auto process=std::make_shared<boost::process::child>(ss.str());
-    processes_[tagTmp]=process;
-
+    try
+    {
+        auto process=std::make_shared<boost::process::child>(ss.str());
+        processes_[tagTmp]=process;
+    }
+    catch(const std::exception& e)
+    {
+        TXLOG(Severity::error)<<"Execution "<<e.what()<<std::endl;
+        return execution::continueexecution;
+    }
+    
     std::this_thread::sleep_for(std::chrono::seconds(waitafter_));
     return execution::continueexecution;
 }

@@ -8,5 +8,6 @@
                 kill="false"
                 repetitions="1" 
                 wait="0"
-                reporterror="true">
+                reporterror="true"
+                usetestpath="false">
 </command>

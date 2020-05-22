@@ -10,19 +10,11 @@
 set(BlockTestRunnerSrc  main.cpp
                         blockTestRunner.cpp
                         libraryLoader.cpp
-                        testsDepot.cpp
-                        fixture.cpp
-                        test.cpp
-                        command.cpp
                         server.cpp
                         connection.cpp
                         )
 set(BlockTestRunnerHdr  blockTestRunner.h
                         libraryLoader.h
-                        testsDepot.h
-                        fixture.h
-                        command.h
-                        test.h
                         server.h
                         connection.h
                         )

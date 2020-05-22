@@ -35,6 +35,7 @@ class ActionExecute : public Action
         bool nobackground_{false};
         unsigned int waitafter_;
         std::string tag_;
+        bool useTestPath_{false};
 
         void parse();
 
