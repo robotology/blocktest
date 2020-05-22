@@ -417,7 +417,10 @@ These commands are contained in the generic command library plugin.
                 kill="false"
                 repetitions="1" 
                 wait="0"
-                reporterror="true">
+                reporterror="true"
+                nobackground="false" 
+                usetestpath="false"
+                tag="loggingstart" />
     </command>
     ```
 
