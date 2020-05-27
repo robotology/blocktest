@@ -35,10 +35,15 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src ${P
 
 # Add install target
 if(USE_SERIAL_LIB)
-  target_link_libraries(${PROJECT_NAME} blocktestcore serial ${Boost_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME} PUBLIC blocktestcore
+                                               serial
+                                               ${Boost_LIBRARIES}
+                                        PRIVATE pugixml)
   target_compile_definitions(${PROJECT_NAME} PRIVATE -DCOMPILE_WITHEXTSERIAL)
 else()
-  target_link_libraries(${PROJECT_NAME} blocktestcore ${Boost_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME} PUBLIC blocktestcore
+                                               ${Boost_LIBRARIES}
+                                        PRIVATE pugixml)
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${PROJECT_NAME}")
