@@ -14,8 +14,6 @@ file(GLOB scriptbuilder_src "*.cpp" )
 
 if(COMPILE_SCRIPTBUILDER)
 
-  find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
-  
   set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 
   set(scriptbuilder_qrc resource.qrc)
@@ -24,7 +22,7 @@ if(COMPILE_SCRIPTBUILDER)
   qt5_add_resources(qrc_moc ${scriptbuilder_qrc})
   qt5_wrap_cpp(moc_src ${scriptbuilder_header})
   qt5_wrap_ui (ui_wrap  ${scriptbuilder_ui})
-  
+
   include_directories (${PROJECT_SOURCE_DIR} ${PROJECT_BINARY_DIR})
 
   add_library(resourcelib  STATIC

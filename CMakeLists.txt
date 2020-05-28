@@ -38,6 +38,8 @@ set(BOOST_MIN_VERSION "1.65.0")
 
 find_package(YCM REQUIRED)
 find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
+find_package(Qt5 QUIET COMPONENTS Core Gui Widgets)
+
 if(USE_SERIAL_LIB)
   find_package(serial)
 endif()
