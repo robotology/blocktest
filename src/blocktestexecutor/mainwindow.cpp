@@ -2,6 +2,12 @@
 #include "./ui_mainwindow.h"
 #include <qmessagebox.h>
 
+#include <thread>
+#include <chrono>
+#include <memory>
+#include <filesystem>  
+#include <iostream>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -9,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->green->setVisible(true);
     ui->red->setVisible(false);
+    //ui->testfolderstr->setText("KOKO");
 }
 
 MainWindow::~MainWindow()
@@ -80,6 +87,9 @@ void MainWindow::on_Validate_clicked()
 
 void MainWindow::testInExecution()
 {
+    logcheckeractive_=true;
+    auto logcheck=std::make_shared<std::thread>(&MainWindow::logChecker,this);
+
     ui->red->setVisible(!ui->red->isVisible());
     ui->green->setVisible(!ui->green->isVisible());
     
@@ -108,4 +118,36 @@ void MainWindow::testInExecution()
 
     ui->red->setVisible(!ui->red->isVisible());
     ui->green->setVisible(!ui->green->isVisible());
+
+    logcheckeractive_=false;
+    logcheck->join();
+}
+
+void MainWindow::logChecker()
+{
+    unsigned int tmpsize=0;
+    unsigned int tmpsizeold=0;
+    while(logcheckeractive_)
+    {
+        try 
+        {
+            tmpsize=std::filesystem::file_size("logFT/data.log"); 
+            std::cout<<tmpsize<<std::endl;
+        } 
+        catch(std::filesystem::filesystem_error& ex) 
+        {
+            std::cout << ex.what() << std::endl;
+        } 
+        if(tmpsizeold==tmpsize)
+        {
+            //ui->testfolderstr->setText("Not logging");
+        }
+        else
+        {
+            //ui->testfolderstr->setText("logging");
+        }
+        
+        tmpsizeold=tmpsize;
+        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    }
 }

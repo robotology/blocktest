@@ -36,11 +36,8 @@ private:
     QProcess test_;
     Ui::MainWindow *ui;
     const std::string calib5kg_{"kuka-4config5kg"};
-    const std::string calib25kg_{"kuka-4config25kg"};
     const std::string load5kg_{"kuka-loadcalibration5kg"};
-    const std::string load25kg_{"kuka-loadcalibration25kg"};
     const std::string validate5kg_{"kuka-validate5kg"};
-    const std::string validate25kg_{"kuka-validate25kg"};
     const std::string home_{"kuka-home"};
     const std::string blocktest_{"./blocktestrunner"};
     const std::string gazebo_{"-gazebo"};
@@ -48,6 +45,9 @@ private:
 
     int gazeboSelected_{0};
     void testInExecution();
+
+    bool logcheckeractive_{true};
+    void logChecker();
 
 };
 #endif // MAINWINDOW_H
