@@ -17,6 +17,7 @@ add_executable(${PROJECT_NAME}
   main.cpp
   mainwindow.cpp
   mainwindow.h
+  resource.qrc
   mainwindow.ui
 )
 
