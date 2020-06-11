@@ -83,6 +83,7 @@ execution ActionExecute::execute(const TestRepetitions& testrepetition)
     catch(const std::exception& e)
     {
         TXLOG(Severity::error)<<"Execution "<<e.what()<<std::endl;
+        TXLOG(Severity::error)<<"Problem with "<<ss.str()<<std::endl;
         return execution::continueexecution;
     }
     
