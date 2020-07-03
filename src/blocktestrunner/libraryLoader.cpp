@@ -23,26 +23,13 @@
 #include <boost/exception/diagnostic_information.hpp>
 #include <boost/filesystem.hpp>
 
-constexpr char extension[] =
-#ifdef _WIN32
-       ".dll";
-#else
-        ".so";
-#endif
-
-constexpr char path_delimiter =
-#ifdef _WIN32
-   ';';
-#else
-   ':';
-#endif
 namespace BlockTestCore
 {
 
 LibraryLoader::LibraryLoader()
 {
     // Retrieve the plugin paths
-    updatePluginPaths();
+    pluginPaths_ = getResourcePaths();
 }
 
 bool LibraryLoader::load(const std::string& name,const std::string& path)
@@ -161,18 +148,5 @@ std::map<std::string,std::string> LibraryLoader::xmlLibrarySettingsToMap(const p
     }
     return out;
 }
-
-void LibraryLoader::updatePluginPaths()
-{
-  std::string path;
-
-  char *pathCStr = getenv("BLOCKTEST_PLUGIN_PATH");
-  if (pathCStr && *pathCStr != '\0')
-  {
-    path = pathCStr;
-  }
-  boost::split(pluginPaths_,path,boost::is_any_of(std::string{path_delimiter}));
-}
-
 
 }

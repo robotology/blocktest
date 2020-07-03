@@ -40,7 +40,6 @@ class LibraryLoader
         std::vector<std::string> pluginPaths_;
         typedef void (funcptr)( char*,char* );
         typedef void (funcptr1)(const std::map<std::string,std::string>);
-        void updatePluginPaths();
 
         std::list<boost::function<funcptr>> stopFunction_;
 
