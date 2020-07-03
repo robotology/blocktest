@@ -18,7 +18,7 @@
 class ParameterCommentModel : public QStandardItemModel
 {
 public:
-    ParameterCommentModel();
+    ParameterCommentModel(const std::vector<std::string>& resourcePaths);
 
     void updateData(const QModelIndex &index);
     void clearall();

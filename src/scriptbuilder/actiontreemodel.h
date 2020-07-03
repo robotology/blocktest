@@ -18,7 +18,7 @@
 class ActionTreeModel : public QStandardItemModel
 {
 public:
-    ActionTreeModel();
+    ActionTreeModel(const std::vector<std::string>& resourcePaths);
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
     Qt::DropActions supportedDropActions() const;
@@ -29,6 +29,7 @@ public:
 
 private:
     void LoadXml();
+    std::vector<std::string> resourcePaths_;
 };
 
 #endif // MYTREEMODEL_H

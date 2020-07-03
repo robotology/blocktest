@@ -33,10 +33,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {    
     pugi::xml_parse_result result = docSettings_.load_file("./config.xml");
     assert(result.status == pugi::xml_parse_status::status_ok);
-    commandsModel_ = new ActionTreeModel;
+    resourcePaths_ = getResourcePaths();
+    commandsModel_ = new ActionTreeModel(resourcePaths_);
     scriptModel_ = new ScriptTreeModel;
     parametersModel_ = new ParametersListModel;
-    parameterCommentModel_ = new ParameterCommentModel;
+    parameterCommentModel_ = new ParameterCommentModel(resourcePaths_);
     testsDepotModel_ = new TestsDepotModel;
     prerequisiteModel_= new PrerequisiteModel;
     loggerModel_ = new LoggerModel("log/log.log");
@@ -123,6 +124,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
 }
+// TODO Refactor in a more clean way
+// TODO Win32 separator?
 
 void MainWindow::tryLoadTestsFile()
 {
@@ -144,6 +147,18 @@ void MainWindow::tryLoadTestsFile()
     {
         loadTests(str.c_str());
         return;
+    }
+
+    for (const auto& path:resourcePaths_)
+    {
+        ss.clear();
+        ss << path << "/test/test.xml";
+        str = ss.str();
+        if (fs::exists(ss.str()))
+        {
+            loadTests(str.c_str());
+            return;
+        }
     }
 
 }

@@ -24,6 +24,7 @@
 #include "scripttreemodel.h"
 #include "testsdepotmodel.h"
 #include "loggermodel.h"
+#include "general.h"
 #include <qstringlistmodel.h>
 #include <boost/process.hpp>
 #include <boost/filesystem.hpp>
@@ -84,6 +85,7 @@ private:
     Ui::MainWindow *ui;
 
     pugi::xml_document docSettings_;
+    std::vector<std::string> resourcePaths_;
 
     ActionTreeModel  *commandsModel_{nullptr};
     ScriptTreeModel  *scriptModel_{nullptr};
