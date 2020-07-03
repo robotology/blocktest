@@ -70,18 +70,33 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
         bool enabled=nodeLibrary.node().attribute("enabled").as_bool();
         if(!enabled)
             continue;
-        TXLOG(Severity::info)<<"Try load lib:"<<currentPath<<extension<<std::endl;
 
+        std::string libraryPath{ currentPath + extension };
+
+        // First check if the library is locally i.e. ./<lib_name>/<lib_name>
+        if (! boost::filesystem::exists(libraryPath) )
+        {
+	        for (const auto& path : pluginPaths_)
+	        {
+                std::string fullpath = path + std::string{ boost::filesystem::path::preferred_separator } + libraryPath;
+                if (boost::filesystem::exists(fullpath))
+                {
+                    libraryPath = fullpath;
+                }
+            }
+        }
+
+        TXLOG(Severity::info) << "Try load lib:" << libraryPath << std::endl;
         try
         {
             boost::function<funcptr> stopFunction = boost::dll::import<funcptr>(
-                currentPath+extension,
+                libraryPath,
                 "Stop",
                 boost::dll::load_mode::rtld_lazy
                 );
 
             boost::function<funcptr1> configureFunction =  boost::dll::import<funcptr1>(
-                currentPath+extension,
+                libraryPath,
                 "Configure",
                 boost::dll::load_mode::rtld_lazy
                 );                
@@ -94,7 +109,7 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
         }
         catch(boost::exception const& e) {
             std::cout<<"------------------"<<boost::diagnostic_information(e, true)<<std::endl;
-            TXLOG(Severity::criticalminimal)<<"Lib:"<<currentPath<<extension<<" error missing Configure/Stop function in lib----"<<boost::diagnostic_information(e, true)<<std::endl;
+            TXLOG(Severity::criticalminimal)<<"Lib:"<< libraryPath <<" error missing Configure/Stop function in lib----"<<boost::diagnostic_information(e, true)<<std::endl;
             return false;
         }
         catch(std::exception& e)
@@ -106,7 +121,7 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
         {
             std::string error{"Unknown error"};
         }
-        TXLOG(Severity::info)<<"Load lib ok:"<<currentPath<<extension<<std::endl;
+        TXLOG(Severity::info)<<"Load lib ok:"<< libraryPath <<std::endl;
     }
     return true;
 }
