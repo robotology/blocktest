@@ -16,11 +16,12 @@
 #include <QMimeData>
 
 #include <string>
+#include <sstream>
 #include <boost/filesystem.hpp>
 
 namespace fs = boost::filesystem;
 
-ActionTreeModel::ActionTreeModel()
+ActionTreeModel::ActionTreeModel(const std::vector<std::string>& resourcePaths): resourcePaths_(resourcePaths)
 {
     LoadXml();
 }
@@ -33,6 +34,18 @@ void ActionTreeModel::LoadXml()
 
     if(!fs::exists(path))
     {
+        std::stringstream ss;
+        for (const auto& p : resourcePaths_)
+        {
+            ss.clear();
+            ss << p << "/xmltemplate";
+            auto str = ss.str();
+            if (fs::exists(str))
+            {
+                path = str;
+                break;
+            }
+        }
         QMessageBox messageBox;
         messageBox.critical(nullptr,"ERROR","Missing the actions templates folder 'xmltemplate.xml'. Some functionalities will not be active.");
         messageBox.setFixedSize(800,400);

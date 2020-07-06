@@ -13,9 +13,17 @@
 #include "parametercommentmodel.h"
 #include "parameterslistmodel.h"
 #include "pugixml.hpp"
+#include <sstream>
 
-ParameterCommentModel::ParameterCommentModel()
+#include <boost/filesystem.hpp>
+
+namespace fs = boost::filesystem;
+
+static std::vector<std::string> resourcePaths_;
+
+ParameterCommentModel::ParameterCommentModel(const std::vector<std::string>& resourcePaths)
 {
+    resourcePaths_ = resourcePaths;
 }
 
 void ParameterCommentModel::updateData(const QModelIndex &index)
@@ -71,11 +79,41 @@ std::map<std::string,std::string> ParameterCommentModel::lookUpAllParamInfo(cons
 {
     pugi::xml_document doc;
     std::string path="./xmltemplate/"+library+"/parameters.xml";
+    if (!fs::exists(path))
+    {
+        std::stringstream ss;
+        for (const auto& p : resourcePaths_)
+        {
+            ss.clear();
+            ss << p << "/xmltemplate" + library + "/parameters.xml";
+            auto str = ss.str();
+            if (fs::exists(str))
+            {
+                path = str;
+                break;
+            }
+        }
+    }
     pugi::xml_parse_result result = doc.load_file(path.c_str());
     pugi::xml_node rootNode=doc.child(name.c_str());
     if(rootNode.empty())
     {
         path="./xmltemplate/parameters.xml";
+        if (!fs::exists(path))
+        {
+            std::stringstream ss;
+            for (const auto& p : resourcePaths_)
+            {
+                ss.clear();
+                ss << p << "/xmltemplate/parameters.xml";
+                auto str = ss.str();
+                if (fs::exists(str))
+                {
+                    path = str;
+                    break;
+                }
+            }
+        }
         result = doc.load_file(path.c_str());
         rootNode=doc.child(name.c_str());
     }

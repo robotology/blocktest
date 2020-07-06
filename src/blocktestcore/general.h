@@ -22,11 +22,25 @@
 #include <iterator>
 #include <cmath>
 #include <cassert>
+#include <boost/process.hpp>
 
 #define BLOCKTEST_UNUSED(x) (void)x;
 
 
 constexpr char maintestfile[] = "./test/test.xml";
+constexpr char extension[] =
+#ifdef _WIN32
+".dll";
+#else
+".so";
+#endif
+
+constexpr char path_delimiter =
+#ifdef _WIN32
+';';
+#else
+':';
+#endif
 
 inline std::string calcolateTestName(const std::string& name,const std::string& path)
 {
@@ -40,4 +54,18 @@ inline std::string calcolateTestName(const std::string& name,const std::string& 
         out=path+"/"+out;
 
     return out;
+}
+
+inline std::vector<std::string> getResourcePaths()
+{
+
+    std::string path{};
+    std::vector<std::string> resourcePaths;
+    char* pathCStr = getenv("BLOCKTEST_RESOURCE_PATH");
+    if (pathCStr && *pathCStr != '\0')
+    {
+        path = pathCStr;
+    }
+    boost::split(resourcePaths, path, boost::is_any_of(std::string{ path_delimiter }));
+    return resourcePaths;
 }

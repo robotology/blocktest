@@ -38,6 +38,7 @@ if(COMPILE_SCRIPTBUILDER)
                         Qt5::Gui
                         ${Common_LIBRARIES}
                         Boost::boost
+                        blocktestcore
                         PRIVATE pugixml)
 
   add_executable(${PROJECT_NAME}
