@@ -23,7 +23,7 @@ class LibraryModel : public QStandardItemModel
 {
     Q_OBJECT
 public:
-    LibraryModel();
+    LibraryModel(const std::vector<std::string>& resourcePaths);
     void load(const std::string& fileName);
     const pugi::xml_document& getDocument() const;
     std::list<std::string> getLibraryListEnabled() const;
@@ -37,6 +37,7 @@ public slots:
 private:
     pugi::xml_document doc_;
     std::list<std::string> libraryListEnabled_;
+    std::vector<std::string> resourcePaths_;
 
     void redraw();
 };

@@ -13,10 +13,12 @@
 
 #include "librarymodel.h"
 #include <boost/filesystem.hpp>
+#include <iostream>
+#include <sstream>
 
 namespace fs = boost::filesystem;
 
-LibraryModel::LibraryModel()
+LibraryModel::LibraryModel(const std::vector<std::string>& resourcePaths) : resourcePaths_(resourcePaths)
 {
     bool ok=QObject::connect(this,&QStandardItemModel::itemChanged, this, &LibraryModel::onChanged);
     Q_ASSERT(ok);
@@ -48,6 +50,21 @@ void LibraryModel::redraw()
         if(!fs::exists(path+".so"))
         {
             missingFile=true;
+            std::stringstream ss;
+            for (const auto& p : resourcePaths_)
+            {
+               ss.str("");
+               ss.clear();
+               ss << p << std::string{ boost::filesystem::path::preferred_separator } << path << ".so";
+               auto str = ss.str();
+               if (fs::exists(str))
+               {
+                   path = str;
+                   missingFile=false;
+                   break;
+               }
+            }
+
         }
 
         QStandardItem* pathItem = new QStandardItem(path.c_str());

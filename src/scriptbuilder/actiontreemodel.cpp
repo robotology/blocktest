@@ -31,6 +31,7 @@ void ActionTreeModel::LoadXml()
     QStandardItem *item = invisibleRootItem();
     //std::string path = ;
     fs::path path("./xmltemplate");
+    bool found{false};
 
     if(!fs::exists(path))
     {
@@ -43,13 +44,16 @@ void ActionTreeModel::LoadXml()
             if (fs::exists(str))
             {
                 path = str;
+                found = true;
                 break;
             }
         }
-        QMessageBox messageBox;
-        messageBox.critical(nullptr,"ERROR","Missing the actions templates folder 'xmltemplate.xml'. Some functionalities will not be active.");
-        messageBox.setFixedSize(800,400);
-        return;
+        if (!found) {
+            QMessageBox messageBox;
+            messageBox.critical(nullptr,"ERROR","Missing the actions templates folder 'xmltemplate.xml'. Some functionalities will not be active.");
+            messageBox.setFixedSize(800,400);
+            return;
+        }
     }
 
     for (const fs::directory_entry & folder : fs::directory_iterator(path))
