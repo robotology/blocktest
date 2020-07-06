@@ -423,8 +423,9 @@ These commands are contained in the generic command library plugin.
                 tag="loggingstart" />
     </command>
     ```
-
-    The command executes the specified application or script.
+    The command executes the specified application.  
+    Note the: ```usetestpath``` param, it execute the application or script using the same path of the tests.
+    The ```nobackground``` param execute the application/script in/without background specification.
 
 -   **writeserial**
 
