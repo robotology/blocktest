@@ -45,20 +45,27 @@ constexpr char path_delimiter =
 inline std::string calcolateTestName(const std::string& name,const std::string& path)
 {
     std::string out{maintestfile};
+
+    if (!name.empty())
+    {
+        out = name;
+    }
+
     if (path.empty()) // no specific path specified, looking in the default ones
     {
         std::vector<std::string> resourcePaths;
         char* pathCStr = getenv("BLOCKTEST_RESOURCE_PATH");
         if (pathCStr && *pathCStr != '\0')
         {
-            boost::split(resourcePaths, std::string{pathCStr}, boost::is_any_of(std::string{ path_delimiter }));
+            std::string pathStr{ pathCStr };
+            boost::split(resourcePaths, pathStr, boost::is_any_of(std::string{ path_delimiter }));
         }
 
         if (! boost::filesystem::exists(out) )
         {
             for (const auto& path : resourcePaths)
             {
-                std::string fullpath = path + std::string{ boost::filesystem::path::preferred_separator } + "test/test.xml";
+                std::string fullpath = path + std::string{ boost::filesystem::path::preferred_separator } + out;
                 if (boost::filesystem::exists(fullpath))
                 {
                     out = fullpath;
@@ -67,14 +74,10 @@ inline std::string calcolateTestName(const std::string& name,const std::string& 
             }
         }
     }
-
-    if(!name.empty())
+    else
     {
-        out=name;
+        out = path + std::string{ boost::filesystem::path::preferred_separator } + out;
     }
-
-    if(!path.empty())
-        out=path+"/"+out;
 
     return out;
 }
