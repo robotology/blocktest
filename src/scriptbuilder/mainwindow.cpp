@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     loggerModel_ = new LoggerModel("log/log.log");
     prerequisiteLoggerModel_=new LoggerModel("");
     prerequisiteComboModel_=new QStringListModel();
-    libraryModel_= new LibraryModel();
+    libraryModel_= new LibraryModel(resourcePaths_);
 
     ui->setupUi(this);
 
@@ -151,10 +151,11 @@ void MainWindow::tryLoadTestsFile()
 
     for (const auto& path:resourcePaths_)
     {
+        ss.str("");
         ss.clear();
         ss << path << "/test/test.xml";
         str = ss.str();
-        if (fs::exists(ss.str()))
+        if (fs::exists(str))
         {
             loadTests(str.c_str());
             return;
@@ -419,15 +420,19 @@ void MainWindow::actionExit()
 
 void MainWindow::on_startButton_clicked()
 {
+    std::string process_str{"./blocktestrunner"};
+    if ( ! boost::filesystem::exists(process_str) ) {
+        process_str = "blocktestrunner";
+    }
     try
     {
-        process_=std::make_shared<boost::process::child>("./blocktestrunner");
+        process_=std::make_shared<boost::process::child>(process_str);
         process_->detach();
     }
     catch (...)
     {
         QMessageBox messageBox;
-        messageBox.critical(nullptr,"ERROR","Missing blockTest application in current folder.");
+        messageBox.critical(nullptr,"ERROR","Missing blocktestrunner application.");
         messageBox.setFixedSize(800,400);
         return;
     }

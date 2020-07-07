@@ -159,6 +159,10 @@ Suggested location:
 ```
 ~\blocktest\build
 ```
+It is possible also to run `blocktestrunner` and `Scriptbuilder` from any folder, you have just to define `BLOCKTEST_RESOURCE_PATH` where all the plugins, xmltemplate, and test folder
+are stored.
+
+If you are using the [`robotology-superbuild`](https://github.com/robotology/robotology-superbuild) with the `ROBOT_TESTING` profile enabled, the variable is already exported by the superbuild setup scripts.
 # 6. Test writing
 
 For easy test writing, you can skip directly to the section [Scriptbuilder](##5.6.-test-writing-with-scriptbuilder). You can use the test writing tool called ScriptBuilder.  <br>
