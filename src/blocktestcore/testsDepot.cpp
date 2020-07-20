@@ -33,9 +33,10 @@ bool TestsDepot::load(const std::string& name,const std::string& path)
     path_=path;
     std::string completePath=calcolateTestName(name,path);
         
-
-    doc_.load_file(completePath.c_str());
-
+    pugi::xml_parse_result result=doc_.load_file(completePath.c_str());
+    if(!result)
+        TXLOG(Severity::debug)<<"Parse test result:"<<result.description()<<std::endl;
+    
     pugi::xpath_node root = doc_.select_node("//testlist");
     pugi::xpath_node nodeRoot = root;
     repetitions_ =nodeRoot.node().attribute("repetitions").as_int();  
