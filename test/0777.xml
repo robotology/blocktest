@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Can Polydriver Test Case" shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="1" />	
+
+	<command library="general" name="print" target="shell" message="******** CAN PLOYDRIVER TEST START***************" repetitions="1" reporterror="true" />
+
+	<command library="yarp" name="yarpopenpolydriver" polydrivertag="can0"  property="(device socketcan) (CanMyAddress 0) (CanDeviceNum 0) (CanTxTimeout 500) (CanRxTimeout 500)" repetitions="1" wait="0" reporterror="true"></command>
+	<command library="yarp" name="yarpcanwrite" polydrivertag="can0" messageid="0x011" data="0xAA 0x00 0x00 0x00 0x00 0x00 0x00 0x00" repetitions="1" wait="0" reporterror="true"></command>
+	<command library="yarp" name="yarpcanread" polydrivertag="can0" messageid="0x012" data="0xFF 0x00 0x00 0x00 0x00 0x00 0x00 0x00" readtimeout="4000" repetitions="1" wait="0" reporterror="true"></command>
+
+	<command library="general" name="print" target="shell" message="******** CAN PLOYDRIVER TEST END***************" repetitions="1" reporterror="true" />
+
+</testbody>
