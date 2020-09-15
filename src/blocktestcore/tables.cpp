@@ -22,6 +22,31 @@
 namespace BlockTestCore
 {
 
+
+std::vector<std::string> Tables::tokenize(std::string str, char delim)
+{
+    std::vector<std::string> out;
+	size_t start;
+	size_t end = 0;
+
+	while ((start = str.find_first_not_of(delim, end)) != std::string::npos)
+	{
+		end = str.find(delim, start);
+		out.push_back(str.substr(start, end - start));
+	}
+    return out;
+}
+
+void Tables::removeEndSpaces(std::vector<std::string>& out)
+{
+    for(std::string& current:out)
+    {
+        size_t first=current.find_last_not_of(' ');
+        if(first<current.size()-1)
+            current=current.erase(first+1,current.size()-first-1);
+    }    
+}
+
 Tables::Tables()
 {
 }
@@ -58,11 +83,12 @@ bool Tables::load(const std::string& fileName)
             break;
         }
             
-        std::string list=str.substr(startName+1,endName-startName-1);
-       // TXLOG(Severity::debug)<<"---"<<list<<"---"<<std::endl;
-        
-        std::istringstream ss{list};
-        std::vector<std::string> out=std::vector<std::string>{std::istream_iterator<std::string>{ss},std::istream_iterator<std::string>()};
+        std::string list=str.substr(startName+1,endName-startName-1);      
+
+        //**Create table vector from string        
+        std::vector<std::string> out=tokenize(list,'\n');
+        removeEndSpaces(out);//**Prob. due to comment
+                    
         if(out.size()<3)
         {
             TXLOG(Severity::error)<<"Table wrong size"<<std::endl;
