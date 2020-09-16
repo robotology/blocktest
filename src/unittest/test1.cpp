@@ -55,6 +55,14 @@ TEST(Table, TableNormal_003) {
     EXPECT_EQ(tb.get(),"4-data");            
 }
 
+TEST(Table, TableNormal_004) {
+    
+    TableNormal tb;
+    tb.Init({"testtable","normal","error","1-data","2-data","3-data"});
+
+    EXPECT_EQ(tb.get(),"1-data");
+}
+
 TEST(Table, TableIncrement_001) {
     
     TableIncrement tb;
