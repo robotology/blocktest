@@ -28,6 +28,9 @@ set(BlockTestCoreSrc    action.cpp
                         fixture.cpp
                         test.cpp
                         command.cpp
+                        libraryLoader.cpp
+                        server.cpp
+                        connection.cpp                        
                         )
 
 set(BlockTestCoreHdr   api.h
@@ -57,6 +60,9 @@ set(BlockTestCoreHdr   api.h
                        fixture.h
                        test.h
                        command.h
+                       libraryLoader.h
+                       server.h
+                       connection.h                       
                        )
 
 add_library(${LIBRARY_TARGET_NAME} SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})

@@ -17,6 +17,10 @@
 #include "logger.h"
 #include "general.h"
 
+#include <vector>
+#include <iostream>
+#include <string>
+
 using CommandAttributes=std::map<std::string,std::string>;
 
 #include "actionRegister.h"

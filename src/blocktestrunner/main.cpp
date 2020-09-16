@@ -13,6 +13,8 @@
 #include "blockTestRunner.h"
 #include "server.h"
 
+#include <iostream>
+
 int main(int argc,char* argv[]) noexcept
 {    
     boost::asio::io_service io; 

@@ -9,14 +9,8 @@
 
 set(BlockTestRunnerSrc  main.cpp
                         blockTestRunner.cpp
-                        libraryLoader.cpp
-                        server.cpp
-                        connection.cpp
                         )
 set(BlockTestRunnerHdr  blockTestRunner.h
-                        libraryLoader.h
-                        server.h
-                        connection.h
                         )
 
 add_executable(blocktestrunner ${BlockTestRunnerSrc} ${BlockTestRunnerHdr} )

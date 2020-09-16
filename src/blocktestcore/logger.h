@@ -17,6 +17,9 @@
 #include "clockFacility.h"
 #include "general.h"
 
+#include <sstream>
+#include <thread>
+
 namespace BlockTestCore
 {
 

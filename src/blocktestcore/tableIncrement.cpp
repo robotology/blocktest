@@ -13,6 +13,8 @@
 #include "tables.h"
 #include "logger.h"
 
+#include <cmath>
+
 #include "tableIncrement.h"
 
 namespace BlockTestCore

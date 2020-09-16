@@ -16,6 +16,11 @@
 #include "api.h"
 #include "general.h"
 
+#include <string>
+#include <sstream>
+#include <queue>
+#include <iomanip>
+
 namespace BlockTestCore
 {
 
@@ -94,3 +99,4 @@ class BLOCKTEST_EXPORT DataLogger
 };
 
 }
+

@@ -15,6 +15,8 @@
 
 #include "tableWave.h"
 
+#include <cmath>
+
 namespace BlockTestCore
 {
 
