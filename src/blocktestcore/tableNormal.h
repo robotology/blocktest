@@ -27,5 +27,6 @@ class TableNormal: public Table
         std::string get() override;
         std::string fetch() override;
         std::string get(unsigned int position) const override;
+
 };
 }
