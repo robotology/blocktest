@@ -13,11 +13,11 @@ TEST(Tables, Tables_001) {
     
     std::stringstream ss;
     ss<<"["<<std::endl;
-    ss<<"ball      <table name>  "<<std::endl;
+    ss<<"ball      <table name>"<<std::endl;
     ss<<"normal    <table type>  "<<std::endl;
     ss<<"1<increment by time>"<<std::endl;
     ss<<"5 "<<std::endl;
-    ss<<"6 "<<std::endl;
+    ss<<"6"<<std::endl;
     ss<<"7 56"<<std::endl;
     ss<<"] "<<std::endl;
 
