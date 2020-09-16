@@ -30,6 +30,7 @@ class BLOCKTEST_EXPORT Tables
         std::string fetch(const std::string &tableName);
         std::string get(const std::string &tableName,unsigned int position);
         bool load(const std::string& fileName);
+        bool load(std::istream& is);
 
         Tables(const Tables& copy) = delete;
         void operator=(const Tables& copy) = delete;

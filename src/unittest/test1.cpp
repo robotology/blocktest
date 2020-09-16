@@ -2,9 +2,35 @@
 #include "gtest/gtest.h"
 #include "tableNormal.h"
 #include "tableIncrement.h"
+#include "tables.h"
 
+#include <sstream>
 
 using namespace BlockTestCore;
+
+
+TEST(Tables, Tables_001) {
+    
+    std::stringstream ss;
+    ss<<"["<<std::endl;
+    ss<<"ball      <table name>  "<<std::endl;
+    ss<<"normal    <table type>  "<<std::endl;
+    ss<<"1<increment by time>"<<std::endl;
+    ss<<"5 "<<std::endl;
+    ss<<"6 "<<std::endl;
+    ss<<"7 56"<<std::endl;
+    ss<<"] "<<std::endl;
+
+    Tables& tables=Tables::instance();
+    bool res=tables.load(ss);
+    EXPECT_EQ(res,true);
+    
+    EXPECT_EQ(tables.get("ball"),"5");
+    EXPECT_EQ(tables.get("ball"),"6");
+    EXPECT_EQ(tables.get("ball"),"7 56");
+    EXPECT_EQ(tables.get("ball"),"5");
+    EXPECT_FALSE(tables.get("ball")=="5555");
+}
 
 TEST(Table, TableNormal_001) {
     
@@ -53,14 +79,6 @@ TEST(Table, TableNormal_003) {
     EXPECT_EQ(tb.get(),"3-data");    
     EXPECT_EQ(tb.get(),"4-data");
     EXPECT_EQ(tb.get(),"4-data");            
-}
-
-TEST(Table, TableNormal_004) {
-    
-    TableNormal tb;
-    tb.Init({"testtable","normal","error","1-data","2-data","3-data"});
-
-    EXPECT_EQ(tb.get(),"1-data");
 }
 
 TEST(Table, TableIncrement_001) {

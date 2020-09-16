@@ -60,7 +60,13 @@ Tables& Tables::instance()
 bool Tables::load(const std::string& fileName)
 {
     std::ifstream ifs(fileName);
-    std::string str((std::istreambuf_iterator<char>(ifs)),std::istreambuf_iterator<char>());
+    TXLOG(Severity::debug)<<"Loading tablesfrom file name:"<<fileName<<std::endl;
+    return load(ifs);
+}
+
+bool Tables::load(std::istream& is)
+{
+    std::string str((std::istreambuf_iterator<char>(is)),std::istreambuf_iterator<char>());
 
     commentRemove(str);
 
@@ -69,7 +75,7 @@ bool Tables::load(const std::string& fileName)
         TXLOG(Severity::error)<<"Unable to load table"<<std::endl;
         return false;
     }
-    TXLOG(Severity::debug)<<"Load tables, table number:"<<str.size()<<" FIle name:"<<fileName<<std::endl;
+    TXLOG(Severity::debug)<<"Load tables, table number:"<<str.size()<<std::endl;
     size_t currentListPos=0;
     while(currentListPos<str.size())
     {
