@@ -58,7 +58,7 @@ unsigned int BlockTest::run()
     tests_->load(name_,path_);
     if(!tests_->valid())
     {
-        TXLOG(Severity::critical)<<"Test not found or empty"<<std::endl;
+        TXLOG(Severity::critical)<<"Tests not found or empty name or all repetitions are zero:"<<name_<<" path:"<<path_<<std::endl;
     }
 
     tests_->execute();

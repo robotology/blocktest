@@ -37,6 +37,9 @@ class BLOCKTEST_EXPORT Tables
     private:
         Tables();
         void commentRemove(std::string& str);
+        std::vector<std::string> tokenize(std::string str, char delim);
+        void removeEndSpaces(std::vector<std::string>& out);
+
         std::map<std::string,Table_sptr> tables_;
 };
 

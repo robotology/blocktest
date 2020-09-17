@@ -20,19 +20,9 @@ namespace BlockTestCore
 bool TableVariable::Init(std::vector<std::string> table)
 {  
     bool out=Table::Init(table);
-
-    std::string variable;
-    for(int index=3;index<table_.size();++index)
-    {
-        variable+=" "+table_[index];
-    }
-    table_[3]=variable;
-    table_.erase(table_.begin()+4,table_.end());
-
     table_.erase(table_.begin());//table name
     table_.erase(table_.begin());//table type
     table_.erase(table_.begin());//increment by
-
     return out;
 }
 
