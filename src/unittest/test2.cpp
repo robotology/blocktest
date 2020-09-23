@@ -1,4 +1,14 @@
- 
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2020 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * All Rights Reserved.                                                       *
+ *                                                                            *
+ ******************************************************************************/
+
+/**
+ * @luca.triceri@iit.it
+ */ 
+
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
@@ -25,7 +35,8 @@ class ActionNop_Mock: public ActionNop  {
   {}
 };
 
-TEST(Test, Test_003) {
+//Mocking example
+TEST(Test, Test_001) {
 
   ActionNop_Mock actionNop(CommandAttributes(),"001");
 
@@ -40,7 +51,7 @@ TEST(Test, Test_003) {
   actionNop.beforeExecute();
 }
 
-TEST(Test, Test_004) {
+TEST(Test, Test_002) {
 
   ActionNop_Mock actionNop(CommandAttributes(),"001");
  
