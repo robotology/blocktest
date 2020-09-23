@@ -49,7 +49,6 @@ class BLOCKTEST_EXPORT Action
         double normalizeDouble(const std::string& str,bool justFetch) const;
         int normalizeInt(const std::string& str,bool justFetch) const;
         unsigned int normalizeUInt(const std::string& str,bool justFetch) const;
-        Test& getMyTest();
 
         void addProblem(const TestRepetitions& repetitions,Severity severity,const std::string& errorMessage,bool alsoLog) const;
         std::string testCode_;
@@ -57,11 +56,11 @@ class BLOCKTEST_EXPORT Action
         bool reporterror_{true};
 
         //helper funcion
-        void getCommandAttribute(const std::string& name,std::string& out) const;
-        void getCommandAttribute(const std::string& name,unsigned int& out) const;
-        void getCommandAttribute(const std::string& name,int& out) const;
-        void getCommandAttribute(const std::string& name,double& out) const;
-        void getCommandAttribute(const std::string& name,bool& out) const;
+        virtual void getCommandAttribute(const std::string& name,std::string& out) const;
+        virtual void getCommandAttribute(const std::string& name,unsigned int& out) const;
+        virtual void getCommandAttribute(const std::string& name,int& out) const;
+        virtual void getCommandAttribute(const std::string& name,double& out) const;
+        virtual void getCommandAttribute(const std::string& name,bool& out) const;
 
     private:
         const CommandAttributes commandAttributes_;
