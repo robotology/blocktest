@@ -16,6 +16,11 @@
 #include "general.h"
 #include "table.h"
 
+#include <string>
+#include <vector>
+#include <map>
+#include <iostream>
+
 namespace BlockTestCore
 {
 
