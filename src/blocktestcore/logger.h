@@ -19,6 +19,9 @@
 
 #include <sstream>
 #include <thread>
+#include <map>
+#include <list>
+#include <string>
 
 namespace BlockTestCore
 {
