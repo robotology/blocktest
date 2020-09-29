@@ -19,7 +19,7 @@ if(COMPILE_WITHUNITTEST AND Boost_VERSION_STRING GREATER_EQUAL 1.66.0)
   FetchContent_Declare(
     unittest
     GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG        origin/master
+    GIT_TAG        release-1.10.0
   )
   FetchContent_GetProperties(unittest)
   if(NOT unittest)
