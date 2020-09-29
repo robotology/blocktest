@@ -18,6 +18,7 @@
 #include "general.h"
 
 #include <sstream>
+#include <fstream>
 #include <thread>
 #include <map>
 #include <list>
