@@ -14,6 +14,9 @@
 
 #include "api.h"
 #include "general.h"
+#include <vector>
+#include <string>
+#include <memory>
 
 namespace BlockTestCore
 {

@@ -15,6 +15,8 @@
 #include "report.h"
 #include "tables.h"
 
+#include <cmath>
+
 namespace BlockTestCore
 {
 

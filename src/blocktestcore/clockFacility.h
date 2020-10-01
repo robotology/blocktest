@@ -15,6 +15,10 @@
 #include "general.h"
 #include "api.h"
 #include "sintax.h"
+#include <chrono>
+#include <string>
+#include <iomanip>
+#include <iostream>
 
 namespace BlockTestCore
 {

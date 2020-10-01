@@ -14,6 +14,8 @@
 #pragma once
 
 #include "general.h"
+#include <map>
+#include <string>
 
 namespace BlockTestCore
 {

@@ -13,6 +13,8 @@
 #include "tables.h"
 #include "logger.h"
 
+#include <cmath>
+
 #include "tableIncrement.h"
 
 namespace BlockTestCore
@@ -51,17 +53,19 @@ std::string TableIncrement::get()
 
     if(incrementValue_ > 0)
     {
-        if(std::fabs(currentValue_-stop_) < tollerance || currentValue_ > stop_)
-            currentValue_=start_;
-        else
+        if(currentValue_+incrementValue_-stop_ < tollerance )
             currentValue_ += incrementValue_;
+        else
+            currentValue_=start_;
+            
     }
     else
     {
-        if(std::fabs(currentValue_-stop_) < tollerance || currentValue_ < stop_)
-            currentValue_=start_;
-        else
+        if(currentValue_+incrementValue_-stop_ > tollerance )
             currentValue_ += incrementValue_;
+        else
+            currentValue_=start_;
+            
     }
 
     return ss.str();

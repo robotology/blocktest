@@ -18,6 +18,10 @@
 #include "general.h"
 #include "sintax.h"
 
+#include <set>
+#include <vector>
+#include <string>
+
 #ifndef _WIN32
 #include <dlfcn.h>
 #endif // _WIN32

@@ -14,6 +14,8 @@
 
 #include "api.h"
 #include "general.h"
+#include <map>
+#include <string>
 
 using LibraryAttributes=std::map<std::string,std::string>;
 

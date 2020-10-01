@@ -28,15 +28,15 @@ bool TableNormal::Init(std::vector<std::string> table)
 
 std::string TableNormal::get()
 {
+    auto out=table_[currentPosition_];        
+    if(needIncrement())
+        ++currentPosition_;
+
     if(currentPosition_>table_.size()-1)
     {
         TXLOG(Severity::debug)<<"Reset table:"<<std::endl;
         currentPosition_=0;
-    }
-
-    auto out=table_[currentPosition_];        
-    if(needIncrement())
-        ++currentPosition_;
+    }        
     return out;
 };
 

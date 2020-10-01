@@ -15,6 +15,8 @@
 
 #include "pugixml.hpp"
 
+#include <fstream>
+
 namespace BlockTestCore
 {
 
