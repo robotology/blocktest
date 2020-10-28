@@ -60,6 +60,7 @@
   - [10.6. XML files](#106-xml-files)
 - [11. Authors](#11-authors)
 
+
 # 4. Introduction
 
 The main idea of BlockTest is to adopt testing methodologies and best practices adopted in the software industry and propose their use in robotic applications within the robotics community.  BlockTest allows developers to build test that verifies the correct functioning of a robotic component, be it a piece of hardware (e.g. a robotic arm) or a piece of software (e.g. an algorithm). The main idea is to provide a set of basic blocks that can be composed to build more complex tests, without writing new code. The rationale behind this approach is that tests should be easy to write and, more importantly, should not require debugging efforts. Writing tests by combining existing, already debugged, components guarantees that no effort is required to debug the tests themselves. BlockTest is also written to provide support for running system components (e.g. a robot simulator), and robotic middleware. This can be achieved by extending the framework providing plugin libraries which export functionalities for a new middleware if needed. At the moment of writing, BlockTest already supports YARP, while ROS support is under development.
@@ -334,7 +335,7 @@ simple test. Also take a look at the following section for graphical test creati
 ```xml
 <testbody>
     <info note="ICub right ankle roll move." shortnote="" version="1"/>
-    <logging loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
+    <logging loggingactive="false" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
     <settings wait="10" />	
     
     <command name="yarpreset" repetitions="1" wait="0" reporterror="true"/>
@@ -365,9 +366,10 @@ The **logging node** contains the following parameters:
 
 | Param name | Default | Comment                 |
 | ---------- | ------- | ----------------------- |
-| loggingtype        | ---           | Indicates what kind of logging you need. For now it can be "position", "com" or both.            |
+| loggingtype        | ---           | Indicates what kind of logging you need. For now it can be "position", "com"(Center of Mass) or both.            |
 | loggingpart        | ---           | Joints name to be logged.                                                                        |
 | loggingwrappername | ---           | The wrapper that controls the joints. Note that for now is possible to specify just one wrapper. |
+|loggingactive|false|Activate the logging for this test|
 
 The **settings node** contains the following parameters:
 
@@ -650,12 +652,12 @@ There are 10 logs used circularly.
 
 ## 9.2. Sensors logging
 
-If sensor logging is setted (See section [Finally the test](#finally-the-test)) through
-**position** parameter in loggingtype, the position log file has the format: \<test number>-\<joint name>-\<repetition number>.
-If logging is setted through **com** parameter the position log file has the format: \<test number>-CoM-\<repetition number>.
+If sensor logging is setted (See section [Finally the test](#65-finally-the-test) with
+**position** parameter in loggingtype, the position log file has the following format: \<test number>-\<joint name>-\<repetition number>.
+If logging is setted with **com** parameter the position log file has the format: \<test number>-CoM-\<repetition number>.
 
 ```xml
-<logging loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
+<logging loggingactive="true" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
 ```  
 
 ## 9.3. Plot logging
