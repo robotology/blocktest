@@ -16,7 +16,7 @@
 #include "api.h"
 #include "type.h"
 #include "general.h"
-#include "sintax.h"
+#include "syntax.h"
 
 #include <set>
 #include <vector>

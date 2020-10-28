@@ -14,7 +14,7 @@
 
 #include "general.h"
 #include "api.h"
-#include "sintax.h"
+#include "syntax.h"
 #include <chrono>
 #include <string>
 #include <iomanip>

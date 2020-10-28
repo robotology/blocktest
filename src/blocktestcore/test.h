@@ -53,6 +53,7 @@ private:
     std::string loggingJoints_;
     std::string loggingwrapperName_;
     std::vector<loggingType> loggingType_;
+    bool loggingActive_{true};
 
     double wait_{0};
     double repetitionsForTime_{0};

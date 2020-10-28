@@ -15,7 +15,7 @@
 #include "type.h"
 #include "api.h"
 #include "general.h"
-#include "sintax.h"
+#include "syntax.h"
 
 #include <boost/process.hpp>
 

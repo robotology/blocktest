@@ -13,7 +13,7 @@
  */
 #include "api.h"
 #include "general.h"
-#include "sintax.h"
+#include "syntax.h"
 
 #ifndef _WIN32
 #include <dlfcn.h>
