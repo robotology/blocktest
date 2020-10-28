@@ -24,6 +24,7 @@ include(GNUInstallDirs)
 option(COMPILE_SCRIPTBUILDER "Compile the UI for creating the test" ON)
 option(BLOCKTEST_USE_EXTERNAL_PUGIXML "Set to on if you want to use an external pugixml" OFF)
 option(USE_SERIAL_LIB "Compile with serial library" OFF)
+option(ENABLE_MSVC_WARNINGS "Enable the compilation warnings in windows" ON)
 
 if(BLOCKTEST_USE_EXTERNAL_PUGIXML)
   find_package(pugixml REQUIRED)
@@ -103,7 +104,9 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 #Let the singleton to be unique
 #-------Important
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Wall")
+  if (ENABLE_MSVC_WARNINGS)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Wall")
+  endif()
   add_compile_options(-bigobj)
 else ()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
