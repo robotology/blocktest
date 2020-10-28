@@ -105,7 +105,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 #-------Important
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   if (ENABLE_MSVC_WARNINGS)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Wall")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
   endif()
   add_compile_options(-bigobj)
 else ()
