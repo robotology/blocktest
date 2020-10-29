@@ -14,6 +14,7 @@
 #include "logger.h"
 #include "report.h"
 #include "type.h"
+#include "syntax.h"
 #include "loggerRegister.h"
 #include "testsDepot.h"
 
@@ -42,16 +43,6 @@ bool Test::load(const std::string& path)
     if(!repetitions_)
         return false;
 
-    std::string loggingTypeParam = nodeTest_.attribute("loggingtype").value();
-
-    std::istringstream issType(loggingTypeParam);
-    std::vector<std::string> tokensForType{std::istream_iterator<std::string>{issType},std::istream_iterator<std::string>{}};
-
-    std::transform(tokensForType.begin(),tokensForType.end(),std::back_inserter(loggingType_),[](const std::string& current)->loggingType 
-        {
-            return stringToLoggingType(current);
-        });
-
     pugi::xpath_node_set nodeCommandsList;
 
     pugi::xml_document doc;
@@ -64,7 +55,7 @@ bool Test::load(const std::string& path)
             TXLOG(Severity::error)<<"Test file not found:"<<file_<<std::endl;
             return false;
         }
-        pugi::xpath_node_set fileNodes = doc.select_nodes("//command");
+        pugi::xpath_node_set fileNodes = doc.select_nodes(syntax::command);
         nodeCommandsList=fileNodes;
         TXLOG(Severity::debug)<<"file code:"<<code_<<" command num:"<<nodeCommandsList.size()<<std::endl;
     }
@@ -83,17 +74,27 @@ bool Test::load(const std::string& path)
         //TXLOG(Severity::debug)<<"file code:"<<code_<<":"<<outCommand.dumpCommand()<<std::endl;
     }
 
-    pugi::xpath_node loggingNode = doc.select_node("//logging");
+    pugi::xpath_node loggingNode = doc.select_node(syntax::logging);
     if(loggingNode.node()!=nullptr)
     {
-        loggingJoints_ = loggingNode.node().attribute("loggingpart").value();
-        loggingwrapperName_ = loggingNode.node().attribute("loggingwrappername").value();
+        loggingActive_ = loggingNode.node().attribute(syntax::loggingactive).as_bool();
+        loggingJoints_ = loggingNode.node().attribute(syntax::loggingpart).value();
+        loggingwrapperName_ = loggingNode.node().attribute(syntax::loggingwrappername).value();
+        std::string loggingTypeParam = loggingNode.node().attribute(syntax::loggingtype).value();
+
+        std::istringstream issType(loggingTypeParam);
+        std::vector<std::string> tokensForType{std::istream_iterator<std::string>{issType},std::istream_iterator<std::string>{}};
+
+        std::transform(tokensForType.begin(),tokensForType.end(),std::back_inserter(loggingType_),[](const std::string& current)->loggingType 
+            {
+                return stringToLoggingType(current);
+            });
     }
 
-    pugi::xpath_node settingsNode = doc.select_node("//settings");
+    pugi::xpath_node settingsNode = doc.select_node(syntax::settings);
     if(settingsNode.node()!=nullptr)
     {
-        wait_ = settingsNode.node().attribute("wait").as_double();
+        wait_ = settingsNode.node().attribute(syntax::wait).as_double();
     }
 
     if(repetitions_)
@@ -145,21 +146,24 @@ execution Test::work(bool isRealRobot,unsigned int currentGlobalRepetition) cons
     for(unsigned int currentTestRepetitions=0;currentTestRepetitions<repetitions_;++currentTestRepetitions)
     {
         //**logging
-        logCreationFunction call;
-        std::shared_ptr<InfoLogger> logger;
-        auto mymap=LoggerRegister::getMap();
-        if(mymap.find(testDepot_->loggingcommand_)==mymap.end())
-        {
-            TXLOG(Severity::error)<<"Unknown command for logger:"<<testDepot_->loggingcommand_<<std::endl;      
-        }
-        else
-        {
-            call=LoggerRegister::getCreatorFunction(testDepot_->loggingcommand_);
-            logger=(call)(loggingJoints_,testDepot_->loggingTime_,loggingwrapperName_,code_,currentTestRepetitions);
-            logger->start();
+        if(loggingActive_)
+            {
+            logCreationFunction call;
+            std::shared_ptr<InfoLogger> logger;
+            auto mymap=LoggerRegister::getMap();
+            if(mymap.find(testDepot_->loggingcommand_)==mymap.end())
+            {
+                TXLOG(Severity::error)<<"Unknown command for logger:"<<testDepot_->loggingcommand_<<std::endl;      
+            }
+            else
+            {
+                call=LoggerRegister::getCreatorFunction(testDepot_->loggingcommand_);
+                logger=(call)(loggingJoints_,testDepot_->loggingTime_,loggingwrapperName_,code_,currentTestRepetitions);
+                logger->start();
+            }
         }
         //**end logger
-      
+
         TXLOG(Severity::info)<<"+++++Test code:"<<code_<<" Total repetitions:"<<repetitions_<<" Actual repetition:"<<currentTestRepetitions+1<<std::endl;
         for(const Command_sptr& current:data_)
         {
