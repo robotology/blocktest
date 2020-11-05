@@ -94,7 +94,7 @@ int Action::normalizeInt(const std::string& str,bool justFetch) const
 {
     std::string tmp=normalize(str,justFetch);
     if(tmp.empty())
-        return NAN;
+        return 0;
     int out=std::atoi(tmp.c_str());
     return out;
 }
@@ -103,7 +103,7 @@ unsigned int Action::normalizeUInt(const std::string& str,bool justFetch) const
 {
     std::string tmp=normalize(str,justFetch);
     if(tmp.empty())
-        return NAN;
+        return 0;
     unsigned int out=std::stoul(tmp.c_str());
     return out;
 }
