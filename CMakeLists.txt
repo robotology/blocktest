@@ -32,9 +32,6 @@ else()
   add_subdirectory(extern/pugixml)
 endif()
 
-set(Boost_NO_BOOST_CMAKE ON)
-set(Boost_USE_STATIC_LIBS OFF)
-set(Boost_USE_MULTITHREAD ON)
 set(BOOST_MIN_VERSION "1.65.0")
 
 find_package(YCM REQUIRED)
