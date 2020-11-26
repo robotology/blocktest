@@ -26,7 +26,7 @@ PrerequisiteModel::~PrerequisiteModel()
 
 void PrerequisiteModel::load(const std::string& fileName)
 {
-    size_t pos = fileName.find_last_of('/');
+    fileName.find_last_of('/');
     pugi::xml_parse_result result = doc_.load_file(fileName.c_str());
     assert(result.status == pugi::xml_parse_status::status_ok);
     redraw();
@@ -154,7 +154,7 @@ void PrerequisiteModel::deletePrerequisite(const QModelIndex& index)
     redraw();
 }
 
-void PrerequisiteModel::newPrerequisite(const QModelIndex& index)
+void PrerequisiteModel::newPrerequisite(const QModelIndex& )
 {
     pugi::xpath_node rootPath = doc_.select_node("/testlist");
     pugi::xml_node root=rootPath.node();

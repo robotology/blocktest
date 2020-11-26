@@ -47,7 +47,7 @@ void ActionWriteSerial::beforeExecute()
 
 #ifndef COMPILE_WITHEXTSERIAL
 
-execution ActionWriteSerial::execute(const TestRepetitions& testrepetition)
+execution ActionWriteSerial::execute(const TestRepetitions&)
 {
     int serial_port = open(port_.c_str(), O_RDWR);
 
