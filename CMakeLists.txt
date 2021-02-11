@@ -11,13 +11,13 @@ cmake_minimum_required(VERSION 3.5)
 
 project(blockTest
         LANGUAGES C CXX
-        VERSION 2.3.0)
+        VERSION 2.3.1)
 
 set(CMAKE_AUTOMOC ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 if (CMAKE_VERSION VERSION_LESS 3.11)
   list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake-3.11)
-endif() 
+endif()
 
 include(GNUInstallDirs)
 
@@ -67,7 +67,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}"
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 if (CMAKE_VERSION VERSION_LESS 3.5)
   list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake-3.5)
-endif() 
+endif()
 
 # Encourage user to specify a build type (e.g. Release, Debug, etc.), otherwise set it to Debug.
 if(NOT CMAKE_CONFIGURATION_TYPES)
