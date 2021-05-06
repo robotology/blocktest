@@ -22,6 +22,14 @@
 #include <boost/dll/shared_library.hpp>
 #include <boost/exception/diagnostic_information.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/version.hpp>
+
+#if BOOST_VERSION >= 107600 // 1.76.0
+#define boost_dll_import boost::dll::import_symbol
+#else
+#define boost_dll_import boost::dll::import
+#endif
+
 
 namespace BlockTestCore
 {
@@ -37,7 +45,7 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
     TXLOG(Severity::debug)<<"LibraryLoader constructor"<<std::endl;
 
     std::string completePath=calcolateTestName(name,path);
-        
+
     pugi::xml_document doc;
     pugi::xml_parse_result result=doc.load_file(completePath.c_str());
 
@@ -45,10 +53,10 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
         TXLOG(Severity::error)<<"Unable to load file: "<<completePath<<std::endl;
         return false;
     }
-    TXLOG(Severity::debug)<<"Load library xml:"<<completePath<<std::endl;  
+    TXLOG(Severity::debug)<<"Load library xml:"<<completePath<<std::endl;
 
     pugi::xpath_node_set libraryNodes = doc.select_nodes("//library");
-    
+
     for (auto it = libraryNodes.begin(); it != libraryNodes.end(); ++it)
     {
         pugi::xpath_node nodeLibrary = *it;
@@ -76,23 +84,23 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
         TXLOG(Severity::info) << "Try load lib:" << libraryPath << std::endl;
         try
         {
-            boost::function<funcptr> stopFunction = boost::dll::import<funcptr>(
+            boost::function<funcptr> stopFunction = boost_dll_import<funcptr>(
                 libraryPath,
                 "Stop",
                 boost::dll::load_mode::rtld_lazy
                 );
 
-            boost::function<funcptr1> configureFunction =  boost::dll::import<funcptr1>(
+            boost::function<funcptr1> configureFunction =  boost_dll_import<funcptr1>(
                 libraryPath,
                 "Configure",
                 boost::dll::load_mode::rtld_lazy
-                );                
+                );
 
-            stopFunction_.emplace_back(stopFunction);                
+            stopFunction_.emplace_back(stopFunction);
 
             std::map<std::string,std::string> settings=xmlLibrarySettingsToMap(doc,libraryName);
             if(configureFunction)
-                configureFunction(settings);                   
+                configureFunction(settings);
         }
         catch(boost::exception const& e) {
             std::cout<<"------------------"<<boost::diagnostic_information(e, true)<<std::endl;
@@ -102,7 +110,7 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
         catch(std::exception& e)
         {
             std::string error;
-            error=e.what();   
+            error=e.what();
         }
         catch(...)
         {
@@ -123,7 +131,7 @@ void LibraryLoader::stop()
 
     std::for_each(stopFunction_.rbegin(),stopFunction_.rend(),[](const auto current){
         if(current)
-            current(nullptr,nullptr); 
+            current(nullptr,nullptr);
     });
 }
 
@@ -136,8 +144,8 @@ std::map<std::string,std::string> LibraryLoader::xmlLibrarySettingsToMap(const p
     {
         if(current.node().attribute("name").as_string()!=libraryName)
             continue;
-        
-        auto attributes=current.node().attributes();   
+
+        auto attributes=current.node().attributes();
         for(const pugi::xml_attribute& current:attributes)
         {
             std::pair<std::string,std::string> toAdd;
