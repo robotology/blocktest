@@ -107,7 +107,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   add_compile_options(-bigobj)
 else ()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-  set(CMAKE_EXE_LINKER_FLAGS  "-rdynamic")
+  set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -rdynamic")
 endif ()
 
 if(WIN32)

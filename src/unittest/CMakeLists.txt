@@ -13,7 +13,7 @@ set(SOURCES gtest_main.cc
             test2.cpp
             )
 
-set(CMAKE_EXE_LINKER_FLAGS  "-rdynamic")
+set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -rdynamic")
 set(CMAKE_INSTALL_RPATH ./)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
