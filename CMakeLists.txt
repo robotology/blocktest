@@ -11,7 +11,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(blockTest
         LANGUAGES C CXX
-        VERSION 2.3.2)
+        VERSION 2.3.3)
 
 set(CMAKE_AUTOMOC ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
