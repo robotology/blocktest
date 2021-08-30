@@ -14,7 +14,6 @@ set(SOURCES gtest_main.cc
             )
 
 set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -rdynamic")
-set(CMAKE_INSTALL_RPATH ./)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
