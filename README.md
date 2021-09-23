@@ -58,7 +58,10 @@
   - [10.4. Create plugin initialization](#104-create-plugin-initialization)
   - [10.5. Blocks writing](#105-blocks-writing)
   - [10.6. XML files](#106-xml-files)
-- [11. Authors](#11-authors)
+- [11. Gazebo](#11-gazebo)
+  - [11.1. Speed up model creation](#111-speed-up-model-creation)
+  - [11.2. World file](#112-world-file)
+- [12. Authors](#12-authors)
 
 
 # 4. Introduction
@@ -109,6 +112,10 @@ Add in your bashrc:
 
 ```
 export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/<build/install_dir_of_ycm>
+```
+Instead if you use robotology_superbuild in .bashrc:
+```
+export CMAKE_PREFIX_PATH=:${ROBOTOLOGY_SUPERBUILD_BUILD_DIR}/src/YCM
 ```
 
 ### 5.2.3. Numpy
@@ -776,5 +783,18 @@ Write your blocks, each block is derived from CAction.
 ## 10.6. XML files
 Write an xml file for each block.
 
-# 11. Authors
+
+# 11. Gazebo
+If you need to make the simulation work on Gazebo.
+
+## 11.1. Speed up model creation
+Be sure to add to your ./bashrc
+```
+export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:${ROBOTOLOGY_SUPERBUILD_SOURCE_DIR}/src/GazeboYARPPlugins/tutorial/model
+```
+## 11.2. World file
+If you need you could write your own ```.world``` file thake a look at the
+```world``` folder
+
+# 12. Authors
 * Luca Tricerri ([*personal page*](https://www.iit.it/people/luca-tricerri))

@@ -9,5 +9,6 @@
                 repetitions="1" 
                 wait="0"
                 reporterror="true"
-                usetestpath="false">
+                usetestpath="false"
+                nobackground="false">
 </command>

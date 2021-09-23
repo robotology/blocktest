@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<sdf version="1.5">
+  <world name="default">
+
+    <!-- Light -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Ground Plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- iCub -->
+    <include>
+      <uri>model://iCubGazeboV2_5_fixed</uri>
+      <pose>0 0 0 0 0 3.14159</pose>
+    </include>
+
+    <!-- WorldInterface -->
+    <include>
+      <uri>model://worldInterface</uri>
+      <pose>0 -10 0 0 0 0</pose>
+    </include>
+
+
+  </world>
+</sdf>
