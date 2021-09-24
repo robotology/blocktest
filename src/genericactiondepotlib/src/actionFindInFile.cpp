@@ -1,12 +1,12 @@
 /******************************************************************************
  *                                                                            *
- * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * Copyright (C) 2021 Fondazione Istituto Italiano di Tecnologia (IIT)        *
  * All Rights Reserved.                                                       *
  *                                                                            *
  ******************************************************************************/
 
 /**
- * @file actionPrint.cpp
+ * @file actionFindInFIle.cpp
  * @author Luca Tricerri
  */
 
