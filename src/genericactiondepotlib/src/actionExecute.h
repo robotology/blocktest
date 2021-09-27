@@ -36,6 +36,7 @@ class ActionExecute : public Action
         unsigned int waitafter_;
         std::string tag_;
         bool useTestPath_{false};
+        std::string writeToFile_;
 
         void parse();
 

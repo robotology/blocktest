@@ -12,6 +12,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "action.h"
 
 using namespace BlockTestCore;
@@ -34,7 +36,8 @@ class ActionFindInFile : public Action
     private:
         std::string string_;
         std::string filename_;
-        bool errorOnFind_;
+        bool errorOnFind_{true};
+        bool bckIfError_{false};
 
     ACTIONREGISTER_DEC_TYPE(ActionFindInFile)        
 };

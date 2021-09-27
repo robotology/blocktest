@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<testlist repetitions="1">
+
+	<!-- 	
+	Simple test of execution.
+	`echo` is executed, then a check on the echo file log is done for looking for ERROR
+ -->
+	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="infologger" relativetime="true" unixtime="false"/>
+
+	<prerequisite enabled="false" command="yarpserver" waitafter="5000" param="--silent --write" prefix="" kill="true" />
+
+	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic actions library" />
+	<library enabled="false" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp actions library" />
+
+	<librarysettings enabled="true" name="genericactiondepot" />
+	<librarysettings enabled="false" name="yarpactiondepot" wrappername="" robotname="" netclock="false" />
+
+	<!-- Execute command -->
+	<test file="execute.xml" repetitions="1" repetitionsfortime="" code="execute" parallel="false" />
+
+	<!-- Check command -->
+	<test file="check.xml" repetitions="1" repetitionsfortime="" code="execute" parallel="false" />
+
+</testlist>

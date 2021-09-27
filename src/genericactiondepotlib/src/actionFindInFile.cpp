@@ -12,6 +12,9 @@
 
 #include "actionFindInFile.h"
 
+#include <chrono>
+#include <filesystem>
+
 ACTIONREGISTER_DEF_TYPE(GenericActions::ActionFindInFile, "findinfile");
 
 namespace GenericActions
@@ -25,6 +28,7 @@ void ActionFindInFile::beforeExecute()
 	getCommandAttribute("filename", filename_);
 	getCommandAttribute("string", string_);
 	getCommandAttribute("erroronfind", errorOnFind_);
+	getCommandAttribute("bckiferror", bckIfError_);
 }
 
 execution ActionFindInFile::execute(const TestRepetitions &)
@@ -48,6 +52,16 @@ execution ActionFindInFile::execute(const TestRepetitions &)
 				TXLOG(Severity::error) << "Line:" << currentLine << std::endl;
 				TestRepetitions rep{0, 0};
 				addProblem(rep, Severity::critical, "String find in file:" + string_, true);
+
+				if (bckIfError_)
+				{
+					std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+					char buf[100] = {0};
+					std::strftime(buf, sizeof(buf), "%Y-%m-%d_%H:%M:%S", std::localtime(&now));
+					std::stringstream ss;
+					ss << filename_ << "_" << buf << ".bck";
+					std::filesystem::copy(filename_, ss.str());
+				}
 			}
 			else
 				TXLOG(Severity::info) << "String:" << string_ << " find in:" << filename_ << std::endl;

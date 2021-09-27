@@ -10,5 +10,6 @@
                 wait="0"
                 reporterror="true"
                 usetestpath="false"
-                nobackground="false">
+                nobackground="false"
+                writetofile="">
 </command>
