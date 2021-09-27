@@ -60,7 +60,7 @@ execution ActionFindInFile::execute(const TestRepetitions &)
 					std::strftime(buf, sizeof(buf), "%Y-%m-%d_%H:%M:%S", std::localtime(&now));
 					std::stringstream ss;
 					ss << filename_ << "_" << buf << ".bck";
-					std::filesystem::copy(filename_, ss.str());
+					std::filesystem::copy(filename_, ss.str(),std::filesystem::copy_options::overwrite_existing);
 				}
 			}
 			else
