@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<testbody>
-	<info note="ICub right ankle roll direct position." shortnote="" version="1.0" />
-	<logging loggingtype="position" loggingpart="r_ankle_roll" loggingwrappername="/right_leg" />
-	<settings wait="0" />
-	
-	<command library="yarp" name="yarpopenpolydriver" polydrivertag="right-leg" property="(device remote_controlboard) (local /right_legxxx) (remote /icubSim/right_leg)" repetitions="1" wait="0" reporterror="true"></command>
-</testbody>

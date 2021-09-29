@@ -24,7 +24,7 @@
   - [5.1. External library](#51-external-library)
   - [5.2. Prerequisite Linux](#52-prerequisite-linux)
     - [5.2.1. Dependencies](#521-dependencies)
-    - [5.2.2. Source based Dependencies](#522-source-based-dependencies)
+    - [5.2.2. Source-based Dependencies](#522-source-based-dependencies)
     - [5.2.3. Numpy](#523-numpy)
   - [5.3. Prerequisite Windows](#53-prerequisite-windows)
   - [5.4. Installation and compilation](#54-installation-and-compilation)
@@ -54,7 +54,7 @@
 - [10. Specific plugin](#10-specific-plugin)
   - [10.1. Existing plugins](#101-existing-plugins)
   - [10.2. Create a new plugin](#102-create-a-new-plugin)
-  - [10.3. Create a new repository for plugin](#103-create-a-new-repository-for-plugin)
+  - [10.3. Create a new repository for the plugin](#103-create-a-new-repository-for-the-plugin)
   - [10.4. Create plugin initialization](#104-create-plugin-initialization)
   - [10.5. Blocks writing](#105-blocks-writing)
   - [10.6. XML files](#106-xml-files)
@@ -66,7 +66,7 @@
 
 # 4. Introduction
 
-The main idea of BlockTest is to adopt testing methodologies and best practices adopted in the software industry and propose their use in robotic applications within the robotics community.  BlockTest allows developers to build test that verifies the correct functioning of a robotic component, be it a piece of hardware (e.g. a robotic arm) or a piece of software (e.g. an algorithm). The main idea is to provide a set of basic blocks that can be composed to build more complex tests, without writing new code. The rationale behind this approach is that tests should be easy to write and, more importantly, should not require debugging efforts. Writing tests by combining existing, already debugged, components guarantees that no effort is required to debug the tests themselves. BlockTest is also written to provide support for running system components (e.g. a robot simulator), and robotic middleware. This can be achieved by extending the framework providing plugin libraries which export functionalities for a new middleware if needed. At the moment of writing, BlockTest already supports YARP, while ROS support is under development.
+The main idea of BlockTest is to adopt testing methodologies and best practices adopted in the software industry and propose their use in robotic applications within the robotics community.  BlockTest allows developers to build a test that verifies the correct functioning of a robotic component, be it a piece of hardware (e.g. a robotic arm) or a piece of software (e.g. an algorithm). The main idea is to provide a set of basic blocks that can be composed to build more complex tests, without writing new code. The rationale behind this approach is that tests should be easy to write and, more importantly, should not require debugging efforts. Writing tests by combining existing, already debugged, components guarantees that no effort is required to debug the tests themselves. BlockTest is also written to provide support for running system components (e.g. a robot simulator), and robotic middleware. This can be achieved by extending the framework providing plugin libraries that export functionalities for a new middleware if needed. At the moment of writing, BlockTest already supports YARP, while ROS support is under development.
 (See Figure below).
 <br/><br/>
 
@@ -82,7 +82,7 @@ CMake must be > 3.12.
 
 ## 5.1. External library
 
-The following library are used in blocktest:  
+The following libraries are used in blocktest:  
   
 **pugixml** https://github.com/zeux/pugixml  
 **exprtk** https://github.com/ArashPartow/exprtk  
@@ -96,7 +96,7 @@ The following library are used in blocktest:
 ```bash
 sudo apt-get install -y cmake git libboost-all-dev qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5opengl5-dev libqcustomplot-dev
 ```
-### 5.2.2. Source based Dependencies
+### 5.2.2. Source-based Dependencies
 
 - `YCM`
 
@@ -113,14 +113,14 @@ Add in your bashrc:
 ```
 export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/<build/install_dir_of_ycm>
 ```
-Instead if you use robotology_superbuild in .bashrc:
+Instead, if you use robotology_superbuild in .bashrc:
 ```
 export CMAKE_PREFIX_PATH=:${ROBOTOLOGY_SUPERBUILD_BUILD_DIR}/src/YCM
 ```
 
 ### 5.2.3. Numpy
 
-Optionally you can install numpy for plotting purpose:
+Optionally you can install numpy for plotting purposes:
 
 ```bash
 sudo apt install python3-pip
@@ -163,9 +163,9 @@ ccmake ..
 
 Select your preferred installation folder using:
 CMAKE_INSTALL_PREFIX <br>
-Suggested location:
+Suggested location (also if you use blocktest plugins):
 ```
-~\blocktest\build
+~\blocktest\install
 ```
 It is possible also to run `blocktestrunner` and `Scriptbuilder` from any folder, you have just to define `BLOCKTEST_RESOURCE_PATH` where all the plugins, xmltemplate, and test folder
 are stored.
@@ -177,12 +177,13 @@ For easy test writing, you can skip directly to the section [Scriptbuilder](##5.
 Otherwise, the starting point for writing a test is the file ./test/test.xml, see below.
 
 ```xml
-    <testlist repetitions="1">
+    <testlist repetitions="1">a
 
    <settings  realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce"  
             neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab" 
             waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp"/> <!--loggingtime in sec-->
 
+    <!--Prerequisites-->
     <prerequisite enabled="true" command="yarpserver" waitafter="5000" param="--silent" prefix="" kill="true"/>
     <prerequisite enabled="false" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub.world" prefix="" kill="true"/>
     <prerequisite enabled="true" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true"/>
@@ -234,7 +235,7 @@ This file contains:
 | nowcommand           | now                  | Indicates the command blocks to be used for now                                                |
 | loggingcommand       | infologgeryarp       | Indicates the command blocks to be used for logging                                            |
 | relativetime         | true                 | The logging time is relative(from test start) or absolute                                      |
-| unixtime             | false                | If the time is absolute it can be unix time format or string format                            |
+| unixtime             | false                | If the time is absolute it can be Unix time format or string format                            |
 
 ## 6.2. Library Settings
 In this section, it is possible to specify the plugin library to be used.
@@ -264,8 +265,8 @@ In this section, it is possible to specify the plugin library to be used.
 | name       | ---           | library tag name              |
 | note       | ---           | Explanation notes             |
 | robotname            | icubSim              | Robot name to be used
-| netclock             | true                 | Indicates if the network clock (Yarp) should be used. In the case it is used the one on "/clock" port |
-In this section it is also possible to specify the plugin library settings.
+| netclock             | true                 | Indicates if the network clock (Yarp) should be used. In the case, it is used the one on "/clock" port |
+In this section, it is also possible to specify the plugin library settings.
 
 
 
@@ -306,7 +307,7 @@ list the tests together with the **file** in which the test has been written.
 | file               | ---           | File in which the test is written.                                                               |
 | repetitions        | 1             | How many times the test is repeated.                                                             |
 | name               | ---           | Test name.                                                                                       |
-| code               | ---           | Numeric code for identifying the test, could be related to test case.                            |
+| code               | ---           | Numeric code for identifying the test, could be related to the test case.                            |
 | parallel           | false         | Should the test be executed in parallel.                                                         |
 | repetitionsfortime | 0             | If specified is the time to repeat the test in seconds.                                                     |
 
@@ -328,12 +329,11 @@ In the above example the tests will be executed in the following way:
 
 **0005** start when all 0002-0003-0004 are finished
 
-In the case, it is possible to insert a dummy test in series to  align the following tests executions.
+In the case, it is possible to insert a dummy test in series to align the following tests executions.
 
 ### 6.4.2. Repetitions
-Repetitions can be at action or test or test list level trought **"repetitions"** key (in action,test,test list).
-At test level repetitions can be also used through the key **"repetitionsfortime"**. In this case, will be executed as many repetitions as the timer in seconds will allow. Inside of test is available 
-the key **"wait"** that indicates the time between two tests executions.
+Repetitions can be at action or test or test list level through **"repetitions"** key (in action, test, test list).
+At the test level repetitions can be also used through the key **"repetitionsfortime"**. In this case, will be executed as many repetitions as the timer in seconds will allow. Inside of test is available the key **"wait"** that indicates the time between two tests executions.
 
 ## 6.5. Finally the test
 
@@ -343,14 +343,14 @@ simple test. Also take a look at the following section for graphical test creati
 <testbody>
     <info note="ICub right ankle roll move." shortnote="" version="1"/>
     <logging loggingactive="false" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
-    <settings wait="10" />	
+    <settings wait="10" />  
     
     <command name="yarpreset" repetitions="1" wait="0" reporterror="true"/>
     <command name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="20" repetitions="1" wait="0" reporterror="true"/>    
 </testbody>
 ```  
 
-The test is composed by **commands** and each command has a parameters list.
+The test is composed of **commands** and each command has a parameters list.
 
 The **common parameters** are shown in the following table.
 
@@ -373,7 +373,7 @@ The **logging node** contains the following parameters:
 
 | Param name | Default | Comment                 |
 | ---------- | ------- | ----------------------- |
-| loggingtype        | ---           | Indicates what kind of logging you need. For now it can be "position", "com"(Center of Mass) or both.            |
+| loggingtype        | ---           | Indicates what kind of logging you need. For now, it can be "position", "com"(Center of Mass) or both.            |
 | loggingpart        | ---           | Joints name to be logged.                                                                        |
 | loggingwrappername | ---           | The wrapper that controls the joints. Note that for now is possible to specify just one wrapper. |
 |loggingactive|false|Activate the logging for this test|
@@ -390,25 +390,40 @@ These commands are contained in the generic command library plugin.
 -   **wait**
 
     ```xml
-        <command name="wait" seconds="5" repetitions="1" wait="0" reporterror="true"/>   
+    <command library="general"  
+             name="wait" 
+             seconds="5" 
+             repetitions="1" 
+             wait="0" 
+             reporterror="true"/>   
     ```
 
-    The parameter in seconds, is the wait time in seconds. Could be a double 0.001 means 1 msec.
+    The parameter in seconds is the wait time in seconds. Could be a double 0.001 means 1 msec.
 
 
 -   **nop**
 
     ```xml
-    <command name="nop" fixvalue="" tables="kp" printerror="true" printtestinfo="true" justonetime="false" repetitions="1" wait="0" reporterror="true"/>
+    <command library="general"  
+             name="nop" 
+             fixvalue="" 
+             tables="kp" 
+             printerror="true" 
+             printtestinfo="true" 
+             justonetime="false" 
+             repetitions="1" 
+             wait="0" 
+             reporterror="true"/>
     ```
 
-    The nop command is used to print log on the plot.log file.
+    The nop command is used to print the log on the plot.log file.
     The nop command can be used to synch parallel tests.
 
 -   **updatefile**     
 
     ```xml
-    <command    name="updatefile" 
+    <command    library="general" 
+                name="updatefile" 
                 sourcefile="./walkingV2PIDparameters.ini" 
                 destinationfile="./test/walkingV2PIDparameters.ini" 
                 repetitions="1" 
@@ -422,36 +437,67 @@ These commands are contained in the generic command library plugin.
 -   **execute**
 
     ```xml       
-	<command    name="execute" 
+    <command    library="general" 
+                name="execute" 
                 command="icubWalking" 
                 param="--gazeboClock --MPC::solver_name mumps --IK::solver_name mumps" 
+                writetofile="log/mylog.log"
                 prefix="" 
                 waitafter="2"
                 kill="false"
                 repetitions="1" 
                 wait="0"
                 reporterror="true"
-                nobackground="false" 
+                nobackground="false" --Not used 
                 usetestpath="false"
                 tag="loggingstart" />
     </command>
     ```
+
+
     The command executes the specified application.  
-    Note the: ```usetestpath``` param, it execute the application or script using the same path of the tests.
-    The ```nobackground``` param execute the application/script in/without background specification.
+    Note the: ```usetestpath```, it executes the application or script using the same path of the tests.
+    The ```writetofile``` send log stdout and stderr to file.
 
 -   **writeserial**
 
     ```xml
-    <command name="writeserial" value="" port="" repetitions="1" wait="0" reporterror="true"/>
+    <command library="general" 
+             name="writeserial" 
+             value="" 
+             port="" 
+             repetitions="1" 
+             wait="0" 
+             reporterror="true"/>
     ```
+    The command is used to write through the serial port.
 -   **print**
 
     ```xml
-    <command name="writeserial" message="" target="" repetitions="1" wait="0" reporterror="true"/>
+    <command library="general" 
+             name="print" 
+             target"shell" 
+             message="yourMessage" 
+             repetitions="1" 
+             wait="0" 
+             reporterror="true"/>
     ```
 
-    The wprint command is used to write a string on the console if target is console or on the log if target is log.   
+    The print command is used to write a string on the console if the target is a console or on the log if the target is a log.   
+-   **findinfile**
+
+    ```xml
+    <command library="general" 
+             name="findinfile" 
+             filename="myfile" 
+             string="mystring" 
+             erroronfind="true" 
+             bckiferror="true" 
+             repetitions="1" 
+             wait="0" 
+             reporterror="true"/>
+    ```
+The command is used to find a string in a file. If found an error is raised in the log and a backup of the file is done with the date.
 
 ## 6.6. Test writing with Scriptbuilder
 Script builder is a UI for test and test list writing.
@@ -475,7 +521,7 @@ We use a file, to specify the parameters value and parameters changing rules.
 
 In the settings section, you can find the **tablename parameter** (**main.tab**) that is the file in which
 all the tables are written.
-Inside of the file  you can find the tables that contain the parameters:
+Inside of the file, you can find the tables that contain the parameters:
 
 ```
 (this is the first table)
@@ -516,7 +562,7 @@ It is possible to specify how the parameters will change during the execution. T
 
 -   **normal:**
     in this case, the parameter will have the value in the order the values are specified.
-    In the above example the kppos parameter will have the value, in order, from
+    In the above example, the kppos parameter will have the value, in order, from
     the first to the last execution 40 50 60 70 80 90
 
 | Param position | Name | Default | Comment                 |
@@ -553,7 +599,7 @@ It is possible to specify how the parameters will change during the execution. T
 
 ## 7.2. Using the parameter
 
-In the test you can specify the table name you want to use, the paameter name is surround by 
+In the test you can specify the table name you want to use, the parameter name is surrounded by 
 $:
 
 ```xml
@@ -568,7 +614,7 @@ The test should be executed at least 10 times so:
 ```
 
 ## 7.3. Examples
-Tests and example are present in the folder test.
+Tests and examples are present in the folder test.
 
 # 8. Test execution
 
@@ -602,7 +648,7 @@ The test folder struct is the following:
 ```
 
 The main folder is usually called **test** (See section [Test execution of custom folder](#test_execution_of_custom_folder)), the main test file is usually called **test.xml**(See section [Test execution of custom folder](#test_execution_of_custom_folder)).
-Inside the main test folder the tables folder.
+Inside the main test, the folder is the tables folder.
 
 ## 8.2. Test execution of custom folder
 
@@ -613,7 +659,7 @@ If you need to execute tests in a different folder:
 
 Example:
 ```bash
-cd ./blocktest/build/bin
+cd ./blocktest/install/bin
 ./blocktestrunner test1.xml ./myfolder/testfolder
 ```
 
@@ -623,7 +669,7 @@ Check the path in test.xml files.
 ```
 <test file="test//0002.xml" ...
 ```
-In this case the path you have specified must take in account also of this "test/".  
+In this case, the path you have specified must take into account also of this "test/".  
 The test will be in "./myfolder/testfolder/test"
 <br><br>
 The path shouldn't end with "/", this can cause problems on WSL system.  
@@ -644,7 +690,7 @@ It is possible to set the logs line to be shown using the attribute  logseverity
     <settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="test/tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="infologger" />
 ```
 
-The awailable levels are:
+The available levels are:
 
     critical = 7
     exception = 6
@@ -699,10 +745,10 @@ Three plugins are already available:
  
 
 ## 10.2. Create a new plugin
-It is possible to write your own plugin for BlockTest, check the following sections.
+It is possible to write your plugin for BlockTest, check the following sections.
 
-## 10.3. Create a new repository for plugin
-Create a new repository in github.
+## 10.3. Create a new repository for the plugin
+Create a new repository in GitHub.
 
 ## 10.4. Create plugin initialization
 Step by step.
@@ -748,7 +794,7 @@ The **configure** method is automatically called when the library is loaded by B
 
 
 The **configure** method conf parameter is a map key-value. The map contains
-all the configuration parameters that are present in xml.
+all the configuration parameters that are present in XML.
 
 ```xml
 <librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="true" />
@@ -764,7 +810,7 @@ In this example the map contains the following key-value:
 | netclock      |"true"       |
 
 4.
-Write your librarysettings and library entries in text.xml. In the figure below it is shown a pair of libraries and their settings.
+Write your librarysettings and library entries in text.xml. The figure below it is shown a pair of libraries and their settings.
 
 ```xml
 <library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic action library" />
@@ -793,7 +839,7 @@ Be sure to add to your ./bashrc
 export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:${ROBOTOLOGY_SUPERBUILD_SOURCE_DIR}/src/GazeboYARPPlugins/tutorial/model
 ```
 ## 11.2. World file
-If you need you could write your own ```.world``` file thake a look at the
+If you need you could write your own ```.world``` file take a look at the
 ```world``` folder
 
 # 12. Authors

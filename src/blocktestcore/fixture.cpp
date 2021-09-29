@@ -43,8 +43,9 @@ Fixture::Fixture(const std::string& name,const std::string& path)
         bool kill=nodeFixture.node().attribute("kill").as_bool();
         std::string prefix=nodeFixture.node().attribute("prefix").value();
         unsigned int waitafter=nodeFixture.node().attribute("waitafter").as_int();
+        std::string writeToFile=nodeFixture.node().attribute("writetofile").value();
 
-        fixtures_.emplace_back(FixtureParam(command,param,prefix,kill,enabled,waitafter));
+        fixtures_.emplace_back(FixtureParam(command,param,prefix,kill,enabled,waitafter,writeToFile));
     }
 }
 
@@ -114,14 +115,16 @@ void Fixture::execute()
 
 		try
 		{
-			current.process_ = std::make_unique<boost::process::child>(ss.str(), boost::process::std_err > *current.output_);
+			//current.process_ = std::make_unique<boost::process::child>(ss.str(), boost::process::std_err > *current.output_);
+            current.process_ = std::make_unique<boost::process::child>(ss.str(), boost::process::std_out > current.writeToFile_, boost::process::std_err > current.writeToFile_);
+            
 		}
 		catch(const boost::process::process_error& e)
 		{
 			TXLOG(Severity::critical) << "load prerequisite:" << ss.str() <<" error:" <<e.what() << std::endl;
 			continue;
 		}
-        
+        /*
         current.writer_=std::make_unique<std::thread>([&] {
             std::this_thread::sleep_for(std::chrono::microseconds(10));
             std::ofstream ofs("./log/prerequisite_"+current.commandName_);
@@ -134,7 +137,7 @@ void Fixture::execute()
                     continue;
                 ofs << line << std::endl;
             }
-    });
+    });*/
 
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(5000));
@@ -169,15 +172,16 @@ void Fixture::fixtureCheker()
     }
 }
 
-Fixture::FixtureParam::FixtureParam(const std::string& commandName,const std::string& commandParam,const std::string& prefix,bool kill,bool enabled,unsigned int waitafter):
+Fixture::FixtureParam::FixtureParam(const std::string& commandName,const std::string& commandParam,const std::string& prefix,bool kill,bool enabled,unsigned int waitafter,const std::string& writeToFile):
                                                                                                                                                 commandName_(commandName),
                                                                                                                                                 commandParam_(commandParam),
                                                                                                                                                 kill_(kill),
                                                                                                                                                 enabled_(enabled),
                                                                                                                                                 prefix_(prefix),
-                                                                                                                                                waitafter_(waitafter)
+                                                                                                                                                waitafter_(waitafter),
+                                                                                                                                                writeToFile_(writeToFile)
 {
-    output_=std::make_unique<boost::process::ipstream>();
+    //output_=std::make_unique<boost::process::ipstream>();
 }
 
 }

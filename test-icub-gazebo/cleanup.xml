@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<testbody>
-	<info note="Clean up." shortnote="" version="1.0" />
-	<logging loggingtype="" loggingpart="" loggingwrappername="" />
-	<settings wait="0" />
-	<command library="general" name="wait" seconds="4" repetitions="1" wait="0" reporterror="true" />
-	<command library="general" name="execute" command="killall" param="yarpserver gzclient gzserver" prefix="" tag="icubsim" waitafter="2" kill="false" usetestpath="false" nobackground="false" repetitions="1" wait="0" reporterror="true" />
-	</testbody>
