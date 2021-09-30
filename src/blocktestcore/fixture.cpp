@@ -107,10 +107,10 @@ void Fixture::execute()
 #else
 		ss << current.commandName_ << " " << current.commandParam_ << " &";
 #endif
-        TXLOG(Severity::info)<<"prerequisite executed:"<<ss.str()<<std::endl;
+        TXLOG(Severity::info)<<"pre-requisite executed:"<<ss.str()<<std::endl;
         
         std::cout<<"-------------------------------------------"<<std::endl;
-        std::cout<<"prerequisite executed:"<<ss.str()<<std::endl;
+        std::cout<<"pre-requisite executed:"<<ss.str()<< "log file:"<<current.writeToFile_<<std::endl;
         std::cout<<"-------------------------------------------"<<std::endl;
 
 		try
