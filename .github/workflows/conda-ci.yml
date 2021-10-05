@@ -1,4 +1,4 @@
-name: C++ CI Workflow with conda dependencies
+name: Continuous Integration with conda dependencies
 
 on:
   push:
