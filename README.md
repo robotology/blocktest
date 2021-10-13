@@ -450,6 +450,8 @@ These commands are contained in the generic command library plugin.
                 reporterror="true"
                 nobackground="false" --Not used 
                 usetestpath="false"
+                waitforend="false"
+                expectedexitcode="0"
                 tag="loggingstart" />
     </command>
     ```
@@ -458,6 +460,7 @@ These commands are contained in the generic command library plugin.
     The command executes the specified application.  
     Note the: ```usetestpath```, it executes the application or script using the same path of the tests.
     The ```writetofile``` send log stdout and stderr to file.
+    The ```waitforend``` wait for the command to end and the command ```expectedexitcode``` compare this value to the exit code of the command.
 
 -   **writeserial**
 
