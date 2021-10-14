@@ -34,7 +34,7 @@ class ActionExecute : public Action
         bool kill_{false};
         bool nobackground_{false};
         unsigned int waitafter_{0};
-        bool waitForEnd_{true};
+        bool waitForEnd_{false};
         int expectedExitCode_{0};
         std::string tag_;
         bool useTestPath_{false};
