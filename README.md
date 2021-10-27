@@ -116,6 +116,10 @@ export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/<build/install_dir_of_ycm>
 Instead, if you use robotology_superbuild in .bashrc:
 ```
 export CMAKE_PREFIX_PATH=:${ROBOTOLOGY_SUPERBUILD_BUILD_DIR}/src/YCM
+
+export ROBOTOLOGY_SUPERBUILD_INSTALL_DIR=<path to your robotology install dir>
+source ${ROBOTOLOGY_SUPERBUILD_INSTALL_DIR}/share/robotology-superbuild/setup.sh
+
 ```
 
 ### 5.2.3. Numpy
