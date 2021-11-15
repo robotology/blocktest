@@ -21,7 +21,7 @@ namespace GenericActions
 
 ActionWait::ActionWait(const CommandAttributes& commandAttributes,const std::string& testCode):Action(commandAttributes,testCode)
 { 
-    getCommandAttribute("seconds",seconds_);      
+    getCommandAttribute("seconds",seconds_);  
 }     
 
 void ActionWait::beforeExecute()

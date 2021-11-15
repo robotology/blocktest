@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/install/bin/blocktestrunner",
             "args": [
                 "test.xml",
-                "${workspaceFolder}/install/bin"
+                "${workspaceFolder}/install/bin/tests/test-ros-gazebo"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/install/bin",
