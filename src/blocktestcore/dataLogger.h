@@ -21,6 +21,7 @@
 #include <fstream>
 #include <queue>
 #include <iomanip>
+#include <thread>
 
 namespace BlockTestCore
 {
