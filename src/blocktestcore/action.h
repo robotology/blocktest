@@ -12,16 +12,16 @@
 
 #pragma once
 
-#include "type.h"
-#include "api.h"
-#include "logger.h"
-#include "general.h"
-
-#include <vector>
 #include <iostream>
 #include <string>
+#include <vector>
 
-using CommandAttributes=std::map<std::string,std::string>;
+#include "api.h"
+#include "general.h"
+#include "logger.h"
+#include "type.h"
+
+using CommandAttributes = std::map<std::string, std::string>;
 
 #include "actionRegister.h"
 #include "testrepetitions.h"
@@ -36,48 +36,57 @@ namespace BlockTestCore
 
 class BLOCKTEST_EXPORT Action
 {
-    public:      
-        Action(const CommandAttributes& commandAttributes,const std::string& testCode);
-        virtual void beforeExecute() =0;
-        virtual execution execute(const TestRepetitions& testrepetition)=0;
-        virtual double getDouble() {return 0;};
-        virtual ~Action();
+   public:
+	Action(const CommandAttributes& commandAttributes, const std::string& testCode);
+	virtual void beforeExecute(){};
+	virtual execution execute(const TestRepetitions& testrepetition) = 0;
+	virtual void afterExecute(){};
+    virtual void afterExecuteAllRepetitions(){};
+	virtual double getDouble()
+	{
+		return 0;
+	};
+	virtual ~Action();
 
-    protected:
-        std::string normalize(const std::string& str,bool justFetch) const;
-        std::string normalizeSingle(const std::string& str,bool justFetch) const;
-        double normalizeDouble(const std::string& str,bool justFetch) const;
-        int normalizeInt(const std::string& str,bool justFetch) const;
-        unsigned int normalizeUInt(const std::string& str,bool justFetch) const;
+   protected:
+	std::string normalize(const std::string& str, bool justFetch) const;
+	std::string normalizeSingle(const std::string& str, bool justFetch) const;
+	double normalizeDouble(const std::string& str, bool justFetch) const;
+	int normalizeInt(const std::string& str, bool justFetch) const;
+	unsigned int normalizeUInt(const std::string& str, bool justFetch) const;
 
-        void addProblem(const TestRepetitions& repetitions,Severity severity,const std::string& errorMessage,bool alsoLog) const;
-        std::string testCode_;
+	void addProblem(const TestRepetitions& repetitions, Severity severity, const std::string& errorMessage, bool alsoLog) const;
+	std::string testCode_;
 
-        bool reporterror_{true};
+	bool reporterror_{true};
 
-        //helper funcion
-        virtual void getCommandAttribute(const std::string& name,std::string& out) const;
-        virtual void getCommandAttribute(const std::string& name,unsigned int& out) const;
-        virtual void getCommandAttribute(const std::string& name,int& out) const;
-        virtual void getCommandAttribute(const std::string& name,double& out) const;
-        virtual void getCommandAttribute(const std::string& name,bool& out) const;
+	// helper funcion
+	virtual void getCommandAttribute(const std::string& name, std::string& out) const;
+	virtual void getCommandAttribute(const std::string& name, unsigned int& out) const;
+	virtual void getCommandAttribute(const std::string& name, int& out) const;
+	virtual void getCommandAttribute(const std::string& name, double& out) const;
+	virtual void getCommandAttribute(const std::string& name, bool& out) const;
 
-    private:
-        const CommandAttributes commandAttributes_;
+   private:
+	const CommandAttributes commandAttributes_;
 
-    public:  
-        //helper funcion      
-        template <typename T> static void tokenize(const std::string& toTokenize,std::vector<T>& out){
-            std::istringstream ss{toTokenize};
-            out=std::vector<T>{std::istream_iterator<T>{ss},std::istream_iterator<T>()};
-        }
+   public:
+	// helper funcion
+	template <typename T>
+	static void tokenize(const std::string& toTokenize, std::vector<T>& out)
+	{
+		std::istringstream ss{toTokenize};
+		out = std::vector<T>{std::istream_iterator<T>{ss}, std::istream_iterator<T>()};
+	}
 
-        template <typename T> static std::vector<T> tokenize(const std::string& toTokenize) {
-            std::vector<T> out;
-            std::istringstream ss{ toTokenize };
-            out = std::vector<T>{ std::istream_iterator<T>{ss},std::istream_iterator<T>() };
-            return out;
-        }
+	template <typename T>
+	static std::vector<T> tokenize(const std::string& toTokenize)
+	{
+		std::vector<T> out;
+		std::istringstream ss{toTokenize};
+		out = std::vector<T>{std::istream_iterator<T>{ss}, std::istream_iterator<T>()};
+		return out;
+	}
 };
 
-}
+}  // namespace BlockTestCore

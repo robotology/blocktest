@@ -116,6 +116,10 @@ export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/<build/install_dir_of_ycm>
 Instead, if you use robotology_superbuild in .bashrc:
 ```
 export CMAKE_PREFIX_PATH=:${ROBOTOLOGY_SUPERBUILD_BUILD_DIR}/src/YCM
+
+export ROBOTOLOGY_SUPERBUILD_INSTALL_DIR=<path to your robotology install dir>
+source ${ROBOTOLOGY_SUPERBUILD_INSTALL_DIR}/share/robotology-superbuild/setup.sh
+
 ```
 
 ### 5.2.3. Numpy
@@ -450,6 +454,8 @@ These commands are contained in the generic command library plugin.
                 reporterror="true"
                 nobackground="false" --Not used 
                 usetestpath="false"
+                waitforend="false"
+                expectedexitcode="0"
                 tag="loggingstart" />
     </command>
     ```
@@ -458,6 +464,7 @@ These commands are contained in the generic command library plugin.
     The command executes the specified application.  
     Note the: ```usetestpath```, it executes the application or script using the same path of the tests.
     The ```writetofile``` send log stdout and stderr to file.
+    The ```waitforend``` wait for the command to end and the command ```expectedexitcode``` compare this value to the exit code of the command.
 
 -   **writeserial**
 

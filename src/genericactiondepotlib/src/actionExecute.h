@@ -31,9 +31,11 @@ class ActionExecute : public Action
         std::string commandName_;
         std::string commandParam_;
         std::string prefix_;    
-        bool kill_;
+        bool kill_{false};
         bool nobackground_{false};
-        unsigned int waitafter_;
+        unsigned int waitafter_{0};
+        bool waitForEnd_{false};
+        int expectedExitCode_{0};
         std::string tag_;
         bool useTestPath_{false};
         std::string writeToFile_;

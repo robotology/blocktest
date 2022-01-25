@@ -1,0 +1,31 @@
+    {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/install/bin/blocktestrunner",
+            "args": [
+                "test.xml",
+                "${workspaceFolder}/install/bin/tests/test-ros-gazebo"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/install/bin",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "visualizerFile": "/home/triccyx/.config/Code/User/workspaceStorage/80f73f0241e324f4f5c5d1f54681c241/tonka3000.qtvsctools/qt.natvis.xml"
+        }
+    ]
+}

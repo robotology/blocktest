@@ -1,6 +1,6 @@
 /******************************************************************************
  *                                                                            *
- * Copyright (C) 2019 Fondazione Istituto Italiano di Tecnologia (IIT)        *
+ * Copyright (C) 2021 Fondazione Istituto Italiano di Tecnologia (IIT)        *
  * All Rights Reserved.                                                       *
  *                                                                            *
  ******************************************************************************/
@@ -11,6 +11,9 @@
  */
 
 #include "actionExecute.h"
+
+#include <cstddef>
+#include <sstream>
 
 #include "logger.h"
 #include "report.h"
@@ -37,6 +40,8 @@ void ActionExecute::beforeExecute()
 	getCommandAttribute("nobackground", nobackground_);
 	getCommandAttribute("usetestpath", useTestPath_);
 	getCommandAttribute("writetofile", writeToFile_);
+	getCommandAttribute("waitforend", waitForEnd_);
+	getCommandAttribute("expectedexitcode", expectedExitCode_);
 }
 
 execution ActionExecute::execute(const TestRepetitions& testrepetition)
@@ -66,31 +71,40 @@ execution ActionExecute::execute(const TestRepetitions& testrepetition)
 
 	ss << commandName_ << " " << normalize(commandParam_, false);
 
-    /*
-	if (!nobackground_)
-		ss << " &";
-    */
-    
 	if (processes_.find(tagTmp) != processes_.end())
 	{
 		TXLOG(Severity::warning) << "Repetition " << testrepetition.testRepetitions_ << ": duplicate execute command tag " << tagTmp << std::endl;
-		// return execution::stopexecution;
 	}
 
 	TXLOG(Severity::debug) << "Executing:" << ss.str() << std::endl;
 	try
 	{
 		std::string writeToFileTmp = normalizeSingle(writeToFile_, false);
+		std::shared_ptr<boost::process::child> process{nullptr};
 		if (!writeToFile_.empty())
-        {
-			auto process = std::make_shared<boost::process::child>(ss.str(), boost::process::std_out > writeToFileTmp, boost::process::std_err > writeToFileTmp);
-            processes_[tagTmp] = process;
-        }
+		{
+			process = std::make_shared<boost::process::child>(ss.str(), boost::process::std_out > writeToFileTmp, boost::process::std_err > writeToFileTmp);
+		}
 		else
-        {
-			auto process = std::make_shared<boost::process::child>(ss.str());
-            processes_[tagTmp] = process;
-        }
+		{
+			process = std::make_shared<boost::process::child>(ss.str());
+		}
+
+		if (waitForEnd_)
+		{
+			process->wait();
+			int result = process->exit_code();
+			if (result != expectedExitCode_)
+			{
+				std::stringstream sstmp;
+				sstmp << "Wrong exit code:" << result << " Expected:" << expectedExitCode_ << std::endl;
+				addProblem({0, 0}, Severity::critical, sstmp.str(), true);
+			}
+		}
+		else
+		{
+			processes_[tagTmp] = process;
+		}
 	}
 	catch (const std::exception& e)
 	{

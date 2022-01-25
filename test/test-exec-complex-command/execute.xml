@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Execute gazebo." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />	
+
+    <command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="execute" command="sleep" param=" 10" prefix="" tag="echo" waitafter="1" waitforend="true" expectedexitcode="56" kill="false" usetestpath="false" nobackground="false" writetofile="log/echo.log" repetitions="1" wait="0" reporterror="true" />    
+    <command library="general" name="wait" seconds="10" repetitions="1" wait="0" reporterror="true" />
+    
+</testbody>

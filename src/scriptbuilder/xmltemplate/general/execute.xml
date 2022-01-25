@@ -11,5 +11,7 @@
                 reporterror="true"
                 usetestpath="false"
                 nobackground="false"
-                writetofile="">
+                writetofile=""
+                usetestpath="false"
+                waitforend="false">
 </command>
