@@ -78,6 +78,9 @@ target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CM
 set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES VERSION  ${${PROJECT_NAME}_VERSION}
                                                         PUBLIC_HEADER "${BlockTestCoreHdr}")
 
+
+target_compile_features(${LIBRARY_TARGET_NAME} PRIVATE cxx_std_17)
+
 install(TARGETS ${LIBRARY_TARGET_NAME}
         EXPORT ${LIBRARY_TARGET_NAME}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
