@@ -79,14 +79,14 @@
 	<prerequisite enabled="false" command="demoRedBall" waitafter="2000" param="--from config-test.ini" prefix="" kill="true" />
 
 	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic actions library" />
-	<library enabled="true" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp actions library" />
+	<library enabled="false" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp actions library" />
 	<library enabled="false" path="blocktestcustomplugins/libblocktestcustomplugins" name="customactiondepot" note="Custom actions library" />
-	<library enabled="true" path="blocktestkukaplugins/libblocktestidjlplugins" name="idjlactiondepot" note="Idjl actions library" />
+	<library enabled="false" path="blocktestkukaplugins/libblocktestidjlplugins" name="idjlactiondepot" note="Idjl actions library" />
 
 	<librarysettings enabled="true" name="genericactiondepot" />
-	<librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="false" />
+	<librarysettings enabled="false" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="false" />
 	<!-- <librarysettings enabled="false" name="yarpactiondepot" wrappername="" robotname="icubSim" netclock="false" />  -->
 	<librarysettings enabled="false" name="customactiondepot" />
-	<librarysettings enabled="true" name="idjlactiondepot" />
+	<librarysettings enabled="false" name="idjlactiondepot" />
 
 </testlist>
