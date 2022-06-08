@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <testlist repetitions="1">
-	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="test/tables/main.tab" waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp"  relativetime="true" unixtime="false"/>/> 
+	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="infologger"  relativetime="true" unixtime="false"/>/> 
 	<!-- <settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.01" tablename="test/tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="InfoLoggerIdjl" relativetime="true" unixtime="false"/>-->
 	
 	<!-- ICub move -->

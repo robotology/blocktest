@@ -25,7 +25,8 @@ RUN apt update &&\
     netcat \
     iproute2 \
     screen \
-    x11-apps
+    x11-apps \
+    htop
 
 RUN mkdir -p ${PROJECTS_DIR}
 RUN mkdir -p ${PROJECTS_DIR}/install
@@ -86,7 +87,7 @@ ENV YARP_COLORED_OUTPUT 1
 
 ARG metadata="none"
 ENV img_metadata=${metadata}
-RUN echo 'echo 'This image has Blocktest docker build v1.1
+RUN echo "echo This image has Blocktest docker build v1.1"
 
 # Clean up unnecessary installation products
 RUN rm -Rf /var/lib/apt/lists/*
