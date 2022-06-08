@@ -19,6 +19,14 @@ ARG CMAKE_GENERATOR="Unix Makefiles"
 ARG CMAKE_EXTRA_OPTIONS=-j12
 ARG INSTALL_DIR=/usr/local
 
+#Other minor dependances
+RUN apt update &&\
+    apt install -y \
+    netcat \
+    iproute2 \
+    screen \
+    x11-apps
+
 RUN mkdir -p ${PROJECTS_DIR}
 RUN mkdir -p ${PROJECTS_DIR}/install
 
@@ -65,14 +73,6 @@ RUN cd ${PROJECTS_DIR}/blocktest-yarp-plugins &&\
 RUN mkdir -p /root/.config/yarp
 COPY yarp.conf /root/.config/yarp/yarp.conf
 #RUN echo "export PATH=\${PATH}:${PROJECTS_DIR}/yarp-device-ultrapython/clientScript:${PROJECTS_DIR}/yarp-device-ultrapython/build/bin" >> ${ROBOTOLOGY_INITIALIZATION_FILE}
-
-#Other
-RUN apt update &&\
-    apt install -y \
-    netcat \
-    iproute2 \
-    screen \
-    gedit
 
 # Clean up git configuration
 #RUN git config --global --unset-all user.name && \
