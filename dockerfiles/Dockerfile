@@ -25,8 +25,7 @@ RUN apt update &&\
     netcat \
     iproute2 \
     screen \
-    x11-apps \
-    htop
+    x11-apps 
 
 RUN mkdir -p ${PROJECTS_DIR}
 RUN mkdir -p ${PROJECTS_DIR}/install
@@ -36,6 +35,8 @@ RUN mkdir -p ${PROJECTS_DIR}/install
 ENV CMAKE_PREFIX_PATH=${INSTALL_DIR}
 
 # Install blocktest
+ARG CACHE_DATE=2016-01-01
+
 RUN cd ${PROJECTS_DIR} &&\
     git clone https://github.com/robotology/blocktest --branch ${BLOCKTEST_RELEASE}
 
@@ -51,7 +52,6 @@ RUN cd ${PROJECTS_DIR}/blocktest &&\
     cmake --build . -- ${CMAKE_EXTRA_OPTIONS} &&\
     cmake --install . && \
     cd ../../ 
-# && rm -Rf blocktest
 
 # Install blocktest-yarp-plugin
 RUN cd ${PROJECTS_DIR} &&\
