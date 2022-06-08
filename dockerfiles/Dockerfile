@@ -5,6 +5,8 @@ LABEL org.opencontainers.image.description="Infrastructure to deal with Blocktes
 LABEL org.opencontainers.image.source="https://github.com/robotology/blocktest"
 LABEL org.opencontainers.image.authors="Luca Tricerri <luca.tricerri@iit.it>"
 
+EXPOSE 22
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Select options
@@ -40,7 +42,7 @@ RUN cd ${PROJECTS_DIR}/blocktest &&\
     cmake --build . -- ${CMAKE_EXTRA_OPTIONS} &&\
     cmake --install . && \
     cd ../../ 
-    # && rm -Rf blocktest
+# && rm -Rf blocktest
 
 # Install blocktest-yarp-plugin
 RUN cd ${PROJECTS_DIR} &&\
@@ -58,7 +60,7 @@ RUN cd ${PROJECTS_DIR}/blocktest-yarp-plugins &&\
     cmake --build . -- ${CMAKE_EXTRA_OPTIONS} && \
     cmake --install . && \
     cd ../../ 
-    # && rm -Rf blocktest-yarp-plugins
+# && rm -Rf blocktest-yarp-plugins
 
 RUN mkdir -p /root/.config/yarp
 COPY yarp.conf /root/.config/yarp/yarp.conf
@@ -69,7 +71,8 @@ RUN apt update &&\
     apt install -y \
     netcat \
     iproute2 \
-    screen
+    screen \
+    gedit
 
 # Clean up git configuration
 #RUN git config --global --unset-all user.name && \
