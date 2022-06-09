@@ -28,7 +28,8 @@ RUN apt update &&\
     screen \
     x11-apps \
     curl \
-    gnupg2 
+    gnupg2 \
+    killall
 
 #ROS2
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
@@ -87,7 +88,7 @@ COPY ros2_entrypoint.sh ${PROJECTS_DIR}
 ENTRYPOINT ["/projects/ros2_entrypoint.sh"]
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-ARG CACHE_DATE=2021-01-05
+ARG CACHE_DATE=2021-01-12
 RUN cd ${PROJECTS_DIR} &&\
     git clone https://github.com/robotology/blocktest-ros-plugins --branch ${BLOCKTEST_ROS_PLUGINS_RELEASE}
 
