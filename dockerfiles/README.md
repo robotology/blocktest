@@ -16,32 +16,38 @@ sudo apt update
 sudo apt install docker-ce
 ```
 
-# 3. Pull the Blocktest Docker
+# 3. Using the Blocktest Docker
 
-Execute the following:
+Use these commands on your host:
+
 ```bash
-docker pull ghcr.io/robotology/yarp-device-ultrapython:latest
-```
-
-# 4. Using the Blocktest Docker
-Follow the steps:
-
-- Use the command on your host:
-```bash
-docker run --rm -it --network host --privileged --env DISPLAY=${DISPLAY} --env XAUTHORITY=/root/.Xauthority --mount type=bind,source=${XAUTHORITY},target=/root/.Xauthority --mount type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix --name my_blocktest  blocktest
+docker run --rm -it --network host --privileged --env DISPLAY=${DISPLAY} --env XAUTHORITY=/root/.Xauthority --mount type=bind,source=${XAUTHORITY},target=/root/.Xauthority --mount type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix --name my_blocktest  icubteamcode/blocktest-robometry:latest
 
 cd /project/install/bin
 ./blocktestrunner test.xml test
 
 ```
 
-# 6. Create (only if you need it)
-Use the following command in the docker folder:
-```console
-docker build . --build-arg "BLOCKTEST_RELEASE=devel" --build-arg "ROBOTOLOGY_SUPERBUILD_RELEASE=v2022.05.0" --tag blocktest
+If you need to open a new bash:
+```bash
+docker exec -it my_blocktest bash
 ```
 
-# Note
+# 4. Create 
+Use the following command in the docker folder:
+```console
+docker build -f ./DockerfileRos2 --tag icubteamcode/blocktest-robometry:latest
 ```
-https://hub.docker.com/r/icubteamcode/superbuild
+For push:
+```bash
+docker login
+docker push icubteamcode/blocktest-robometry:latest
 ```
+
+# 5. Pull the Blocktest Docker -- obsolete
+
+Execute the following:
+```bash
+docker pull ghcr.io/robotology/yarp-device-ultrapython:latest
+```
+
