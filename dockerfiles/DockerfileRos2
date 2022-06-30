@@ -1,0 +1,63 @@
+# Definitions
+ARG ROS_IMG=ros:foxy-ros-core
+ARG SUPERBUILD_IMG=icubteamcode/superbuild-icubhead:master-stable_sources
+ARG PROJECTS_DIR=/projects
+ARG INSTALL_DIR="${PROJECTS_DIR}/install"
+ARG CMAKE_EXTRA_OPTIONS=-j4
+ARG BUILD_TYPE=Debug
+
+FROM $SUPERBUILD_IMG as superbuild_builder
+FROM $ROS_IMG as ros_builder
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+LABEL maintainer="nicolo.genesio@iit.it"
+
+ARG PROJECTS_DIR
+ARG INSTALL_DIR
+ARG CMAKE_EXTRA_OPTIONS
+ARG BUILD_TYPE
+
+COPY --from=superbuild_builder ${PROJECTS_DIR} ${PROJECTS_DIR}
+COPY --from=superbuild_builder /usr /usr
+COPY --from=superbuild_builder /etc /etc
+
+
+RUN apt-get update && apt-get install -y wget unzip netcat iproute2 curl gnupg2 psmisc x11-apps vim
+# Install blocktest
+RUN cd ${PROJECTS_DIR} && git clone https://github.com/robotology/blocktest && \
+    cd ${PROJECTS_DIR}/blocktest && \
+    mkdir build && cd build && \
+    cmake .. \
+        -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
+        -DCOMPILE_SCRIPTBUILDER=ON \
+        -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
+        &&\
+    make ${CMAKE_EXTRA_OPTIONS} && \
+    make install 
+
+SHELL ["/bin/bash", "-c"] 
+# Install blocktest-ros-plugins
+RUN cd ${PROJECTS_DIR} &&\
+    source  /opt/ros/foxy/setup.bash && \
+    git clone https://github.com/robotology/blocktest-ros-plugins && \
+    cd ${PROJECTS_DIR}/blocktest-ros-plugins/ROS2 && \
+    mkdir build && cd build &&\
+    cmake .. \
+        -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
+        -DENABLE_ROBOMETRY:BOOL=ON \
+        -DCMAKE_BUILD_TYPE=${BUILD_TYPE} &&\
+    make ${CMAKE_EXTRA_OPTIONS} && \
+    make install
+        
+
+RUN echo 'source "/opt/ros/foxy/setup.bash"' >> /usr/local/bin/setup_robotology_tdd.sh
+
+RUN rm -Rf /var/lib/apt/lists/*
+
+WORKDIR /projects/install/bin
+
+
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh"]
+
+CMD ["bash"]
