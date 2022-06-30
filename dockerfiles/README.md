@@ -23,7 +23,7 @@ Use these commands on your host:
 ```bash
 docker run --rm -it --network host --privileged --env DISPLAY=${DISPLAY} --env XAUTHORITY=/root/.Xauthority --mount type=bind,source=${XAUTHORITY},target=/root/.Xauthority --mount type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix --name my_blocktest  icubteamcode/blocktest-robometry:latest
 
-cd /project/install/bin
+cd /projects/install/bin
 ./blocktestrunner test.xml test
 
 ```
