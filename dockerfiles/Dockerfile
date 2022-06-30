@@ -29,7 +29,7 @@ RUN apt update &&\
     x11-apps \
     curl \
     gnupg2 \
-    killall
+    psmisc 
 
 #ROS2
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
@@ -109,6 +109,22 @@ RUN cd ${PROJECTS_DIR}/blocktest-ros-plugins &&\
 #RUN mkdir -p /root/.config/ros
 #COPY ros.conf /root/.config/ros/ros.conf
 #RUN echo "export PATH=\${PATH}:${PROJECTS_DIR}/yarp-device-ultrapython/clientScript:${PROJECTS_DIR}/yarp-device-ultrapython/build/bin" >> ${ROBOTOLOGY_INITIALIZATION_FILE}
+
+RUN apt update &&\
+    apt install -y \
+    terminator \
+    gnupg2 \
+    software-properties-common \
+    apt-transport-https \
+    wget 
+
+RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"   
+
+RUN apt update && \
+    apt install -y code
+
+  
 
 # Clean up git configuration
 #RUN git config --global --unset-all user.name && \
