@@ -1,6 +1,6 @@
 # Definitions
 ARG ROS_IMG=ros:foxy-ros-core
-ARG SUPERBUILD_IMG=icubteamcode/superbuild-icubhead:master-stable_sources
+ARG SUPERBUILD_IMG=icubteamcode/superbuild-gazebo:master-stable_sources
 ARG PROJECTS_DIR=/projects
 ARG INSTALL_DIR="${PROJECTS_DIR}/install"
 ARG CMAKE_EXTRA_OPTIONS=-j4
@@ -22,8 +22,13 @@ COPY --from=superbuild_builder ${PROJECTS_DIR} ${PROJECTS_DIR}
 COPY --from=superbuild_builder /usr /usr
 COPY --from=superbuild_builder /etc /etc
 
+# Enable dynamics profile
+RUN cd ${PROJECTS_DIR}/robotology-superbuild/build && \
+    cmake .. \
+        -DROBOTOLOGY_ENABLE_DYNAMICS:BOOL=ON &&\
+    cmake --build . -- ${CMAKE_EXTRA_OPTIONS}
 
-RUN apt-get update && apt-get install -y wget unzip netcat iproute2 curl gnupg2 psmisc x11-apps vim
+
 # Install blocktest
 RUN cd ${PROJECTS_DIR} && git clone https://github.com/robotology/blocktest && \
     cd ${PROJECTS_DIR}/blocktest && \
@@ -49,7 +54,8 @@ RUN cd ${PROJECTS_DIR} &&\
         -DCMAKE_BUILD_TYPE=${BUILD_TYPE} &&\
     make ${CMAKE_EXTRA_OPTIONS} && \
     make install
-        
+
+RUN apt-get update && apt-get install -y wget unzip netcat iproute2 curl gnupg2 psmisc x11-apps vim
 
 RUN echo 'source "/opt/ros/foxy/setup.bash"' >> /usr/local/bin/setup_robotology_tdd.sh
 
