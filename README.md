@@ -29,6 +29,7 @@
   - [5.3. Prerequisite Windows](#53-prerequisite-windows)
   - [5.4. Installation and compilation](#54-installation-and-compilation)
 - [6. Test writing](#6-test-writing)
+  - [Tests structure](#tests-structure)
   - [6.1. General Settings](#61-general-settings)
   - [6.2. Library Settings](#62-library-settings)
   - [6.3. Prerequisites](#63-prerequisites)
@@ -177,8 +178,16 @@ are stored.
 If you are using the [`robotology-superbuild`](https://github.com/robotology/robotology-superbuild) with the `ROBOT_TESTING` profile enabled, the variable is already exported by the superbuild setup scripts.
 # 6. Test writing
 
+
 For easy test writing, you can skip directly to the section [Scriptbuilder](##5.6.-test-writing-with-scriptbuilder). You can use the test writing tool called ScriptBuilder.  <br>
 Otherwise, the starting point for writing a test is the file ./test/test.xml, see below.
+
+## Tests structure
+
+In figure you can see tests structure.
+![alt](img/teststruct.png)
+
+The main test file is ./test/test.xml.
 
 ```xml
     <testlist repetitions="1">a
@@ -217,7 +226,7 @@ This file contains:
  * the simulation general settings
  * the blocktest used shared libraries
  * the prerequisites
- * the tests link list
+ * the tests list
 
 ## 6.1. General Settings
 
