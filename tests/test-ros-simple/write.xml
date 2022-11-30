@@ -1,0 +1,9 @@
+<?xml version='1.0'?>
+<testbody>
+	<info note='Publish on OS topic.' shortnote='' version='1.0' />
+	<logging loggingtype='position' loggingpart='' loggingwrappername='' />
+	<settings wait='0' />
+
+	<command library='ros' name='rostopicwrite' topic='mytopic' data='{"std_msg_String":{"data":"hello"}}' repetitions='1' wait='1' reporterror='true' />
+
+</testbody>

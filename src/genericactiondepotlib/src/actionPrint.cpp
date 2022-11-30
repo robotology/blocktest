@@ -34,8 +34,8 @@ namespace GenericActions
     {
         if(target_ == "shell")
         {
-            std::cout<<std::endl<<message_<<std::endl;
-            std::cout<<std::endl;
+            std::cerr<<std::endl<<message_<<std::endl;
+            std::cerr<<std::endl;
                
         } 
         else if(target_ == "log")
@@ -44,8 +44,8 @@ namespace GenericActions
         }
         else if(target_ == "shell-log")
         {
-            std::cout<<std::endl<<message_<<std::endl;
-            std::cout<<std::endl;
+            std::cerr<<std::endl<<message_<<std::endl;
+            std::cerr<<std::endl;
             TXLOG(Severity::info)<<message_<<std::endl;
         }
 

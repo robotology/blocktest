@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Kill a sleep command." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />	
+
+    <command library="general" name="wait" seconds="2" repetitions="1" wait="0" reporterror="true" />
+    <command library="general" name="print" target="shell-log" message="******** KILLALL***************" repetitions="1" reporterror="true" />
+    <command library="general" name="execute" command="killall" param=" sleep" prefix="" tag="echo" waitafter="1" waitforend="true" expectedexitcode="0" kill="false" usetestpath="false" nobackground="false" writetofile="log/echo.log" repetitions="1" wait="0" reporterror="true" />    
+    <command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+    
+</testbody>

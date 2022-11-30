@@ -16,6 +16,9 @@
 	<librarysettings enabled="false" name="yarpactiondepot" wrappername="" robotname="" netclock="false" />
 
 	<!-- Execute command -->
+	<test file="executeexit.xml" repetitions="1" repetitionsfortime="" code="executeexit" parallel="true" />
+	<test file="kill.xml" repetitions="1" repetitionsfortime="" code="kill" parallel="true" />
 	<test file="execute.xml" repetitions="1" repetitionsfortime="" code="execute" parallel="false" />
+	<test file="findinfile.xml" repetitions="1" repetitionsfortime="" code="findinfile" parallel="false" />
 
 </testlist>

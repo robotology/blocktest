@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<testlist repetitions="1">
+
+	<!-- Prerequisites -->
+	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="infologger"  relativetime="true" unixtime="false"/>/> 
+	<prerequisite enabled="true" command="gzserver" waitafter="5000" param="--verbose /opt/ros/foxy/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.world" writetofile="log/gzserver.log" prefix="" kill="true" />
+	<prerequisite enabled="true" command="gzclient" waitafter="5000" param="" writetofile="log/gzclient.log" prefix="" kill="true" />
+
+	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic actions library" />
+	<library enabled="true" path="blocktestrosplugins/libblocktestrosplugins" name="rosactiondepot" note="Ros actions library" />
+
+	<librarysettings enabled="true" name="genericactiondepot" />
+	<librarysettings enabled="true" name="rosactiondepot" wrappername="" robotname="" netclock="false" />
+	
+
+	<!-- Tests -->
+	<test file="writegeometry.xml" repetitions="1" repetitionsfortime="" code="write" parallel="true" />
+
+
+</testlist>
