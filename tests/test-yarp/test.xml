@@ -8,12 +8,6 @@
 	<test file="0101.xml" repetitions="0" repetitionsfortime="" code="0101" parallel="false" />
 	<test file="0102.xml" repetitions="0" repetitionsfortime="" code="0102" parallel="false" />
 	<test file="0103.xml" repetitions="0" repetitionsfortime="" code="0103" parallel="false" />
-1	<!-- Generic -->
-	<test file="0600.xml" repetitions="1" repetitionsfortime="" code="0600" parallel="false" />
-	<test file="0601.xml" repetitions="0" repetitionsfortime="" code="0601" parallel="false" />
-	<test file="0602.xml" repetitions="0" repetitionsfortime="" code="0602" parallel="false" />
-	<!-- Generic write serial-->
-	<test file="0610.xml" repetitions="0" repetitionsfortime="" code="0610" parallel="false" />
 
 	<!-- Kuka -->
 	<test file="0701.xml" repetitions="0" repetitionsfortime="" code="0701" parallel="false" />

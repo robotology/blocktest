@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Application execution." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="1" />
+
+	<command library="general" name="execute" command="xeyes" param="" prefix="" waitforend="false" expectedexitcode="0" usetestpath="false" nobackground="true" writetofile="log/echo.log" tag="xeyestag" waitafter="2" kill="false" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="execute" command="" param="" prefix="" waitforend="false" expectedexitcode="0" usetestpath="false" nobackground="true" writetofile="log/echo.log" tag="xeyestag" waitafter="2" kill="true" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="wait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+</testbody>

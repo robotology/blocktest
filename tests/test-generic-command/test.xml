@@ -18,7 +18,9 @@
 	<!-- Execute command -->
 	<test file="executeexit.xml" repetitions="1" repetitionsfortime="" code="executeexit" parallel="true" />
 	<test file="kill.xml" repetitions="1" repetitionsfortime="" code="kill" parallel="true" />
-	<test file="execute.xml" repetitions="1" repetitionsfortime="" code="execute" parallel="false" />
+	<test file="execute001.xml" repetitions="1" repetitionsfortime="" code="execute001" parallel="false" />
 	<test file="findinfile.xml" repetitions="1" repetitionsfortime="" code="findinfile" parallel="false" />
+	<test file="execute002.xml" repetitions="1" repetitionsfortime="" code="execute002" parallel="false" />
+	<test file="writeserial.xml" repetitions="0" repetitionsfortime="" code="writeserial" parallel="false" />
 
 </testlist>
