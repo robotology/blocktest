@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<testlist repetitions="1">
+	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="infologger"  relativetime="true" unixtime="false"/>/> 
+	<!-- <settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.01" tablename="tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="InfoLoggerIdjl" relativetime="true" unixtime="false"/>-->
+	
+	<!-- ICub move -->
+	<test file="0100.xml" repetitions="0" repetitionsfortime="" code="0100" parallel="false" />
+	<test file="0101.xml" repetitions="0" repetitionsfortime="" code="0101" parallel="false" />
+	<test file="0102.xml" repetitions="0" repetitionsfortime="" code="0102" parallel="false" />
+	<test file="0103.xml" repetitions="0" repetitionsfortime="" code="0103" parallel="false" />
+
+	<!-- Kuka -->
+	<test file="0701.xml" repetitions="0" repetitionsfortime="" code="0701" parallel="false" />
+	<test file="0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
+	<test file="0700.xml" repetitions="0" repetitionsfortime="" code="0700" parallel="false" />
+
+	<!-- Kuka Gazebo-->
+	<test file="0702.xml" repetitions="0" repetitionsfortime="" code="0702" parallel="true" />	
+	<test file="0701.xml" repetitions="0" repetitionsfortime="" code="0701" parallel="true" />
+	<test file="0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
+	<test file="0700.xml" repetitions="0" repetitionsfortime="" code="0700" parallel="false" />
+	<test file="0703.xml" repetitions="0" repetitionsfortime="" code="0703" parallel="false" />
+
+	<!-- YARP API -->
+	<test file="0010.xml" repetitions="0" repetitionsfortime="" code="nop_1" parallel="false" />
+	<test file="0800.xml" repetitions="0" repetitionsfortime="" code="0800" parallel="true" />
+	<test file="0801.xml" repetitions="0" repetitionsfortime="" code="0801" parallel="true" />
+	<test file="0802.xml" repetitions="0" repetitionsfortime="" code="0802" parallel="true" />
+	<test file="0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
+
+	<!-- YARP API SERIAL-->
+	<test file="0810.xml" repetitions="0" repetitionsfortime="" code="0810" parallel="false" />
+
+	<!-- RED BALL -->
+	<test file="0900.xml" repetitions="0" repetitionsfortime="" code="0900" parallel="false" />
+	<test file="0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
+	<test file="0901.xml" repetitions="0" repetitionsfortime="" code="0901" parallel="true" />
+	<test file="0902.xml" repetitions="0" repetitionsfortime="" code="0902" parallel="true" />
+	<test file="0903.xml" repetitions="0" repetitionsfortime="" code="0903" parallel="false" />
+	<test file="0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
+	<test file="0002.xml" repetitions="0" repetitionsfortime="" code="cleanup" parallel="false" />
+
+	<!-- RED BALL -->
+	<test file="0900.xml" repetitions="0" repetitionsfortime="" code="0900" parallel="false" />
+	<test file="0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
+	<test file="0904.xml" repetitions="0" repetitionsfortime="" code="0904" parallel="true" />
+	<test file="0902.xml" repetitions="0" repetitionsfortime="" code="0902" parallel="true" />
+	<test file="0903.xml" repetitions="0" repetitionsfortime="" code="0903" parallel="false" />
+	<test file="0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
+
+	<test file="0001.xml" repetitions="0" repetitionsfortime="" code="cleanup2" parallel="false" />
+
+	<prerequisite enabled="false" command="roscore" waitafter="5000" param="" prefix="" kill="true" />
+	<prerequisite enabled="false" command="yarpserver" waitafter="5000" param="--silent --write --ros" prefix="" kill="true" />
+	<prerequisite enabled="false" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub.world" prefix="" kill="true" />
+
+	<prerequisite enabled="false"  command="yarpserver" waitafter="5000" param="--silent --write" prefix="" kill="true" />
+	<prerequisite enabled="false" command="yarpdev" waitafter="5000" param="--from serialPortConf.ini" prefix="" kill="true" />
+	<prerequisite enabled="false"  command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub_fixed.world" prefix="" kill="true" />
+	<prerequisite enabled="false" command="gzserver" waitafter="5000" param="--verbose kr30_ha-rsi.world" prefix="" kill="true" />
+	<prerequisite enabled="false"  command="gzclient" waitafter="1000" param="" prefix="" kill="true" />
+	<prerequisite enabled="false" command=".///files//movegzclient.sh" waitafter="5000" param="" prefix="" kill="false" />
+	
+	<prerequisite enabled="false" command="yarpdev" waitafter="5000" param="--device transformServer --ROS::enable_ros_publisher 1 --ROS::enable_ros_subscriber 1 --transforms_lifetime 0.5" prefix="YARP_CLOCK=/clock" kill="true" />
+	<prerequisite enabled="false" command="yarprobotinterface" waitafter="5000" param="--config main-fbe.xml" prefix="" kill="true" />
+	<prerequisite enabled="false" command="roslaunch" waitafter="5000" param="icub robotStatePublisher.launch" prefix="" kill="true" />
+	<prerequisite enabled="false" command="iCub_SIM" waitafter="2000" param="" prefix="" kill="true" />
+	<prerequisite enabled="false" command="yarprobotinterface" waitafter="2000" param="--context simCartesianControl --config no_legs.xml" prefix="" kill="true" />
+	<prerequisite enabled="false" command="iKinGazeCtrl" waitafter="2000" param="--from configSim.ini" prefix="" kill="true" />
+	<prerequisite enabled="false" command="iKinCartesianSolver" waitafter="2000" param="--context simCartesianControl --part right_arm" prefix="" kill="true" />
+	<prerequisite enabled="false" command="iKinCartesianSolver" waitafter="2000" param="--context simCartesianControl --part left_arm" prefix="" kill="true" />
+	<prerequisite enabled="false" command="iCubGui" waitafter="2000" param="--xpos 800 --ypos 80 --width 370" prefix="" kill="true" />
+	<prerequisite enabled="false" command="demoRedBall" waitafter="2000" param="--from config-test.ini" prefix="" kill="true" />
+
+	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic actions library" />
+	<library enabled="false" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp actions library" />
+	<library enabled="false" path="blocktestcustomplugins/libblocktestcustomplugins" name="customactiondepot" note="Custom actions library" />
+	<library enabled="false" path="blocktestkukaplugins/libblocktestidjlplugins" name="idjlactiondepot" note="Idjl actions library" />
+
+	<librarysettings enabled="true" name="genericactiondepot" />
+	<librarysettings enabled="false" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="false" />
+	<!-- <librarysettings enabled="false" name="yarpactiondepot" wrappername="" robotname="icubSim" netclock="false" />  -->
+	<librarysettings enabled="false" name="customactiondepot" />
+	<librarysettings enabled="false" name="idjlactiondepot" />
+
+</testlist>

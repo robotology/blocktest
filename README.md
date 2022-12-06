@@ -62,8 +62,8 @@
 - [11. Gazebo](#11-gazebo)
   - [11.1. Speed up model creation](#111-speed-up-model-creation)
   - [11.2. World file](#112-world-file)
-- [12. Authors](#12-authors)
-
+- [12. Examples](#12-examples)
+- [13. Authors](#13-authors)
 
 # 4. Introduction
 
@@ -843,7 +843,6 @@ Write your blocks, each block is derived from CAction.
 ## 10.6. XML files
 Write an xml file for each block.
 
-
 # 11. Gazebo
 If you need to make the simulation work on Gazebo.
 
@@ -853,8 +852,13 @@ Be sure to add to your ./bashrc
 export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:${ROBOTOLOGY_SUPERBUILD_SOURCE_DIR}/src/GazeboYARPPlugins/tutorial/model
 ```
 ## 11.2. World file
-If you need you could write your own ```.world``` file take a look at the
-```world``` folder
+If you need you could write your own ```.world``` file take a look at the ```world``` folder
 
-# 12. Authors
+# 12. Examples
+
+After `make install` in folder install\bin are present the following subfolders:
+- tests\test-generic-command
+- tests\test-yarp
+
+# 13. Authors
 * Luca Tricerri ([*personal page*](https://github.com/triccyx))
