@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<testlist repetitions="1">
+	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="infologger" relativetime="true" unixtime="false" />
+	/>
+	<!-- YARP API -->
+	<test file="0010.xml" repetitions="1" repetitionsfortime="" code="nop_1" parallel="false" />
+	<test file="0800.xml" repetitions="1" repetitionsfortime="" code="0800" parallel="true" />
+	<test file="0801.xml" repetitions="1" repetitionsfortime="" code="0801" parallel="true" />
+	<test file="0802.xml" repetitions="1" repetitionsfortime="" code="0802" parallel="true" />
+	<test file="0010.xml" repetitions="1" repetitionsfortime="" code="nop_2" parallel="false" />
+
+	<prerequisite enabled="true" command="yarpserver" waitafter="5000" param="--silent --write" prefix="" writetofile="yarpserver.log" kill="true" />
+
+	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic actions library" />
+	<library enabled="true" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp actions library" />
+
+	<librarysettings enabled="true" name="genericactiondepot" />
+	<librarysettings enabled="true" name="yarpactiondepot" wrappername="" robotname="icubSim" netclock="false" />
+
+</testlist>

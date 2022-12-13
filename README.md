@@ -29,16 +29,16 @@
   - [5.3. Prerequisite Windows](#53-prerequisite-windows)
   - [5.4. Installation and compilation](#54-installation-and-compilation)
 - [6. Test writing](#6-test-writing)
-  - [Tests structure](#tests-structure)
-  - [6.1. General Settings](#61-general-settings)
-  - [6.2. Library Settings](#62-library-settings)
-  - [6.3. Prerequisites](#63-prerequisites)
-  - [6.4. Test list](#64-test-list)
-    - [6.4.1. Parallel or series execution](#641-parallel-or-series-execution)
-    - [6.4.2. Repetitions](#642-repetitions)
-  - [6.5. Finally the test](#65-finally-the-test)
-    - [6.5.1. Generic commands](#651-generic-commands)
-  - [6.6. Test writing with Scriptbuilder](#66-test-writing-with-scriptbuilder)
+  - [6.1. Tests structure and main test file](#61-tests-structure-and-main-test-file)
+  - [6.2. General Settings](#62-general-settings)
+  - [6.3. Library Settings](#63-library-settings)
+  - [6.4. Prerequisites](#64-prerequisites)
+  - [6.5. Test list](#65-test-list)
+    - [6.5.1. Parallel or series execution](#651-parallel-or-series-execution)
+    - [6.5.2. Repetitions](#652-repetitions)
+  - [6.6. Finally the test](#66-finally-the-test)
+    - [6.6.1. Generic commands](#661-generic-commands)
+  - [6.7. Test writing with Scriptbuilder](#67-test-writing-with-scriptbuilder)
 - [7. Parametric test](#7-parametric-test)
   - [7.1. Table](#71-table)
   - [7.2. Using the parameter](#72-using-the-parameter)
@@ -62,8 +62,8 @@
 - [11. Gazebo](#11-gazebo)
   - [11.1. Speed up model creation](#111-speed-up-model-creation)
   - [11.2. World file](#112-world-file)
-- [12. Authors](#12-authors)
-
+- [12. Examples](#12-examples)
+- [13. Authors](#13-authors)
 
 # 4. Introduction
 
@@ -178,16 +178,14 @@ are stored.
 If you are using the [`robotology-superbuild`](https://github.com/robotology/robotology-superbuild) with the `ROBOT_TESTING` profile enabled, the variable is already exported by the superbuild setup scripts.
 # 6. Test writing
 
-
 For easy test writing, you can skip directly to the section [Scriptbuilder](##5.6.-test-writing-with-scriptbuilder). You can use the test writing tool called ScriptBuilder.  <br>
-Otherwise, the starting point for writing a test is the file ./test/test.xml, see below.
+Otherwise, the starting point for writing a test is the file ./test/test.xml (`the main test file`), see below.
 
-## Tests structure
-
-In figure you can see tests structure.
+## 6.1. Tests structure and main test file
+In the figure below, you can see the test structure.  
 ![alt](img/teststruct.png)
 
-The main test file is ./test/test.xml.
+`The main test file` default is ./test/test.xml.
 
 ```xml
     <testlist repetitions="1">a
@@ -228,7 +226,7 @@ This file contains:
  * the prerequisites
  * the tests list
 
-## 6.1. General Settings
+## 6.2. General Settings
 
 ```xml
 <settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" 
@@ -250,7 +248,7 @@ This file contains:
 | relativetime         | true                 | The logging time is relative(from test start) or absolute                                      |
 | unixtime             | false                | If the time is absolute it can be Unix time format or string format                            |
 
-## 6.2. Library Settings
+## 6.3. Library Settings
 In this section, it is possible to specify the plugin library to be used.
 
 ```xml
@@ -283,7 +281,7 @@ In this section, it is also possible to specify the plugin library settings.
 
 
 
-## 6.3. Prerequisites
+## 6.4. Prerequisites
 
 The prerequisites are applications to be executed before the tests, if
 necessary, and their parameters.
@@ -301,7 +299,7 @@ necessary, and their parameters.
 | kill       | true          | The current prerequisite will be killed at the end of the tests. |
 
 
-## 6.4. Test list
+## 6.5. Test list
 
 The test list includes all the tests written. The test list, basically,
 list the tests together with the **file** in which the test has been written.
@@ -324,7 +322,7 @@ list the tests together with the **file** in which the test has been written.
 | parallel           | false         | Should the test be executed in parallel.                                                         |
 | repetitionsfortime | 0             | If specified is the time to repeat the test in seconds.                                                     |
 
-### 6.4.1. Parallel or series execution
+### 6.5.1. Parallel or series execution
 It is possible to specify if some tests are executed in series or parallel.
 
 ```xml
@@ -344,11 +342,11 @@ In the above example the tests will be executed in the following way:
 
 In the case, it is possible to insert a dummy test in series to align the following tests executions.
 
-### 6.4.2. Repetitions
+### 6.5.2. Repetitions
 Repetitions can be at action or test or test list level through **"repetitions"** key (in action, test, test list).
 At the test level repetitions can be also used through the key **"repetitionsfortime"**. In this case, will be executed as many repetitions as the timer in seconds will allow. Inside of test is available the key **"wait"** that indicates the time between two tests executions.
 
-## 6.5. Finally the test
+## 6.6. Finally the test
 
 The test is written in a separate file. Here is shown an example of a
 simple test. Also take a look at the following section for graphical test creation.
@@ -397,7 +395,7 @@ The **settings node** contains the following parameters:
 | ---------- | ------- | ----------------------- |
 | wait       | 0       | Wait after test completion.       |
 
-### 6.5.1. Generic commands
+### 6.6.1. Generic commands
 These commands are contained in the generic command library plugin.
 
 -   **wait**
@@ -515,7 +513,7 @@ These commands are contained in the generic command library plugin.
     ```
 The command is used to find a string in a file. If found an error is raised in the log and a backup of the file is done with the date.
 
-## 6.6. Test writing with Scriptbuilder
+## 6.7. Test writing with Scriptbuilder
 Script builder is a UI for test and test list writing.
 See at https://github.com/robotology/blocktest/blob/master/src/scriptbuilder/README.md
 for more information.
@@ -845,7 +843,6 @@ Write your blocks, each block is derived from CAction.
 ## 10.6. XML files
 Write an xml file for each block.
 
-
 # 11. Gazebo
 If you need to make the simulation work on Gazebo.
 
@@ -855,8 +852,13 @@ Be sure to add to your ./bashrc
 export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:${ROBOTOLOGY_SUPERBUILD_SOURCE_DIR}/src/GazeboYARPPlugins/tutorial/model
 ```
 ## 11.2. World file
-If you need you could write your own ```.world``` file take a look at the
-```world``` folder
+If you need you could write your own ```.world``` file take a look at the ```world``` folder
 
-# 12. Authors
+# 12. Examples
+
+After `make install` in folder install\bin are present the following subfolders:
+- tests\test-generic-command
+- tests\test-yarp
+
+# 13. Authors
 * Luca Tricerri ([*personal page*](https://github.com/triccyx))

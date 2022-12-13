@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<testbody>
+	<info note='Publish on OS topic.' shortnote='' version='1.0' />
+	<logging loggingtype='position' loggingpart='' loggingwrappername='' />
+	<settings wait='0' />
+	
+	<command library='ros' name='rostopicwrite' topic='/turtle1/cmd_vel' data='{"geometry_msgs_Twist":{"x":1,"y":2,"z":3,"xa":4,"ya":0,"za":0}}' repetitions='1' wait='1' reporterror='true' />
+	<command library='ros' name='rostopicwrite' topic='/turtle1/cmd_vel' data='{"geometry_msgs_Twist":{"x":0,"y":2,"z":3,"xa":0,"ya":5,"za":6}}' repetitions='1' wait='1' reporterror='true' />
+	<command library='ros' name='rostopicwrite' topic='/turtle1/cmd_vel' data='{"geometry_msgs_Twist":{"x":0,"y":0,"z":3,"xa":0,"ya":5,"za":0}}' repetitions='1' wait='1' reporterror='true' />
+
+</testbody>

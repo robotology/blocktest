@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="Find in file." shortnote="" version="1.0" />
+	<logging loggingtype="" loggingpart="" loggingwrappername="" />
+	<settings wait="0" />
+
+	<command library="general" name="findinfile" filename="./tests/test-generic-command/files/text.txt" string="test" erroronfind="false" bckiferror="false" repetitions="1" wait="0" reporterror="true" />
+	<command library="general" name="findinfile" filename="./tests/test-generic-command/files/text.txt" string="notinfile" erroronfind="true" bckiferror="false" repetitions="1" wait="0" reporterror="true" />
+</testbody>

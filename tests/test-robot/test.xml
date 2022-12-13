@@ -8,24 +8,6 @@
 	<test file="0101.xml" repetitions="0" repetitionsfortime="" code="0101" parallel="false" />
 	<test file="0102.xml" repetitions="0" repetitionsfortime="" code="0102" parallel="false" />
 	<test file="0103.xml" repetitions="0" repetitionsfortime="" code="0103" parallel="false" />
-1	<!-- Generic -->
-	<test file="0600.xml" repetitions="1" repetitionsfortime="" code="0600" parallel="false" />
-	<test file="0601.xml" repetitions="0" repetitionsfortime="" code="0601" parallel="false" />
-	<test file="0602.xml" repetitions="0" repetitionsfortime="" code="0602" parallel="false" />
-	<!-- Generic write serial-->
-	<test file="0610.xml" repetitions="0" repetitionsfortime="" code="0610" parallel="false" />
-
-	<!-- Kuka -->
-	<test file="0701.xml" repetitions="0" repetitionsfortime="" code="0701" parallel="false" />
-	<test file="0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
-	<test file="0700.xml" repetitions="0" repetitionsfortime="" code="0700" parallel="false" />
-
-	<!-- Kuka Gazebo-->
-	<test file="0702.xml" repetitions="0" repetitionsfortime="" code="0702" parallel="true" />	
-	<test file="0701.xml" repetitions="0" repetitionsfortime="" code="0701" parallel="true" />
-	<test file="0010.xml" repetitions="0" repetitionsfortime="" code="nop_2" parallel="false" />
-	<test file="0700.xml" repetitions="0" repetitionsfortime="" code="0700" parallel="false" />
-	<test file="0703.xml" repetitions="0" repetitionsfortime="" code="0703" parallel="false" />
 
 	<!-- YARP API -->
 	<test file="0010.xml" repetitions="0" repetitionsfortime="" code="nop_1" parallel="false" />
@@ -81,12 +63,10 @@
 	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic actions library" />
 	<library enabled="false" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp actions library" />
 	<library enabled="false" path="blocktestcustomplugins/libblocktestcustomplugins" name="customactiondepot" note="Custom actions library" />
-	<library enabled="false" path="blocktestkukaplugins/libblocktestidjlplugins" name="idjlactiondepot" note="Idjl actions library" />
 
 	<librarysettings enabled="true" name="genericactiondepot" />
 	<librarysettings enabled="false" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="false" />
 	<!-- <librarysettings enabled="false" name="yarpactiondepot" wrappername="" robotname="icubSim" netclock="false" />  -->
 	<librarysettings enabled="false" name="customactiondepot" />
-	<librarysettings enabled="false" name="idjlactiondepot" />
 
 </testlist>
