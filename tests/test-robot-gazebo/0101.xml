@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<testbody>
+	<info note="iCub left shoulder roll 0-30-0 degree using directposition API with YARP middleware." shortnote="" version="1.0" />
+	<logging loggingtype="position" loggingpart="l_shoulder_roll" loggingwrappername="left_arm" />
+	<settings wait="0" />
+	
+	<command library="yarp" name="yarpwait" seconds="5" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpreset" repetitions="0" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpwait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpsenddirectpos" wrappername="left_arm" jointname="l_shoulder_roll" degree="0" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpwait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpcheckjointposition" wrappername="left_arm" jointname="l_shoulder_roll" tolerance="1" expectedvalue="0" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpwait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpsenddirectpos" wrappername="left_arm" jointname="l_shoulder_roll" degree="30" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpwait" seconds="1" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpcheckjointposition" wrappername="left_arm" jointname="l_shoulder_roll" tolerance="1" expectedvalue="30" repetitions="1" wait="0" reporterror="true" />
+	<command library="yarp" name="yarpwait" seconds="5" repetitions="1" wait="0" reporterror="true" />	
+	<command library="general" name="execute" command="python3" param=".//test//files//plot.py 1 log//pos_0101-l_shoulder_roll-0 Shoulder_roll_0101" prefix="" tag="exe101" waitafter="2" kill="false" repetitions="0" wait="0" reporterror="true" />
+
+</testbody>

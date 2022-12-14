@@ -166,10 +166,11 @@ ccmake ..
 ```
 ![alt text](img/img003.png "Tarp and Scriptbuilder options.")
 
+:warning::warning::warning:    
 Select your preferred installation folder using:
 CMAKE_INSTALL_PREFIX <br>
 Suggested location (also if you use blocktest plugins):
-```
+```bash
 ~\blocktest\install
 ```
 It is possible also to run `blocktestrunner` and `Scriptbuilder` from any folder, you have just to define `BLOCKTEST_RESOURCE_PATH` where all the plugins, xmltemplate, and test folder
@@ -848,17 +849,21 @@ If you need to make the simulation work on Gazebo.
 
 ## 11.1. Speed up model creation
 Be sure to add to your ./bashrc
-```
+```bash
 export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:${ROBOTOLOGY_SUPERBUILD_SOURCE_DIR}/src/GazeboYARPPlugins/tutorial/model
 ```
 ## 11.2. World file
-If you need you could write your own ```.world``` file take a look at the ```world``` folder
+If you need you could write your own ```.world``` file take a look at the ```gzworld``` folder
+```bash
+export GAZEBO_RESOURCE_PATH=${GAZEBO_RESOURCE_PATH}:<your folder>/blocktest/install/bin/gzworld
+```
 
 # 12. Examples
 
 After `make install` in folder install\bin are present the following subfolders:
 - tests\test-generic-command
 - tests\test-yarp
+- tests\test-robot --> be sure you have Gazebo configured see also above
 
 # 13. Authors
 * Luca Tricerri ([*personal page*](https://github.com/triccyx))
