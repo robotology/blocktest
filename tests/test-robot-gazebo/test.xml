@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<testlist repetitions="1">
+	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="infologger" relativetime="true" unixtime="false" />
+	/>
+	<!-- ICub move -->
+	<test file="0100.xml" repetitions="1" repetitionsfortime="" code="0100" parallel="false" />
+	<test file="0101.xml" repetitions="1" repetitionsfortime="" code="0101" parallel="false" />
+	<test file="0102.xml" repetitions="1" repetitionsfortime="" code="0102" parallel="false" />
+	<test file="0103.xml" repetitions="1" repetitionsfortime="" code="0103" parallel="false" />
+
+	<test file="0001.xml" repetitions="0" repetitionsfortime="" code="cleanup2" parallel="false" />
+
+	<prerequisite enabled="true" command="yarpserver" waitafter="5000" param="--silent --write" prefix="" writetofile="yarpserver.log" kill="true" />
+	<prerequisite enabled="true" command="gzserver" waitafter="5000" param="--verbose -e ode --profile ode_default -slibgazebo_yarp_clock.so icub.world" prefix="" writetofile="gzserver.log" kill="true" />
+	<prerequisite enabled="true" command="gzclient" waitafter="5000" param="" prefix="" writetofile="gzclient.log" kill="true" />
+	<prerequisite enabled="false" command=".///files//movegzclient.sh" waitafter="5000" param="" prefix="" writetofile="movegzclient.log" kill="false" />
+
+	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic actions library" />
+	<library enabled="true" path="blocktestyarpplugins/libblocktestyarpplugins" name="yarpactiondepot" note="Yarp actions library" />
+
+	<librarysettings enabled="true" name="genericactiondepot" />
+	<librarysettings enabled="true" name="yarpactiondepot" wrappername="right_leg left_leg torso head right_arm left_arm" robotname="icubSim" netclock="false" />
+
+</testlist>
