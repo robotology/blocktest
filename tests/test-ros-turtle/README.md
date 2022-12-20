@@ -5,13 +5,13 @@ This test is designed for testing ROS2 applications.
 - [Robotology-superbuild](https://github.com/robotology/robotology-superbuild)
 - [Blocktest](https://github.com/robotology/blocktest)
 - [Blocktest-ros](https://github.com/robotology/blocktest-ros-plugins)
-- Install ROS2 foxy
+- Install ROS2 humble
 - Install ROS2 turtleSim application
 ```bash
     sudo apt update
-    sudo apt install ros-foxy-turtlesim
+    sudo apt install ros-humble-turtlesim
    ```
-   and follow ROS2 tutorial here:https://docs.ros.org/en/foxy/Tutorials/Turtlesim/Introducing-Turtlesim.html
+   and follow ROS2 tutorial here:https://docs.ros.org/en/humble/Tutorials/Turtlesim/Introducing-Turtlesim.html
 
 # 3. Execution
 ```bash

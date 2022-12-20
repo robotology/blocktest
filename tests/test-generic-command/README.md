@@ -8,7 +8,7 @@ This test is designed for executing a simple echo command and check for a ERROR 
 
 ```bash
 cd <your-blocktest-clonedir>/blocktest/install/bin
-./blocktestrunner test.xml test-exec-command/
+./blocktestrunner test.xml test-generic-command/
 ```
 
 # 4. Test description

@@ -3,13 +3,13 @@
 
 	<!-- Prerequisites -->
 	<settings realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" neverexecutecommands="" logseverity="debug" loggingtime="0.001" tablename="tables/main.tab" waitcommand="wait" nowcommand="now" loggingcommand="infologger"  relativetime="true" unixtime="false"/>/> 
-	<prerequisite enabled="true" command="/opt/ros/galactic/bin/ros2" waitafter="5000" param="run turtlesim turtlesim_node" writetofile="log/ros2.log" prefix="" kill="true" />
+	<prerequisite enabled="true" command="/opt/ros/humble/bin/ros2" waitafter="5000" param="run turtlesim turtlesim_node" writetofile="log/ros2.log" prefix="" kill="true" />
 
 	<library enabled="true" path="genericactiondepot/genericactiondepot" name="genericactiondepot" note="System generic actions library" />
-	<library enabled="true" path="blocktestrosplugins/libblocktestrosplugins" name="rosactiondepot" note="Ros actions library" />
+	<library enabled="true" path="blocktestros2plugins/libblocktestros2plugins" name="ros2actiondepot" note="Ros2 actions library" />
 
 	<librarysettings enabled="true" name="genericactiondepot" />
-	<librarysettings enabled="true" name="rosactiondepot" wrappername="" robotname="" netclock="false" />
+	<librarysettings enabled="true" name="ros2actiondepot" wrappername="" robotname="" netclock="false" />
 	
 
 	<!-- Tests -->

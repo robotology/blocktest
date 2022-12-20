@@ -1,17 +1,16 @@
 # 1. Test summary
-This test is designed for testing ROS2 applications.
+This test is designed for testing YARP and Gazebo applications.
 
 # 2. Prerequisites
 - [Robotology-superbuild](https://github.com/robotology/robotology-superbuild)
 - [Blocktest](https://github.com/robotology/blocktest)
-- [Blocktest-ros](https://github.com/robotology/blocktest-ros-plugins)
-- Install ROS2 humble
+- [Blocktest-yarp](https://github.com/robotology/blocktest-yarp-plugins)
 
 # 3. Execution
 ```bash
 cd <your-blocktest-clonedir>/blocktest/install/bin
-./blocktestrunner test.xml tests/test-ros-simple
+./blocktestrunner test.xml tests/test-robot-gazebo
 ```
 
 # 4. Test description
-The test will send and receive messages through the ROS2 topic message system.
+The test will move some part of the iCub robot on Gazebo.
