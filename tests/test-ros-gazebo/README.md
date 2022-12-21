@@ -7,7 +7,7 @@ This test is designed for testing ROS2 connection with Gazebo.
 - [Blocktest-ros](https://github.com/robotology/blocktest-ros-plugins)
 - Install Gazebo
 - Install ROS2 humble
-- Install ROS2 humble Gazebo plugins see http://gazebosim.org/tutorials?tut=ros2_overview
+- Install ROS2 humble Gazebo plugins `sudo apt install ros-humble-gazebo-ros-pkgs` see [here]([https://](http://classic.gazebosim.org/tutorials?tut=ros2_installing&))    cat=connect_ros
 
 # 3. Execution
 ```bash
