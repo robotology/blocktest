@@ -44,7 +44,7 @@ jobs:
         mkdir -p build
         cd build
         cmake -GNinja \
-              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} ..
+              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install ..
 
     # - name: Configure [Windows]
     #   if: contains(matrix.os, 'windows')
