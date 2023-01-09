@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         build_type: [Release]
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-2019]
       fail-fast: false
 
     steps:
@@ -46,14 +46,14 @@ jobs:
         cmake -GNinja \
               -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install ..
 
-    # - name: Configure [Windows]
-    #   if: contains(matrix.os, 'windows')
-    #   shell: bash -l {0}
-    #   run: |
-    #     mkdir -p build
-    #     cd build
-    #     cmake -G"Visual Studio 16 2019" \
-    #           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} ..
+    - name: Configure [Windows]
+      if: contains(matrix.os, 'windows')
+      shell: bash -l {0}
+      run: |
+         mkdir -p build
+         cd build
+         cmake -G"Visual Studio 16 2019" \
+               -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} ..
 
     - name: Build and install
       shell: bash -l {0}
