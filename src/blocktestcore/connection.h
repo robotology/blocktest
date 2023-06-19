@@ -14,8 +14,6 @@
 #include <boost/asio.hpp>
 #include <boost/enable_shared_from_this.hpp>
 
-using boost::asio::ip::tcp;
-
 class Connection : public boost::enable_shared_from_this<Connection>
 {
 public:
@@ -25,18 +23,18 @@ public:
     return pointer(new Connection(io_service));
 }
 
-  tcp::socket& socket();
+  boost::asio::ip::tcp::socket& socket();
 
   void start();
 
 private:
   Connection(boost::asio::io_service& io_service);
 
-  void handleWrite(const boost::system::error_code& err,size_t bytes_transferred);   
-  void handleRead(const boost::system::error_code& err,size_t bytes_transferred);   
-  
+  void handleWrite(const boost::system::error_code& err,size_t bytes_transferred);
+  void handleRead(const boost::system::error_code& err,size_t bytes_transferred);
+
   static const int size_{1024};
   char readBuffer_[size_];
   boost::asio::streambuf response_;
-  tcp::socket socket_;
+  boost::asio::ip::tcp::socket socket_;
 };

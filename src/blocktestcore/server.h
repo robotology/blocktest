@@ -13,9 +13,6 @@
 #pragma once
 #include <boost/asio.hpp>
 #include "connection.h"
-
-using boost::asio::ip::tcp;
-
 class Server
 {
     public:
@@ -24,9 +21,9 @@ class Server
     private:
         const unsigned int port_{9876};
         boost::asio::io_service& io_;
-        tcp::acceptor acceptor_;
+        boost::asio::ip::tcp::acceptor acceptor_;
         Connection::pointer newConnection_;
-        
+
         void startAccept();
         void handleAccept(Connection::pointer newConnection,const boost::system::error_code& error);
 };
