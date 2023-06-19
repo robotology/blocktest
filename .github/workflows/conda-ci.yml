@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         build_type: [Release]
-        os: [macos-latest, windows-2019]
+        os: [macos-latest, windows-latest]
       fail-fast: false
 
     steps:
