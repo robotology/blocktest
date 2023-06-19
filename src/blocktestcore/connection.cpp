@@ -8,6 +8,7 @@
 #include <chrono>
 
 using namespace std::literals::chrono_literals;
+using namespace boost::asio::ip;
 
 Connection::Connection(boost::asio::io_service& io_service): socket_(io_service)
 {
@@ -24,13 +25,13 @@ void Connection::handleRead(const boost::system::error_code& err,size_t bytes_tr
         if(bytes_transferred==0)
         {
             std::cout<<"Transferred 0"<<std::endl;
-        }  
+        }
         else
         {
             std::cout<<readBuffer_<<std::endl;;
-        }        
+        }
         start();
-    }    
+    }
 }
 
 tcp::socket& Connection::socket()
@@ -45,5 +46,5 @@ void Connection::start()
                     boost::bind(&Connection::handleRead,
                     shared_from_this(),
                     boost::asio::placeholders::error,
-                    boost::asio::placeholders::bytes_transferred));                
+                    boost::asio::placeholders::bytes_transferred));
 }

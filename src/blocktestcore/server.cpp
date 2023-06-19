@@ -6,13 +6,14 @@
 #include <chrono>
 
 using namespace std::literals::chrono_literals;
+using namespace boost::asio::ip;
 
 Server::Server(boost::asio::io_service& io):io_(io),acceptor_(io, tcp::endpoint(tcp::v4(), 9876))
-{ 
+{
 }
 
 void Server::init()
-{ 
+{
     startAccept();
 }
 
