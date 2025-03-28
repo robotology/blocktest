@@ -7,17 +7,14 @@
 
 # @author Luca Tricerri <luca.tricerri@iit.it>
 
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 
 project(blockTest
         LANGUAGES C CXX
-        VERSION 2.3.9)
+        VERSION 2.3.10)
 
 set(CMAKE_AUTOMOC ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-if (CMAKE_VERSION VERSION_LESS 3.11)
-  list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake-3.11)
-endif()
 
 include(GNUInstallDirs)
 
