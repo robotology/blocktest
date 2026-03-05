@@ -1,6 +1,7 @@
 #pragma once
 
 #include <boost/process.hpp>
+#include <boost/algorithm/string.hpp>
 
 #define BLOCKTEST_UNUSED(x) (void)x;
 
