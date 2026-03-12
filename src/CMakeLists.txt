@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(COMPILE_WITHUNITTEST "Compile also unittest" OFF)
 
-# The unit tests uses io_service::run_for that is available from boost 1.66
+# The unit tests uses io_context::run_for that is available from boost 1.66
 if(COMPILE_WITHUNITTEST AND Boost_VERSION_STRING GREATER_EQUAL 1.66.0)
   FetchContent_Declare(
     unittest

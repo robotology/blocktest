@@ -10,7 +10,7 @@
 using namespace std::literals::chrono_literals;
 using namespace boost::asio::ip;
 
-Connection::Connection(boost::asio::io_service& io_service): socket_(io_service)
+Connection::Connection(boost::asio::io_context& io_context): socket_(io_context)
 {
 }
 

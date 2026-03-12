@@ -16,11 +16,11 @@
 class Server
 {
     public:
-        Server(boost::asio::io_service& io);
+        Server(boost::asio::io_context& io);
         void init();
     private:
         const unsigned int port_{9876};
-        boost::asio::io_service& io_;
+        boost::asio::io_context& io_;
         boost::asio::ip::tcp::acceptor acceptor_;
         Connection::pointer newConnection_;
 
