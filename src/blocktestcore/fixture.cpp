@@ -24,14 +24,14 @@ Fixture::Fixture(const std::string& name,const std::string& path)
 {
     std::string completePath=calcolateTestName(name,path);
 
-    pugi::xml_document doc;    
+    pugi::xml_document doc;
     pugi::xml_parse_result result=doc.load_file(completePath.c_str());
     if(result.status != pugi::xml_parse_status::status_ok)
     {
-        TXLOG(Severity::error)<<"Can not load fixture xml:"<<completePath<<std::endl;      
+        TXLOG(Severity::error)<<"Can not load fixture xml:"<<completePath<<std::endl;
         return;
     }
-    TXLOG(Severity::debug)<<"Load fixture xml:"<<completePath<<std::endl;  
+    TXLOG(Severity::debug)<<"Load fixture xml:"<<completePath<<std::endl;
 
     pugi::xpath_node_set fixturesNode = doc.select_nodes("//prerequisite");
 
@@ -58,7 +58,7 @@ void Fixture::stop()
 	if(fixtureCheck_ && fixtureCheck_->joinable())
 		fixtureCheck_->join();
 
-    TXLOG(Severity::debug)<<"Fixture check stopped"<<std::endl;        
+    TXLOG(Severity::debug)<<"Fixture check stopped"<<std::endl;
 
     std::list<FixtureParam>::reverse_iterator it;
     for(it=fixtures_.rbegin();it!=fixtures_.rend();++it)
@@ -101,25 +101,25 @@ void Fixture::execute()
 		if (!current.prefix_.empty())
 		{
 			ss << current.prefix_ << " ";
-		}       
+		}
 #ifdef WIN32
 		ss /*<< "START /B "*/<< current.commandName_ << " " << current.commandParam_ ;
 #else
 		ss << current.commandName_ << " " << current.commandParam_ << " &";
 #endif
         TXLOG(Severity::info)<<"pre-requisite executed:"<<ss.str()<<std::endl;
-        
+
         std::cout<<"-------------------------------------------"<<std::endl;
         std::cout<<"pre-requisite executed:"<<ss.str()<< "log file:"<<current.writeToFile_<<std::endl;
         std::cout<<"-------------------------------------------"<<std::endl;
 
 		try
 		{
-			//current.process_ = std::make_unique<boost::process::child>(ss.str(), boost::process::std_err > *current.output_);
-            current.process_ = std::make_unique<boost::process::child>(ss.str(), boost::process::std_out > current.writeToFile_, boost::process::std_err > current.writeToFile_);
-            
+			//current.process_ = std::make_unique<process::child>(ss.str(), process::std_err > *current.output_);
+            current.process_ = std::make_unique<process::child>(ss.str(), process::std_out > current.writeToFile_, process::std_err > current.writeToFile_);
+
 		}
-		catch(const boost::process::process_error& e)
+		catch(const process::process_error& e)
 		{
 			TXLOG(Severity::critical) << "load prerequisite:" << ss.str() <<" error:" <<e.what() << std::endl;
 			continue;
@@ -181,7 +181,7 @@ Fixture::FixtureParam::FixtureParam(const std::string& commandName,const std::st
                                                                                                                                                 waitafter_(waitafter),
                                                                                                                                                 writeToFile_(writeToFile)
 {
-    //output_=std::make_unique<boost::process::ipstream>();
+    //output_=std::make_unique<process::ipstream>();
 }
 
 }

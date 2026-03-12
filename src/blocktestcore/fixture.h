@@ -17,7 +17,19 @@
 #include "general.h"
 #include "syntax.h"
 
+#include <thread>
+
+#include <boost/version.hpp>
+#if BOOST_VERSION < 108800
 #include <boost/process.hpp>
+namespace process = boost::process;
+#else
+#include <boost/process/v1/child.hpp>
+#include <boost/process/v1/io.hpp>
+#include <boost/process/v1/pipe.hpp>
+#include <boost/process/v1/start_dir.hpp>
+namespace process = boost::process::v1;
+#endif
 
 namespace BlockTestCore
 {
@@ -45,10 +57,10 @@ class Fixture
                 bool enabled_;
                 std::string prefix_;
                 unsigned int waitafter_;
-                
-                std::shared_ptr<boost::process::child> process_;
-                // std::shared_ptr<boost::process::ipstream> output_;
-                
+
+                std::shared_ptr<process::child> process_;
+                // std::shared_ptr<process::ipstream> output_;
+
                 std::unique_ptr<std::thread> writer_;
                 bool writerActive_{true};
                 std::string writeToFile_{"prerequisite.log"};
@@ -59,7 +71,7 @@ class Fixture
         std::unique_ptr<std::thread> fixtureCheck_;
         void fixtureCheker();
         std::atomic<bool> fixtureCheckerActive_{true};
-        
+
 };
 
 }
