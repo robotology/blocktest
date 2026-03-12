@@ -68,7 +68,7 @@ set(BlockTestCoreHdr   api.h
 add_library(${LIBRARY_TARGET_NAME} SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})
 add_library(${PROJECT_NAME}::${LIBRARY_TARGET_NAME} ALIAS ${LIBRARY_TARGET_NAME})
 
-if (BOOST_VERSION VERSION_LESS "1.86.0")
+if (Boost_VERSION_STRING VERSION_LESS "1.86.0")
   set(BOOST_DEPENDENCIES Boost::system
                          Boost::filesystem)
 else()

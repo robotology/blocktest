@@ -1,0 +1,18 @@
+[project]
+name = "blocktest"
+description = "Pixi tasks for building blocktestcore"
+authors = ["Nicolo Genesio <nicolo.genesio@iit.it>"]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tasks]
+configure = "cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release"
+build = "cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build -j"
+
+[dependencies]
+cmake = ">=3.16"
+ninja = ">=1.11"
+asio = "*"
+assimp = "*"
+libboost-devel = "*"
+qt-main = "*"

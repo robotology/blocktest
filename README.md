@@ -75,17 +75,17 @@ The main idea of BlockTest is to adopt testing methodologies and best practices 
 
 # 5. Installation
 
-Supported OS: Linux Ubuntu 20.04, Ubuntu 22.04 and Windows 10.
-Boost library version must be >=1.65.
+Supported OS: Linux Ubuntu 22.04, Ubuntu 24.04 and Windows 10.
+Boost library version must be >=1.82.
 CMake must be > 3.12.
 
 ## 5.1. External library
 
-The following libraries are used in blocktest:  
-  
-**pugixml** https://github.com/zeux/pugixml  
-**exprtk** https://github.com/ArashPartow/exprtk  
-**boost** https://www.boost.org/  
+The following libraries are used in blocktest:
+
+**pugixml** https://github.com/zeux/pugixml
+**exprtk** https://github.com/ArashPartow/exprtk
+**boost** https://www.boost.org/
 **YCM**   https://github.com/robotology/ycm
 
 ## 5.2. Prerequisite Linux
@@ -144,7 +144,7 @@ Qt5 from binary https://doc.qt.io/qt-5/windows.html
 To compile just execute the following commands in a bash
 terminal.
 ```bash
-git clone https://github.com/robotology/blocktest     
+git clone https://github.com/robotology/blocktest
 cd blocktest
 mkdir build
 cd build
@@ -164,7 +164,7 @@ ccmake ..
 ```
 ![alt text](img/img003.png "Tarp and Scriptbuilder options.")
 
-:warning::warning::warning:    
+:warning::warning::warning:
 Select your preferred installation folder using:
 CMAKE_INSTALL_PREFIX <br>
 Suggested location (also if you use blocktest plugins):
@@ -181,7 +181,7 @@ For easy test writing, you can skip directly to the section [Scriptbuilder](##5.
 Otherwise, the starting point for writing a test is the file ./test/test.xml (`the main test file`), see below.
 
 ## 6.1. Tests structure and main test file
-In the figure below, you can see the test structure.  
+In the figure below, you can see the test structure.
 ![alt](img/teststruct.png)
 
 `The main test file` default is ./test/test.xml.
@@ -189,8 +189,8 @@ In the figure below, you can see the test structure.
 ```xml
     <testlist repetitions="1">a
 
-   <settings  realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce"  
-            neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab" 
+   <settings  realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce"
+            neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab"
             waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp"/> <!--loggingtime in sec-->
 
     <!--Prerequisites-->
@@ -207,8 +207,8 @@ In the figure below, you can see the test structure.
     <!--Libraries settings-->
     <librarysettings enabled="true" name="genericactiondepot"/>
     <librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="true"/>
-   
-    
+
+
     <!--**************************-->
     <!--**********Tests***********-->
     <!--**************************-->
@@ -216,7 +216,7 @@ In the figure below, you can see the test structure.
     <!--ICub pos && directpos-->
     <test file="test//0001.xml" repetitions="2" name="ICub right ankle roll move"  code="0001"  loggingtype="position" loggingwrappername="/right_leg" loggingpart="r_ankle_roll r_ankle_pitch"/>
 
-    </testlist>   
+    </testlist>
 ```
 
 This file contains:
@@ -228,8 +228,8 @@ This file contains:
 ## 6.2. General Settings
 
 ```xml
-<settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true" 
-            neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab" 
+<settings robotname="icubSim" realrobot="false" onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" netclock="true"
+            neverexecutecommands="" logseverity="debug" loggingtime="0.01"  tablename="test/tables/main.tab"
             waitcommand="yarpwait" nowcommand="yarpnow" loggingcommand="infologgeryarp" relativetime="false" unixtime="true"/>
 ```
 
@@ -353,12 +353,12 @@ simple test. Also take a look at the following section for graphical test creati
 <testbody>
     <info note="ICub right ankle roll move." shortnote="" version="1"/>
     <logging loggingactive="false" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
-    <settings wait="10" />  
-    
+    <settings wait="10" />
+
     <command name="yarpreset" repetitions="1" wait="0" reporterror="true"/>
-    <command name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="20" repetitions="1" wait="0" reporterror="true"/>    
+    <command name="yarpsenddirectpos" wrappername="/right_leg" jointname="r_ankle_roll" degree="20" repetitions="1" wait="0" reporterror="true"/>
 </testbody>
-```  
+```
 
 The test is composed of **commands** and each command has a parameters list.
 
@@ -400,12 +400,12 @@ These commands are contained in the generic command library plugin.
 -   **wait**
 
     ```xml
-    <command library="general"  
-             name="wait" 
-             seconds="5" 
-             repetitions="1" 
-             wait="0" 
-             reporterror="true"/>   
+    <command library="general"
+             name="wait"
+             seconds="5"
+             repetitions="1"
+             wait="0"
+             reporterror="true"/>
     ```
 
     The parameter in seconds is the wait time in seconds. Could be a double 0.001 means 1 msec.
@@ -414,29 +414,29 @@ These commands are contained in the generic command library plugin.
 -   **nop**
 
     ```xml
-    <command library="general"  
-             name="nop" 
-             fixvalue="" 
-             tables="kp" 
-             printerror="true" 
-             printtestinfo="true" 
-             justonetime="false" 
-             repetitions="1" 
-             wait="0" 
+    <command library="general"
+             name="nop"
+             fixvalue=""
+             tables="kp"
+             printerror="true"
+             printtestinfo="true"
+             justonetime="false"
+             repetitions="1"
+             wait="0"
              reporterror="true"/>
     ```
 
     The nop command is used to print the log on the plot.log file.
     The nop command can be used to synch parallel tests.
 
--   **updatefile**     
+-   **updatefile**
 
     ```xml
-    <command    library="general" 
-                name="updatefile" 
-                sourcefile="./walkingV2PIDparameters.ini" 
-                destinationfile="./test/walkingV2PIDparameters.ini" 
-                repetitions="1" 
+    <command    library="general"
+                name="updatefile"
+                sourcefile="./walkingV2PIDparameters.ini"
+                destinationfile="./test/walkingV2PIDparameters.ini"
+                repetitions="1"
                 wait="0"
                 reporterror="true">
     </command>
@@ -446,19 +446,19 @@ These commands are contained in the generic command library plugin.
 
 -   **execute**
 
-    ```xml       
-    <command    library="general" 
-                name="execute" 
-                command="icubWalking" 
-                param="--gazeboClock --MPC::solver_name mumps --IK::solver_name mumps" 
+    ```xml
+    <command    library="general"
+                name="execute"
+                command="icubWalking"
+                param="--gazeboClock --MPC::solver_name mumps --IK::solver_name mumps"
                 writetofile="log/mylog.log"
-                prefix="" 
+                prefix=""
                 waitafter="2"
                 kill="false"
-                repetitions="1" 
+                repetitions="1"
                 wait="0"
                 reporterror="true"
-                nobackground="false" --Not used 
+                nobackground="false" --Not used
                 usetestpath="false"
                 waitforend="false"
                 expectedexitcode="0"
@@ -467,7 +467,7 @@ These commands are contained in the generic command library plugin.
     ```
 
 
-    The command executes the specified application.  
+    The command executes the specified application.
     Note the: ```usetestpath```, it executes the application or script using the same path of the tests.
     The ```writetofile``` send log stdout and stderr to file.
     The ```waitforend``` wait for the command to end and the command ```expectedexitcode``` compare this value to the exit code of the command.
@@ -475,39 +475,39 @@ These commands are contained in the generic command library plugin.
 -   **writeserial**
 
     ```xml
-    <command library="general" 
-             name="writeserial" 
-             value="" 
-             port="" 
-             repetitions="1" 
-             wait="0" 
+    <command library="general"
+             name="writeserial"
+             value=""
+             port=""
+             repetitions="1"
+             wait="0"
              reporterror="true"/>
     ```
     The command is used to write through the serial port.
 -   **print**
 
     ```xml
-    <command library="general" 
-             name="print" 
-             target"shell" 
-             message="yourMessage" 
-             repetitions="1" 
-             wait="0" 
+    <command library="general"
+             name="print"
+             target"shell"
+             message="yourMessage"
+             repetitions="1"
+             wait="0"
              reporterror="true"/>
     ```
 
-    The print command is used to write a string on the console if the target is a console or on the log if the target is a log.   
+    The print command is used to write a string on the console if the target is a console or on the log if the target is a log.
 -   **findinfile**
 
     ```xml
-    <command library="general" 
-             name="findinfile" 
-             filename="myfile" 
-             string="mystring" 
-             erroronfind="true" 
-             bckiferror="true" 
-             repetitions="1" 
-             wait="0" 
+    <command library="general"
+             name="findinfile"
+             filename="myfile"
+             string="mystring"
+             erroronfind="true"
+             bckiferror="true"
+             repetitions="1"
+             wait="0"
              reporterror="true"/>
     ```
 The command is used to find a string in a file. If found an error is raised in the log and a backup of the file is done with the date.
@@ -522,14 +522,14 @@ for more information.
 
 # 7. Parametric test
 
-It is possible to execute the same test many times changing one or more parameters every execution. 
+It is possible to execute the same test many times changing one or more parameters every execution.
 
 ## 7.1. Table
 
 We use a file, to specify the parameters value and parameters changing rules.
 
 ```xml
-<settings robotname="icubSim" realrobot="false"  onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" simclock="true" neverexecutecommands="" logseverity="debug" loggingtime="0.008" tablename="test/tables/main.tab"/> 
+<settings robotname="icubSim" realrobot="false"  onlysimcommands="yarpcheckrobotisvertical checkRobot yarpreset applyForce" simclock="true" neverexecutecommands="" logseverity="debug" loggingtime="0.008" tablename="test/tables/main.tab"/>
 ```
 
 In the settings section, you can find the **tablename parameter** (**main.tab**) that is the file in which
@@ -543,7 +543,7 @@ kppos       (table name)
 normal      (table type)
 1           (increment by time)
 
-40 
+40
 50
 60
 70
@@ -612,7 +612,7 @@ It is possible to specify how the parameters will change during the execution. T
 
 ## 7.2. Using the parameter
 
-In the test you can specify the table name you want to use, the parameter name is surrounded by 
+In the test you can specify the table name you want to use, the parameter name is surrounded by
 $:
 
 ```xml
@@ -649,9 +649,9 @@ No prerequisites are necessary in this case.
 ## 8.1. Test folder struct
 The test folder struct is the following:
 ```
-+--test  
-|   +-- test.yml  
-|   +-- 001test.xml  
++--test
+|   +-- test.yml
+|   +-- 001test.xml
 |   +-- 002test.xml
 |   +-- 003test.xml
 |   +-- files
@@ -682,10 +682,10 @@ Check the path in test.xml files.
 ```
 <test file="test//0002.xml" ...
 ```
-In this case, the path you have specified must take into account also of this "test/".  
+In this case, the path you have specified must take into account also of this "test/".
 The test will be in "./myfolder/testfolder/test"
 <br><br>
-The path shouldn't end with "/", this can cause problems on WSL system.  
+The path shouldn't end with "/", this can cause problems on WSL system.
 
 
 # 9. Logging
@@ -724,7 +724,7 @@ If logging is setted with **com** parameter the position log file has the format
 
 ```xml
 <logging loggingactive="true" loggingtype="position" loggingpart="r_ankle_roll r_ankle_pitch" loggingwrappername="/right_leg" />
-```  
+```
 
 ## 9.3. Plot logging
 
@@ -755,7 +755,7 @@ Three plugins are already available:
 - The Yarp BlockTest-plugin look at https://github.com/robotology/blocktest-yarp-plugins
 - The Generic BlockTest-plugin that is included in the current repository https://github.com/robotology/blocktest/tree/master/src/genericactiondepotlib
 - The Kuka idjl plugin https://github.com/icub-tech-iit/blocktest-kuka-plugins
- 
+
 
 ## 10.2. Create a new plugin
 It is possible to write your plugin for BlockTest, check the following sections.
@@ -768,7 +768,7 @@ Step by step.
 
 1)
 Derive the class ActionDepotStart. The class will contain plugin initialization.
-In the following section, the example from the generic BlockTest plugin. 
+In the following section, the example from the generic BlockTest plugin.
 
 2)
 The methods **configure** and **stop** are overwritten.
@@ -777,8 +777,8 @@ The methods **configure** and **stop** are overwritten.
 class GenericActionDepotStart : public ActionDepotStart
 {
     public:
-        GenericActionDepotStart(); 
-        virtual ~GenericActionDepotStart(); 
+        GenericActionDepotStart();
+        virtual ~GenericActionDepotStart();
         void configure(const std::map<std::string,std::string>&) override;
         void stop() override;
 
@@ -791,7 +791,7 @@ class GenericActionDepotStart : public ActionDepotStart
 The **ACTIONDEPOTSTART**(\<classname\>) macro is added in \<classname\>.cpp file as shown in figure.
 
 ```c++
-ACTIONDEPOTSTART(GenericActionDepotStart)  
+ACTIONDEPOTSTART(GenericActionDepotStart)
 
 void GenericActionDepotStart::configure(const std::map<std::string,std::string>&)
 {
@@ -813,13 +813,13 @@ all the configuration parameters that are present in XML.
 <librarysettings enabled="true" name="yarpactiondepot" wrappername="/right_leg /left_leg /torso /head /right_arm /left_arm" robotname="icubSim" netclock="true" />
 
 ```
-In this example the map contains the following key-value:  
+In this example the map contains the following key-value:
 
 | Key | Value |
 | ---------- | ------- |
 | name      | "yarpactiondepot"       |
 | wrappername      | "/right_leg /left_leg /torso /head /right_arm /left_arm"       |
-| robotname      | "icubSim"       | 
+| robotname      | "icubSim"       |
 | netclock      |"true"       |
 
 4.
