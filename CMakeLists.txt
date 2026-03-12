@@ -32,7 +32,15 @@ endif()
 set(BOOST_MIN_VERSION "1.82.0")
 
 find_package(YCM REQUIRED)
-find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
+# Detect Boost version first, then require components based on the detected version.
+find_package(Boost ${BOOST_MIN_VERSION} REQUIRED)
+
+set(BOOST_REQUIRED_COMPONENTS filesystem system)
+if(Boost_VERSION_STRING VERSION_GREATER_EQUAL "1.86.0")
+  list(APPEND BOOST_REQUIRED_COMPONENTS process)
+endif()
+
+find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS ${BOOST_REQUIRED_COMPONENTS})
 find_package(Qt5 QUIET COMPONENTS Core Gui Widgets)
 
 if(USE_SERIAL_LIB)
