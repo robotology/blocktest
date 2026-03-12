@@ -26,7 +26,17 @@
 #include "loggermodel.h"
 #include "general.h"
 #include <qstringlistmodel.h>
+#include <boost/version.hpp>
+#if BOOST_VERSION < 108800
 #include <boost/process.hpp>
+namespace process = boost::process;
+#else
+#include <boost/process/v1/child.hpp>
+#include <boost/process/v1/io.hpp>
+#include <boost/process/v1/pipe.hpp>
+#include <boost/process/v1/start_dir.hpp>
+namespace process = boost::process::v1;
+#endif
 #include <boost/filesystem.hpp>
 
 
@@ -99,7 +109,7 @@ private:
     LibraryModel *libraryModel_{nullptr};
     void populateInfo();
 
-    std::shared_ptr<boost::process::child> process_;
+    std::shared_ptr<process::child> process_;
 
     std::unique_ptr<std::thread> checkrunning_;
     void checkrunning();

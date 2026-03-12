@@ -13,7 +13,17 @@
 #pragma once
 
 #include "action.h"
+#include <boost/version.hpp>
+#if BOOST_VERSION < 108800
 #include <boost/process.hpp>
+namespace process = boost::process;
+#else
+#include <boost/process/v1/child.hpp>
+#include <boost/process/v1/io.hpp>
+#include <boost/process/v1/pipe.hpp>
+#include <boost/process/v1/start_dir.hpp>
+namespace process = boost::process::v1;
+#endif
 
 using namespace BlockTestCore;
 
@@ -23,14 +33,14 @@ namespace GenericActions
 class ActionExecute : public Action
 {
     public:
-        ActionExecute(const CommandAttributes& commandAttributes,const std::string& testCode);    
+        ActionExecute(const CommandAttributes& commandAttributes,const std::string& testCode);
         execution execute(const TestRepetitions& testrepetition) override;
         void beforeExecute() override;
 
-    private:        
+    private:
         std::string commandName_;
         std::string commandParam_;
-        std::string prefix_;    
+        std::string prefix_;
         bool kill_{false};
         bool nobackground_{false};
         unsigned int waitafter_{0};
@@ -42,9 +52,9 @@ class ActionExecute : public Action
 
         void parse();
 
-        static std::map<std::string,std::shared_ptr<boost::process::child>> processes_;
+        static std::map<std::string,std::shared_ptr<process::child>> processes_;
 
-    ACTIONREGISTER_DEC_TYPE(ActionExecute)        
+    ACTIONREGISTER_DEC_TYPE(ActionExecute)
 };
 
 }

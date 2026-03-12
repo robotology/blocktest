@@ -23,7 +23,7 @@ ACTIONREGISTER_DEF_TYPE(GenericActions::ActionExecute, "execute");
 
 namespace GenericActions
 {
-std::map<std::string, std::shared_ptr<boost::process::child>> ActionExecute::processes_;
+std::map<std::string, std::shared_ptr<process::child>> ActionExecute::processes_;
 
 ActionExecute::ActionExecute(const CommandAttributes& commandAttributes, const std::string& testCode) : Action(commandAttributes, testCode)
 {
@@ -80,14 +80,14 @@ execution ActionExecute::execute(const TestRepetitions& testrepetition)
 	try
 	{
 		std::string writeToFileTmp = normalizeSingle(writeToFile_, false);
-		std::shared_ptr<boost::process::child> process{nullptr};
+		std::shared_ptr<process::child> process{nullptr};
 		if (!writeToFile_.empty())
 		{
-			process = std::make_shared<boost::process::child>(ss.str(), boost::process::std_out > writeToFileTmp, boost::process::std_err > writeToFileTmp);
+			process = std::make_shared<process::child>(ss.str(), process::std_out > writeToFileTmp, process::std_err > writeToFileTmp);
 		}
 		else
 		{
-			process = std::make_shared<boost::process::child>(ss.str());
+			process = std::make_shared<process::child>(ss.str());
 		}
 
 		if (waitForEnd_)

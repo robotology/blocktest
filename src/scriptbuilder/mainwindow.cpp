@@ -30,7 +30,7 @@ namespace fs = boost::filesystem;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
-{    
+{
     pugi::xml_parse_result result = docSettings_.load_file("./config.xml");
     assert(result.status == pugi::xml_parse_status::status_ok);
     resourcePaths_ = getResourcePaths();
@@ -426,7 +426,7 @@ void MainWindow::on_startButton_clicked()
     }
     try
     {
-        process_=std::make_shared<boost::process::child>(process_str);
+        process_=std::make_shared<process::child>(process_str);
         process_->detach();
     }
     catch (...)
