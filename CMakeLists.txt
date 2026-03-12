@@ -29,7 +29,7 @@ else()
   add_subdirectory(extern/pugixml)
 endif()
 
-set(BOOST_MIN_VERSION "1.82.0")
+set(BOOST_MIN_VERSION "1.72.0")
 
 find_package(YCM REQUIRED)
 # Detect Boost version first, then require components based on the detected version.

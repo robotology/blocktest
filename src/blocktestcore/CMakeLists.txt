@@ -98,9 +98,13 @@ install(TARGETS ${LIBRARY_TARGET_NAME}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${LIBRARY_TARGET_NAME})
 
 include(InstallBasicPackageFiles)
+
+# This is needed because the ; character is used as a separator in the list of required components, and it would cause issues when generating the package configuration file.
+string(JOIN " " BOOST_REQUIRED_COMPONENTS_ARGS ${BOOST_REQUIRED_COMPONENTS})
+
 install_basic_package_files(${LIBRARY_TARGET_NAME}
                             VERSION ${${PROJECT_NAME}_VERSION}
                             COMPATIBILITY AnyNewerVersion
                             VARS_PREFIX ${LIBRARY_TARGET_NAME}
                             NO_CHECK_REQUIRED_COMPONENTS_MACRO
-                            DEPENDENCIES "Boost ${BOOST_MIN_VERSION} COMPONENTS ${BOOST_REQUIRED_COMPONENTS}")
+                            DEPENDENCIES "Boost ${BOOST_MIN_VERSION} COMPONENTS ${BOOST_REQUIRED_COMPONENTS_ARGS}")

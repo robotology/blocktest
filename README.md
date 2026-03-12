@@ -76,8 +76,8 @@ The main idea of BlockTest is to adopt testing methodologies and best practices 
 # 5. Installation
 
 Supported OS: Linux Ubuntu 22.04, Ubuntu 24.04 and Windows 10.
-Boost library version must be >=1.82.
-CMake must be > 3.12.
+Boost library version must be >=1.72.
+CMake must be >= 3.16.
 
 ## 5.1. External library
 
