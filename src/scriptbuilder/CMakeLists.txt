@@ -31,9 +31,9 @@ if(COMPILE_SCRIPTBUILDER)
                           ${qrc_moc}
               )
 
-  target_link_libraries(resourcelib  
+  target_link_libraries(resourcelib
                         PUBLIC
-                        Qt5::Core  
+                        Qt5::Core
                         Qt5::Widgets
                         Qt5::Gui
                         ${Common_LIBRARIES}
@@ -42,7 +42,7 @@ if(COMPILE_SCRIPTBUILDER)
                         PRIVATE pugixml)
 
   add_executable(${PROJECT_NAME}
-                  ${scriptbuilder_src} 
+                  ${scriptbuilder_src}
                   ${qrc_moc}
                 )
 

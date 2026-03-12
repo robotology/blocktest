@@ -5,7 +5,7 @@
 #                                                                              #
 ################################################################################
 
-# @author Nicolo Genesio <nicolo.genesio@iit.it> 
+# @author Nicolo Genesio <nicolo.genesio@iit.it>
 include(CMakePackageConfigHelpers)
 
 set(LIBRARY_TARGET_NAME blocktestcore)
@@ -30,7 +30,7 @@ set(BlockTestCoreSrc    action.cpp
                         command.cpp
                         libraryLoader.cpp
                         server.cpp
-                        connection.cpp                        
+                        connection.cpp
                         )
 
 set(BlockTestCoreHdr   api.h
@@ -62,13 +62,22 @@ set(BlockTestCoreHdr   api.h
                        command.h
                        libraryLoader.h
                        server.h
-                       connection.h                       
+                       connection.h
                        )
 
 add_library(${LIBRARY_TARGET_NAME} SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})
 add_library(${PROJECT_NAME}::${LIBRARY_TARGET_NAME} ALIAS ${LIBRARY_TARGET_NAME})
-target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC Boost::system
-                                                    Boost::filesystem
+
+if (BOOST_VERSION VERSION_LESS "1.86.0")
+  set(BOOST_DEPENDENCIES Boost::system
+                         Boost::filesystem)
+else()
+  set(BOOST_DEPENDENCIES Boost::system
+                         Boost::filesystem
+                         Boost::process)
+endif()
+
+target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC ${BOOST_DEPENDENCIES}
                                                     ${Common_LIBRARIES}
                                              PRIVATE pugixml)
 

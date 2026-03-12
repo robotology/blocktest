@@ -29,7 +29,7 @@ else()
   add_subdirectory(extern/pugixml)
 endif()
 
-set(BOOST_MIN_VERSION "1.65.0")
+set(BOOST_MIN_VERSION "1.82.0")
 
 find_package(YCM REQUIRED)
 find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS filesystem system)
