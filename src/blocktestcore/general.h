@@ -37,7 +37,7 @@ inline std::string calcolateTestName(const std::string& name,const std::string& 
         if (pathCStr && *pathCStr != '\0')
         {
             std::string pathStr{ pathCStr };
-            boost::split(resourcePaths, pathStr, boost::is_any_of(std::string{ path_delimiter }));
+            boost::algorithm::split(resourcePaths, pathStr, boost::algorithm::is_any_of(std::string{ path_delimiter }));
         }
 
         if (! boost::filesystem::exists(out) )
@@ -71,6 +71,6 @@ inline std::vector<std::string> getResourcePaths()
     {
         path = pathCStr;
     }
-    boost::split(resourcePaths, path, boost::is_any_of(std::string{ path_delimiter }));
+    boost::algorithm::split(resourcePaths, path, boost::algorithm::is_any_of(std::string{ path_delimiter }));
     return resourcePaths;
 }
