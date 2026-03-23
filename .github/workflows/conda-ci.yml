@@ -33,7 +33,7 @@ jobs:
         # Compilation related dependencies
         conda install cmake compilers make ninja pkg-config
         # Actual dependencies
-        conda install qt libboost-devel ycm-cmake-modules
+        conda install qt "libboost-devel<=1.85.0" ycm-cmake-modules
 
     - name: Install mesa deps under linux [Linux]
       if: contains(matrix.os, 'ubuntu')
