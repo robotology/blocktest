@@ -29,18 +29,7 @@ else()
   add_subdirectory(extern/pugixml)
 endif()
 
-set(BOOST_MIN_VERSION "1.72.0")
-
 find_package(YCM REQUIRED)
-# Detect Boost version first, then require components based on the detected version.
-find_package(Boost ${BOOST_MIN_VERSION} REQUIRED)
-
-set(BOOST_REQUIRED_COMPONENTS filesystem system)
-if(Boost_VERSION_STRING VERSION_GREATER_EQUAL "1.86.0")
-  list(APPEND BOOST_REQUIRED_COMPONENTS process)
-endif()
-
-find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS ${BOOST_REQUIRED_COMPONENTS})
 find_package(Qt5 QUIET COMPONENTS Core Gui Widgets)
 
 if(USE_SERIAL_LIB)
@@ -59,10 +48,6 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 if(MSVC)
     set(CMAKE_DEBUG_POSTFIX "d")
 endif()
-
-if (NOT Boost_FOUND)
-      message(FATAL_ERROR "Fatal error: Boost (version >= ${BOOST_MIN_VERSION}) required.\n")
-endif (NOT Boost_FOUND)
 
 # Control where libraries and executables are placed during the build.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")

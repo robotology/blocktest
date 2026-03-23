@@ -11,6 +11,7 @@
  */
 
 #include "dataLogger.h"
+#include <iterator>
 
 namespace BlockTestCore
 {
@@ -18,7 +19,7 @@ namespace BlockTestCore
 DataLogger::DataLogger(const std::string& fileName):ofs_(fileName)
 {
     work_=std::make_shared<std::thread>(&DataLogger::work,this);
-}  
+}
 
 void DataLogger::add(double data,double time)
 {
@@ -29,13 +30,13 @@ void DataLogger::add(double data,double time)
 void DataLogger::add(const std::string& data,double time)
 {
     std::lock_guard<std::mutex> lock(queueMutex_);
-    dataToBeWritten_.emplace(data,time);    
+    dataToBeWritten_.emplace(data,time);
 }
 
 void DataLogger::add(const std::string& data,const std::string& time)
 {
     std::lock_guard<std::mutex> lock(queueMutex_);
-    dataToBeWritten_.emplace(data,time);    
+    dataToBeWritten_.emplace(data,time);
 }
 
 void DataLogger::add(double data,const std::string& time)

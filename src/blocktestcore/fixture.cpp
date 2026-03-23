@@ -16,6 +16,7 @@
 #include "pugixml.hpp"
 
 #include <fstream>
+#include <sstream>
 
 namespace BlockTestCore
 {
@@ -115,11 +116,15 @@ void Fixture::execute()
 
 		try
 		{
-			//current.process_ = std::make_unique<process::child>(ss.str(), process::std_err > *current.output_);
-            current.process_ = std::make_unique<process::child>(ss.str(), process::std_out > current.writeToFile_, process::std_err > current.writeToFile_);
+            current.process_ = ProcessHandle::spawn(ss.str(), current.writeToFile_, current.writeToFile_);
+            if (!current.process_)
+            {
+                TXLOG(Severity::critical) << "load prerequisite:" << ss.str() << " error: spawn failed" << std::endl;
+                continue;
+            }
 
 		}
-		catch(const process::process_error& e)
+        catch(const std::exception& e)
 		{
 			TXLOG(Severity::critical) << "load prerequisite:" << ss.str() <<" error:" <<e.what() << std::endl;
 			continue;

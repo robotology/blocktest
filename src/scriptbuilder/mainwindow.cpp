@@ -23,9 +23,11 @@
 #include <qfiledialog.h>
 #include <qmessagebox.h>
 
+#include <filesystem>
 #include <sstream>
+#include <stdexcept>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -421,12 +423,16 @@ void MainWindow::actionExit()
 void MainWindow::on_startButton_clicked()
 {
     std::string process_str{"./blocktestrunner"};
-    if ( ! boost::filesystem::exists(process_str) ) {
+    if ( ! std::filesystem::exists(process_str) ) {
         process_str = "blocktestrunner";
     }
     try
     {
-        process_=std::make_shared<process::child>(process_str);
+        process_=BlockTestCore::ProcessHandle::spawn(process_str);
+        if (!process_)
+        {
+            throw std::runtime_error("spawn failed");
+        }
         process_->detach();
     }
     catch (...)

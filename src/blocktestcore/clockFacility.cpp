@@ -8,12 +8,14 @@
 #include "actionRegister.h"
 #include "testrepetitions.h"
 
+#include <cassert>
+
 namespace BlockTestCore
 {
 
 
 ClockFacility::ClockFacility()
-{  
+{
 }
 
 bool ClockFacility::load(const std::string& name,const std::string& path)
@@ -27,10 +29,10 @@ bool ClockFacility::load(const std::string& name,const std::string& path)
 
     if(result.status != pugi::xml_parse_status::status_ok)
     {
-        TXLOG(Severity::error)<<"Can not load clockfacility xml:"<<completePath<<std::endl;      
+        TXLOG(Severity::error)<<"Can not load clockfacility xml:"<<completePath<<std::endl;
         return false;
     }
-  
+
     assert(result.status == pugi::xml_parse_status::status_ok);
 
     pugi::xpath_node settings = doc.select_node("//settings");
@@ -38,8 +40,8 @@ bool ClockFacility::load(const std::string& name,const std::string& path)
     nowcommand_=settings.node().attribute("nowcommand").value();
     relativetime_=settings.node().attribute("relativetime").as_bool();
     unixtime_=settings.node().attribute("unixtime").as_bool();
-    TXLOG(Severity::debug)<<"Relative time:"<<relativetime_<<std::endl;   
-    TXLOG(Severity::debug)<<"Load clockfacility xml:"<<completePath<<std::endl;      
+    TXLOG(Severity::debug)<<"Relative time:"<<relativetime_<<std::endl;
+    TXLOG(Severity::debug)<<"Load clockfacility xml:"<<completePath<<std::endl;
     return true;
 }
 
@@ -48,7 +50,7 @@ bool ClockFacility::wait(double value) const
     auto mymap=ActionRegister::getMap();
     if(mymap.find(waitcommand_)==mymap.end())
     {
-        TXLOG(Severity::error)<<"Unknown/None wait command:"<<waitcommand_<<std::endl;      
+        TXLOG(Severity::error)<<"Unknown/None wait command:"<<waitcommand_<<std::endl;
         return false;
     }
     auto call=ActionRegister::getCreatorFunction(waitcommand_);
@@ -68,7 +70,7 @@ double ClockFacility::nowDbl() const
         auto mymap=ActionRegister::getMap();
         if(mymap.find(nowcommand_)==mymap.end())
         {
-            //TXLOG(Severity::criticalminimal)<<"Unknown now command:"<<nowcommand_<<std::endl;      
+            //TXLOG(Severity::criticalminimal)<<"Unknown now command:"<<nowcommand_<<std::endl;
             //No log available here due to logger ricorsion and mutex lock
             std::cout<<"Critical:Unknown/None nowDbl command"<<std::endl;
             return 0;
@@ -95,7 +97,7 @@ std::string ClockFacility::now() const
         auto mymap=ActionRegister::getMap();
         if(mymap.find(nowcommand_)==mymap.end())
         {
-            //TXLOG(Severity::criticalminimal)<<"Unknown now command:"<<nowcommand_<<std::endl;      
+            //TXLOG(Severity::criticalminimal)<<"Unknown now command:"<<nowcommand_<<std::endl;
             //No log available here due to logger ricorsion and mutex lock
             return "0";
         }
@@ -120,7 +122,7 @@ std::string ClockFacility::now() const
             oss<<timestamp;
         }
         else
-        {      
+        {
             // get current time
             auto now = std::chrono::system_clock::now();
 
@@ -144,7 +146,7 @@ std::string ClockFacility::now() const
 
 void ClockFacility::relativeTime(bool value)
 {
-    TXLOG(Severity::debug)<<"Relative time set:"<<value<<std::endl;   
+    TXLOG(Severity::debug)<<"Relative time set:"<<value<<std::endl;
     relativetime_=value;
 }
 

@@ -1,12 +1,12 @@
 #include "logger.h"
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 namespace BlockTestCore
 {
 
-Logger::Logger() 
+Logger::Logger()
 {
-    boost::filesystem::create_directories(logfileName_);
+    std::filesystem::create_directories(logfileName_);
 
     std::fstream curentfilenumber(txlogfilenumber_, std::fstream::in | std::fstream::out | std::fstream::trunc);
     if (curentfilenumber.is_open())
@@ -21,8 +21,8 @@ Logger::Logger()
 
     threadHandler_ = std::make_unique<std::thread>(&Logger::Writing, this);
 
-    outStreamFile_.open(txlogfilename_, std::ios::out | std::ios::app); 
-    plotStreamFile_.open(txplotfilename_, std::ios::out); 
+    outStreamFile_.open(txlogfilename_, std::ios::out | std::ios::app);
+    plotStreamFile_.open(txplotfilename_, std::ios::out);
 }
 
 Logger &Logger::SetError(Severity error, std::string file, int line)
@@ -78,7 +78,7 @@ void Logger::Writing()
             {
                 auto line = loggingQueue_.front();
                 writtenLine++;
-                
+
                 if(std::get<0>(line)==Severity::plot)
                 {
                     plotStreamFile_ << std::get<1>(line) << std::flush;
@@ -95,15 +95,15 @@ void Logger::Writing()
             }
         }
 
-        if(!boost::filesystem::exists(txlogfilename_))
+        if(!std::filesystem::exists(txlogfilename_))
         {
             outStreamFile_.close();
-            outStreamFile_.open(txlogfilename_, std::ios::out | std::ios::app); 
+            outStreamFile_.open(txlogfilename_, std::ios::out | std::ios::app);
         }
-            
+
         outStreamFile_ << tmpOut << std::flush;
         currentLine_ += writtenLine;
-        
+
         if (currentLine_ > maxfileline_)
         {
             ChangeFile();

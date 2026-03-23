@@ -11,30 +11,26 @@
  */
 
 #pragma once
-#include <boost/asio.hpp>
-#include <boost/enable_shared_from_this.hpp>
+#include <memory>
 
-class Connection : public boost::enable_shared_from_this<Connection>
+class Connection : public std::enable_shared_from_this<Connection>
 {
 public:
-  typedef boost::shared_ptr<Connection> pointer;
+  using pointer = std::shared_ptr<Connection>;
 
-  static pointer create(boost::asio::io_context& io_context){
-    return pointer(new Connection(io_context));
-}
+  static pointer create(int socketFd){
+    return pointer(new Connection(socketFd));
+  }
 
-  boost::asio::ip::tcp::socket& socket();
+  int socket() const;
 
   void start();
 
-private:
-  Connection(boost::asio::io_context& io_context);
+  ~Connection();
 
-  void handleWrite(const boost::system::error_code& err,size_t bytes_transferred);
-  void handleRead(const boost::system::error_code& err,size_t bytes_transferred);
+private:
+  explicit Connection(int socketFd);
 
   static const int size_{1024};
-  char readBuffer_[size_];
-  boost::asio::streambuf response_;
-  boost::asio::ip::tcp::socket socket_;
+  int socket_{-1};
 };

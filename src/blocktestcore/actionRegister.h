@@ -13,6 +13,10 @@
 #pragma once
 
 #include "action.h"
+#include <functional>
+#include <map>
+#include <memory>
+#include <string>
 
 namespace BlockTestCore
 {

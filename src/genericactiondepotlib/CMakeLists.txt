@@ -27,7 +27,6 @@ project(genericactiondepot)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME})
 
 file(GLOB allSrc "src/*.h" "src/*.cpp")
-include_directories(${Boost_INCLUDE_DIRS})
 add_library(${PROJECT_NAME} MODULE ${allSrc})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
@@ -37,12 +36,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/src ${PR
 if(USE_SERIAL_LIB)
   target_link_libraries(${PROJECT_NAME} PUBLIC blocktestcore
                                                serial
-                                               ${Boost_LIBRARIES}
                                         PRIVATE pugixml)
   target_compile_definitions(${PROJECT_NAME} PRIVATE -DCOMPILE_WITHEXTSERIAL)
 else()
   target_link_libraries(${PROJECT_NAME} PUBLIC blocktestcore
-                                               ${Boost_LIBRARIES}
                                         PRIVATE pugixml)
 endif()
 

@@ -29,6 +29,7 @@ set(BlockTestCoreSrc    action.cpp
                         test.cpp
                         command.cpp
                         libraryLoader.cpp
+                         processHandle.h
                         server.cpp
                         connection.cpp
                         )
@@ -61,6 +62,7 @@ set(BlockTestCoreHdr   api.h
                        test.h
                        command.h
                        libraryLoader.h
+                       processHandle.h
                        server.h
                        connection.h
                        )
@@ -68,17 +70,7 @@ set(BlockTestCoreHdr   api.h
 add_library(${LIBRARY_TARGET_NAME} SHARED ${BlockTestCoreHdr} ${BlockTestCoreSrc})
 add_library(${PROJECT_NAME}::${LIBRARY_TARGET_NAME} ALIAS ${LIBRARY_TARGET_NAME})
 
-if (Boost_VERSION_STRING VERSION_LESS "1.86.0")
-  set(BOOST_DEPENDENCIES Boost::system
-                         Boost::filesystem)
-else()
-  set(BOOST_DEPENDENCIES Boost::system
-                         Boost::filesystem
-                         Boost::process)
-endif()
-
-target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC ${BOOST_DEPENDENCIES}
-                                                    ${Common_LIBRARIES}
+target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC ${Common_LIBRARIES}
                                              PRIVATE pugixml)
 
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
@@ -99,12 +91,8 @@ install(TARGETS ${LIBRARY_TARGET_NAME}
 
 include(InstallBasicPackageFiles)
 
-# This is needed because the ; character is used as a separator in the list of required components, and it would cause issues when generating the package configuration file.
-string(JOIN " " BOOST_REQUIRED_COMPONENTS_ARGS ${BOOST_REQUIRED_COMPONENTS})
-
 install_basic_package_files(${LIBRARY_TARGET_NAME}
                             VERSION ${${PROJECT_NAME}_VERSION}
                             COMPATIBILITY AnyNewerVersion
                             VARS_PREFIX ${LIBRARY_TARGET_NAME}
-                            NO_CHECK_REQUIRED_COMPONENTS_MACRO
-                            DEPENDENCIES "Boost ${BOOST_MIN_VERSION} COMPONENTS ${BOOST_REQUIRED_COMPONENTS_ARGS}")
+                            NO_CHECK_REQUIRED_COMPONENTS_MACRO)

@@ -17,9 +17,9 @@
 
 #include <string>
 #include <sstream>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 ActionTreeModel::ActionTreeModel(const std::vector<std::string>& resourcePaths): resourcePaths_(resourcePaths)
 {

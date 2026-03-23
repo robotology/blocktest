@@ -16,19 +16,12 @@
 
 #ifndef _WIN32
 #include <dlfcn.h>
+#include <cstring>
+#else
+#include <windows.h>
 #endif // _WIN32
 
-#include <boost/dll/import.hpp>
-#include <boost/dll/shared_library.hpp>
-#include <boost/exception/diagnostic_information.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/version.hpp>
-
-#if BOOST_VERSION >= 107600 // 1.76.0
-#define boost_dll_import boost::dll::import_symbol
-#else
-#define boost_dll_import boost::dll::import
-#endif
+#include <filesystem>
 
 
 namespace BlockTestCore
@@ -69,12 +62,12 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
         std::string libraryPath{ currentPath + extension };
 
         // First check if the library is locally i.e. ./<lib_name>/<lib_name>
-        if (! boost::filesystem::exists(libraryPath) )
+        if (! std::filesystem::exists(libraryPath) )
         {
 	        for (const auto& path : pluginPaths_)
 	        {
-                std::string fullpath = path + std::string{ boost::filesystem::path::preferred_separator } + libraryPath;
-                if (boost::filesystem::exists(fullpath))
+            std::string fullpath = (std::filesystem::path(path) / libraryPath).string();
+            if (std::filesystem::exists(fullpath))
                 {
                     libraryPath = fullpath;
                 }
@@ -84,28 +77,53 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
         TXLOG(Severity::info) << "Try load lib:" << libraryPath << std::endl;
         try
         {
-            boost::function<funcptr> stopFunction = boost_dll_import<funcptr>(
-                libraryPath,
-                "Stop",
-                boost::dll::load_mode::rtld_lazy
-                );
+#ifndef _WIN32
+            void* libraryHandle = dlopen(libraryPath.c_str(), RTLD_LAZY);
+            if (!libraryHandle)
+            {
+                TXLOG(Severity::criticalminimal) << "Lib:" << libraryPath << " error load failure: " << dlerror() << std::endl;
+                return false;
+            }
 
-            boost::function<funcptr1> configureFunction =  boost_dll_import<funcptr1>(
-                libraryPath,
-                "Configure",
-                boost::dll::load_mode::rtld_lazy
-                );
+            auto stopFunction = reinterpret_cast<funcptr*>(dlsym(libraryHandle, "Stop"));
+            auto configureFunction = reinterpret_cast<funcptr1*>(dlsym(libraryHandle, "Configure"));
+
+            if (!stopFunction || !configureFunction)
+            {
+                TXLOG(Severity::criticalminimal) << "Lib:" << libraryPath << " error missing Configure/Stop function in lib" << std::endl;
+                dlclose(libraryHandle);
+                return false;
+            }
 
             stopFunction_.emplace_back(stopFunction);
+            loadedLibraries_.push_back(libraryHandle);
 
-            std::map<std::string,std::string> settings=xmlLibrarySettingsToMap(doc,libraryName);
-            if(configureFunction)
-                configureFunction(settings);
-        }
-        catch(boost::exception const& e) {
-            std::cout<<"------------------"<<boost::diagnostic_information(e, true)<<std::endl;
-            TXLOG(Severity::criticalminimal)<<"Lib:"<< libraryPath <<" error missing Configure/Stop function in lib----"<<boost::diagnostic_information(e, true)<<std::endl;
-            return false;
+            std::map<std::string,std::string> settings = xmlLibrarySettingsToMap(doc, libraryName);
+            configureFunction(settings);
+#else
+            HMODULE libraryHandle = LoadLibraryA(libraryPath.c_str());
+            if (!libraryHandle)
+            {
+                TXLOG(Severity::criticalminimal) << "Lib:" << libraryPath << " error load failure" << std::endl;
+                return false;
+            }
+
+            auto stopFunction = reinterpret_cast<funcptr*>(GetProcAddress(libraryHandle, "Stop"));
+            auto configureFunction = reinterpret_cast<funcptr1*>(GetProcAddress(libraryHandle, "Configure"));
+
+            if (!stopFunction || !configureFunction)
+            {
+                TXLOG(Severity::criticalminimal) << "Lib:" << libraryPath << " error missing Configure/Stop function in lib" << std::endl;
+                FreeLibrary(libraryHandle);
+                return false;
+            }
+
+            stopFunction_.emplace_back(stopFunction);
+            loadedLibraries_.push_back(reinterpret_cast<void*>(libraryHandle));
+
+            std::map<std::string,std::string> settings = xmlLibrarySettingsToMap(doc, libraryName);
+            configureFunction(settings);
+#endif
         }
         catch(std::exception& e)
         {
@@ -123,6 +141,23 @@ bool LibraryLoader::load(const std::string& name,const std::string& path)
 
 LibraryLoader::~LibraryLoader()
 {
+#ifndef _WIN32
+    for (void* handle : loadedLibraries_)
+    {
+        if (handle)
+        {
+            dlclose(handle);
+        }
+    }
+#else
+    for (void* handle : loadedLibraries_)
+    {
+        if (handle)
+        {
+            FreeLibrary(reinterpret_cast<HMODULE>(handle));
+        }
+    }
+#endif
 }
 
 void LibraryLoader::stop()

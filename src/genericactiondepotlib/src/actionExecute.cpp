@@ -23,7 +23,7 @@ ACTIONREGISTER_DEF_TYPE(GenericActions::ActionExecute, "execute");
 
 namespace GenericActions
 {
-std::map<std::string, std::shared_ptr<process::child>> ActionExecute::processes_;
+std::map<std::string, std::shared_ptr<BlockTestCore::ProcessHandle>> ActionExecute::processes_;
 
 ActionExecute::ActionExecute(const CommandAttributes& commandAttributes, const std::string& testCode) : Action(commandAttributes, testCode)
 {
@@ -80,14 +80,21 @@ execution ActionExecute::execute(const TestRepetitions& testrepetition)
 	try
 	{
 		std::string writeToFileTmp = normalizeSingle(writeToFile_, false);
-		std::shared_ptr<process::child> process{nullptr};
+		std::shared_ptr<BlockTestCore::ProcessHandle> process{nullptr};
 		if (!writeToFile_.empty())
 		{
-			process = std::make_shared<process::child>(ss.str(), process::std_out > writeToFileTmp, process::std_err > writeToFileTmp);
+			process = BlockTestCore::ProcessHandle::spawn(ss.str(), writeToFileTmp, writeToFileTmp);
 		}
 		else
 		{
-			process = std::make_shared<process::child>(ss.str());
+			process = BlockTestCore::ProcessHandle::spawn(ss.str());
+		}
+
+		if (!process)
+		{
+			TXLOG(Severity::error) << "Execution spawn failed" << std::endl;
+			TXLOG(Severity::error) << "Problem with " << ss.str() << std::endl;
+			return execution::continueexecution;
 		}
 
 		if (waitForEnd_)

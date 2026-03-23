@@ -15,13 +15,16 @@
 #include "general.h"
 #include "syntax.h"
 
+#include <functional>
+#include <list>
+#include <map>
+#include <vector>
+
 #ifndef _WIN32
 #include <dlfcn.h>
+#else
+#include <windows.h>
 #endif // _WIN32
-
-#include <boost/process.hpp>
-#include <boost/exception/diagnostic_information.hpp>
-#include <boost/filesystem.hpp>
 
 #include "pugixml.hpp"
 
@@ -41,7 +44,8 @@ class LibraryLoader
         typedef void (funcptr)( char*,char* );
         typedef void (funcptr1)(const std::map<std::string,std::string>);
 
-        std::list<boost::function<funcptr>> stopFunction_;
+        std::list<std::function<funcptr>> stopFunction_;
+        std::vector<void*> loadedLibraries_;
 
         std::map<std::string,std::string> xmlLibrarySettingsToMap(const pugi::xml_document& doc,const std::string& libraryName);
 };

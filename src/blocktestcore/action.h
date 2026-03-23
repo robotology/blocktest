@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iterator>
 
 #include "api.h"
 #include "general.h"

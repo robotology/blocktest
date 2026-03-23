@@ -16,8 +16,6 @@
 
 #include <qstandarditemmodel.h>
 
-#include <boost/process.hpp>
-
 #include <memory>
 #include <thread>
 

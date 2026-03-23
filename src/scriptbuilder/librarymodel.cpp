@@ -12,11 +12,11 @@
 
 
 #include "librarymodel.h"
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <iostream>
 #include <sstream>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 LibraryModel::LibraryModel(const std::vector<std::string>& resourcePaths) : resourcePaths_(resourcePaths)
 {
@@ -55,7 +55,7 @@ void LibraryModel::redraw()
             {
                ss.str("");
                ss.clear();
-               ss << p << std::string{ boost::filesystem::path::preferred_separator } << path << ".so";
+               ss << p << std::string{ std::filesystem::path::preferred_separator } << path << ".so";
                auto str = ss.str();
                if (fs::exists(str))
                {
