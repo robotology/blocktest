@@ -88,6 +88,11 @@ set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES VERSION  ${${PROJECT_NAM
                                                         PUBLIC_HEADER "${BlockTestCoreHdr}")
 
 
+if(WIN32)
+  target_compile_definitions(${LIBRARY_TARGET_NAME} PUBLIC WIN32_LEAN_AND_MEAN NOMINMAX)
+endif()
+
+
 target_compile_features(${LIBRARY_TARGET_NAME} PRIVATE cxx_std_17)
 
 install(TARGETS ${LIBRARY_TARGET_NAME}
