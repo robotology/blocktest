@@ -89,7 +89,7 @@ set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES VERSION  ${${PROJECT_NAM
 
 
 if(WIN32)
-  target_compile_definitions(${LIBRARY_TARGET_NAME} PRIVATE WIN32_LEAN_AND_MEAN NOMINMAX)
+  target_compile_definitions(${LIBRARY_TARGET_NAME} PUBLIC WIN32_LEAN_AND_MEAN NOMINMAX)
 endif()
 
 
