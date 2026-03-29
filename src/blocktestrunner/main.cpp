@@ -17,8 +17,7 @@
 
 int main(int argc,char* argv[]) noexcept
 {
-    boost::asio::io_context io;
-    //Server comServer(io);
+    //Server comServer;
     //comServer.init();
 
     try

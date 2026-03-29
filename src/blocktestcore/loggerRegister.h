@@ -13,6 +13,10 @@
 #pragma once
 
 #include "infoLogger.h"
+#include <functional>
+#include <map>
+#include <memory>
+#include <string>
 
 namespace BlockTestCore
 {
@@ -55,13 +59,13 @@ class BLOCKTEST_EXPORT LoggerRegister
 
     void Dump()
     {
-        TXLOG(Severity::info)<<"--------"<<std::endl;  
+        TXLOG(Severity::info)<<"--------"<<std::endl;
         logCreationFuncDepot &mymap = getMap();
         for(auto current:mymap)
         {
-            TXLOG(Severity::info)<<"--->"<<current.first<<std::endl;  
+            TXLOG(Severity::info)<<"--->"<<current.first<<std::endl;
         }
-        TXLOG(Severity::info)<<"--------"<<std::endl;  
+        TXLOG(Severity::info)<<"--------"<<std::endl;
     }
 };
 

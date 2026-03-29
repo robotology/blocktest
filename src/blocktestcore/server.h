@@ -11,19 +11,21 @@
  */
 
 #pragma once
-#include <boost/asio.hpp>
+#include <atomic>
+#include <thread>
+
 #include "connection.h"
 class Server
 {
     public:
-        Server(boost::asio::io_context& io);
+        Server();
+        ~Server();
         void init();
     private:
         const unsigned int port_{9876};
-        boost::asio::io_context& io_;
-        boost::asio::ip::tcp::acceptor acceptor_;
-        Connection::pointer newConnection_;
+        int serverSocket_{-1};
+        std::atomic<bool> running_{false};
+        std::thread acceptThread_;
 
         void startAccept();
-        void handleAccept(Connection::pointer newConnection,const boost::system::error_code& error);
 };

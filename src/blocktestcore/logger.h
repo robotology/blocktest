@@ -23,6 +23,8 @@
 #include <map>
 #include <list>
 #include <string>
+#include <mutex>
+#include <atomic>
 
 namespace BlockTestCore
 {
@@ -62,7 +64,7 @@ private:
 
     const int maxfile_{10};
     const int maxfileline_{10000};
-    
+
     const int lineforloop_{1000};
     const int looptimeout_ {100};
     const bool simpleLinePrint_{true};
@@ -76,7 +78,7 @@ private:
  public:
     Logger(Logger const&) = delete;
     void operator=(Logger const&)  = delete;
-    
+
     void SetSeverity(const std::string& severity);
 
     static Logger& instance()

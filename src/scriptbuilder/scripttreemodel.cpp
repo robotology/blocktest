@@ -17,13 +17,10 @@
 #include <QKeyEvent>
 #include <qmessagebox.h>
 
-#include <boost/filesystem.hpp>
 #include <string>
 #include <fstream>
 #include <streambuf>
 #include <sstream>
-
-namespace fs = boost::filesystem;
 
 ScriptTreeModel::ScriptTreeModel()
 {
@@ -105,7 +102,7 @@ bool ScriptTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
 
    if(row==-1)
        script_->appendRow(command);
-   else      
+   else
       script_->insertRow(row,command);
 
    if (data->hasFormat("command/script"))

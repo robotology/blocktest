@@ -22,6 +22,9 @@
 #include <queue>
 #include <iomanip>
 #include <thread>
+#include <mutex>
+#include <vector>
+#include <atomic>
 
 namespace BlockTestCore
 {
@@ -91,7 +94,7 @@ class BLOCKTEST_EXPORT DataLogger
         const unsigned int readInALoop_{10};
 
         std::queue<Data> dataToBeWritten_;
-        std::mutex queueMutex_; 
+        std::mutex queueMutex_;
 
         std::shared_ptr<std::thread> work_;
         void work();

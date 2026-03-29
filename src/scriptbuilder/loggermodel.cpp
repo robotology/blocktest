@@ -13,12 +13,11 @@
 #include "loggermodel.h"
 
 #include <fstream>
+#include <filesystem>
 
 #include <qmessagebox.h>
 
-#include <boost/filesystem.hpp>
-
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 LoggerModel::LoggerModel(const std::string& name):logName_(name)
 {

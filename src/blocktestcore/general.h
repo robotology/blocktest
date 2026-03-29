@@ -1,7 +1,10 @@
 #pragma once
 
-#include <boost/process.hpp>
-#include <boost/algorithm/string.hpp>
+#include <cstdlib>
+#include <filesystem>
+#include <sstream>
+#include <string>
+#include <vector>
 
 #define BLOCKTEST_UNUSED(x) (void)x;
 
@@ -21,6 +24,21 @@ constexpr char path_delimiter =
 ':';
 #endif
 
+inline std::vector<std::string> splitPathList(const std::string& path)
+{
+    std::vector<std::string> out;
+    std::stringstream pathStream(path);
+    std::string token;
+    while (std::getline(pathStream, token, path_delimiter))
+    {
+        if (!token.empty())
+        {
+            out.push_back(token);
+        }
+    }
+    return out;
+}
+
 inline std::string calcolateTestName(const std::string& name,const std::string& path)
 {
     std::string out{maintestfile};
@@ -37,15 +55,15 @@ inline std::string calcolateTestName(const std::string& name,const std::string& 
         if (pathCStr && *pathCStr != '\0')
         {
             std::string pathStr{ pathCStr };
-            boost::algorithm::split(resourcePaths, pathStr, boost::algorithm::is_any_of(std::string{ path_delimiter }));
+            resourcePaths = splitPathList(pathStr);
         }
 
-        if (! boost::filesystem::exists(out) )
+        if (! std::filesystem::exists(out) )
         {
             for (const auto& path : resourcePaths)
             {
-                std::string fullpath = path + std::string{ boost::filesystem::path::preferred_separator } + out;
-                if (boost::filesystem::exists(fullpath))
+                std::string fullpath = (std::filesystem::path(path) / out).string();
+                if (std::filesystem::exists(fullpath))
                 {
                     out = fullpath;
                     return out;
@@ -55,7 +73,7 @@ inline std::string calcolateTestName(const std::string& name,const std::string& 
     }
     else
     {
-        out = path + std::string{ boost::filesystem::path::preferred_separator } + out;
+        out = (std::filesystem::path(path) / out).string();
     }
 
     return out;
@@ -71,6 +89,6 @@ inline std::vector<std::string> getResourcePaths()
     {
         path = pathCStr;
     }
-    boost::algorithm::split(resourcePaths, path, boost::algorithm::is_any_of(std::string{ path_delimiter }));
+    resourcePaths = splitPathList(path);
     return resourcePaths;
 }

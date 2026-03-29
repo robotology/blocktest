@@ -13,11 +13,10 @@
 #include "parametercommentmodel.h"
 #include "parameterslistmodel.h"
 #include "pugixml.hpp"
+#include <filesystem>
 #include <sstream>
 
-#include <boost/filesystem.hpp>
-
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 static std::vector<std::string> resourcePaths_;
 

@@ -37,7 +37,6 @@ if(COMPILE_SCRIPTBUILDER)
                         Qt5::Widgets
                         Qt5::Gui
                         ${Common_LIBRARIES}
-                        Boost::boost
                         blocktestcore
                         PRIVATE pugixml)
 
@@ -50,9 +49,6 @@ if(COMPILE_SCRIPTBUILDER)
                                                  Qt5::Widgets
                                                  Qt5::Gui
                                                  resourcelib
-                                                 Boost::system
-                                                 Boost::filesystem
-                                                 Boost::boost
                                                  ${Common_LIBRARIES}
                                          PRIVATE pugixml)
 

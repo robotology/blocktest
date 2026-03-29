@@ -1,50 +1,45 @@
-#include "server.h"
-
-#include <string>
 #include <array>
-#include <boost/bind.hpp>
-#include <boost/shared_ptr.hpp>
+#include <cstring>
 #include <iostream>
-#include <chrono>
+#ifndef _WIN32
+#include <sys/socket.h>
+#include <unistd.h>
+#endif
 
-using namespace std::literals::chrono_literals;
-using namespace boost::asio::ip;
+#include "connection.h"
 
-Connection::Connection(boost::asio::io_context& io_context): socket_(io_context)
+Connection::Connection(int socketFd) : socket_(socketFd)
 {
 }
 
-void Connection::handleWrite(const boost::system::error_code& /*error*/,size_t /*bytes_transferred*/)
+Connection::~Connection()
 {
-}
-
-void Connection::handleRead(const boost::system::error_code& err,size_t bytes_transferred)
-{
-    if(!err)
+#ifndef _WIN32
+    if (socket_ >= 0)
     {
-        if(bytes_transferred==0)
-        {
-            std::cout<<"Transferred 0"<<std::endl;
-        }
-        else
-        {
-            std::cout<<readBuffer_<<std::endl;;
-        }
-        start();
+        close(socket_);
     }
+#endif
 }
 
-tcp::socket& Connection::socket()
+int Connection::socket() const
 {
     return socket_;
 }
 
 void Connection::start()
 {
-    socket_.async_read_some(
-                    boost::asio::buffer(readBuffer_, size_),
-                    boost::bind(&Connection::handleRead,
-                    shared_from_this(),
-                    boost::asio::placeholders::error,
-                    boost::asio::placeholders::bytes_transferred));
+#ifndef _WIN32
+    std::array<char, size_> readBuffer{};
+    while (true)
+    {
+        const ssize_t received = recv(socket_, readBuffer.data(), readBuffer.size(), 0);
+        if (received <= 0)
+        {
+            break;
+        }
+        std::cout.write(readBuffer.data(), received);
+        std::cout << std::endl;
+    }
+#endif
 }

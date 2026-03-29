@@ -13,17 +13,7 @@
 #pragma once
 
 #include "action.h"
-#include <boost/version.hpp>
-#if BOOST_VERSION < 108800
-#include <boost/process.hpp>
-namespace process = boost::process;
-#else
-#include <boost/process/v1/child.hpp>
-#include <boost/process/v1/io.hpp>
-#include <boost/process/v1/pipe.hpp>
-#include <boost/process/v1/start_dir.hpp>
-namespace process = boost::process::v1;
-#endif
+#include "processHandle.h"
 
 using namespace BlockTestCore;
 
@@ -52,7 +42,7 @@ class ActionExecute : public Action
 
         void parse();
 
-        static std::map<std::string,std::shared_ptr<process::child>> processes_;
+        static std::map<std::string,std::shared_ptr<BlockTestCore::ProcessHandle>> processes_;
 
     ACTIONREGISTER_DEC_TYPE(ActionExecute)
 };
